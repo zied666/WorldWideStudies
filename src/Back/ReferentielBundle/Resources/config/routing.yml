@@ -1,0 +1,7 @@
+dashboard:
+    path:     /
+    defaults: { _controller: BackReferentielBundle:Default:index }
+    
+back_referentiel:
+    resource: "@BackReferentielBundle/Resources/config/routing/referentiel.yml"
+    prefix:   /ref

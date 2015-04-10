@@ -1,0 +1,4 @@
+services:
+#    back_referentiel.example:
+#        class: Back\ReferentielBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

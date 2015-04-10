@@ -1,0 +1,13 @@
+country:
+    path:     /country/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:country,id:null }
+delete_country:
+    path:     /deletecountry/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteCountry }
+
+city:
+    path:     /city/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:city,id:null }
+delete_city:
+    path:     /deletecity/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteCity }

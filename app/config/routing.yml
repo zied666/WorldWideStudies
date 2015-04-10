@@ -1,0 +1,11 @@
+back_user:
+    resource: "@BackUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+back_referentiel:
+    resource: "@BackReferentielBundle/Resources/config/routing.yml"
+    prefix:   /admin
+    
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+

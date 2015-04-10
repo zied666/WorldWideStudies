@@ -1,0 +1,63 @@
+<nav>
+    <!-- start: SEARCH FORM -->
+    <div class="search-form">
+        <a class="s-open" href="#">
+            <i class="ti-search"></i>
+        </a>
+        <form class="navbar-form" role="search">
+            <a class="s-remove" href="#" target=".navbar-form">
+                <i class="ti-close"></i>
+            </a>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search...">
+                <button class="btn search-button" type="submit">
+                    <i class="ti-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <!-- end: SEARCH FORM -->
+    <!-- start: MAIN NAVIGATION MENU -->
+    <div class="navbar-title">
+        <span>Main Navigation</span>
+    </div>
+    <ul class="main-navigation-menu">
+        <li {% if app.request.get('_route')=='dashboard' %}class="active"{% endif %}>
+            <a href="{{ path('dashboard') }}">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-home"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> Tableau de board </span>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li {% if app.request.getPathInfo|split('/ref')|length > 1 %}class="active open" {% endif %}>
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-settings"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> Configuration </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li {% if app.request.get('_route')=='country' %}class="active"{% endif %}>
+                    <a href="{{ path('country') }}">
+                        <span class="title">Country</span>
+                    </a>
+                </li>
+                <li {% if app.request.get('_route')=='city' %}class="active"{% endif %}>
+                    <a href="{{ path('city') }}">
+                        <span class="title">City</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- end: MAIN NAVIGATION MENU -->
+</nav>
