@@ -56,6 +56,11 @@
                         <span class="title">City</span>
                     </a>
                 </li>
+                <li {% if app.request.get('_route')=='university' %}class="active"{% endif %}>
+                    <a href="{{ path('university') }}">
+                        <span class="title">University</span>
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>

@@ -8,6 +8,8 @@ use Back\ReferentielBundle\Entity\Country ;
 use Back\ReferentielBundle\Form\CountryType ;
 use Back\ReferentielBundle\Entity\City ;
 use Back\ReferentielBundle\Form\CityType ;
+use Back\ReferentielBundle\Entity\University;
+use Back\ReferentielBundle\Form\UniversityType;
 
 class ReferentielController extends Controller
 {
@@ -102,6 +104,52 @@ class ReferentielController extends Controller
             $session->getFlashBag()->add('danger' , 'This object is used by another table ') ;
         }
         return $this->redirect($this->generateUrl("city")) ;
+    }
+
+    public function universityAction($id)
+    {
+        $em = $this->getDoctrine()->getManager() ;
+        $session = $this->getRequest()->getSession() ;
+        if ($id == NULL)
+            $university = new University () ;
+        else
+            $university = $em->getRepository("BackReferentielBundle:University")->find($id) ;
+        $universitys = $em->getRepository("BackReferentielBundle:University")->findAll() ;
+        $form = $this->createForm(new UniversityType() , $university) ;
+        $request = $this->getRequest() ;
+        if ($request->isMethod("POST"))
+        {
+            $form->submit($request) ;
+            if ($form->isValid())
+            {
+                $university = $form->getData() ;
+                $em->persist($university) ;
+                $em->flush() ;
+                $session->getFlashBag()->add('success' , "Your university has been added successfully") ;
+                return $this->redirect($this->generateUrl("university")) ;
+            }
+        }
+        return $this->render('BackReferentielBundle:Ref:university.html.twig' , array (
+                    'form' => $form->createView() ,
+                    'university' => $university ,
+                    'universitys' => $universitys
+                )) ;
+    }
+
+    public function deleteUniversityAction(University $university)
+    {
+        $em = $this->getDoctrine()->getManager() ;
+        $session = $this->getRequest()->getSession() ;
+        try
+        {
+            $em->remove($university) ;
+            $em->flush() ;
+            $session->getFlashBag()->add('success' , " Your object has been successfully removed ") ;
+        } catch (\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger' , 'This object is used by another table ') ;
+        }
+        return $this->redirect($this->generateUrl("university")) ;
     }
 
 }

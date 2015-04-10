@@ -1,6 +1,6 @@
 <?php
 
-namespace Back\ReferentielBundle\Entity ;
+namespace Back\ReferentielBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM ;
 use Symfony\Component\validator\Constraints as Assert ;
@@ -12,6 +12,7 @@ use Symfony\Component\validator\Constraints as Assert ;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  */
+
 class Media
 {
 
@@ -38,6 +39,12 @@ class Media
     {
         $this->updateAt = new \DateTime() ;
     }
+
+    /**
+     * @ORM\Column(type="integer",length=255) 
+     * @Assert\NotBlank
+     */
+    private $type ;
 
     /**
      * @ORM\Column(type="string",length=255, nullable=true) 
@@ -127,6 +134,7 @@ class Media
         return $this->name ;
     }
 
+
     /**
      * Set updateAt
      *
@@ -135,9 +143,9 @@ class Media
      */
     public function setUpdateAt($updateAt)
     {
-        $this->updateAt = $updateAt ;
+        $this->updateAt = $updateAt;
 
-        return $this ;
+        return $this;
     }
 
     /**
@@ -147,7 +155,7 @@ class Media
      */
     public function getUpdateAt()
     {
-        return $this->updateAt ;
+        return $this->updateAt;
     }
 
     /**
@@ -158,9 +166,9 @@ class Media
      */
     public function setName($name)
     {
-        $this->name = $name ;
+        $this->name = $name;
 
-        return $this ;
+        return $this;
     }
 
     /**
@@ -171,9 +179,8 @@ class Media
      */
     public function setPath($path)
     {
-        $this->path = $path ;
+        $this->path = $path;
 
-        return $this ;
+        return $this;
     }
-
 }

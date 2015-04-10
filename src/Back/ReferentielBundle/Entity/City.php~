@@ -71,4 +71,27 @@ class City
     {
         return $this->libelle;
     }
+
+    /**
+     * Set country
+     *
+     * @param \Back\ReferentielBundle\Entity\Country $country
+     * @return City
+     */
+    public function setCountry(\Back\ReferentielBundle\Entity\Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \Back\ReferentielBundle\Entity\Country 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
 }

@@ -11,3 +11,10 @@ city:
 delete_city:
     path:     /deletecity/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:deleteCity }
+
+university:
+    path:     /university/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:university,id:null }
+delete_university:
+    path:     /deleteuniversity/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteUniversity }

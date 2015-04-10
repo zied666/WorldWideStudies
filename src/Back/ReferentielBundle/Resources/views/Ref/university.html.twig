@@ -1,0 +1,46 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Universities{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="{{ path('university',{'id':university.id}) }}" {{ form_enctype(form) }} method="post" role="form" id="form" >
+                    {{ form_widget(form._token) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Name",form.name,true) }}
+                        {{ formulaire.input("col-md-3","Photo",form.image.file,true) }}
+                    </div>
+                    {{ macro.enregistrer }}
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
+                <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                    <thead>
+                        <tr>
+                            <th class="center">Photo</th>
+                            <th class="center">Name</th>
+                            <th class="center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for university in universitys %}
+                            <tr>
+                                <td class="center"><img src="{{ asset(university.image.getAssetPath) }}" class="img-rounded" width="50px" height="50px"/></td>
+                                <td class="center">{{ university.name }}</td>
+                                <td class="center">
+                                    {{ macro.edit(path('university',{'id':university.id})) }}
+                                    {{ macro.delete(path('delete_university',{'id':university.id})) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
