@@ -18,3 +18,13 @@ university:
 delete_university:
     path:     /deleteuniversity/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:deleteUniversity }
+
+administrator:
+    path:     /administrator/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:administrator,id:null }
+delete_administrator:
+    path:     /deleteadministrator/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteAdministrator }
+enabled_user:
+    path:     /enableUser/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:enableUser }    

@@ -61,6 +61,11 @@
                         <span class="title">University</span>
                     </a>
                 </li>
+                <li {% if app.request.get('_route')=='administrator' %}class="active"{% endif %}>
+                    <a href="{{ path('administrator') }}">
+                        <span class="title">Administrator</span>
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>

@@ -8,8 +8,10 @@ use Back\ReferentielBundle\Entity\Country ;
 use Back\ReferentielBundle\Form\CountryType ;
 use Back\ReferentielBundle\Entity\City ;
 use Back\ReferentielBundle\Form\CityType ;
-use Back\ReferentielBundle\Entity\University;
-use Back\ReferentielBundle\Form\UniversityType;
+use Back\ReferentielBundle\Entity\University ;
+use Back\ReferentielBundle\Form\UniversityType ;
+use Back\UserBundle\Entity\User ;
+use Back\UserBundle\Form\RegistrationFormType ;
 
 class ReferentielController extends Controller
 {
@@ -144,12 +146,84 @@ class ReferentielController extends Controller
         {
             $em->remove($university) ;
             $em->flush() ;
-            $session->getFlashBag()->add('success' , " Your object has been successfully removed ") ;
+            $session->getFlashBag()->add('success' , " Your university has been successfully removed ") ;
         } catch (\Exception $ex)
         {
-            $session->getFlashBag()->add('danger' , 'This object is used by another table ') ;
+            $session->getFlashBag()->add('danger' , 'This university is used by another table ') ;
         }
         return $this->redirect($this->generateUrl("university")) ;
+    }
+
+    public function administratorAction($id)
+    {
+        $em = $this->getDoctrine()->getManager() ;
+        $session = $this->getRequest()->getSession() ;
+        $currentUser = $this->container->get('security.context')->getToken()->getUser() ;
+        if ($id == NULL)
+            $user = new User () ;
+        else
+            $user = $em->getRepository("BackUserBundle:User")->find($id) ;
+        $users = $this->findByRole("ROLE_ADMIN") ;
+        $form = $this->createForm(new RegistrationFormType() , $user) ;
+        $request = $this->getRequest() ;
+        if ($request->isMethod("POST"))
+        {
+            $form->submit($request) ;
+            if ($form->isValid())
+            {
+                $user = $form->getData() ;
+                $em->persist($user) ;
+                $em->flush() ;
+                $session->getFlashBag()->add('success' , "Your administrator has been added successfully") ;
+                return $this->redirect($this->generateUrl("administrator")) ;
+            }
+        }
+        return $this->render('BackReferentielBundle:Ref:user.html.twig' , array (
+                    'form' => $form->createView() ,
+                    'user' => $user ,
+                    'users' => $users ,
+                    'currentUser' => $currentUser ,
+                )) ;
+    }
+
+    public function deleteAdministratorAction(User $user)
+    {
+        $em = $this->getDoctrine()->getManager() ;
+        $session = $this->getRequest()->getSession() ;
+        try
+        {
+            $em->remove($user) ;
+            $em->flush() ;
+            $session->getFlashBag()->add('success' , " Your administrator has been successfully removed ") ;
+        } catch (\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger' , 'This administrator is used by another table ') ;
+        }
+        return $this->redirect($this->generateUrl("administrator")) ;
+    }
+
+    public function enableUserAction(User $user)
+    {
+        $em = $this->getDoctrine()->getManager() ;
+        $session = $this->getRequest()->getSession() ;
+        if ($user->isEnabled())
+            $user->setEnabled(FALSE) ;
+        else
+            $user->setEnabled(TRUE) ;
+        $em->persist($user) ;
+        $em->flush() ;
+        $session->getFlashBag()->add('success' , "Your administrator has been updates successfully") ;
+        return $this->redirect($this->generateUrl("administrator")) ;
+    }
+
+    public function findByRole($role)
+    {
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder() ;
+        $qb->select('u')
+                ->from('BackUserBundle:User' , 'u')
+                ->where('u.roles LIKE :roles')
+                ->setParameter('roles' , '%"' . $role . '"%') ;
+        return $qb->getQuery()->getResult() ;
     }
 
 }
