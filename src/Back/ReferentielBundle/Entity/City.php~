@@ -33,6 +33,13 @@ class City
      */
     protected $country;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Media", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $image ;
+
+
 
     /**
      * Get id

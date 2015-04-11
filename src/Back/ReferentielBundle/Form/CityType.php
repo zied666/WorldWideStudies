@@ -1,33 +1,35 @@
 <?php
 
-namespace Back\ReferentielBundle\Form;
+namespace Back\ReferentielBundle\Form ;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\AbstractType ;
+use Symfony\Component\Form\FormBuilderInterface ;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface ;
 
 class CityType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder , array $options)
     {
         $builder
-            ->add('libelle')
-            ->add('country')
+                ->add('libelle')
+                ->add('country')
+                ->add('image' , new MediaType())
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults(array (
             'data_class' => 'Back\ReferentielBundle\Entity\City'
-        ));
+        )) ;
     }
 
     /**
@@ -35,6 +37,7 @@ class CityType extends AbstractType
      */
     public function getName()
     {
-        return 'back_referentielbundle_city';
+        return 'back_referentielbundle_city' ;
     }
+
 }

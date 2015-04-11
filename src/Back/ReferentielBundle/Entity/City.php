@@ -1,8 +1,8 @@
 <?php
 
-namespace Back\ReferentielBundle\Entity;
+namespace Back\ReferentielBundle\Entity ;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM ;
 
 /**
  * City
@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class City
 {
+
     /**
      * @var integer
      *
@@ -19,20 +20,25 @@ class City
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $id ;
 
     /**
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=50)
      */
-    private $libelle;
-    
+    private $libelle ;
+
     /**
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="Citys")
      */
-    protected $country;
+    protected $country ;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Media", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $image ;
 
     /**
      * Get id
@@ -41,7 +47,7 @@ class City
      */
     public function getId()
     {
-        return $this->id;
+        return $this->id ;
     }
 
     /**
@@ -52,9 +58,9 @@ class City
      */
     public function setLibelle($libelle)
     {
-        $this->libelle = $libelle;
+        $this->libelle = $libelle ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -64,12 +70,12 @@ class City
      */
     public function getLibelle()
     {
-        return $this->libelle;
+        return $this->libelle ;
     }
-    
+
     public function __toString()
     {
-        return $this->libelle;
+        return $this->libelle ;
     }
 
     /**
@@ -80,9 +86,9 @@ class City
      */
     public function setCountry(\Back\ReferentielBundle\Entity\Country $country = null)
     {
-        $this->country = $country;
+        $this->country = $country ;
 
-        return $this;
+        return $this ;
     }
 
     /**
@@ -92,6 +98,30 @@ class City
      */
     public function getCountry()
     {
-        return $this->country;
+        return $this->country ;
     }
+
+    /**
+     * Set image
+     *
+     * @param \Back\ReferentielBundle\Entity\Media $image
+     * @return City
+     */
+    public function setImage(\Back\ReferentielBundle\Entity\Media $image)
+    {
+        $this->image = $image ;
+
+        return $this ;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Back\ReferentielBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image ;
+    }
+
 }
