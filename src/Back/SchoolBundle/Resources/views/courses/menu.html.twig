@@ -1,0 +1,17 @@
+<ul class="nav nav-tabs">
+    <li {% if app.request.get('_route')=='edit_courses' %}class="active"{% endif %}>
+        <a href="{{ path('edit_courses',{'id':school.id,'course':course.id}) }}" data-toggle="tab">
+            {{ course.name }}
+        </a>
+    </li>
+    <li {% if app.request.get('_route')=='startdate_courses' %}class="active"{% endif %}>
+        <a href="{{ path('startdate_courses',{'id':school.id,'course':course.id}) }}" data-toggle="tab">
+            Start dates
+        </a>
+    </li>
+    <li>
+        <a href="#myTab1_example3" data-toggle="tab">
+            Price
+        </a>
+    </li>
+</ul>

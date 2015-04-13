@@ -10,17 +10,11 @@ use Back\SchoolBundle\Form\SchoolType;
 class SchoolController extends Controller
 {
 
-    public function addSchoolAction($id)
+    public function addSchoolAction()
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
-        if($id == NULL)
-            $school=new School();
-        else
-        {
-            $school=$em->getRepository("BackSchoolBundle:School")->find($id);
-            $schoolBack=$school;
-        }
+        $school=new School();
         $form=$this->createForm(new SchoolType(), $school);
         $request=$this->getRequest();
         if($request->isMethod("POST"))
@@ -42,6 +36,29 @@ class SchoolController extends Controller
             }
         }
         return $this->render('BackSchoolBundle:school:add.html.twig', array(
+                    'form'=>$form->createView(),
+        ));
+    }
+
+    public function editSchoolAction(School $school)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $form=$this->createForm(new SchoolType(), $school);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $school=$form->getData();
+                $em->persist($school->setEnabled(TRUE));
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your school has been added successfully");
+                return $this->redirect($this->generateUrl("edit_school", array( 'id'=>$school->getId() )));
+            }
+        }
+        return $this->render('BackSchoolBundle:school:edit.html.twig', array(
                     'form'  =>$form->createView(),
                     'school'=>$school
         ));
@@ -77,15 +94,16 @@ class SchoolController extends Controller
 
     public function enableSchoolAction(School $school)
     {
-        $em = $this->getDoctrine()->getManager() ;
-        $session = $this->getRequest()->getSession() ;
-        if ($school->isEnabled())
-            $school->setEnabled(FALSE) ;
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($school->isEnabled())
+            $school->setEnabled(FALSE);
         else
-            $school->setEnabled(TRUE) ;
-        $em->persist($school) ;
-        $em->flush() ;
-        $session->getFlashBag()->add('success' , "Your school has been updates successfully") ;
-        return $this->redirect($this->generateUrl("list_school")) ;
+            $school->setEnabled(TRUE);
+        $em->persist($school);
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your school has been updates successfully");
+        return $this->redirect($this->generateUrl("list_school"));
     }
+
 }

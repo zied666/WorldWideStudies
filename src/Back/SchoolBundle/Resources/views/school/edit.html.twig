@@ -1,0 +1,36 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}{{ school.name }}{% endblock %}
+{% block body %}
+    <div class="tabbable">
+        {% include 'BackSchoolBundle:school:menu.html.twig' %}
+        <div class="tab-content">
+            <div class="container-fluid container-fullw bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{{ path('edit_school',{'id':school.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                {{ formulaire.input("col-md-3","Name",form.name,true) }}
+                                {{ formulaire.select2("col-md-3","University",form.university,true) }}
+                                {{ formulaire.select2("col-md-3","City",form.city,true) }}
+                                {{ formulaire.input("col-md-3","Photo",form.image.file,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-3","Stars",form.stars,true) }}
+                                {{ formulaire.input("col-md-3","Note",form.note,true) }}
+                                {{ formulaire.input("col-md-3","Reviews",form.reviews,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-12","Shot description",form.shortDescription,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.ckeditor("col-md-12","Long description",form.longDescription,true) }}
+                            </div>
+                            {{ macro.enregistrer }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

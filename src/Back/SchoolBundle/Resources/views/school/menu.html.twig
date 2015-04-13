@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs">
+    <li {% if app.request.get('_route')=='edit_school' %}class="active"{% endif %}>
+        <a href="{{ path('edit_school',{'id':school.id}) }}">
+            School
+        </a>
+    </li>
+    <li {% if app.request.get('_route')in ['list_courses','edit_courses'] %}class="active"{% endif %}>
+        <a href="{{ path('list_courses',{'id':school.id}) }}">
+            Courses ({{ school.courses|length }})
+        </a>
+    </li>
+    <li>
+        <a href="#myTab1_example3" data-toggle="tab">
+            Accomodations
+        </a>
+    </li>
+    <li>
+        <a href="#myTab1_example3" data-toggle="tab">
+            Extras
+        </a>
+    </li>
+</ul>

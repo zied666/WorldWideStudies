@@ -1,0 +1,49 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}{{ school.name }}{% endblock %}
+{% block body %}
+    <div class="tabbable">
+        {% include 'BackSchoolBundle:school:menu.html.twig' %}
+        <div class="tab-content">
+            <div class="tabbable">
+                {% include 'BackSchoolBundle:courses:menu.html.twig' %}
+                <div class="tab-content">
+                    <div class="container-fluid container-fullw bg-white">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form action="{{ path('startdate_courses',{'id':school.id,'course':course.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                                    {{ form_widget(form._token) }}
+                                    <div class="row">
+                                        {{ formulaire.input("col-md-3","Start date",form.date,true) }}
+                                    </div>
+                                    {{ macro.enregistrer }}
+                                </form>
+                            </div>
+                            <div class="col-md-12">
+                                <h5 class="over-title margin-bottom-15">Start dates <span class="text-bold">list</span></h5>
+                                <table class="table table-hover" id="sample-table-1">
+                                    <thead>
+                                        <tr>
+                                            <th class="center">Date</th>
+                                            <th class="center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for startDate in course.startDates %}
+                                            <tr>
+                                                <td class="center">{{ startDate.date|date("d/m/Y") }}</td>
+                                                <td class="center">
+                                                    {{ macro.delete(path('delete_startdate_courses',{'id':startDate.id})) }}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

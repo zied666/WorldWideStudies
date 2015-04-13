@@ -93,6 +93,11 @@ class School
     protected $university ;
     
     /**
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="school")
+     */
+    protected $courses;
+    
+    /**
      * @var boolean
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
@@ -318,4 +323,87 @@ class School
         return $this->university;
     }
 
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return School
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+    
+    /**
+     * Is enables
+     * 
+     * @return boolean 
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add courses
+     *
+     * @param \Back\SchoolBundle\Entity\Course $courses
+     * @return School
+     */
+    public function addCourse(\Back\SchoolBundle\Entity\Course $courses)
+    {
+        $this->courses[] = $courses;
+
+        return $this;
+    }
+
+    /**
+     * Remove courses
+     *
+     * @param \Back\SchoolBundle\Entity\Course $courses
+     */
+    public function removeCourse(\Back\SchoolBundle\Entity\Course $courses)
+    {
+        $this->courses->removeElement($courses);
+    }
+
+    /**
+     * Get courses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCourses()
+    {
+        return $this->courses;
+    }
+    
+    /**
+     * to string
+     * 
+     * @return string 
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -1,0 +1,42 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Languages{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="{{ path('language',{'id':language.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                    {{ form_widget(form._token) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Name",form.name,true) }}
+                    </div>
+                    {{ macro.enregistrer }}
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
+                <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for language in languages %}
+                            <tr>
+                                <td>{{ language.name }}</td>
+                                <td>
+                                    {{ macro.edit(path('language',{'id':language.id})) }}
+                                    {{ macro.delete(path('delete_language',{'id':language.id})) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+list_courses:
+    path:     /edit/{id}/courses
+    defaults: { _controller: BackSchoolBundle:Courses:listCourses }
+
+edit_courses:
+    path:     /edit/{id}/courses/{course}
+    defaults: { _controller: BackSchoolBundle:Courses:editCourses }
+
+delete_courses:
+    path:     /delete_course/{id}
+    defaults: { _controller: BackSchoolBundle:Courses:deleteCourses }
+    
+startdate_courses:
+    path:     /edit/{id}/courses/{course}/startdate
+    defaults: { _controller: BackSchoolBundle:Courses:startDate }
+
+
+delete_startdate_courses:
+    path:     /delete_start_debut/{id}
+    defaults: { _controller: BackSchoolBundle:Courses:deleteStartDate }

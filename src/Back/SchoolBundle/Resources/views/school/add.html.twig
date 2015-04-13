@@ -4,7 +4,7 @@
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ path('add_school',{'id':school.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                <form action="{{ path('add_school') }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                     {{ form_widget(form._token) }}
                     <div class="row">
                         {{ formulaire.input("col-md-3","Name",form.name,true) }}

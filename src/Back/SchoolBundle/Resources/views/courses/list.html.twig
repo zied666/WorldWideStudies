@@ -1,0 +1,51 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}{{ school.name }}{% endblock %}
+{% block body %}
+    <div class="tabbable">
+        {% include 'BackSchoolBundle:school:menu.html.twig' %}
+        <div class="tab-content">
+            <div class="container-fluid container-fullw bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{{ path('list_courses',{'id':school.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                {{ formulaire.input("col-md-3","Name",form.name,true) }}
+                                {{ formulaire.select2("col-md-3","Language course",form.language,true) }}
+                                {{ formulaire.select2("col-md-3","Pathways programs",form.program,true) }}
+                            </div>
+                            {{ macro.enregistrer }}
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <h5 class="over-title margin-bottom-15">courses <span class="text-bold">list</span></h5>
+                        <table class="table table-hover" id="sample-table-1">
+                            <thead>
+                                <tr>
+                                    <th class="center">Name</th>
+                                    <th class="center">Language course</th>
+                                    <th class="center">Pathways programs</th>
+                                    <th class="center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cours in school.courses %}
+                                    <tr>
+                                        <td class="center">{{ cours.name }}</td>
+                                        <td class="center">{{ cours.language }}</td>
+                                        <td class="center">{{ cours.program }}</td>
+                                        <td class="center">
+                                            {{ macro.edit(path('edit_courses',{'id':school.id,'course':cours.id})) }}
+                                            {{ macro.delete(path('delete_courses',{'id':cours.id})) }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

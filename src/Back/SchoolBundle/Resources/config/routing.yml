@@ -1,19 +1,7 @@
-add_school:
-    path:     /add/{id}
-    defaults: { _controller: BackSchoolBundle:School:addSchool,id:null }
+SchoolRouting:
+    resource: "@BackSchoolBundle/Resources/config/routing/school.yml"
+    prefix:   /
 
-list_school:
-    path:     /
-    defaults: { _controller: BackSchoolBundle:School:listSchool }
-
-delete_school:
-    path:     /delete/{id}
-    defaults: { _controller: BackSchoolBundle:School:deleteSchool }
-
-edit_school:
-    path:     /edit/{id}
-    defaults: { _controller: BackSchoolBundle:School:editSchool }
-    
-enabled_school:
-    path:     /enableUser/{id}
-    defaults: { _controller: BackSchoolBundle:School:enableSchool}   
+CoursesRouting:
+    resource: "@BackSchoolBundle/Resources/config/routing/courses.yml"
+    prefix:   /

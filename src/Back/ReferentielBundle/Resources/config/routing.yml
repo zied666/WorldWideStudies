@@ -1,7 +1,3 @@
-dashboard:
-    path:     /
-    defaults: { _controller: BackReferentielBundle:Default:index }
-#********************************************************************************************************
 country:
     path:     /country/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:country,id:null }
@@ -32,4 +28,20 @@ delete_administrator:
 enabled_user:
     path:     /enableUser/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:enableUser }    
+#********************************************************************************************************
+language:
+    path:     /language/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:language,id:null }
 
+delete_language:
+    path:     /delete_language/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteLanguage }
+
+program:
+    path:     /program/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:program,id:null }
+
+delete_program:
+    path:     /delete_program/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteProgram }  
+    
