@@ -7,7 +7,7 @@
                 <form action="{{ path('city',{'id':city.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                     {{ form_widget(form._token) }}
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Country",form.country,true) }}
+                        {{ formulaire.select2("col-md-3","Country",form.country,true) }}
                         {{ formulaire.input("col-md-3","Name",form.libelle,true) }}
                         {{ formulaire.input("col-md-3","Photo",form.image.file,true) }}
                     </div>

@@ -1,11 +1,19 @@
+back_school:
+    resource: "@BackSchoolBundle/Resources/config/routing.yml"
+    prefix:   /admin/school
+
+back_referentiel:
+    resource: "@BackReferentielBundle/Resources/config/routing.yml"
+    prefix:   /admin/ref
+    
+front_general:
+    resource: "@FrontGeneralBundle/Resources/config/routing.yml"
+    prefix:   /
+
 back_user:
     resource: "@BackUserBundle/Resources/config/routing.yml"
     prefix:   /
 
-back_referentiel:
-    resource: "@BackReferentielBundle/Resources/config/routing.yml"
-    prefix:   /admin
-    
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 

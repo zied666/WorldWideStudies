@@ -172,7 +172,7 @@ class ReferentielController extends Controller
             if ($form->isValid())
             {
                 $user = $form->getData() ;
-                $em->persist($user) ;
+                $em->persist($user->addRole("ROLE_ADMIN")->setEnabled(TRUE)) ;
                 $em->flush() ;
                 $session->getFlashBag()->add('success' , "Your administrator has been added successfully") ;
                 return $this->redirect($this->generateUrl("administrator")) ;

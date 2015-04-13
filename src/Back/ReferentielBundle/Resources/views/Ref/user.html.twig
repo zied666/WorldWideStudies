@@ -29,7 +29,7 @@
                         <tr>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Etat</th>
+                            <th>State</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -39,12 +39,10 @@
                                 <td>{{ user.username }}</td>
                                 <td>{{ user.email }}</td>
                                 <td>
-                                    {% if user != currentUser %}
-                                        <a href="{{ path('enabled_user',{'id':user.id}) }}" >
-                                            {% if user.enabled %}Active{% else %}Inactive{% endif %}
-                                        </a>
+                                    {% if user.enabled %}
+                                        <a href="{{ path('enabled_user',{'id':user.id}) }}" ><span class="label label-sm label-success">Enabled</span></a>
                                     {% else %}
-                                        Active
+                                        <a href="{{ path('enabled_user',{'id':user.id}) }}"><span class="label label-sm label-danger">Disabled</span></a>
                                     {% endif %}
                                 </td>
                                 <td>

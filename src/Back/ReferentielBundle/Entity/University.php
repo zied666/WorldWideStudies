@@ -34,6 +34,11 @@ class University
      * @ORM\JoinColumn(nullable=false)
      */
     private $image ;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Back\SchoolBundle\Entity\School", mappedBy="university")
+     */
+    protected $schools;
 
     /**
      * Get id
@@ -90,5 +95,54 @@ class University
     public function getImage()
     {
         return $this->image;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schools = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add schools
+     *
+     * @param \Back\SchoolBundle\Entity\School $schools
+     * @return University
+     */
+    public function addSchool(\Back\SchoolBundle\Entity\School $schools)
+    {
+        $this->schools[] = $schools;
+
+        return $this;
+    }
+
+    /**
+     * Remove schools
+     *
+     * @param \Back\SchoolBundle\Entity\School $schools
+     */
+    public function removeSchool(\Back\SchoolBundle\Entity\School $schools)
+    {
+        $this->schools->removeElement($schools);
+    }
+
+    /**
+     * Get schools
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchools()
+    {
+        return $this->schools;
+    }
+    
+    /**
+     * to string
+     * @return string 
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 }

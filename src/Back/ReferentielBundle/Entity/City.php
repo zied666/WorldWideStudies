@@ -31,6 +31,7 @@ class City
 
     /**
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="Citys")
+     * @ORM\OrderBy({"libelle" = "ASC"})
      */
     protected $country ;
 
@@ -39,6 +40,11 @@ class City
      * @ORM\JoinColumn(nullable=false)
      */
     private $image ;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Back\SchoolBundle\Entity\School", mappedBy="city")
+     */
+    protected $schools;
 
     /**
      * Get id
@@ -124,4 +130,44 @@ class City
         return $this->image ;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schools = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add schools
+     *
+     * @param \Back\SchoolBundle\Entity\School $schools
+     * @return City
+     */
+    public function addSchool(\Back\SchoolBundle\Entity\School $schools)
+    {
+        $this->schools[] = $schools;
+
+        return $this;
+    }
+
+    /**
+     * Remove schools
+     *
+     * @param \Back\SchoolBundle\Entity\School $schools
+     */
+    public function removeSchool(\Back\SchoolBundle\Entity\School $schools)
+    {
+        $this->schools->removeElement($schools);
+    }
+
+    /**
+     * Get schools
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchools()
+    {
+        return $this->schools;
+    }
 }

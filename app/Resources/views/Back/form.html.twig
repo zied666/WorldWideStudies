@@ -1,3 +1,14 @@
+{% macro ckeditor(class,label,from,required) %}
+    <div class="{{class}}">
+        <div class="form-group">
+            <label class="control-label">
+                {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
+            </label>
+            {{ form_widget(from,{'attr':{'class':'ckeditor form-control'}}) | raw  }}
+            {{ form_errors(from) | raw  }}
+        </div>
+    </div>
+{% endmacro %}
 {% macro input(class,label,from,required) %}
     <div class="{{class}}">
         <div class="form-group">
