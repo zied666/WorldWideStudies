@@ -1,21 +1,21 @@
 <ul class="nav nav-tabs">
     <li {% if app.request.get('_route')=='edit_school' %}class="active"{% endif %}>
         <a href="{{ path('edit_school',{'id':school.id}) }}">
-            School
+            {{ school.name }}
         </a>
     </li>
-    <li {% if app.request.get('_route')in ['list_courses','edit_courses'] %}class="active"{% endif %}>
+    <li {% if app.request.get('_route')in ['list_courses','edit_courses','startdate_courses','price_courses'] %}class="active"{% endif %}>
         <a href="{{ path('list_courses',{'id':school.id}) }}">
             Courses ({{ school.courses|length }})
         </a>
     </li>
-    <li>
-        <a href="#myTab1_example3" data-toggle="tab">
-            Accomodations
+    <li {% if app.request.get('_route')in ['list_accommodations','edit_accommodations','rooms_accommodations','price_accommodations'] %}class="active"{% endif %}>
+        <a href="{{ path('list_accommodations',{'id':school.id}) }}">
+            Accommodations ({{ school.accommodations|length }})
         </a>
     </li>
     <li>
-        <a href="#myTab1_example3" data-toggle="tab">
+        <a href="">
             Extras
         </a>
     </li>

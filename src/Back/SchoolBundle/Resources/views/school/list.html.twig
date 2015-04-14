@@ -14,6 +14,8 @@
                             <th>University</th>
                             <th>Note</th>
                             <th>Reviews</th>
+                            <th>Courses</th>
+                            <th>Accommodations</th>
                             <th>State</th>
                             <th>Action</th>
                         </tr>
@@ -32,6 +34,8 @@
                                 <td>{{ school.university }}</td>
                                 <td>{{ school.note }}/5</td>
                                 <td>{{ school.reviews }} reviews</td>
+                                <td>{{ school.courses|length }}</td>
+                                <td>{{ school.accommodations|length }}</td>
                                 <td class="center">
                                     {% if school.enabled %}
                                         <a href="{{ path('enabled_school',{'id':school.id}) }}" ><span class="label label-sm label-success">Enabled</span></a>

@@ -94,8 +94,15 @@ class School
     
     /**
      * @ORM\OneToMany(targetEntity="Course", mappedBy="school")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $courses;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Accommodation", mappedBy="school")
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    protected $accommodations;
     
     /**
      * @var boolean
@@ -405,5 +412,38 @@ class School
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * Add accommodations
+     *
+     * @param \Back\SchoolBundle\Entity\Accommodation $accommodations
+     * @return School
+     */
+    public function addAccommodation(\Back\SchoolBundle\Entity\Accommodation $accommodations)
+    {
+        $this->accommodations[] = $accommodations;
+
+        return $this;
+    }
+
+    /**
+     * Remove accommodations
+     *
+     * @param \Back\SchoolBundle\Entity\Accommodation $accommodations
+     */
+    public function removeAccommodation(\Back\SchoolBundle\Entity\Accommodation $accommodations)
+    {
+        $this->accommodations->removeElement($accommodations);
+    }
+
+    /**
+     * Get accommodations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAccommodations()
+    {
+        return $this->accommodations;
     }
 }

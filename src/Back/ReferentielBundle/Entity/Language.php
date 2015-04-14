@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Language
  *
- * @ORM\Table()
+ * @ORM\Table("wws_language")
  * @ORM\Entity
  */
 class Language

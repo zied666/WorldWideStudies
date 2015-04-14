@@ -47,8 +47,15 @@ class Course
     
     /**
      * @ORM\OneToMany(targetEntity="StartDate", mappedBy="course")
+     * @ORM\OrderBy({"date" = "ASC"})
      */
     protected $startDates;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Price", mappedBy="course")
+     * @ORM\OrderBy({"weekStart" = "ASC"})
+     */
+    protected $prices;
 
     /**
      * Get id
@@ -190,5 +197,43 @@ class Course
     public function getStartDates()
     {
         return $this->startDates;
+    }
+
+    /**
+     * Add prices
+     *
+     * @param \Back\SchoolBundle\Entity\Price $prices
+     * @return Course
+     */
+    public function addPrice(\Back\SchoolBundle\Entity\Price $prices)
+    {
+        $this->prices[] = $prices;
+
+        return $this;
+    }
+
+    /**
+     * Remove prices
+     *
+     * @param \Back\SchoolBundle\Entity\Price $prices
+     */
+    public function removePrice(\Back\SchoolBundle\Entity\Price $prices)
+    {
+        $this->prices->removeElement($prices);
+    }
+
+    /**
+     * Get prices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+    
+    public function __toString()
+    {
+        return $this->name;
     }
 }

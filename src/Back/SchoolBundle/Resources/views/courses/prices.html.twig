@@ -10,38 +10,36 @@
                     <div class="container-fluid container-fullw bg-white">
                         <div class="row">
                             <div class="col-md-12">
-                                <form action="{{ path('startdate_courses',{'id':school.id,'course':course.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                                <form action="{{ path('price_courses',{'id':school.id,'course':course.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                                     {{ form_widget(form._token) }}
                                     <div class="row">
-                                        {{ formulaire.input("col-md-3","Start date",form.date,true) }}
+                                        {{ formulaire.input("col-md-2","Week start",form.weekStart,true) }}
+                                        {{ formulaire.input("col-md-2","Week end",form.weekEnd,true) }}
+                                        {{ formulaire.input("col-md-2","Price",form.price,true) }}
                                     </div>
                                     {{ macro.enregistrer }}
                                 </form>
                             </div>
                             <div class="col-md-12">
-                                <h5 class="over-title margin-bottom-15">Start dates <span class="text-bold">list</span></h5>
+                                <h5 class="over-title margin-bottom-15">Prices <span class="text-bold">list</span></h5>
                                 <table class="table table-hover" id="sample-table-1">
                                     <thead>
                                         <tr>
-                                            <th class="center">Date</th>
+                                            <th class="center">Week</th>
+                                            <th class="center">Price</th>
                                             <th class="center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for startDate in course.startDates %}
+                                        {% for price in course.prices %}
                                             <tr>
+                                                <td class="center">{{ price }}</td>
+                                                <td class="center">{{ price.price }}</td>
                                                 <td class="center">
-                                                    {% if "now"|date("Y-m-d") >=  startDate.date|date("Y-m-d") %}
-                                                        <s>{{ startDate.date|date("d/m/Y") }}</s>
-                                                    {% else %}  
-                                                        {{ startDate.date|date("d/m/Y") }}
-                                                    {% endif %}    
+                                                    {{ macro.delete(path('delete_price_courses',{'id':price.id})) }}
                                                 </td>
-                                                <td class="center">
-                                                    {{ macro.delete(path('delete_startdate_courses',{'id':startDate.id})) }}
-                                                </td>
-                                        </tr>
-                                    {% endfor %}
+                                            </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
 

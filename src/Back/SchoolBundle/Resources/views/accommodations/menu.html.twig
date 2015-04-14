@@ -1,0 +1,17 @@
+<ul class="nav nav-tabs">
+    <li {% if app.request.get('_route')=='edit_accommodations' %}class="active"{% endif %}>
+        <a href="{{ path('edit_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}">
+            {{ accommodation.name }}
+        </a>
+    </li>
+    <li {% if app.request.get('_route')=='rooms_accommodations' %}class="active"{% endif %}>
+        <a href="{{ path('rooms_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}">
+            Rooms ({{ accommodation.rooms|length }})
+        </a>
+    </li>
+    <li {% if app.request.get('_route')=='price_accommodations' %}class="active"{% endif %}>
+        <a href="{{ path('price_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}">
+            Prices ({{ accommodation.getNumberPrice }})
+        </a>
+    </li>
+</ul>

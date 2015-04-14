@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Program
  *
- * @ORM\Table()
+ * @ORM\Table("wws_program")
  * @ORM\Entity
  */
 class Program

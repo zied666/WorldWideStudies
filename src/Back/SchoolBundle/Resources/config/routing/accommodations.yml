@@ -1,0 +1,27 @@
+list_accommodations:
+    path:     /edit/{id}/accommodations
+    defaults: { _controller: BackSchoolBundle:Accommodations:list }
+
+edit_accommodations:
+    path:     /edit/{id}/accommodations/{accommodation}
+    defaults: { _controller: BackSchoolBundle:Accommodations:editAccommodations }
+    
+delete_accommodations:
+    path:     /delete_accommodation/{id}
+    defaults: { _controller: BackSchoolBundle:Accommodations:deleteAccommodations }
+
+rooms_accommodations:
+    path:     /edit/{id}/accommodations/{accommodation}/rooms/{id2}
+    defaults: { _controller: BackSchoolBundle:Accommodations:rooms,id2:null }
+    
+delete_room:
+    path:     /delete_room/{id}
+    defaults: { _controller: BackSchoolBundle:Accommodations:deleteRoom }
+
+price_accommodations:
+    path:     /edit/{id}/accommodations/{accommodation}/price
+    defaults: { _controller: BackSchoolBundle:Accommodations:price }
+    
+delete_price:
+    path:     /delete_price_room/{id}
+    defaults: { _controller: BackSchoolBundle:Accommodations:deletePrice }

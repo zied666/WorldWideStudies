@@ -5,3 +5,7 @@ SchoolRouting:
 CoursesRouting:
     resource: "@BackSchoolBundle/Resources/config/routing/courses.yml"
     prefix:   /
+
+AccommodationsRouting:
+    resource: "@BackSchoolBundle/Resources/config/routing/accommodations.yml"
+    prefix:   /

@@ -9,6 +9,8 @@ use Back\SchoolBundle\Entity\Course;
 use Back\SchoolBundle\Form\CourseType;
 use Back\SchoolBundle\Entity\StartDate;
 use Back\SchoolBundle\Form\StartDateType;
+use Back\SchoolBundle\Entity\Price;
+use Back\SchoolBundle\Form\PriceType;
 
 class CoursesController extends Controller
 {
@@ -137,6 +139,78 @@ class CoursesController extends Controller
         return $this->redirect($this->generateUrl("startdate_courses", array(
                             'id'    =>$startDate->getCourse()->getSchool()->getId(),
                             'course'=>$startDate->getCourse()->getId()
+        )));
+    }
+
+    public function priceAction(School $school, Course $course)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $price=new Price();
+        $price->setCourse($course);
+        $form=$this->createForm(new PriceType(), $price);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $price=$form->getData();
+                if($this->isValidPrice($course, $price))
+                {
+                    $em->persist($price);
+                    $em->flush();
+                    $session->getFlashBag()->add('success', "Your price has been added successfully");
+                    return $this->redirect($this->generateUrl("price_courses", array(
+                                        'id'    =>$school->getId(),
+                                        'course'=>$course->getId(),
+                    )));
+                }
+                else
+                    $session->getFlashBag()->add('danger', "Please verif your weeks");
+            }
+        }
+        return $this->render("BackSchoolBundle:courses:prices.html.twig", array(
+                    'form'  =>$form->createView(),
+                    'school'=>$school,
+                    'course'=>$course,
+        ));
+    }
+
+    public function isValidPrice(Course $course, Price $price)
+    {
+        if($price->getWeekStart() > $price->getWeekEnd())
+            return FALSE;
+        else
+        {
+            foreach($course->getPrices() as $prix)
+            {
+                if($price->getWeekStart() >= $prix->getWeekStart() && $price->getWeekStart() <= $prix->getWeekEnd())
+                    return false;
+                if($price->getWeekEnd() >= $prix->getWeekStart() && $price->getWeekEnd() <= $prix->getWeekEnd())
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    public function deletePriceAction(Price $price)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($price);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your price has been removed successfully");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This price is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("price_courses", array(
+                            'id'    =>$price->getCourse()->getSchool()->getId(),
+                            'course'=>$price->getCourse()->getId()
         )));
     }
 

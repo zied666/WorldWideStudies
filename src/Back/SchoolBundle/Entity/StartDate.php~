@@ -31,7 +31,6 @@ class StartDate
     
     /**
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="startDates")
-     * @Assert\NotNull()
      */
     protected $course ;
 

@@ -14,7 +14,14 @@ startdate_courses:
     path:     /edit/{id}/courses/{course}/startdate
     defaults: { _controller: BackSchoolBundle:Courses:startDate }
 
-
 delete_startdate_courses:
     path:     /delete_start_debut/{id}
     defaults: { _controller: BackSchoolBundle:Courses:deleteStartDate }
+    
+price_courses:
+    path:     /edit/{id}/courses/{course}/prices
+    defaults: { _controller: BackSchoolBundle:Courses:price }
+
+delete_price_courses:
+    path:     /delete_price/{id}
+    defaults: { _controller: BackSchoolBundle:Courses:deletePrice }

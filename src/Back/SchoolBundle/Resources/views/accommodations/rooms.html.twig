@@ -1,0 +1,49 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}{{ school.name }}{% endblock %}
+{% block body %}
+    <div class="tabbable">
+        {% include 'BackSchoolBundle:school:menu.html.twig' %}
+        {% include 'BackSchoolBundle:accommodations:menu.html.twig' %}
+        <div class="tab-content">
+            <div class="container-fluid container-fullw bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{{ path('rooms_accommodations',{'id':school.id,'accommodation':accommodation.id,'id2':room.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                                {{ formulaire.input("col-md-4","Description",form.description,true) }}
+                            </div>
+                            {{ macro.enregistrer }}
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <h5 class="over-title margin-bottom-15">Accommodation rooms <span class="text-bold">list</span></h5>
+                        <table class="table table-hover" id="sample-table-1">
+                            <thead>
+                                <tr>
+                                    <th class="center">Name</th>
+                                    <th class="center">description</th>
+                                    <th class="center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for room in accommodation.rooms %}
+                                    <tr>
+                                        <td class="center">{{ room.name }}</td>
+                                        <td class="center">{{ room.description }}</td>
+                                        <td class="center">
+                                            {{ macro.edit(path('rooms_accommodations',{'id':school.id,'accommodation':accommodation.id,'id2':room.id})) }}
+                                            {{ macro.delete(path('delete_room',{'id':room.id})) }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
