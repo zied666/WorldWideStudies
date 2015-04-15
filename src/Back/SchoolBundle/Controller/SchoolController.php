@@ -4,8 +4,8 @@ namespace Back\SchoolBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Back\SchoolBundle\Entity\School;
-use Back\SchoolBundle\Form\SchoolType;
+use Back\SchoolBundle\Entity\SchoolLocation;
+use Back\SchoolBundle\Form\SchoolLocationType;
 
 class SchoolController extends Controller
 {
@@ -14,19 +14,19 @@ class SchoolController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
-        $school=new School();
-        $form=$this->createForm(new SchoolType(), $school);
+        $schoolLocation=new SchoolLocation();
+        $form=$this->createForm(new SchoolLocationType(), $schoolLocation);
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
             $form->submit($request);
             if($form->isValid())
             {
-                $school=$form->getData();
-                $Verif=$em->getRepository("BackSchoolBundle:School")->findOneBy(array( 'city'=>$school->getCity(), 'university'=>$school->getUniversity() ));
+                $schoolLocation=$form->getData();
+                $Verif=$em->getRepository("BackSchoolBundle:SchoolLocation")->findOneBy(array( 'city'=>$schoolLocation->getCity(), 'school'=>$schoolLocation->getSchool() ));
                 if(!$Verif)
                 {
-                    $em->persist($school->setEnabled(TRUE));
+                    $em->persist($schoolLocation->setEnabled(TRUE));
                     $em->flush();
                     $session->getFlashBag()->add('success', "Your school has been added successfully");
                     return $this->redirect($this->generateUrl("list_school"));
@@ -40,27 +40,27 @@ class SchoolController extends Controller
         ));
     }
 
-    public function editSchoolAction(School $school)
+    public function editSchoolAction(SchoolLocation $schoolLocation)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
-        $form=$this->createForm(new SchoolType(), $school);
+        $form=$this->createForm(new SchoolLocationType(), $schoolLocation);
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
             $form->submit($request);
             if($form->isValid())
             {
-                $school=$form->getData();
-                $em->persist($school->setEnabled(TRUE));
+                $schoolLocation=$form->getData();
+                $em->persist($schoolLocation->setEnabled(TRUE));
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your school has been added successfully");
-                return $this->redirect($this->generateUrl("edit_school", array( 'id'=>$school->getId() )));
+                return $this->redirect($this->generateUrl("edit_school", array( 'id'=>$schoolLocation->getId() )));
             }
         }
         return $this->render('BackSchoolBundle:school:edit.html.twig', array(
                     'form'  =>$form->createView(),
-                    'school'=>$school
+                    'school'=>$schoolLocation
         ));
     }
 
@@ -68,20 +68,20 @@ class SchoolController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
-        $schools=$em->getRepository("BackSchoolBundle:School")->findAll();
+        $schoolLocations=$em->getRepository("BackSchoolBundle:SchoolLocation")->findAll();
         return $this->render('BackSchoolBundle:school:list.html.twig', array(
-                    'schools'=>$schools
+                    'schools'=>$schoolLocations
         ));
     }
 
-    public function deleteSchoolAction(School $school)
+    public function deleteSchoolAction(SchoolLocation $schoolLocation)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
 
         try
         {
-            $em->remove($school);
+            $em->remove($schoolLocation);
             $em->flush();
             $session->getFlashBag()->add('success', " Your school has been successfully removed ");
         }
@@ -92,15 +92,15 @@ class SchoolController extends Controller
         return $this->redirect($this->generateUrl("list_school"));
     }
 
-    public function enableSchoolAction(School $school)
+    public function enableSchoolAction(SchoolLocation $schoolLocation)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
-        if($school->isEnabled())
-            $school->setEnabled(FALSE);
+        if($schoolLocation->isEnabled())
+            $schoolLocation->setEnabled(FALSE);
         else
-            $school->setEnabled(TRUE);
-        $em->persist($school);
+            $schoolLocation->setEnabled(TRUE);
+        $em->persist($schoolLocation);
         $em->flush();
         $session->getFlashBag()->add('success', "Your school has been updates successfully");
         return $this->redirect($this->generateUrl("list_school"));

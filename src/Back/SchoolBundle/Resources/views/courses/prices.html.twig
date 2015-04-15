@@ -16,6 +16,7 @@
                                         {{ formulaire.input("col-md-2","Week start",form.weekStart,true) }}
                                         {{ formulaire.input("col-md-2","Week end",form.weekEnd,true) }}
                                         {{ formulaire.input("col-md-2","Price",form.price,true) }}
+                                        {{ formulaire.input("col-md-2","",form.fix,false) }}
                                     </div>
                                     {{ macro.enregistrer }}
                                 </form>
@@ -25,8 +26,9 @@
                                 <table class="table table-hover" id="sample-table-1">
                                     <thead>
                                         <tr>
-                                            <th class="center">Week</th>
+                                            <th class="center">Weeks</th>
                                             <th class="center">Price</th>
+                                            <th class="center">Stat</th>
                                             <th class="center">Action</th>
                                         </tr>
                                     </thead>
@@ -35,6 +37,7 @@
                                             <tr>
                                                 <td class="center">{{ price }}</td>
                                                 <td class="center">{{ price.price }}</td>
+                                                <td class="center">{{ price.shoxFix }}</td>
                                                 <td class="center">
                                                     {{ macro.delete(path('delete_price_courses',{'id':price.id})) }}
                                                 </td>

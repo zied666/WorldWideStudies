@@ -1,10 +1,10 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}Universities{% endblock %}
+{% block title %}Schools{% endblock %}
 {% block body %}
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ path('university',{'id':university.id}) }}" {{ form_enctype(form) }} method="post" role="form" id="form" >
+                <form action="{{ path('school',{'id':school.id}) }}" {{ form_enctype(form) }} method="post" role="form" id="form" >
                     {{ form_widget(form._token) }}
                     <div class="row">
                         {{ formulaire.input("col-md-3","Name",form.name,true) }}
@@ -26,13 +26,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for university in universitys %}
+                        {% for school in schools %}
                             <tr>
-                                <td class="center"><img src="{{ asset(university.image.getAssetPath) }}" class="img-rounded" width="50px" height="50px"/></td>
-                                <td class="center">{{ university.name }}</td>
+                                <td class="center"><img src="{{ asset(school.image.getAssetPath) }}" class="img-rounded" width="50px" height="50px"/></td>
+                                <td class="center">{{ school.name }}</td>
                                 <td class="center">
-                                    {{ macro.edit(path('university',{'id':university.id})) }}
-                                    {{ macro.delete(path('delete_university',{'id':university.id})) }}
+                                    {{ macro.edit(path('school',{'id':school.id})) }}
+                                    {{ macro.delete(path('delete_school',{'id':school.id})) }}
                                 </td>
                             </tr>
                         {% endfor %}

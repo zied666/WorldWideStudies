@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PriceType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -15,19 +16,23 @@ class PriceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('weekStart')
-            ->add('weekEnd')
-            ->add('price')
+                ->add('weekStart')
+                ->add('weekEnd')
+                ->add('price')
+                ->add('fix', 'checkbox', array(
+                    'label'   =>'Price fix',
+                    'required'=>false
+                ))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\SchoolBundle\Entity\Price'
+            'data_class'=>'Back\SchoolBundle\Entity\Price'
         ));
     }
 
@@ -38,4 +43,5 @@ class PriceType extends AbstractType
     {
         return 'back_schoolbundle_price';
     }
+
 }

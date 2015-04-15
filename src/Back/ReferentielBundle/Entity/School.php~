@@ -5,12 +5,12 @@ namespace Back\ReferentielBundle\Entity ;
 use Doctrine\ORM\Mapping as ORM ;
 
 /**
- * University
+ * School
  *
- * @ORM\Table(name="wws_university")
+ * @ORM\Table(name="wws_school")
  * @ORM\Entity
  */
-class University
+class School
 {
 
     /**
@@ -36,7 +36,7 @@ class University
     private $image ;
     
     /**
-     * @ORM\OneToMany(targetEntity="Back\SchoolBundle\Entity\SchoolLocation", mappedBy="university")
+     * @ORM\OneToMany(targetEntity="Back\SchoolBundle\Entity\SchoolLocation", mappedBy="school")
      */
     protected $schoolLocations;
 
@@ -54,7 +54,7 @@ class University
      * Set name
      *
      * @param string $name
-     * @return University
+     * @return School
      */
     public function setName($name)
     {
@@ -78,7 +78,7 @@ class University
      * Set image
      *
      * @param \Back\ReferentielBundle\Entity\Media $image
-     * @return University
+     * @return School
      */
     public function setImage(\Back\ReferentielBundle\Entity\Media $image)
     {
@@ -104,5 +104,45 @@ class University
     public function __toString()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schoolLocations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add schoolLocations
+     *
+     * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocations
+     * @return School
+     */
+    public function addSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocations)
+    {
+        $this->schoolLocations[] = $schoolLocations;
+
+        return $this;
+    }
+
+    /**
+     * Remove schoolLocations
+     *
+     * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocations
+     */
+    public function removeSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocations)
+    {
+        $this->schoolLocations->removeElement($schoolLocations);
+    }
+
+    /**
+     * Get schoolLocations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchoolLocations()
+    {
+        return $this->schoolLocations;
     }
 }

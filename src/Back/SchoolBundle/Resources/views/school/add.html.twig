@@ -1,5 +1,5 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}Add new school{% endblock %}
+{% block title %}Add new school location{% endblock %}
 {% block body %}
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
@@ -8,7 +8,7 @@
                     {{ form_widget(form._token) }}
                     <div class="row">
                         {{ formulaire.input("col-md-3","Name",form.name,true) }}
-                        {{ formulaire.select2("col-md-3","University",form.university,true) }}
+                        {{ formulaire.select2("col-md-3","School",form.school,true) }}
                         {{ formulaire.select2("col-md-3","City",form.city,true) }}
                         {{ formulaire.input("col-md-3","Photo",form.image.file,true) }}
                     </div>

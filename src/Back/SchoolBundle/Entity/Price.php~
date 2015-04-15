@@ -51,10 +51,16 @@ class Price
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="prices")
      */
     protected $course;
+    
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="fix", type="boolean", nullable=true)
+     */
+    private $fix;
 
     /**
      * @ORM\ManyToOne(targetEntity="Room", inversedBy="prices")
-     * @Assert\NotNull()
      * 
      */
     protected $room;
@@ -169,5 +175,28 @@ class Price
     public function __toString()
     {
         return '['.$this->weekStart.' .. '.$this->weekEnd.']';
+    }
+
+    /**
+     * Set room
+     *
+     * @param \Back\SchoolBundle\Entity\Room $room
+     * @return Price
+     */
+    public function setRoom(\Back\SchoolBundle\Entity\Room $room = null)
+    {
+        $this->room = $room;
+
+        return $this;
+    }
+
+    /**
+     * Get room
+     *
+     * @return \Back\SchoolBundle\Entity\Room 
+     */
+    public function getRoom()
+    {
+        return $this->room;
     }
 }

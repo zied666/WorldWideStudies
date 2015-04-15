@@ -15,6 +15,7 @@
                                 {{ formulaire.input("col-md-2","Week start",form.weekStart,true) }}
                                 {{ formulaire.input("col-md-2","Week end",form.weekEnd,true) }}
                                 {{ formulaire.input("col-md-2","Price",form.price,true) }}
+                                {{ formulaire.input("col-md-2","",form.fix,false) }}
                             </div>
                             {{ macro.enregistrer }}
                         </form>
@@ -25,8 +26,9 @@
                             <thead>
                                 <tr>
                                     <th class="center">Room</th>
-                                    <th class="center">Week</th>
+                                    <th class="center">Weeks</th>
                                     <th class="center">Price</th>
+                                    <th class="center">State</th>
                                     <th class="center">Action</th>
                                 </tr>
                             </thead>
@@ -39,6 +41,7 @@
                                             {% endif %}
                                             <td class="center">{{ price }}</td>
                                             <td class="center">{{ price.price }}</td>
+                                                <td class="center">{{ price.shoxFix }}</td>
                                             <td class="center">
                                                 {{ macro.delete(path('delete_price',{'id':price.id})) }}
                                             </td>

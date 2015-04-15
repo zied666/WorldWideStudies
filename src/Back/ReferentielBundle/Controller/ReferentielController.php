@@ -8,8 +8,8 @@ use Back\ReferentielBundle\Entity\Country;
 use Back\ReferentielBundle\Form\CountryType;
 use Back\ReferentielBundle\Entity\City;
 use Back\ReferentielBundle\Form\CityType;
-use Back\ReferentielBundle\Entity\University;
-use Back\ReferentielBundle\Form\UniversityType;
+use Back\ReferentielBundle\Entity\School;
+use Back\ReferentielBundle\Form\SchoolType;
 use Back\UserBundle\Entity\User;
 use Back\UserBundle\Form\RegistrationFormType;
 use Back\ReferentielBundle\Entity\Language;
@@ -114,51 +114,51 @@ class ReferentielController extends Controller
         return $this->redirect($this->generateUrl("city"));
     }
 
-    public function universityAction($id)
+    public function schoolAction($id)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
         if($id == NULL)
-            $university=new University ();
+            $school=new School ();
         else
-            $university=$em->getRepository("BackReferentielBundle:University")->find($id);
-        $universitys=$em->getRepository("BackReferentielBundle:University")->findAll();
-        $form=$this->createForm(new UniversityType(), $university);
+            $school=$em->getRepository("BackReferentielBundle:School")->find($id);
+        $schools=$em->getRepository("BackReferentielBundle:School")->findAll();
+        $form=$this->createForm(new SchoolType(), $school);
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
             $form->submit($request);
             if($form->isValid())
             {
-                $university=$form->getData();
-                $em->persist($university);
+                $school=$form->getData();
+                $em->persist($school);
                 $em->flush();
-                $session->getFlashBag()->add('success', "Your university has been added successfully");
-                return $this->redirect($this->generateUrl("university"));
+                $session->getFlashBag()->add('success', "Your school has been added successfully");
+                return $this->redirect($this->generateUrl("school"));
             }
         }
-        return $this->render('BackReferentielBundle:Ref:university.html.twig', array(
+        return $this->render('BackReferentielBundle:Ref:school.html.twig', array(
                     'form'       =>$form->createView(),
-                    'university' =>$university,
-                    'universitys'=>$universitys
+                    'school' =>$school,
+                    'schools'=>$schools
         ));
     }
 
-    public function deleteUniversityAction(University $university)
+    public function deleteSchoolAction(School $school)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
         try
         {
-            $em->remove($university);
+            $em->remove($school);
             $em->flush();
-            $session->getFlashBag()->add('success', " Your university has been successfully removed ");
+            $session->getFlashBag()->add('success', " Your school has been successfully removed ");
         }
         catch(\Exception $ex)
         {
-            $session->getFlashBag()->add('danger', 'This university is used by another table ');
+            $session->getFlashBag()->add('danger', 'This school is used by another table ');
         }
-        return $this->redirect($this->generateUrl("university"));
+        return $this->redirect($this->generateUrl("school"));
     }
 
     public function administratorAction($id)

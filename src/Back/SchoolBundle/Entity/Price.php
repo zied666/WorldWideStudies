@@ -51,6 +51,13 @@ class Price
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="prices")
      */
     protected $course;
+    
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="fix", type="boolean", nullable=true)
+     */
+    private $fix;
 
     /**
      * @ORM\ManyToOne(targetEntity="Room", inversedBy="prices")
@@ -191,5 +198,36 @@ class Price
     public function getRoom()
     {
         return $this->room;
+    }
+
+    /**
+     * Set fix
+     *
+     * @param boolean $fix
+     * @return Price
+     */
+    public function setFix($fix)
+    {
+        $this->fix = $fix;
+
+        return $this;
+    }
+
+    /**
+     * Get fix
+     *
+     * @return boolean 
+     */
+    public function getFix()
+    {
+        return $this->fix;
+    }
+    
+    public function shoxFix()
+    {
+        if($this->fix)
+            return 'Price Fix';
+        else
+            return 'Per Week';
     }
 }

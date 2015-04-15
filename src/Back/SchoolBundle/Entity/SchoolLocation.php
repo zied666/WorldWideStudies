@@ -8,10 +8,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * School
  *
- * @ORM\Table(name="wws_school")
+ * @ORM\Table(name="wws_school_location")
  * @ORM\Entity
  */
-class School
+class SchoolLocation
 {
 
     /**
@@ -81,25 +81,25 @@ class School
     private $image;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\City", inversedBy="schools")
+     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\City", inversedBy="schoolLocations")
      * @Assert\NotNull()
      */
     protected $city ;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\University", inversedBy="schools")
+     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\School", inversedBy="schoolLocations")
      * @Assert\NotNull()
      */
-    protected $university ;
+    protected $school ;
     
     /**
-     * @ORM\OneToMany(targetEntity="Course", mappedBy="school")
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="schoolLocation")
      * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $courses;
     
     /**
-     * @ORM\OneToMany(targetEntity="Accommodation", mappedBy="school")
+     * @ORM\OneToMany(targetEntity="Accommodation", mappedBy="schoolLocation")
      * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $accommodations;
@@ -308,30 +308,6 @@ class School
     }
 
     /**
-     * Set university
-     *
-     * @param \Back\ReferentielBundle\Entity\University $university
-     * @return School
-     */
-    public function setUniversity(\Back\ReferentielBundle\Entity\University $university = null)
-    {
-        $this->university = $university;
-
-        return $this;
-    }
-
-    /**
-     * Get university
-     *
-     * @return \Back\ReferentielBundle\Entity\University 
-     */
-    public function getUniversity()
-    {
-        return $this->university;
-    }
-
-
-    /**
      * Set enabled
      *
      * @param boolean $enabled
@@ -445,5 +421,28 @@ class School
     public function getAccommodations()
     {
         return $this->accommodations;
+    }
+
+    /**
+     * Set school
+     *
+     * @param \Back\ReferentielBundle\Entity\School $school
+     * @return SchoolLocation
+     */
+    public function setSchool(\Back\ReferentielBundle\Entity\School $school = null)
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    /**
+     * Get school
+     *
+     * @return \Back\ReferentielBundle\Entity\School 
+     */
+    public function getSchool()
+    {
+        return $this->school;
     }
 }

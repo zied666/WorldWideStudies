@@ -5,12 +5,12 @@ namespace Back\ReferentielBundle\Entity ;
 use Doctrine\ORM\Mapping as ORM ;
 
 /**
- * University
+ * School
  *
- * @ORM\Table(name="wws_university")
+ * @ORM\Table(name="wws_school")
  * @ORM\Entity
  */
-class University
+class School
 {
 
     /**
@@ -36,9 +36,9 @@ class University
     private $image ;
     
     /**
-     * @ORM\OneToMany(targetEntity="Back\SchoolBundle\Entity\School", mappedBy="university")
+     * @ORM\OneToMany(targetEntity="Back\SchoolBundle\Entity\SchoolLocation", mappedBy="school")
      */
-    protected $schools;
+    protected $schoolLocations;
 
     /**
      * Get id
@@ -54,7 +54,7 @@ class University
      * Set name
      *
      * @param string $name
-     * @return University
+     * @return School
      */
     public function setName($name)
     {
@@ -78,7 +78,7 @@ class University
      * Set image
      *
      * @param \Back\ReferentielBundle\Entity\Media $image
-     * @return University
+     * @return School
      */
     public function setImage(\Back\ReferentielBundle\Entity\Media $image)
     {
@@ -96,47 +96,7 @@ class University
     {
         return $this->image;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->schools = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add schools
-     *
-     * @param \Back\SchoolBundle\Entity\School $schools
-     * @return University
-     */
-    public function addSchool(\Back\SchoolBundle\Entity\School $schools)
-    {
-        $this->schools[] = $schools;
-
-        return $this;
-    }
-
-    /**
-     * Remove schools
-     *
-     * @param \Back\SchoolBundle\Entity\School $schools
-     */
-    public function removeSchool(\Back\SchoolBundle\Entity\School $schools)
-    {
-        $this->schools->removeElement($schools);
-    }
-
-    /**
-     * Get schools
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSchools()
-    {
-        return $this->schools;
-    }
-    
+   
     /**
      * to string
      * @return string 
@@ -144,5 +104,45 @@ class University
     public function __toString()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->schoolLocations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add schoolLocations
+     *
+     * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocations
+     * @return School
+     */
+    public function addSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocations)
+    {
+        $this->schoolLocations[] = $schoolLocations;
+
+        return $this;
+    }
+
+    /**
+     * Remove schoolLocations
+     *
+     * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocations
+     */
+    public function removeSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocations)
+    {
+        $this->schoolLocations->removeElement($schoolLocations);
+    }
+
+    /**
+     * Get schoolLocations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchoolLocations()
+    {
+        return $this->schoolLocations;
     }
 }

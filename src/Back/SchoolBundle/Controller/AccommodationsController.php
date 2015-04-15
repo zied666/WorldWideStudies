@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityRepository;
 use Back\SchoolBundle\Entity\Accommodation;
 use Back\SchoolBundle\Form\AccommodationType;
-use Back\SchoolBundle\Entity\School;
+use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Entity\Room;
 use Back\SchoolBundle\Form\RoomType;
 use Back\SchoolBundle\Entity\Price;
@@ -16,12 +16,12 @@ use Back\SchoolBundle\Form\PriceType;
 class AccommodationsController extends Controller
 {
 
-    public function listAction(School $school)
+    public function listAction(SchoolLocation $schoolLocation)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
         $accommodation=new Accommodation();
-        $accommodation->setSchool($school);
+        $accommodation->setSchoolLocation($schoolLocation);
         $form=$this->createForm(new AccommodationType(), $accommodation);
         $request=$this->getRequest();
         if($request->isMethod("POST"))
@@ -33,12 +33,12 @@ class AccommodationsController extends Controller
                 $em->persist($accommodation);
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your accommodation has been added successfully");
-                return $this->redirect($this->generateUrl("list_accommodations", array( 'id'=>$school->getId() )));
+                return $this->redirect($this->generateUrl("list_accommodations", array( 'id'=>$schoolLocation->getId() )));
             }
         }
         return $this->render("BackSchoolBundle:accommodations:list.html.twig", array(
                     'form'  =>$form->createView(),
-                    'school'=>$school,
+                    'school'=>$schoolLocation,
         ));
     }
 
@@ -56,14 +56,14 @@ class AccommodationsController extends Controller
         {
             $session->getFlashBag()->add('danger', 'This accommodation is used by another table ');
         }
-        return $this->redirect($this->generateUrl("list_accommodations", array( 'id'=>$accommodation->getSchool()->getId() )));
+        return $this->redirect($this->generateUrl("list_accommodations", array( 'id'=>$accommodation->getSchoolLocation()->getId() )));
     }
 
-    public function editAccommodationsAction(School $school, Accommodation $accommodation)
+    public function editAccommodationsAction(SchoolLocation $schoolLocation, Accommodation $accommodation)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
-        $accommodation->setSchool($school);
+        $accommodation->setSchoolLocation($schoolLocation);
         $form=$this->createForm(new AccommodationType(), $accommodation);
         $request=$this->getRequest();
         if($request->isMethod("POST"))
@@ -76,19 +76,19 @@ class AccommodationsController extends Controller
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your accommodation has been added successfully");
                 return $this->redirect($this->generateUrl("list_accommodations", array(
-                                    'id'           =>$school->getId(),
+                                    'id'           =>$schoolLocation->getId(),
                                     'accommodation'=>$accommodation->getId()
                 )));
             }
         }
         return $this->render("BackSchoolBundle:accommodations:edit.html.twig", array(
                     'form'         =>$form->createView(),
-                    'school'       =>$school,
+                    'school'       =>$schoolLocation,
                     'accommodation'=>$accommodation,
         ));
     }
 
-    public function roomsAction(School $school, Accommodation $accommodation, $id2)
+    public function roomsAction(SchoolLocation $schoolLocation, Accommodation $accommodation, $id2)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
@@ -108,14 +108,14 @@ class AccommodationsController extends Controller
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your room has been added successfully");
                 return $this->redirect($this->generateUrl("rooms_accommodations", array(
-                                    'id'           =>$school->getId(),
+                                    'id'           =>$schoolLocation->getId(),
                                     'accommodation'=>$accommodation->getId()
                 )));
             }
         }
         return $this->render("BackSchoolBundle:accommodations:rooms.html.twig", array(
                     'form'         =>$form->createView(),
-                    'school'       =>$school,
+                    'school'       =>$schoolLocation,
                     'accommodation'=>$accommodation,
                     'room'         =>$room,
         ));
@@ -136,12 +136,12 @@ class AccommodationsController extends Controller
             $session->getFlashBag()->add('danger', 'This room is used by another table ');
         }
         return $this->redirect($this->generateUrl("rooms_accommodations", array(
-                            'id'           =>$room->getAccommodation()->getSchool()->getId(),
+                            'id'           =>$room->getAccommodation()->getSchoolLocation()->getId(),
                             'accommodation'=>$room->getAccommodation()->getId()
         )));
     }
 
-    public function priceAction(School $school, Accommodation $accommodation)
+    public function priceAction(SchoolLocation $schoolLocation, Accommodation $accommodation)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
@@ -170,7 +170,7 @@ class AccommodationsController extends Controller
                     $em->flush();
                     $session->getFlashBag()->add('success', "Your price has been added successfully");
                     return $this->redirect($this->generateUrl("price_accommodations", array(
-                                        'id'           =>$school->getId(),
+                                        'id'           =>$schoolLocation->getId(),
                                         'accommodation'=>$accommodation->getId()
                     )));
                 }
@@ -180,7 +180,7 @@ class AccommodationsController extends Controller
         }
         return $this->render("BackSchoolBundle:accommodations:prices.html.twig", array(
                     'form'         =>$form->createView(),
-                    'school'       =>$school,
+                    'school'       =>$schoolLocation,
                     'accommodation'=>$accommodation,
         ));
     }
@@ -200,7 +200,7 @@ class AccommodationsController extends Controller
             $session->getFlashBag()->add('danger', 'This room is used by another table ');
         }
         return $this->redirect($this->generateUrl("price_accommodations", array(
-                            'id'           =>$price->getRoom()->getAccommodation()->getSchool()->getId(),
+                            'id'           =>$price->getRoom()->getAccommodation()->getSchoolLocation()->getId(),
                             'accommodation'=>$price->getRoom()->getAccommodation()->getId()
         )));
     }

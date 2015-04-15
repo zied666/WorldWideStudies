@@ -1,5 +1,5 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}Schools{% endblock %}
+{% block title %}School locations{% endblock %}
 {% block body %}
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
@@ -11,7 +11,7 @@
                             <th>Photo</th>
                             <th>Name</th>
                             <th>City</th>
-                            <th>University</th>
+                            <th>School</th>
                             <th>Note</th>
                             <th>Reviews</th>
                             <th>Courses</th>
@@ -31,7 +31,7 @@
                                     {% endfor %}
                                 </td>
                                 <td>{{ school.city.country.code }}, {{ school.city }}</td>
-                                <td>{{ school.university }}</td>
+                                <td>{{ school.school }}</td>
                                 <td>{{ school.note }}/5</td>
                                 <td>{{ school.reviews }} reviews</td>
                                 <td>{{ school.courses|length }}</td>

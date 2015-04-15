@@ -39,7 +39,7 @@
                         <i class="ti-home"></i>
                     </div>
                     <div class="item-inner">
-                        <span class="title"> Schools </span><i class="icon-arrow"></i>
+                        <span class="title"> School Location </span><i class="icon-arrow"></i>
                     </div>
                 </div>
             </a>
@@ -51,7 +51,7 @@
                 </li>
                 <li {% if app.request.get('_route')=='add_school' %}class="active"{% endif %}>
                     <a href="{{ path('add_school') }}">
-                        <span class="title">New School</span>
+                        <span class="title">New School Location</span>
                     </a>
                 </li>
             </ul>
@@ -71,32 +71,32 @@
             <ul class="sub-menu">
                 <li {% if app.request.get('_route')=='language' %}class="active"{% endif %}>
                     <a href="{{ path('language') }}">
-                        <span class="title">Language</span>
+                        <span class="title">Language courses</span>
                     </a>
                 </li>
                 <li {% if app.request.get('_route')=='program' %}class="active"{% endif %}>
                     <a href="{{ path('program') }}">
-                        <span class="title">Program</span>
+                        <span class="title">Patgway programs</span>
                     </a>
                 </li>
                 <li {% if app.request.get('_route')=='country' %}class="active"{% endif %}>
                     <a href="{{ path('country') }}">
-                        <span class="title">Country</span>
+                        <span class="title">Countries</span>
                     </a>
                 </li>
                 <li {% if app.request.get('_route')=='city' %}class="active"{% endif %}>
                     <a href="{{ path('city') }}">
-                        <span class="title">City</span>
+                        <span class="title">Cities</span>
                     </a>
                 </li>
-                <li {% if app.request.get('_route')=='university' %}class="active"{% endif %}>
-                    <a href="{{ path('university') }}">
-                        <span class="title">University</span>
+                <li {% if app.request.get('_route')=='school' %}class="active"{% endif %}>
+                    <a href="{{ path('school') }}">
+                        <span class="title">Schools</span>
                     </a>
                 </li>
                 <li {% if app.request.get('_route')=='administrator' %}class="active"{% endif %}>
                     <a href="{{ path('administrator') }}">
-                        <span class="title">Administrator</span>
+                        <span class="title">Administrators</span>
                     </a>
                 </li>
             </ul>

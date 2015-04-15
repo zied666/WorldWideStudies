@@ -30,10 +30,10 @@ class Course
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="School", inversedBy="courses")
+     * @ORM\ManyToOne(targetEntity="SchoolLocation", inversedBy="courses")
      * @Assert\NotNull()
      */
-    protected $school;
+    protected $schoolLocation;
     
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\Language")
@@ -88,29 +88,6 @@ class Course
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set school
-     *
-     * @param \Back\SchoolBundle\Entity\School $school
-     * @return Course
-     */
-    public function setSchool(\Back\SchoolBundle\Entity\School $school = null)
-    {
-        $this->school = $school;
-
-        return $this;
-    }
-
-    /**
-     * Get school
-     *
-     * @return \Back\SchoolBundle\Entity\School 
-     */
-    public function getSchool()
-    {
-        return $this->school;
     }
 
     /**
@@ -235,5 +212,28 @@ class Course
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * Set schoolLocation
+     *
+     * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocation
+     * @return Course
+     */
+    public function setSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocation = null)
+    {
+        $this->schoolLocation = $schoolLocation;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolLocation
+     *
+     * @return \Back\SchoolBundle\Entity\SchoolLocation 
+     */
+    public function getSchoolLocation()
+    {
+        return $this->schoolLocation;
     }
 }

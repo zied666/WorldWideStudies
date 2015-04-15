@@ -37,10 +37,10 @@ class Accommodation
     private $description;
     
     /**
-     * @ORM\ManyToOne(targetEntity="School", inversedBy="accommodations")
+     * @ORM\ManyToOne(targetEntity="SchoolLocation", inversedBy="accommodations")
      * @Assert\NotNull()
      */
-    protected $school;
+    protected $schoolLocation;
     
     /**
      * @ORM\OneToMany(targetEntity="Room", mappedBy="accommodation")
@@ -106,28 +106,6 @@ class Accommodation
     }
 
     /**
-     * Set school
-     *
-     * @param \Back\SchoolBundle\Entity\School $school
-     * @return Accommodation
-     */
-    public function setSchool(\Back\SchoolBundle\Entity\School $school = null)
-    {
-        $this->school = $school;
-
-        return $this;
-    }
-
-    /**
-     * Get school
-     *
-     * @return \Back\SchoolBundle\Entity\School 
-     */
-    public function getSchool()
-    {
-        return $this->school;
-    }
-    /**
      * Constructor
      */
     public function __construct()
@@ -181,5 +159,28 @@ class Accommodation
             $nbr+=count($room->getPrices());
         }
         return $nbr;
+    }
+
+    /**
+     * Set schoolLocation
+     *
+     * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocation
+     * @return Accommodation
+     */
+    public function setSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocation = null)
+    {
+        $this->schoolLocation = $schoolLocation;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolLocation
+     *
+     * @return \Back\SchoolBundle\Entity\SchoolLocation 
+     */
+    public function getSchoolLocation()
+    {
+        return $this->schoolLocation;
     }
 }

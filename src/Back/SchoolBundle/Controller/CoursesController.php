@@ -4,7 +4,7 @@ namespace Back\SchoolBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Back\SchoolBundle\Entity\School;
+use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Entity\Course;
 use Back\SchoolBundle\Form\CourseType;
 use Back\SchoolBundle\Entity\StartDate;
@@ -15,12 +15,12 @@ use Back\SchoolBundle\Form\PriceType;
 class CoursesController extends Controller
 {
 
-    public function listCoursesAction(School $school)
+    public function listCoursesAction(SchoolLocation $schoolLocation)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
         $course=new Course();
-        $course->setSchool($school);
+        $course->setSchoolLocation($schoolLocation);
         $form=$this->createForm(new CourseType(), $course);
         $request=$this->getRequest();
         if($request->isMethod("POST"))
@@ -32,12 +32,12 @@ class CoursesController extends Controller
                 $em->persist($course);
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your course has been added successfully");
-                return $this->redirect($this->generateUrl("list_courses", array( 'id'=>$school->getId() )));
+                return $this->redirect($this->generateUrl("list_courses", array( 'id'=>$schoolLocation->getId() )));
             }
         }
         return $this->render("BackSchoolBundle:courses:list.html.twig", array(
                     'form'  =>$form->createView(),
-                    'school'=>$school,
+                    'school'=>$schoolLocation,
         ));
     }
 
@@ -55,10 +55,10 @@ class CoursesController extends Controller
         {
             $session->getFlashBag()->add('danger', 'This course is used by another table ');
         }
-        return $this->redirect($this->generateUrl("list_courses", array( 'id'=>$course->getSchool()->getId() )));
+        return $this->redirect($this->generateUrl("list_courses", array( 'id'=>$course->getSchoolLocation()->getId() )));
     }
 
-    public function editCoursesAction(School $school, Course $course)
+    public function editCoursesAction(SchoolLocation $schoolLocation, Course $course)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
@@ -74,19 +74,19 @@ class CoursesController extends Controller
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your course has been edited successfully");
                 return $this->redirect($this->generateUrl("edit_courses", array(
-                                    'id'    =>$school->getId(),
+                                    'id'    =>$schoolLocation->getId(),
                                     'course'=>$course->getId(),
                 )));
             }
         }
         return $this->render("BackSchoolBundle:courses:edit.html.twig", array(
                     'form'  =>$form->createView(),
-                    'school'=>$school,
+                    'school'=>$schoolLocation,
                     'course'=>$course,
         ));
     }
 
-    public function startDateAction(School $school, Course $course)
+    public function startDateAction(SchoolLocation $schoolLocation, Course $course)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
@@ -110,14 +110,14 @@ class CoursesController extends Controller
                 else
                     $session->getFlashBag()->add('danger', "this date already exists");
                 return $this->redirect($this->generateUrl("startdate_courses", array(
-                                    'id'    =>$school->getId(),
+                                    'id'    =>$schoolLocation->getId(),
                                     'course'=>$course->getId(),
                 )));
             }
         }
         return $this->render("BackSchoolBundle:courses:startDates.html.twig", array(
                     'form'  =>$form->createView(),
-                    'school'=>$school,
+                    'school'=>$schoolLocation,
                     'course'=>$course,
         ));
     }
@@ -137,12 +137,12 @@ class CoursesController extends Controller
             $session->getFlashBag()->add('danger', 'This date is used by another table ');
         }
         return $this->redirect($this->generateUrl("startdate_courses", array(
-                            'id'    =>$startDate->getCourse()->getSchool()->getId(),
+                            'id'    =>$startDate->getCourse()->getSchoolLocation()->getId(),
                             'course'=>$startDate->getCourse()->getId()
         )));
     }
 
-    public function priceAction(School $school, Course $course)
+    public function priceAction(SchoolLocation $schoolLocation, Course $course)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
@@ -162,7 +162,7 @@ class CoursesController extends Controller
                     $em->flush();
                     $session->getFlashBag()->add('success', "Your price has been added successfully");
                     return $this->redirect($this->generateUrl("price_courses", array(
-                                        'id'    =>$school->getId(),
+                                        'id'    =>$schoolLocation->getId(),
                                         'course'=>$course->getId(),
                     )));
                 }
@@ -172,7 +172,7 @@ class CoursesController extends Controller
         }
         return $this->render("BackSchoolBundle:courses:prices.html.twig", array(
                     'form'  =>$form->createView(),
-                    'school'=>$school,
+                    'school'=>$schoolLocation,
                     'course'=>$course,
         ));
     }
@@ -209,7 +209,7 @@ class CoursesController extends Controller
             $session->getFlashBag()->add('danger', 'This price is used by another table ');
         }
         return $this->redirect($this->generateUrl("price_courses", array(
-                            'id'    =>$price->getCourse()->getSchool()->getId(),
+                            'id'    =>$price->getCourse()->getSchoolLocation()->getId(),
                             'course'=>$price->getCourse()->getId()
         )));
     }

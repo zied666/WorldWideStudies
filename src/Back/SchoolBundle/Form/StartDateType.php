@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class StartDateType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -15,17 +16,20 @@ class StartDateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date')
+                ->add('date', 'date', array(
+                    'widget'=>'single_text',
+                    'format'=>'yyyy-MM-dd',
+        ));
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\SchoolBundle\Entity\StartDate'
+            'data_class'=>'Back\SchoolBundle\Entity\StartDate'
         ));
     }
 
@@ -36,4 +40,5 @@ class StartDateType extends AbstractType
     {
         return 'back_schoolbundle_startdate';
     }
+
 }

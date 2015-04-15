@@ -42,9 +42,9 @@ class City
     private $image ;
     
     /**
-     * @ORM\OneToMany(targetEntity="Back\SchoolBundle\Entity\School", mappedBy="city")
+     * @ORM\OneToMany(targetEntity="Back\SchoolBundle\Entity\SchoolLocation", mappedBy="city")
      */
-    protected $schools;
+    protected $schoolLocations;
 
     /**
      * Get id
@@ -129,45 +129,44 @@ class City
     {
         return $this->image ;
     }
-
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->schools = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->schoolLocations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add schools
+     * Add schoolLocations
      *
-     * @param \Back\SchoolBundle\Entity\School $schools
+     * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocations
      * @return City
      */
-    public function addSchool(\Back\SchoolBundle\Entity\School $schools)
+    public function addSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocations)
     {
-        $this->schools[] = $schools;
+        $this->schoolLocations[] = $schoolLocations;
 
         return $this;
     }
 
     /**
-     * Remove schools
+     * Remove schoolLocations
      *
-     * @param \Back\SchoolBundle\Entity\School $schools
+     * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocations
      */
-    public function removeSchool(\Back\SchoolBundle\Entity\School $schools)
+    public function removeSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocations)
     {
-        $this->schools->removeElement($schools);
+        $this->schoolLocations->removeElement($schoolLocations);
     }
 
     /**
-     * Get schools
+     * Get schoolLocations
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getSchools()
+    public function getSchoolLocations()
     {
-        return $this->schools;
+        return $this->schoolLocations;
     }
 }

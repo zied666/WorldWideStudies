@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface ;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface ;
 use Back\ReferentielBundle\Form\MediaType ;
 
-class UniversityType extends AbstractType
+class SchoolType extends AbstractType
 {
 
     /**
@@ -28,7 +28,7 @@ class UniversityType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array (
-            'data_class' => 'Back\ReferentielBundle\Entity\University'
+            'data_class' => 'Back\ReferentielBundle\Entity\School'
         )) ;
     }
 
@@ -37,7 +37,7 @@ class UniversityType extends AbstractType
      */
     public function getName()
     {
-        return 'back_referentielbundle_university' ;
+        return 'back_referentielbundle_school' ;
     }
 
 }
