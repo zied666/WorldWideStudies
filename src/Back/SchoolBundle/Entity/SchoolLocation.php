@@ -105,6 +105,12 @@ class SchoolLocation
     protected $accommodations;
     
     /**
+     * @ORM\OneToMany(targetEntity="Extra", mappedBy="schoolLocation")
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    protected $extras;
+    
+    /**
      * @var boolean
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
@@ -444,5 +450,38 @@ class SchoolLocation
     public function getSchool()
     {
         return $this->school;
+    }
+
+    /**
+     * Add extras
+     *
+     * @param \Back\SchoolBundle\Entity\Extra $extras
+     * @return SchoolLocation
+     */
+    public function addExtra(\Back\SchoolBundle\Entity\Extra $extras)
+    {
+        $this->extras[] = $extras;
+
+        return $this;
+    }
+
+    /**
+     * Remove extras
+     *
+     * @param \Back\SchoolBundle\Entity\Extra $extras
+     */
+    public function removeExtra(\Back\SchoolBundle\Entity\Extra $extras)
+    {
+        $this->extras->removeElement($extras);
+    }
+
+    /**
+     * Get extras
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExtras()
+    {
+        return $this->extras;
     }
 }

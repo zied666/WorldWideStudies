@@ -11,6 +11,8 @@ use Back\SchoolBundle\Entity\StartDate;
 use Back\SchoolBundle\Form\StartDateType;
 use Back\SchoolBundle\Entity\Price;
 use Back\SchoolBundle\Form\PriceType;
+use Back\SchoolBundle\Form\GenerateDatesType;
+use Symfony\Component\HttpFoundation\Response;
 
 class CoursesController extends Controller
 {
@@ -93,6 +95,7 @@ class CoursesController extends Controller
         $startDate=new StartDate();
         $startDate->setCourse($course);
         $form=$this->createForm(new StartDateType(), $startDate);
+        $form2=$this->createForm(new GenerateDatesType());
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
@@ -117,9 +120,63 @@ class CoursesController extends Controller
         }
         return $this->render("BackSchoolBundle:courses:startDates.html.twig", array(
                     'form'  =>$form->createView(),
+                    'form2' =>$form2->createView(),
                     'school'=>$schoolLocation,
                     'course'=>$course,
         ));
+    }
+
+    public function GenerateDatesAction(Course $course)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $form=$this->createForm(new GenerateDatesType());
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            $data=$form->getData();
+            if($data['startDate']->format('Y-m-d') < $data['endDate']->format('Y-m-d'))
+            {
+                $dates=$this->getDatesBetween($data['startDate']->format('Y-m-d'), $data['endDate']->format('Y-m-d'));
+                $i=0;
+                foreach($dates as $date)
+                {
+                    $jour=new \DateTime($date);
+                    if(
+                            ($jour->format('l') == 'Monday' && $data['monday']) ||
+                            ($jour->format('l') == 'Tuesday' && $data['tuesday']) ||
+                            ($jour->format('l') == 'Wednesday' && $data['wednesday']) ||
+                            ($jour->format('l') == 'Thursday' && $data['thursday']) ||
+                            ($jour->format('l') == 'Friday' && $data['friday']) ||
+                            ($jour->format('l') == 'Saturday' && $data['saturday'])
+                    )
+                    {
+                        $verif=$em->getRepository("BackSchoolBundle:StartDate")->findBy(array( 'course'=>$course, 'date'=>$jour ));
+                        if(count($verif) == 0)
+                        {
+                            $i++;
+                            $startDate=new StartDate();
+                            $startDate->setCourse($course);
+                            $startDate->setDate($jour);
+                            $em->persist($startDate);
+                        }
+                    }
+                }
+                if($i != 0)
+                {
+                    $em->flush();
+                    $session->getFlashBag()->add('success', "$i dates was added successfully");
+                }
+            }
+            else
+                $session->getFlashBag()->add('danger', "this date already exists");
+
+            return $this->redirect($this->generateUrl("startdate_courses", array(
+                                'id'    =>$course->getSchoolLocation()->getId(),
+                                'course'=>$course->getId()
+            )));
+        }
     }
 
     public function deleteStartDateAction(StartDate $startDate)
@@ -211,6 +268,58 @@ class CoursesController extends Controller
         return $this->redirect($this->generateUrl("price_courses", array(
                             'id'    =>$price->getCourse()->getSchoolLocation()->getId(),
                             'course'=>$price->getCourse()->getId()
+        )));
+    }
+
+    function getDatesBetween($dStart, $dEnd)
+    {
+        $iStart=strtotime($dStart);
+        $iEnd=strtotime($dEnd);
+        if(false === $iStart || false === $iEnd)
+        {
+            return false;
+        }
+        $aStart=explode('-', $dStart);
+        $aEnd=explode('-', $dEnd);
+        if(count($aStart) !== 3 || count($aEnd) !== 3)
+        {
+            return false;
+        }
+        if(false === checkdate($aStart[1], $aStart[2], $aStart[0]) || false === checkdate($aEnd[1], $aEnd[2], $aEnd[0]) || $iEnd <= $iStart)
+        {
+            return false;
+        }
+        for($i=$iStart; $i < $iEnd + 86400; $i=strtotime('+1 day', $i))
+        {
+            $sDateToArr=strftime('%Y-%m-%d', $i);
+            $sYear=substr($sDateToArr, 0, 4);
+            $sMonth=substr($sDateToArr, 5, 2);
+            //$aDates[$sYear][$sMonth][]=$sDateToArr;
+            $aDates[]=$sDateToArr;
+        }
+        if(isset($aDates) && !empty($aDates))
+        {
+            return $aDates;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function deleteAllDatesAction(Course $course)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        foreach($course->getStartDates() as $date)
+        {
+            $em->remove($date);
+        }
+        $em->flush();
+        $session->getFlashBag()->add('success', "All dates was deleted successfully");
+        return $this->redirect($this->generateUrl("startdate_courses", array(
+                            'id'    =>$course->getSchoolLocation()->getId(),
+                            'course'=>$course->getId()
         )));
     }
 

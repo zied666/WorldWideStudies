@@ -1,0 +1,60 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}{{ school.name }}{% endblock %}
+{% block body %}
+    <div class="tabbable">
+        {% include 'BackSchoolBundle:school:menu.html.twig' %}
+        <div class="tab-content">
+            <div class="container-fluid container-fullw bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{{ path('list_extras',{'id':school.id,'extra':extra.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                                {{ formulaire.input("col-md-2","Price",form.price,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-2","Start date",form.startDate,false) }}
+                                {{ formulaire.input("col-md-2","End date",form.endDate,false) }}
+                                {{ formulaire.input("col-md-2","",form.perWeek,false) }}
+                                {{ formulaire.input("col-md-2","",form.obligatory,false) }}
+                            </div>
+                            {{ macro.enregistrer }}
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <h5 class="over-title margin-bottom-15">Extras <span class="text-bold">list</span></h5>
+                        <table class="table table-hover" id="sample-table-1">
+                            <thead>
+                                <tr>
+                                    <th class="center">Name</th>
+                                    <th class="center">Price</th>
+                                    <th class="center">Date</th>
+                                    <th class="center">Per Week</th>
+                                    <th class="center">Obligatory</th>
+                                    <th class="center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for extra in school.extras %}
+                                    <tr>
+                                        <td class="center">{{ extra.name }}</td>
+                                        <td class="center">{{ extra.price }}</td>
+                                        <td class="center">{% if extra.startDate is not null %}{{ extra.startDate|date('d/m/Y') }} to {{ extra.endDate|date('d/m/Y') }}{% endif %}</td>
+                                        <td class="center">{% if extra.perWeek %}Yes{% else %}No{% endif %}</td>
+                                        <td class="center">{% if extra.obligatory %}Yes{% else %}No{% endif %}</td>
+                                        <td class="center">
+                                            {{ macro.edit(path('list_extras',{'id':school.id,'extra':extra.id})) }}
+                                            {{ macro.delete(path('delete_extras',{'id':extra.id})) }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -3,52 +3,94 @@
 {% block body %}
     <div class="tabbable">
         {% include 'BackSchoolBundle:school:menu.html.twig' %}
+        {% include 'BackSchoolBundle:courses:menu.html.twig' %}
         <div class="tab-content">
-            <div class="tabbable">
-                {% include 'BackSchoolBundle:courses:menu.html.twig' %}
-                <div class="tab-content">
-                    <div class="container-fluid container-fullw bg-white">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <form action="{{ path('startdate_courses',{'id':school.id,'course':course.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
-                                    {{ form_widget(form._token) }}
-                                    <div class="row">
-                                        {{ formulaire.input("col-md-3","Start date",form.date,true) }}
-                                    </div>
-                                    {{ macro.enregistrer }}
-                                </form>
+            <div class="container-fluid container-fullw bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-o pull-right" data-toggle="modal" data-target=".bs-example-modal-lg">
+                            Generates a list of dates
+                        </button>
+                        <form action="{{ path('startdate_courses',{'id':school.id,'course':course.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                {{ formulaire.input("col-md-3","Start date",form.date,true) }}
                             </div>
-                            <div class="col-md-12">
-                                <h5 class="over-title margin-bottom-15">Start dates <span class="text-bold">list</span></h5>
-                                <table class="table table-hover" id="sample-table-1">
-                                    <thead>
-                                        <tr>
-                                            <th class="center">Date</th>
-                                            <th class="center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for startDate in course.startDates %}
-                                            <tr>
-                                                <td class="center">
-                                                    {% if "now"|date("Y-m-d") >=  startDate.date|date("Y-m-d") %}
-                                                        <s>{{ startDate.date|date("d/m/Y") }}</s>
-                                                    {% else %}  
-                                                        {{ startDate.date|date("d/m/Y") }}
-                                                    {% endif %}    
-                                                </td>
-                                                <td class="center">
-                                                    {{ macro.delete(path('delete_startdate_courses',{'id':startDate.id})) }}
-                                                </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
+                            {{ macro.enregistrer }}
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <h5 class="over-title margin-bottom-15">Start dates <span class="text-bold">list</span></h5>
 
-                            </div>
-                        </div>
+                        <table class="table table-hover" id="sample-table-1">
+                            <thead>
+                                <tr>
+                                    <th class="center">Date</th>
+                                    <th class="center"> 
+                                        <nav id="cl-effect-1" class="cl-effect-1">
+                                            <a href="{{ path('delete_all_dates',{'id':course.id}) }}"  onclick="javascript:return(confirm('Are you sure you want to delete all lines ??'))">
+                                                Delete All
+                                            </a>
+                                        </nav>
+                                    </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for startDate in course.startDates %}
+                                    <tr>
+                                        <td class="center">
+                                            {% if "now"|date("Y-m-d") >=  startDate.date|date("Y-m-d") %}
+                                    <s>{{ startDate.date|date("l  d/m/Y") }}</s>
+                                    {% else %}  
+                                        {{ startDate.date|date("l  d/m/Y") }}
+                                    {% endif %}    
+                                </td>
+                                <td class="center">
+                                    {{ macro.delete(path('delete_startdate_courses',{'id':startDate.id})) }}
+                                </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="{{ path('generateDate_courses',{'id':course.id}) }}" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Generates a list of dates</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_widget(form2._token) }}
+                        <div class="row">
+                            {{ formulaire.input("col-md-1","",form2.monday,false) }}
+                            {{ formulaire.input("col-md-1","",form2.tuesday,false) }}
+                            {{ formulaire.input("col-md-1","",form2.wednesday,false) }}
+                            {{ formulaire.input("col-md-1","",form2.thursday,false) }}
+                            {{ formulaire.input("col-md-1","",form2.friday,false) }}
+                            {{ formulaire.input("col-md-1","",form2.saturday,false) }}
+                        </div>
+                        <div class="row">
+                            {{ formulaire.input("col-md-3","Start Date",form2.startDate,false) }}
+                            {{ formulaire.input("col-md-3","End Date",form2.endDate,false) }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-o" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Save changes
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

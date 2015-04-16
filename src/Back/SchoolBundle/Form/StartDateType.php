@@ -20,7 +20,6 @@ class StartDateType extends AbstractType
                     'widget'=>'single_text',
                     'format'=>'yyyy-MM-dd',
         ));
-        ;
     }
 
     /**

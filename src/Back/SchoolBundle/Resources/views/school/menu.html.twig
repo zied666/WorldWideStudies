@@ -14,9 +14,9 @@
             Accommodations ({{ school.accommodations|length }})
         </a>
     </li>
-    <li>
-        <a href="">
-            Extras
+    <li {% if app.request.get('_route')in ['list_extras'] %}class="active"{% endif %}>
+        <a href="{{ path('list_extras',{'id':school.id}) }}">
+            Extras ({{ school.extras|length }})
         </a>
     </li>
 </ul>

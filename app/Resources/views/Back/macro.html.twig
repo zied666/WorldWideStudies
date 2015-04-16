@@ -1,6 +1,10 @@
 {% macro edit(path) %}
     <a href="{{ path }}" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="Edit"><i class="fa fa-pencil"></i></a>
-    {% endmacro %}
+{% endmacro %}
+
+{% macro fiche(path) %}
+    <a href="{{ path }}" class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="Edit"><i class="fa fa-building-o"></i></a>
+{% endmacro %}
 
 {% macro delete(path) %}
     <a href="{{ path }}" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="Delete" onclick="javascript:return(confirm('Are you sure you want to delete this line??'))"><i class="fa fa-times fa fa-white"></i></a>

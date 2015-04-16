@@ -1,0 +1,7 @@
+list_extras:
+    path:     /edit/{id}/extras/{extra}
+    defaults: { _controller: BackSchoolBundle:Extras:list,extra:null }
+
+delete_extras:
+    path:     /delete_extra/{id}
+    defaults: { _controller: BackSchoolBundle:Extras:deleteExtra }

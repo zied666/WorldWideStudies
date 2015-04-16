@@ -39,7 +39,7 @@
                                         <td class="center">{{ cours.startDates|length }}</td>
                                         <td class="center">{{ cours.prices|length }}</td>
                                         <td class="center">
-                                            {{ macro.edit(path('edit_courses',{'id':school.id,'course':cours.id})) }}
+                                            {{ macro.fiche(path('edit_courses',{'id':school.id,'course':cours.id})) }}
                                             {{ macro.delete(path('delete_courses',{'id':cours.id})) }}
                                         </td>
                                     </tr>

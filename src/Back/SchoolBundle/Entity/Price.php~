@@ -199,4 +199,35 @@ class Price
     {
         return $this->room;
     }
+
+    /**
+     * Set fix
+     *
+     * @param boolean $fix
+     * @return Price
+     */
+    public function setFix($fix)
+    {
+        $this->fix = $fix;
+
+        return $this;
+    }
+
+    /**
+     * Get fix
+     *
+     * @return boolean 
+     */
+    public function getFix()
+    {
+        return $this->fix;
+    }
+    
+    public function shoxFix()
+    {
+        if($this->fix)
+            return 'Price Fix';
+        else
+            return 'Per Week';
+    }
 }

@@ -9,3 +9,7 @@ CoursesRouting:
 AccommodationsRouting:
     resource: "@BackSchoolBundle/Resources/config/routing/accommodations.yml"
     prefix:   /
+
+ExtrasRouting:
+    resource: "@BackSchoolBundle/Resources/config/routing/extras.yml"
+    prefix:   /

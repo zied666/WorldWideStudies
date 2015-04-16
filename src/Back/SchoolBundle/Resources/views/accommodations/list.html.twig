@@ -38,7 +38,7 @@
                                             {% endfor %}
                                         </td>
                                         <td class="center">
-                                            {{ macro.edit(path('edit_accommodations',{'id':school.id,'accommodation':accommodation.id})) }}
+                                            {{ macro.fiche(path('edit_accommodations',{'id':school.id,'accommodation':accommodation.id})) }}
                                             {{ macro.delete(path('delete_accommodations',{'id':accommodation.id})) }}
                                         </td>
                                     </tr>
