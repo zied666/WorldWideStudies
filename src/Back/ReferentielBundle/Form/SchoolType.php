@@ -18,6 +18,7 @@ class SchoolType extends AbstractType
     {
         $builder
                 ->add('name')
+                ->add('description')
                 ->add('image' , new MediaType())
         ;
     }

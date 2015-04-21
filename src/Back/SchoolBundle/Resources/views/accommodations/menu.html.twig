@@ -9,9 +9,17 @@
             Rooms ({{ accommodation.rooms|length }})
         </a>
     </li>
-    <li {% if app.request.get('_route')=='price_accommodations' %}class="active"{% endif %}>
-        <a href="{{ path('price_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}">
-            Prices ({{ accommodation.getNumberPrice }})
-        </a>
-    </li>
+    {% if school.type==1 %}
+        <li {% if app.request.get('_route')=='price_accommodations' %}class="active"{% endif %}>
+            <a href="{{ path('price_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}">
+                Prices ({{ accommodation.getNumberPrice }})
+            </a>
+        </li>
+    {% else %}
+        <li {% if app.request.get('_route')=='pathway_price_accommodations' %}class="active"{% endif %}>
+            <a href="{{ path('pathway_price_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}">
+                Prices ({{ accommodation.getNumberPrice }})
+            </a>
+        </li>
+    {% endif %}
 </ul>

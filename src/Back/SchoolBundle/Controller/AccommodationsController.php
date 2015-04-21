@@ -12,6 +12,8 @@ use Back\SchoolBundle\Entity\Room;
 use Back\SchoolBundle\Form\RoomType;
 use Back\SchoolBundle\Entity\Price;
 use Back\SchoolBundle\Form\PriceType;
+use Back\SchoolBundle\Entity\PathwayPrice;
+use Back\SchoolBundle\Form\PathwayPriceType;
 
 class AccommodationsController extends Controller
 {
@@ -218,6 +220,65 @@ class AccommodationsController extends Controller
             }
         }
         return true;
+    }
+
+    public function pathwayPriceAction(SchoolLocation $schoolLocation, Accommodation $accommodation)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $price=new PathwayPrice();
+        $form=$this
+                ->createForm(new PathwayPriceType(), $price)
+                ->add('room', "entity", array(
+            'class'        =>'BackSchoolBundle:Room',
+            'query_builder'=>function(EntityRepository $er) use ($accommodation){
+                return $er->createQueryBuilder('r')
+                        ->where('r.accommodation = :id')
+                        ->setParameter('id', $accommodation->getId());
+                ;
+            }
+        ));
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $price=$form->getData();
+                $em->persist($price);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your price has been added successfully");
+                return $this->redirect($this->generateUrl("pathway_price_accommodations", array(
+                                    'id'           =>$schoolLocation->getId(),
+                                    'accommodation'=>$accommodation->getId()
+                )));
+            }
+        }
+        return $this->render("BackSchoolBundle:accommodations:pathway_prices.html.twig", array(
+                    'form'         =>$form->createView(),
+                    'school'       =>$schoolLocation,
+                    'accommodation'=>$accommodation,
+        ));
+    }
+
+    public function deletePathwayPriceAction(PathwayPrice $price)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($price);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your room has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This room is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("pathway_price_accommodations", array(
+                            'id'           =>$price->getRoom()->getAccommodation()->getSchoolLocation()->getId(),
+                            'accommodation'=>$price->getRoom()->getAccommodation()->getId()
+        )));
     }
 
 }

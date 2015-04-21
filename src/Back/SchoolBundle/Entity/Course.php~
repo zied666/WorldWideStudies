@@ -56,6 +56,12 @@ class Course
      * @ORM\OrderBy({"weekStart" = "ASC"})
      */
     protected $prices;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="PathwayPrice", mappedBy="course")
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    protected $pathwayPrices;
 
     /**
      * Get id
@@ -235,5 +241,38 @@ class Course
     public function getSchoolLocation()
     {
         return $this->schoolLocation;
+    }
+
+    /**
+     * Add pathwayPrices
+     *
+     * @param \Back\SchoolBundle\Entity\PathwayPrice $pathwayPrices
+     * @return Course
+     */
+    public function addPathwayPrice(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPrices)
+    {
+        $this->pathwayPrices[] = $pathwayPrices;
+
+        return $this;
+    }
+
+    /**
+     * Remove pathwayPrices
+     *
+     * @param \Back\SchoolBundle\Entity\PathwayPrice $pathwayPrices
+     */
+    public function removePathwayPrice(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPrices)
+    {
+        $this->pathwayPrices->removeElement($pathwayPrices);
+    }
+
+    /**
+     * Get pathwayPrices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPathwayPrices()
+    {
+        return $this->pathwayPrices;
     }
 }

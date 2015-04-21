@@ -11,8 +11,11 @@
                             {{ form_widget(form._token) }}
                             <div class="row">
                                 {{ formulaire.input("col-md-3","Name",form.name,true) }}
-                                {{ formulaire.select2("col-md-3","Language course",form.language,true) }}
-                                {{ formulaire.select2("col-md-3","Pathways programs",form.program,true) }}
+                                {% if school.type == 1 %}
+                                    {{ formulaire.select2("col-md-3","Language course",form.language,true) }}
+                                {% else %}
+                                    {{ formulaire.select2("col-md-3","Pathways programs",form.program,true) }}
+                                {% endif %}
                             </div>
                             {{ macro.enregistrer }}
                         </form>
@@ -23,8 +26,11 @@
                             <thead>
                                 <tr>
                                     <th class="center">Name</th>
-                                    <th class="center">Language course</th>
-                                    <th class="center">Pathways programs</th>
+                                            {% if school.type == 1 %}
+                                            <th class="center">Language course</th>
+                                            {% else %}
+                                            <th class="center">Pathways programs</th>
+                                            {% endif %}
                                     <th class="center">Start Dates</th>
                                     <th class="center">Prices</th>
                                     <th class="center">Action</th>
@@ -34,8 +40,11 @@
                                 {% for cours in school.courses %}
                                     <tr>
                                         <td class="center">{{ cours.name }}</td>
-                                        <td class="center">{{ cours.language }}</td>
-                                        <td class="center">{{ cours.program }}</td>
+                                            {% if school.type == 1 %}
+                                                <td class="center">{{ cours.language }}</td>
+                                            {% else %}
+                                                <td class="center">{{ cours.program }}</td>
+                                            {% endif %}
                                         <td class="center">{{ cours.startDates|length }}</td>
                                         <td class="center">{{ cours.prices|length }}</td>
                                         <td class="center">

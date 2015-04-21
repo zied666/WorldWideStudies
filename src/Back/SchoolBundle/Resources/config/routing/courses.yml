@@ -33,3 +33,11 @@ price_courses:
 delete_price_courses:
     path:     /delete_price/{id}
     defaults: { _controller: BackSchoolBundle:Courses:deletePrice }
+    
+pathway_price_courses:
+    path:     /edit/{id}/courses/{course}/pathway_prices
+    defaults: { _controller: BackSchoolBundle:Courses:pathwayPrice }
+
+delete_pathway_price_courses:
+    path:     /delete_pathway_prices/{id}
+    defaults: { _controller: BackSchoolBundle:Courses:deletePathwayPrice }

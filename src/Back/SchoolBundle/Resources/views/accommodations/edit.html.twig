@@ -12,44 +12,12 @@
                             {{ form_widget(form._token) }}
                             <div class="row">
                                 {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                                {{ formulaire.input("col-md-2","Type",form.typeAccommodation,true) }}
                                 {{ formulaire.input("col-md-4","Description",form.description,true) }}
                             </div>
                             {{ macro.enregistrer }}
                         </form>
                     </div>
-                    {% if false %}
-                        <div class="col-md-12">
-                            <h5 class="over-title margin-bottom-15">Accommodations <span class="text-bold">list</span></h5>
-                            <table class="table table-hover" id="sample-table-1">
-                                <thead>
-                                    <tr>
-                                        <th class="center">Name</th>
-                                        <th class="center">Description</th>
-                                        <th class="center">Rooms</th>
-                                        <th class="center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for accommodation in school.accommodations %}
-                                        <tr>
-                                            <td class="center">{{ accommodation.name }}</td>
-                                            <td class="center">{{ accommodation.description }}</td>
-                                            <td>
-                                                {% for room in accommodation.rooms %}
-                                                    - {{ room.name }}<br>
-                                                {% endfor %}
-                                            </td>
-                                            <td class="center">
-                                                {{ macro.edit(path('edit_accommodations',{'id':school.id,'accommodation':accommodation.id})) }}
-                                                {{ macro.delete(path('delete_accommodations',{'id':accommodation.id})) }}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-
-                        </div>
-                    {% endif %}
                 </div>
             </div>
         </div>

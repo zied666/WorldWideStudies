@@ -19,6 +19,13 @@ delete_school:
     path:     /deleteschool/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:deleteSchool }
 #********************************************************************************************************
+type_accommodation:
+    path:     /type_accomodation/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:typeAccomodation,id:null }
+delete_type_accommodation:
+    path:     /delete_type_accomodation/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteTypeAccomodation, }
+#********************************************************************************************************
 administrator:
     path:     /administrator/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:administrator,id:null }

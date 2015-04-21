@@ -8,14 +8,14 @@
             <div class="container-fluid container-fullw bg-white">
                 <div class="row">
                     <div class="col-md-12">
-                        <form action="{{ path('price_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                        <form action="{{ path('pathway_price_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                             {{ form_widget(form._token) }}
                             <div class="row">
                                 {{ formulaire.select2("col-md-2","Room",form.room,true) }}
-                                {{ formulaire.input("col-md-2","Week start",form.weekStart,true) }}
-                                {{ formulaire.input("col-md-2","Week end",form.weekEnd,true) }}
+                                {{ formulaire.select2("col-md-2","Name",form.name,true) }}
+                                {{ formulaire.input("col-md-2","Start date",form.startDate,true) }}
+                                {{ formulaire.input("col-md-2","End Date",form.endDate,true) }}
                                 {{ formulaire.input("col-md-2","Price",form.price,true) }}
-                                {{ formulaire.input("col-md-2","",form.fix,false) }}
                             </div>
                             {{ macro.enregistrer }}
                         </form>
@@ -26,24 +26,26 @@
                             <thead>
                                 <tr>
                                     <th class="center">Room</th>
-                                    <th class="center">Weeks</th>
+                                    <th class="center">Name</th>
+                                    <th class="center">Start date</th>
+                                    <th class="center">End Date</th>
                                     <th class="center">Price</th>
-                                    <th class="center">State</th>
                                     <th class="center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for room in accommodation.rooms %}
-                                    {% for price in room.prices %}
+                                    {% for price in room.pathwayPrices %}
                                         <tr>
                                             {% if loop.index == 1 %}
-                                                <td class="center" rowspan="{{ room.prices|length }}">{{ room }}</td>
+                                                <td class="center" rowspan="{{ room.pathwayPrices|length }}">{{ room }}</td>
                                             {% endif %}
-                                            <td class="center">{{ price }}</td>
+                                            <td class="center">{{ price.name }}</td>
+                                            <td class="center">{{ price.startDate|date('d/m/Y') }}</td>
+                                            <td class="center">{{ price.endDate|date('d/m/Y') }}</td>
                                             <td class="center">{{ price.price }}</td>
-                                            <td class="center">{{ price.shoxFix }}</td>
                                             <td class="center">
-                                                {{ macro.delete(path('delete_price',{'id':price.id})) }}
+                                                {{ macro.delete(path('delete_pathway_price',{'id':price.id})) }}
                                             </td>
                                         </tr>
                                     {% endfor %}

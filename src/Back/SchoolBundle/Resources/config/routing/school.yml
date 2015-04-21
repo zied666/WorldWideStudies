@@ -21,3 +21,11 @@ edit_school:
 enabled_school:
     path:     /enableUser/{id}
     defaults: { _controller: BackSchoolBundle:School:enableSchool}   
+    
+gallery_school:
+    path:     /gallery/{id}
+    defaults: { _controller: BackSchoolBundle:School:gallery}   
+    
+delete_photo:
+    path:     /deletePhoto/{id}
+    defaults: { _controller: BackSchoolBundle:School:deletePhoto}   

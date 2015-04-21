@@ -79,6 +79,11 @@
                         <span class="title">Patgway programs</span>
                     </a>
                 </li>
+                <li {% if app.request.get('_route')=='type_accommodation' %}class="active"{% endif %}>
+                    <a href="{{ path('type_accommodation') }}">
+                        <span class="title">Type of accommodation</span>
+                    </a>
+                </li>
                 <li {% if app.request.get('_route')=='country' %}class="active"{% endif %}>
                     <a href="{{ path('country') }}">
                         <span class="title">Countries</span>

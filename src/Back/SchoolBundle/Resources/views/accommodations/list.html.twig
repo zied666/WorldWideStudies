@@ -11,6 +11,7 @@
                             {{ form_widget(form._token) }}
                             <div class="row">
                                 {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                                {{ formulaire.select2("col-md-2","Type",form.typeAccommodation,true) }}
                                 {{ formulaire.input("col-md-4","Description",form.description,true) }}
                             </div>
                             {{ macro.enregistrer }}
@@ -22,6 +23,7 @@
                             <thead>
                                 <tr>
                                     <th class="center">Name</th>
+                                    <th class="center">Type</th>
                                     <th class="center">Description</th>
                                     <th class="center">Rooms</th>
                                     <th class="center">Action</th>
@@ -31,6 +33,7 @@
                                 {% for accommodation in school.accommodations %}
                                     <tr>
                                         <td class="center">{{ accommodation.name }}</td>
+                                        <td class="center">{{ accommodation.typeAccommodation }}</td>
                                         <td class="center">{{ accommodation.description }}</td>
                                         <td>
                                             {% for room in accommodation.rooms %}

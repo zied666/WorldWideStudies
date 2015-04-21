@@ -31,9 +31,16 @@ class School
 
     /**
      * @ORM\OneToOne(targetEntity="Media", cascade={"persist","remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $image ;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
     
     /**
      * @ORM\OneToMany(targetEntity="Back\SchoolBundle\Entity\SchoolLocation", mappedBy="school")
@@ -144,5 +151,28 @@ class School
     public function getSchoolLocations()
     {
         return $this->schoolLocations;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return School
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

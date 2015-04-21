@@ -16,6 +16,9 @@ use Back\ReferentielBundle\Entity\Language;
 use Back\ReferentielBundle\Form\LanguageType;
 use Back\ReferentielBundle\Entity\Program;
 use Back\ReferentielBundle\Form\ProgramType;
+use Back\ReferentielBundle\Entity\TypeAccommodation;
+use Back\ReferentielBundle\Form\TypeAccommodationType;
+
 
 class ReferentielController extends Controller
 {
@@ -328,6 +331,54 @@ class ReferentielController extends Controller
             $session->getFlashBag()->add('danger', 'This program is used by another table ');
         }
         return $this->redirect($this->generateUrl("program"));
+    }
+
+    public function typeAccomodationAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($id == null)
+            $typeAccommodation=new TypeAccommodation();
+        else
+            $typeAccommodation=$em->getRepository("BackReferentielBundle:TypeAccommodation")->find($id);
+        $typeAccommodations=$em->getRepository("BackReferentielBundle:TypeAccommodation")->findAll();
+
+        $form=$this->createForm(new TypeAccommodationType(), $typeAccommodation);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $typeAccommodation=$form->getData();
+                $em->persist($typeAccommodation);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your program has been added successfully");
+                return $this->redirect($this->generateUrl("type_accommodation"));
+            }
+        }
+        return $this->render("BackReferentielBundle:Ref:type_accomodation.html.twig", array(
+                    'form'   =>$form->createView(),
+                    'typeAccommodation'=>$typeAccommodation,
+                    'typeAccommodations'=>$typeAccommodations
+        ));
+    }
+
+    public function deleteTypeAccomodationAction(TypeAccommodation $typeAccommodation)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($typeAccommodation);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your type of Accommodation has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This program is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("type_accommodation"));
     }
 
 }

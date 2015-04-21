@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Form\SchoolLocationType;
+use Back\ReferentielBundle\Entity\Media;
+use Back\ReferentielBundle\Form\MediaType;
 
 class SchoolController extends Controller
 {
@@ -23,16 +25,10 @@ class SchoolController extends Controller
             if($form->isValid())
             {
                 $schoolLocation=$form->getData();
-                $Verif=$em->getRepository("BackSchoolBundle:SchoolLocation")->findOneBy(array( 'city'=>$schoolLocation->getCity(), 'school'=>$schoolLocation->getSchool() ));
-                if(!$Verif)
-                {
-                    $em->persist($schoolLocation->setEnabled(TRUE));
-                    $em->flush();
-                    $session->getFlashBag()->add('success', "Your school has been added successfully");
-                    return $this->redirect($this->generateUrl("list_school"));
-                }
-                else
-                    $session->getFlashBag()->add('danger', "There is already a school with the same city and univirsity");
+                $em->persist($schoolLocation->setEnabled(TRUE));
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your school has been added successfully");
+                return $this->redirect($this->generateUrl("list_school"));
             }
         }
         return $this->render('BackSchoolBundle:school:add.html.twig', array(
@@ -104,6 +100,46 @@ class SchoolController extends Controller
         $em->flush();
         $session->getFlashBag()->add('success', "Your school has been updates successfully");
         return $this->redirect($this->generateUrl("list_school"));
+    }
+
+    public function galleryAction(SchoolLocation $schoolLocation)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $media=new Media();
+        $media->setSchoolLocation($schoolLocation);
+        $form=$this->createForm(new MediaType, $media);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $media=$form->getData();
+                $em->persist($media);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your photo has been added successfully");
+                return $this->redirect($this->generateUrl("gallery_school", array(
+                                    'id'=>$schoolLocation->getId()
+                )));
+            }
+        }
+        return $this->render('BackSchoolBundle:school:gallery.html.twig', array(
+                    'form'  =>$form->createView(),
+                    'school'=>$schoolLocation
+        ));
+    }
+
+    public function deletePhotoAction(Media $media)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($media);
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your photo has been deleted successfully");
+        return $this->redirect($this->generateUrl("gallery_school", array(
+                            'id'=>$media->getSchoolLocation()->getId()
+        )));
     }
 
 }

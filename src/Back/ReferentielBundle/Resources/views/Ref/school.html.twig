@@ -9,6 +9,7 @@
                     <div class="row">
                         {{ formulaire.input("col-md-3","Name",form.name,true) }}
                         {{ formulaire.input("col-md-3","Photo",form.image.file,true) }}
+                        {{ formulaire.input("col-md-4","Description",form.description,true) }}
                     </div>
                     {{ macro.enregistrer }}
                 </form>
@@ -22,6 +23,7 @@
                         <tr>
                             <th class="center">Photo</th>
                             <th class="center">Name</th>
+                            <th class="center">Description</th>
                             <th class="center">Action</th>
                         </tr>
                     </thead>
@@ -30,6 +32,7 @@
                             <tr>
                                 <td class="center"><img src="{{ asset(school.image.getAssetPath) }}" class="img-rounded" width="50px" height="50px"/></td>
                                 <td class="center">{{ school.name }}</td>
+                                <td class="center">{{ school.description }}</td>
                                 <td class="center">
                                     {{ macro.edit(path('school',{'id':school.id})) }}
                                     {{ macro.delete(path('delete_school',{'id':school.id})) }}

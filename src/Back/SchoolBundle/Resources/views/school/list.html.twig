@@ -10,6 +10,7 @@
                         <tr>
                             <th>Photo</th>
                             <th>Name</th>
+                            <th>Type</th>
                             <th>City</th>
                             <th>School</th>
                             <th>Note</th>
@@ -24,12 +25,8 @@
                         {% for school in schools %}
                             <tr>
                                 <td class="center"><img src="{{ asset(school.image.getAssetPath) }}" class="img-rounded" width="50px" height="50px"/></td>
-                                <td>
-                                    {{ school.name }}
-                                    {% for i in 1..school.stars %}
-                                        <i class="fa fa-star"></i>
-                                    {% endfor %}
-                                </td>
+                                <td>{{ school.name }}</td>
+                                <td>{{ school.showType }}</td>
                                 <td>{{ school.city.country.code }}, {{ school.city }}</td>
                                 <td>{{ school.school }}</td>
                                 <td>{{ school.note }}/5</td>
@@ -44,6 +41,7 @@
                                     {% endif %}
                                 </td>
                                 <td class="center">
+                                    {{ macro.photos(path('gallery_school',{'id':school.id})) }}
                                     {{ macro.fiche(path('edit_school',{'id':school.id})) }}
                                     {{ macro.delete(path('delete_school',{'id':school.id})) }}
                                 </td>

@@ -25,3 +25,11 @@ price_accommodations:
 delete_price:
     path:     /delete_price_room/{id}
     defaults: { _controller: BackSchoolBundle:Accommodations:deletePrice }
+
+pathway_price_accommodations:
+    path:     /edit/{id}/accommodations/{accommodation}/pathway_price
+    defaults: { _controller: BackSchoolBundle:Accommodations:pathwayPrice }
+    
+delete_pathway_price:
+    path:     /delete_pathway_price_room/{id}
+    defaults: { _controller: BackSchoolBundle:Accommodations:deletePathwayPrice }

@@ -43,6 +43,12 @@ class Accommodation
     protected $schoolLocation;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\TypeAccommodation")
+     * @Assert\NotNull()
+     */
+    protected $typeAccommodation;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Room", mappedBy="accommodation")
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -182,5 +188,28 @@ class Accommodation
     public function getSchoolLocation()
     {
         return $this->schoolLocation;
+    }
+
+    /**
+     * Set typeAccommodation
+     *
+     * @param \Back\ReferentielBundle\Entity\TypeAccommodation $typeAccommodation
+     * @return Accommodation
+     */
+    public function setTypeAccommodation(\Back\ReferentielBundle\Entity\TypeAccommodation $typeAccommodation = null)
+    {
+        $this->typeAccommodation = $typeAccommodation;
+
+        return $this;
+    }
+
+    /**
+     * Get typeAccommodation
+     *
+     * @return \Back\ReferentielBundle\TypeAccommodation 
+     */
+    public function getTypeAccommodation()
+    {
+        return $this->typeAccommodation;
     }
 }

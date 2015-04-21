@@ -47,6 +47,12 @@ class Room
      * @ORM\OrderBy({"weekStart" = "ASC"})
      */
     protected $prices;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="PathwayPrice", mappedBy="room")
+     * @ORM\OrderBy({"startDate" = "ASC"})
+     */
+    protected $pathwayPrices;
 
     /**
      * Get id
@@ -176,4 +182,6 @@ class Room
     {
         return $this->name;
     }
+
+
 }

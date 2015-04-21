@@ -73,10 +73,17 @@ class SchoolLocation
      * )
      */
     private $stars;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="type", type="integer")
+     */
+    private $type;
 
     /**
      * @ORM\OneToOne(targetEntity="Back\ReferentielBundle\Entity\Media", cascade={"persist","remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $image;
     
@@ -97,6 +104,11 @@ class SchoolLocation
      * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $courses;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Back\ReferentielBundle\Entity\Media", mappedBy="schoolLocation")
+     */
+    protected $photos;
     
     /**
      * @ORM\OneToMany(targetEntity="Accommodation", mappedBy="schoolLocation")
@@ -450,5 +462,102 @@ class SchoolLocation
     public function getSchool()
     {
         return $this->school;
+    }
+
+    /**
+     * Add extras
+     *
+     * @param \Back\SchoolBundle\Entity\Extra $extras
+     * @return SchoolLocation
+     */
+    public function addExtra(\Back\SchoolBundle\Entity\Extra $extras)
+    {
+        $this->extras[] = $extras;
+
+        return $this;
+    }
+
+    /**
+     * Remove extras
+     *
+     * @param \Back\SchoolBundle\Entity\Extra $extras
+     */
+    public function removeExtra(\Back\SchoolBundle\Entity\Extra $extras)
+    {
+        $this->extras->removeElement($extras);
+    }
+
+    /**
+     * Get extras
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExtras()
+    {
+        return $this->extras;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Back\ReferentielBundle\Entity\Media $photos
+     * @return SchoolLocation
+     */
+    public function addPhoto(\Back\ReferentielBundle\Entity\Media $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Back\ReferentielBundle\Entity\Media $photos
+     */
+    public function removePhoto(\Back\ReferentielBundle\Entity\Media $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return SchoolLocation
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    
+    public function showType()
+    {
+        if($this->type==1)
+            return "Language course";
+        else
+            return "Pathway programs";
     }
 }

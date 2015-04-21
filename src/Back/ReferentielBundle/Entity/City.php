@@ -37,7 +37,7 @@ class City
 
     /**
      * @ORM\OneToOne(targetEntity="Media", cascade={"persist","remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $image ;
     

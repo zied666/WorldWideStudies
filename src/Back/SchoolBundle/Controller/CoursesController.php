@@ -13,6 +13,8 @@ use Back\SchoolBundle\Entity\Price;
 use Back\SchoolBundle\Form\PriceType;
 use Back\SchoolBundle\Form\GenerateDatesType;
 use Symfony\Component\HttpFoundation\Response;
+use Back\SchoolBundle\Entity\PathwayPrice;
+use Back\SchoolBundle\Form\PathwayPriceType;
 
 class CoursesController extends Controller
 {
@@ -271,7 +273,7 @@ class CoursesController extends Controller
         )));
     }
 
-    function getDatesBetween($dStart, $dEnd)
+    public function getDatesBetween($dStart, $dEnd)
     {
         $iStart=strtotime($dStart);
         $iEnd=strtotime($dEnd);
@@ -320,6 +322,55 @@ class CoursesController extends Controller
         return $this->redirect($this->generateUrl("startdate_courses", array(
                             'id'    =>$course->getSchoolLocation()->getId(),
                             'course'=>$course->getId()
+        )));
+    }
+
+    public function pathwayPriceAction(SchoolLocation $schoolLocation, Course $course)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $price=new PathwayPrice();
+        $form=$this->createForm(new PathwayPriceType(), $price);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $price=$form->getData();
+                $em->persist($price->setCourse($course));
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your price has been added successfully");
+                return $this->redirect($this->generateUrl("pathway_price_courses", array(
+                                    'id'    =>$schoolLocation->getId(),
+                                    'course'=>$course->getId(),
+                )));
+            }
+        }
+        return $this->render("BackSchoolBundle:courses:pathway_prices.html.twig", array(
+                    'form'  =>$form->createView(),
+                    'school'=>$schoolLocation,
+                    'course'=>$course,
+        ));
+    }
+    
+    public function deletePathwayPriceAction(PathwayPrice $price)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($price);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your price has been removed successfully");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This price is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("pathway_price_courses", array(
+                            'id'    =>$price->getCourse()->getSchoolLocation()->getId(),
+                            'course'=>$price->getCourse()->getId()
         )));
     }
 

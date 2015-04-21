@@ -7,10 +7,11 @@
                 <form action="{{ path('add_school') }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                     {{ form_widget(form._token) }}
                     <div class="row">
-                        {{ formulaire.input("col-md-3","Name",form.name,true) }}
-                        {{ formulaire.select2("col-md-3","School",form.school,true) }}
-                        {{ formulaire.select2("col-md-3","City",form.city,true) }}
-                        {{ formulaire.input("col-md-3","Photo",form.image.file,true) }}
+                        {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                        {{ formulaire.select2("col-md-2","School",form.school,true) }}
+                        {{ formulaire.input("col-md-2","Type",form.type,true) }}
+                        {{ formulaire.select2("col-md-2","City",form.city,true) }}
+                        {{ formulaire.input("col-md-2","Photo",form.image.file,true) }}
                     </div>
                     <div class="row">
                         {{ formulaire.input("col-md-3","Stars",form.stars,true) }}

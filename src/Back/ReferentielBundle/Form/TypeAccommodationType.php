@@ -1,12 +1,12 @@
 <?php
 
-namespace Back\SchoolBundle\Form;
+namespace Back\ReferentielBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AccommodationType extends AbstractType
+class TypeAccommodationType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,8 +16,6 @@ class AccommodationType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('typeAccommodation')
-            ->add('description')
         ;
     }
     
@@ -27,7 +25,7 @@ class AccommodationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\SchoolBundle\Entity\Accommodation'
+            'data_class' => 'Back\ReferentielBundle\Entity\TypeAccommodation'
         ));
     }
 
@@ -36,6 +34,6 @@ class AccommodationType extends AbstractType
      */
     public function getName()
     {
-        return 'back_schoolbundle_accommodation';
+        return 'back_referentielbundle_typeaccommodation';
     }
 }

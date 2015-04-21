@@ -30,6 +30,11 @@ class Media
      * @ORM\COlumn(name="updated_at",type="datetime", nullable=true) 
      */
     private $updateAt ;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\SchoolBundle\Entity\SchoolLocation", inversedBy="photos")
+     */
+    protected $schoolLocation ;
 
     /**
      * @ORM\PostLoad()
@@ -176,4 +181,27 @@ class Media
         return $this ;
     }
 
+
+    /**
+     * Set schoolLocation
+     *
+     * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocation
+     * @return Media
+     */
+    public function setSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocation = null)
+    {
+        $this->schoolLocation = $schoolLocation;
+
+        return $this;
+    }
+
+    /**
+     * Get schoolLocation
+     *
+     * @return \Back\SchoolBundle\Entity\SchoolLocation 
+     */
+    public function getSchoolLocation()
+    {
+        return $this->schoolLocation;
+    }
 }

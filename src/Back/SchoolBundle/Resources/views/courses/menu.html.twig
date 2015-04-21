@@ -9,9 +9,17 @@
             Start dates ({{ course.startDates|length }})
         </a>
     </li>
-    <li {% if app.request.get('_route')=='price_courses' %}class="active"{% endif %}>
-        <a href="{{ path('price_courses',{'id':school.id,'course':course.id}) }}">
-            Price ({{ course.prices|length }})
-        </a>
-    </li>
+    {% if school.type==1  %}
+        <li {% if app.request.get('_route')=='price_courses' %}class="active"{% endif %}>
+            <a href="{{ path('price_courses',{'id':school.id,'course':course.id}) }}">
+                Price ({{ course.prices|length }})
+            </a>
+        </li>
+    {% else %}
+        <li {% if app.request.get('_route')=='pathway_price_courses' %}class="active"{% endif %}>
+            <a href="{{ path('pathway_price_courses',{'id':school.id,'course':course.id}) }}">
+                Price ({{ course.prices|length }})
+            </a>
+        </li>
+    {% endif %}
 </ul>

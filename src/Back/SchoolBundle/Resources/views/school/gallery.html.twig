@@ -1,0 +1,36 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Gellery photo - {{ school.name }}{% endblock %}
+{% block body %}
+
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="{{ path('gallery_school',{'id':school.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                    {{ form_widget(form._token) }}
+                    <div class="row">
+                        {{ formulaire.input("col-md-3","Photo",form.file,true) }}
+                    </div>
+                    {{ macro.enregistrer }}
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            {% for photo in school.photos %}
+                <div class="col-sm-6 col-md-2">
+                    <div class="thumbnail">
+                        <img src="{{ asset(photo.getAssetPath) }}">
+                        <div class="caption">
+                            <p>
+                                <a href="{{ path('delete_photo',{'id':photo.id}) }}" onclick="javascript:return(confirm('Are you sure you want to delete this photo??'))" class="btn btn-o btn-primary">
+                                    Delete
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+{% endblock %}
