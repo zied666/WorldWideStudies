@@ -18,6 +18,7 @@ class SchoolLocationType extends AbstractType
     {
         $builder
                 ->add('name')
+                ->add('currency')
                 ->add('type', 'choice', array(
                     'choices' =>array(
                         '1'=>'Language course',

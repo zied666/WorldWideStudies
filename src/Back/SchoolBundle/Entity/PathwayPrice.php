@@ -24,7 +24,7 @@ class PathwayPrice
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255,nullable=true)
      */
     private $name;
 
@@ -207,5 +207,16 @@ class PathwayPrice
     public function getRoom()
     {
         return $this->room;
+    }
+    
+    /**
+     * get number of week between two dates
+     * 
+     * @return integer
+     */
+    public function getNumbrerWeeks()
+    {
+        $nbrJours=$dureesejour = (strtotime($this->endDate->format("Y-m-d")) - strtotime($this->startDate->format("Y-m-d")));
+        return round($nbrJours/86400/7);
     }
 }

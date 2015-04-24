@@ -1,12 +1,12 @@
 <?php
 
-namespace Back\SchoolBundle\Form;
+namespace Back\ReferentielBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CourseType extends AbstractType
+class CurrencyType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,9 +16,8 @@ class CourseType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('description')
-            ->add('language')
-            ->add('program')
+            ->add('code')
+            ->add('symbol')
         ;
     }
     
@@ -28,7 +27,7 @@ class CourseType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\SchoolBundle\Entity\Course'
+            'data_class' => 'Back\ReferentielBundle\Entity\Currency'
         ));
     }
 
@@ -37,6 +36,6 @@ class CourseType extends AbstractType
      */
     public function getName()
     {
-        return 'back_schoolbundle_course';
+        return 'back_referentielbundle_currency';
     }
 }

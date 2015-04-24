@@ -18,7 +18,7 @@
     {% else %}
         <li {% if app.request.get('_route')=='pathway_price_accommodations' %}class="active"{% endif %}>
             <a href="{{ path('pathway_price_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}">
-                Prices ({{ accommodation.getNumberPrice }})
+                Prices ({{ accommodation.getNumberPathwayPrice }})
             </a>
         </li>
     {% endif %}

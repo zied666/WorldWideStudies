@@ -12,7 +12,6 @@
                             {{ form_widget(form._token) }}
                             <div class="row">
                                 {{ formulaire.select2("col-md-2","Room",form.room,true) }}
-                                {{ formulaire.select2("col-md-2","Name",form.name,true) }}
                                 {{ formulaire.input("col-md-2","Start date",form.startDate,true) }}
                                 {{ formulaire.input("col-md-2","End Date",form.endDate,true) }}
                                 {{ formulaire.input("col-md-2","Price",form.price,true) }}
@@ -26,9 +25,9 @@
                             <thead>
                                 <tr>
                                     <th class="center">Room</th>
-                                    <th class="center">Name</th>
                                     <th class="center">Start date</th>
                                     <th class="center">End Date</th>
+                                    <th class="center">Number of weeks</th>
                                     <th class="center">Price</th>
                                     <th class="center">Action</th>
                                 </tr>
@@ -40,10 +39,10 @@
                                             {% if loop.index == 1 %}
                                                 <td class="center" rowspan="{{ room.pathwayPrices|length }}">{{ room }}</td>
                                             {% endif %}
-                                            <td class="center">{{ price.name }}</td>
                                             <td class="center">{{ price.startDate|date('d/m/Y') }}</td>
                                             <td class="center">{{ price.endDate|date('d/m/Y') }}</td>
-                                            <td class="center">{{ price.price }}</td>
+                                            <td class="center">{{ price.numbrerWeeks }}</td>
+                                            <td class="center">{{ price.price }}  {{ price.room.accommodation.schoolLocation.currency.code }}</td>
                                             <td class="center">
                                                 {{ macro.delete(path('delete_pathway_price',{'id':price.id})) }}
                                             </td>

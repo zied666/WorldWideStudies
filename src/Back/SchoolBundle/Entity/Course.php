@@ -64,6 +64,13 @@ class Course
     protected $pathwayPrices;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text",nullable=true)
+     */
+    private $description;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -274,5 +281,28 @@ class Course
     public function getPathwayPrices()
     {
         return $this->pathwayPrices;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Course
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

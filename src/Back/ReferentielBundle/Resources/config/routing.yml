@@ -1,3 +1,10 @@
+currency:
+    path:     /currency/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:currency,id:null }
+delete_currency:
+    path:     /deleteCurrency/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteCurrency }
+#********************************************************************************************************
 country:
     path:     /country/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:country,id:null }

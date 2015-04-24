@@ -30,7 +30,7 @@
                                 {% for price in course.pathwayPrices %}
                                     <tr>
                                         <td class="center">{{ price.name }}</td>
-                                        <td class="center">{{ price.price }}</td>
+                                        <td class="center">{{ price.price }}   {{ price.course.schoolLocation.currency.code }}</td>
                                         <td class="center">
                                             {{ macro.delete(path('delete_pathway_price_courses',{'id':price.id})) }}
                                         </td>

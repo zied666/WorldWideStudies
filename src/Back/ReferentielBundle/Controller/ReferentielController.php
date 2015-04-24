@@ -18,10 +18,58 @@ use Back\ReferentielBundle\Entity\Program;
 use Back\ReferentielBundle\Form\ProgramType;
 use Back\ReferentielBundle\Entity\TypeAccommodation;
 use Back\ReferentielBundle\Form\TypeAccommodationType;
-
+use Back\ReferentielBundle\Entity\Currency;
+use Back\ReferentielBundle\Form\CurrencyType;
 
 class ReferentielController extends Controller
 {
+
+    public function currencyAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($id == NULL)
+            $currency=new Currency ();
+        else
+            $currency=$em->getRepository("BackReferentielBundle:Currency")->find($id);
+        $currencys=$em->getRepository("BackReferentielBundle:Currency")->findAll();
+        $form=$this->createForm(new CurrencyType(), $currency);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $currency=$form->getData();
+                $em->persist($currency);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your currency has been added successfully");
+                return $this->redirect($this->generateUrl("currency"));
+            }
+        }
+        return $this->render('BackReferentielBundle:Ref:currency.html.twig', array(
+                    'form'    =>$form->createView(),
+                    'currency' =>$currency,
+                    'currencys'=>$currencys
+        ));
+    }
+
+    public function deleteCurrencyAction(Currency $currency)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($currency);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your object has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This object is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("currency"));
+    }
 
     public function countryAction($id)
     {
@@ -141,7 +189,7 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackReferentielBundle:Ref:school.html.twig', array(
-                    'form'       =>$form->createView(),
+                    'form'   =>$form->createView(),
                     'school' =>$school,
                     'schools'=>$schools
         ));
@@ -262,8 +310,8 @@ class ReferentielController extends Controller
             }
         }
         return $this->render("BackReferentielBundle:Ref:language.html.twig", array(
-                    'form'    =>$form->createView(),
-                    'language'=>$language,
+                    'form'     =>$form->createView(),
+                    'language' =>$language,
                     'languages'=>$languages
         ));
     }
@@ -310,8 +358,8 @@ class ReferentielController extends Controller
             }
         }
         return $this->render("BackReferentielBundle:Ref:program.html.twig", array(
-                    'form'   =>$form->createView(),
-                    'program'=>$program,
+                    'form'    =>$form->createView(),
+                    'program' =>$program,
                     'programs'=>$programs
         ));
     }
@@ -358,8 +406,8 @@ class ReferentielController extends Controller
             }
         }
         return $this->render("BackReferentielBundle:Ref:type_accomodation.html.twig", array(
-                    'form'   =>$form->createView(),
-                    'typeAccommodation'=>$typeAccommodation,
+                    'form'              =>$form->createView(),
+                    'typeAccommodation' =>$typeAccommodation,
                     'typeAccommodations'=>$typeAccommodations
         ));
     }

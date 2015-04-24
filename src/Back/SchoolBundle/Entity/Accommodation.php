@@ -166,6 +166,20 @@ class Accommodation
         }
         return $nbr;
     }
+    /**
+     * get numbre pathway prices
+     * 
+     * @return integer 
+     */
+    public function getNumberPathwayPrice()
+    {
+        $nbr=0;
+        foreach($this->rooms as $room)
+        {
+            $nbr+=count($room->getPathwayPrices());
+        }
+        return $nbr;
+    }
 
     /**
      * Set schoolLocation

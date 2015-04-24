@@ -69,6 +69,11 @@
                 </div>
             </a>
             <ul class="sub-menu">
+                <li {% if app.request.get('_route')=='currency' %}class="active"{% endif %}>
+                    <a href="{{ path('currency') }}">
+                        <span class="title">Currencies</span>
+                    </a>
+                </li>
                 <li {% if app.request.get('_route')=='language' %}class="active"{% endif %}>
                     <a href="{{ path('language') }}">
                         <span class="title">Language courses</span>

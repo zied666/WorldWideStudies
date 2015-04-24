@@ -40,7 +40,7 @@
                                                 <td class="center" rowspan="{{ room.prices|length }}">{{ room }}</td>
                                             {% endif %}
                                             <td class="center">{{ price }}</td>
-                                            <td class="center">{{ price.price }}</td>
+                                            <td class="center">{{ price.price }} {{ price.room.accommodation.schoolLocation.currency.code }} </td>
                                             <td class="center">{{ price.shoxFix }}</td>
                                             <td class="center">
                                                 {{ macro.delete(path('delete_price',{'id':price.id})) }}

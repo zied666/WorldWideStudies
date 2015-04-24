@@ -64,6 +64,13 @@ class Course
     protected $pathwayPrices;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text",nullable=true)
+     */
+    private $description;
+
+    /**
      * Get id
      *
      * @return integer 

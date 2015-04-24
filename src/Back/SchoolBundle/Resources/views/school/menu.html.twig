@@ -4,12 +4,12 @@
             {{ school.name }}
         </a>
     </li>
-    <li {% if app.request.get('_route')in ['list_courses','edit_courses','startdate_courses','price_courses'] %}class="active"{% endif %}>
+    <li {% if app.request.get('_route')in ['list_courses','edit_courses','startdate_courses','price_courses','pathway_price_courses'] %}class="active"{% endif %}>
         <a href="{{ path('list_courses',{'id':school.id}) }}">
             Courses ({{ school.courses|length }})
         </a>
     </li>
-    <li {% if app.request.get('_route')in ['list_accommodations','edit_accommodations','rooms_accommodations','price_accommodations'] %}class="active"{% endif %}>
+    <li {% if app.request.get('_route')in ['list_accommodations','edit_accommodations','rooms_accommodations','price_accommodations','pathway_price_accommodations'] %}class="active"{% endif %}>
         <a href="{{ path('list_accommodations',{'id':school.id}) }}">
             Accommodations ({{ school.accommodations|length }})
         </a>

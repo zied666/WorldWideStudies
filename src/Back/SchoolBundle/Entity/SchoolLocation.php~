@@ -100,6 +100,12 @@ class SchoolLocation
     protected $school ;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\Currency")
+     * @Assert\NotNull()
+     */
+    protected $currency ;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Course", mappedBy="schoolLocation")
      * @ORM\OrderBy({"name" = "ASC"})
      */
@@ -559,5 +565,28 @@ class SchoolLocation
             return "Language course";
         else
             return "Pathway programs";
+    }
+
+    /**
+     * Set currency
+     *
+     * @param \Back\ReferentielBundle\Entity\Currency $currency
+     * @return SchoolLocation
+     */
+    public function setCurrency(\Back\ReferentielBundle\Entity\Currency $currency = null)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return \Back\ReferentielBundle\Entity\Currency 
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 }
