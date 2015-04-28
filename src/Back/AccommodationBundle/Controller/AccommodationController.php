@@ -231,7 +231,7 @@ class AccommodationController extends Controller
         {
             $session->getFlashBag()->add('danger', 'This room is used by another table ');
         }
-        return $this->redirect($this->generateUrl("room_big_prix", array( 'id'=>$price->getAccommodation()->getId() )));
+        return $this->redirect($this->generateUrl("room_big_prix", array( 'id'=>$price->getRoom()->getAccommodation()->getId() )));
     }
 
 }

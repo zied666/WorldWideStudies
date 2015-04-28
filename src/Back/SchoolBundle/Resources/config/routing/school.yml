@@ -10,7 +10,7 @@ list_school:
     path:     /
     defaults: { _controller: BackSchoolBundle:School:listSchool }
 
-delete_school:
+delete_school_location:
     path:     /delete/{id}
     defaults: { _controller: BackSchoolBundle:School:deleteSchool }
 

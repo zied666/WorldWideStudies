@@ -50,7 +50,7 @@ class UniversityController extends Controller
         ));
     }
     
-    public function enableSchoolAction(University $university)
+    public function enableAction(University $university)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();

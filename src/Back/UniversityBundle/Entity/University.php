@@ -173,7 +173,7 @@ class University
      * @param boolean $enabled
      * @return University
      */
-    public function isEnabled($enabled)
+    public function isEnabled()
     {
         return $this->enabled;
     }
