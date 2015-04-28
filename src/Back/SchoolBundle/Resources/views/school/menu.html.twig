@@ -4,6 +4,11 @@
             {{ school.name }}
         </a>
     </li>
+    <li {% if app.request.get('_route')=='gallery_school' %}class="active"{% endif %}>
+        <a href="{{ path('gallery_school',{'id':school.id}) }}">
+            Photo Gallery ({{ school.photos|length }})
+        </a>
+    </li>
     <li {% if app.request.get('_route')in ['list_courses','edit_courses','startdate_courses','price_courses','pathway_price_courses'] %}class="active"{% endif %}>
         <a href="{{ path('list_courses',{'id':school.id}) }}">
             Courses ({{ school.courses|length }})

@@ -1,0 +1,39 @@
+list_accommodation:
+    path:     /
+    defaults: { _controller: BackAccommodationBundle:Accommodation:list }
+
+add_accommodation:
+    path:     /edit/{id}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:add,id:null }
+
+gallery_accommodation:
+    path:     /edit/{id}/gallery
+    defaults: { _controller: BackAccommodationBundle:Accommodation:gallery }
+
+delete_big_accommodation:
+    path:     /delete_big_accommodation/{id}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:delete }
+
+enabled_accommodation:
+    path:     /enable_accommodation/{id}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:enable }
+
+delete_photo_accommodation:
+    path:     /delete_photo_accommodation/{id}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:deletePhoto }
+    
+room_big_accommdation:
+    path:     /edit/{id}/rooms/{id2}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:rooms,id2:null }
+    
+delete_big_room:
+    path:     /delete_big_room/{id}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:deleteRoom}
+    
+room_big_prix:
+    path:     /edit/{id}/prix
+    defaults: { _controller: BackAccommodationBundle:Accommodation:prix }
+    
+delete_big_room_prix:
+    path:     /delete_big_room_prix/{id}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:deletePrix}

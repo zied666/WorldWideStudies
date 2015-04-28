@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs">
+    <li {% if app.request.get('_route')=='add_accommodation' %}class="active"{% endif %}>
+        <a href="{{ path('add_accommodation',{'id':accommodation.id}) }}">
+            {{ accommodation.name }}
+        </a>
+    </li>
+    <li {% if app.request.get('_route')=='gallery_accommodation' %}class="active"{% endif %}>
+        <a href="{{ path('gallery_accommodation',{'id':accommodation.id}) }}">
+             Photo Gallery ({{ accommodation.photos|length }})
+        </a>
+    </li>
+    <li {% if app.request.get('_route')=='room_big_accommdation' %}class="active"{% endif %}>
+        <a href="{{ path('room_big_accommdation',{'id':accommodation.id}) }}">
+            Rooms ({{ accommodation.rooms|length }})
+        </a>
+    </li>
+    <li {% if app.request.get('_route')=='room_big_prix' %}class="active"{% endif %}>
+        <a href="{{ path('room_big_prix',{'id':accommodation.id}) }}">
+            Prix ({{ accommodation.getCountPrice }})
+        </a>
+    </li>
+</ul>

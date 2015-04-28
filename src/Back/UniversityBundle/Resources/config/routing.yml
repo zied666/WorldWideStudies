@@ -1,0 +1,15 @@
+list_university:
+    path:     /
+    defaults: { _controller: BackUniversityBundle:University:list }
+    
+add_university:
+    path:     /add/{id}
+    defaults: { _controller: BackUniversityBundle:University:add,id:null }
+    
+enable_university:
+    path:     /enable/{id}
+    defaults: { _controller: BackUniversityBundle:University:enable }
+    
+delete_university:
+    path:     /delete/{id}
+    defaults: { _controller: BackUniversityBundle:University:delete }

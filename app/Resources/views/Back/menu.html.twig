@@ -1,21 +1,4 @@
 <nav>
-    <div class="search-form">
-        <a class="s-open" href="#">
-            <i class="ti-search"></i>
-        </a>
-        <form class="navbar-form" role="search">
-            <a class="s-remove" href="#" target=".navbar-form">
-                <i class="ti-close"></i>
-            </a>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search...">
-                <button class="btn search-button" type="submit">
-                    <i class="ti-search"></i>
-                </button>
-            </div>
-        </form>
-    </div>
-
     <div class="navbar-title">
         <span>Main Navigation</span>
     </div>
@@ -31,6 +14,54 @@
                     </div>
                 </div>
             </a>
+        </li>
+        <li {% if app.request.getPathInfo|split('admin/university')|length > 1 %}class="active open" {% endif %}>
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-pencil-alt2"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> University </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li {% if app.request.get('_route')=='list_university' %}class="active"{% endif %}>
+                    <a href="{{ path('list_university') }}">
+                        <span class="title">List</span>
+                    </a>
+                </li>
+                <li {% if app.request.get('_route')=='add_university' %}class="active"{% endif %}>
+                    <a href="{{ path('add_university') }}">
+                        <span class="title">New university</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li {% if app.request.getPathInfo|split('admin/accommodation')|length > 1 %}class="active open" {% endif %}>
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="fa fa-hotel"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> Accommodations </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li {% if app.request.get('_route')=='list_accommodation' %}class="active"{% endif %}>
+                    <a href="{{ path('list_accommodation') }}">
+                        <span class="title">List</span>
+                    </a>
+                </li>
+                <li {% if app.request.get('_route')=='add_accommodation' %}class="active"{% endif %}>
+                    <a href="{{ path('add_accommodation') }}">
+                        <span class="title">New accommodation</span>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li {% if app.request.getPathInfo|split('admin/school')|length > 1 %}class="active open" {% endif %}>
             <a href="javascript:void(0)">

@@ -1,13 +1,13 @@
 <?php
 
-namespace Back\SchoolBundle\Entity;
+namespace Back\AccommodationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * PathwayPrice
  *
- * @ORM\Table(name="wws_pathway_price")
+ * @ORM\Table(name="wws_accomodation_pathway_price")
  * @ORM\Entity
  */
 class PathwayPrice
@@ -20,14 +20,6 @@ class PathwayPrice
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255,nullable=true)
-     */
-    private $name;
-
     /**
      * @var string
      *
@@ -48,11 +40,6 @@ class PathwayPrice
      * @ORM\Column(name="endDate", type="date" , nullable=true)
      */
     private $endDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Course", inversedBy="pathwayPrices")
-     */
-    protected $course;
     
     /**
      * @ORM\ManyToOne(targetEntity="Room", inversedBy="pathwayPrices")
@@ -69,29 +56,6 @@ class PathwayPrice
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return PathwayPrice
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -161,52 +125,6 @@ class PathwayPrice
     public function getEndDate()
     {
         return $this->endDate;
-    }
-
-    /**
-     * Set course
-     *
-     * @param \Back\SchoolBundle\Entity\Course $course
-     * @return PathwayPrice
-     */
-    public function setCourse(\Back\SchoolBundle\Entity\Course $course = null)
-    {
-        $this->course = $course;
-
-        return $this;
-    }
-
-    /**
-     * Get course
-     *
-     * @return \Back\SchoolBundle\Entity\Course 
-     */
-    public function getCourse()
-    {
-        return $this->course;
-    }
-
-    /**
-     * Set room
-     *
-     * @param \Back\SchoolBundle\Entity\Room $room
-     * @return PathwayPrice
-     */
-    public function setRoom(\Back\SchoolBundle\Entity\Room $room = null)
-    {
-        $this->room = $room;
-
-        return $this;
-    }
-
-    /**
-     * Get room
-     *
-     * @return \Back\SchoolBundle\Entity\Room 
-     */
-    public function getRoom()
-    {
-        return $this->room;
     }
     
     /**

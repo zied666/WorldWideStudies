@@ -1,34 +1,33 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}{{ school.name }}{% endblock %}
+{% block title %}Accommodation{% endblock %}
 {% block body %}
     <div class="tabbable">
-        {% include 'BackSchoolBundle:school:menu.html.twig' %}
-        {% include 'BackSchoolBundle:accommodations:menu.html.twig' %}
+            {% include 'BackAccommodationBundle::menu.html.twig' %}
         <div class="tab-content">
             <div class="container-fluid container-fullw bg-white">
                 <div class="row">
                     <div class="col-md-12">
-                        <form action="{{ path('price_accommodations',{'id':school.id,'accommodation':accommodation.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                        <form action="{{ path('room_big_prix',{'id':accommodation.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                             {{ form_widget(form._token) }}
                             <div class="row">
                                 {{ formulaire.select2("col-md-2","Room",form.room,true) }}
-                                {{ formulaire.input("col-md-2","Week start",form.weekStart,true) }}
-                                {{ formulaire.input("col-md-2","Week end",form.weekEnd,true) }}
+                                {{ formulaire.input("col-md-2","Start date",form.startDate,true) }}
+                                {{ formulaire.input("col-md-2","End Date",form.endDate,true) }}
                                 {{ formulaire.input("col-md-2","Price",form.price,true) }}
-                                {{ formulaire.input("col-md-2","",form.fix,false) }}
                             </div>
                             {{ macro.enregistrer }}
                         </form>
                     </div>
                     <div class="col-md-12">
-                        <h5 class="over-title margin-bottom-15">Prices <span class="text-bold">list</span></h5>
+                        <h5 class="over-title margin-bottom-15">Accommodations <span class="text-bold">list</span></h5>
                         <table class="table" id="sample-table-1">
                             <thead>
                                 <tr>
                                     <th class="center">Room</th>
-                                    <th class="center">Weeks</th>
+                                    <th class="center">Start date</th>
+                                    <th class="center">End Date</th>
+                                    <th class="center">Number of weeks</th>
                                     <th class="center">Price</th>
-                                    <th class="center">State</th>
                                     <th class="center">Action</th>
                                 </tr>
                             </thead>
@@ -39,11 +38,12 @@
                                             {% if loop.index == 1 %}
                                                 <td class="center" rowspan="{{ room.prices|length }}">{{ room }}</td>
                                             {% endif %}
-                                            <td class="center">{{ price }}</td>
-                                            <td class="center">{{ price.price }} {{ price.room.accommodation.schoolLocation.currency.code }} </td>
-                                            <td class="center">{{ price.shoxFix }}</td>
+                                            <td class="center">{{ price.startDate|date('d/m/Y') }}</td>
+                                            <td class="center">{{ price.endDate|date('d/m/Y') }}</td>
+                                            <td class="center">{{ price.numbrerWeeks }}</td>
+                                            <td class="center">{{ price.price }}  {{ price.room.accommodation.currency.code }}</td>
                                             <td class="center">
-                                                {{ macro.delete(path('delete_price',{'id':price.id})) }}
+                                                {{ macro.delete(path('delete_big_room_prix',{'id':price.id})) }}
                                             </td>
                                         </tr>
                                     {% endfor %}

@@ -1,16 +1,16 @@
 <?php
 
-namespace Back\SchoolBundle\Entity;
+namespace Back\AccommodationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PathwayPrice
+ * Price
  *
- * @ORM\Table(name="wws_pathway_price")
+ * @ORM\Table(name="wws_accomodation_pathway_price")
  * @ORM\Entity
  */
-class PathwayPrice
+class Price
 {
     /**
      * @var integer
@@ -20,14 +20,6 @@ class PathwayPrice
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255,nullable=true)
-     */
-    private $name;
-
     /**
      * @var string
      *
@@ -48,14 +40,9 @@ class PathwayPrice
      * @ORM\Column(name="endDate", type="date" , nullable=true)
      */
     private $endDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Course", inversedBy="pathwayPrices")
-     */
-    protected $course;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Room", inversedBy="pathwayPrices")
+     * @ORM\ManyToOne(targetEntity="Room", inversedBy="prices")
      * 
      */
     protected $room;
@@ -72,33 +59,10 @@ class PathwayPrice
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     * @return PathwayPrice
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Set price
      *
      * @param string $price
-     * @return PathwayPrice
+     * @return Price
      */
     public function setPrice($price)
     {
@@ -121,7 +85,7 @@ class PathwayPrice
      * Set startDate
      *
      * @param \DateTime $startDate
-     * @return PathwayPrice
+     * @return Price
      */
     public function setStartDate($startDate)
     {
@@ -144,7 +108,7 @@ class PathwayPrice
      * Set endDate
      *
      * @param \DateTime $endDate
-     * @return PathwayPrice
+     * @return Price
      */
     public function setEndDate($endDate)
     {
@@ -162,52 +126,6 @@ class PathwayPrice
     {
         return $this->endDate;
     }
-
-    /**
-     * Set course
-     *
-     * @param \Back\SchoolBundle\Entity\Course $course
-     * @return PathwayPrice
-     */
-    public function setCourse(\Back\SchoolBundle\Entity\Course $course = null)
-    {
-        $this->course = $course;
-
-        return $this;
-    }
-
-    /**
-     * Get course
-     *
-     * @return \Back\SchoolBundle\Entity\Course 
-     */
-    public function getCourse()
-    {
-        return $this->course;
-    }
-
-    /**
-     * Set room
-     *
-     * @param \Back\SchoolBundle\Entity\Room $room
-     * @return PathwayPrice
-     */
-    public function setRoom(\Back\SchoolBundle\Entity\Room $room = null)
-    {
-        $this->room = $room;
-
-        return $this;
-    }
-
-    /**
-     * Get room
-     *
-     * @return \Back\SchoolBundle\Entity\Room 
-     */
-    public function getRoom()
-    {
-        return $this->room;
-    }
     
     /**
      * get number of week between two dates
@@ -218,5 +136,28 @@ class PathwayPrice
     {
         $nbrJours=$dureesejour = (strtotime($this->endDate->format("Y-m-d")) - strtotime($this->startDate->format("Y-m-d")));
         return round($nbrJours/86400/7);
+    }
+
+    /**
+     * Set room
+     *
+     * @param \Back\AccommodationBundle\Entity\Room $room
+     * @return Price
+     */
+    public function setRoom(\Back\AccommodationBundle\Entity\Room $room = null)
+    {
+        $this->room = $room;
+
+        return $this;
+    }
+
+    /**
+     * Get room
+     *
+     * @return \Back\AccommodationBundle\Entity\Room 
+     */
+    public function getRoom()
+    {
+        return $this->room;
     }
 }

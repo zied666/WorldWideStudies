@@ -1,0 +1,58 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Accommodations{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
+                <table class="table table-striped table-bordered table-hover table-full-width" id="">
+                    <thead>
+                        <tr>
+                            <th>PHOTO</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>City</th>
+                            <th>Currency</th>
+                            <th>Fist payment</th>
+                            <th>Rooms</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for accommodation in accommodations %}
+                            <tr>
+                                <td class="center"><img src="{{ asset(accommodation.image.getAssetPath) }}" class="img-rounded" width="50px" height="50px"/></td>
+                                <td>{{ accommodation.name }}</td>
+                                <td>{{ accommodation.typeAccommodation }}</td>
+                                <td>{{ accommodation.city.country.code }}, {{ accommodation.city }}</td>
+                                <td>{{ accommodation.currency }}</td>
+                                <td>{{ accommodation.firstPayment }} {{ accommodation.currency.code }}</td>
+                                <td>
+                                    {% for room in accommodation.rooms %}
+                                        - {{ room.name }} <br> 
+                                    {% endfor %}
+                                </td>
+                                <td class="center">
+                                    {% if accommodation.enabled %}
+                                        <a href="{{ path('enabled_accommodation',{'id':accommodation.id}) }}" ><span class="label label-sm label-success">Enabled</span></a>
+                                    {% else %}
+                                        <a href="{{ path('enabled_accommodation',{'id':accommodation.id}) }}"><span class="label label-sm label-danger">Disabled</span></a>
+                                    {% endif %}
+                                </td>
+                                <td class="center">
+                                    {{ macro.fiche(path('add_accommodation',{'id':accommodation.id})) }}
+                                    {{ macro.delete(path('delete_big_accommodation',{'id':accommodation.id})) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(accommodations) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

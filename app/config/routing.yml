@@ -1,3 +1,11 @@
+back_university:
+    resource: "@BackUniversityBundle/Resources/config/routing.yml"
+    prefix:   /admin/university
+
+back_accommodation:
+    resource: "@BackAccommodationBundle/Resources/config/routing.yml"
+    prefix:   /admin/accommodation
+
 back_general:
     resource: "@BackGeneralBundle/Resources/config/routing.yml"
     prefix:   /admin/

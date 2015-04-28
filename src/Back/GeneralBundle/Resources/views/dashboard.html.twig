@@ -1,0 +1,53 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %} Dashboard {% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel panel-white no-radius text-center">
+                    <a href="{{ path('list_school') }}">
+                        <div class="panel-body">
+                            <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-home fa-stack-1x fa-inverse"></i> </span>
+                            <h2 class="StepTitle">Schools location</h2>
+                            <p>({{ countSchoolLocations }})</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-white no-radius text-center">
+                    <a href="{{ path('list_accommodation') }}">
+                        <div class="panel-body">
+                            <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-hotel fa-stack-1x fa-inverse"></i> </span>
+                            <h2 class="StepTitle">Accommodations</h2>
+                            <p>({{ countAccommodations }})</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-white no-radius text-center">
+                    <a href="{{ path('list_university') }}">
+                        <div class="panel-body">
+                            <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-pencil fa-stack-1x fa-inverse"></i> </span>
+                            <h2 class="StepTitle">Universities</h2>
+                            <p>({{ countUniversitys }})</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-white no-radius text-center">
+                    <a href="{{ path('administrator') }}">
+                        <div class="panel-body">
+                            <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-group fa-stack-1x fa-inverse"></i> </span>
+                            <h2 class="StepTitle">Administrators</h2>
+                            <p>({{ countAdmins }})</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

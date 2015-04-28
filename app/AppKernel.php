@@ -22,6 +22,9 @@ class AppKernel extends Kernel
             new Front\GeneralBundle\FrontGeneralBundle(),
             new Back\SchoolBundle\BackSchoolBundle(),
             new Back\GeneralBundle\BackGeneralBundle(),
+            new Back\AccommodationBundle\BackAccommodationBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Back\UniversityBundle\BackUniversityBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

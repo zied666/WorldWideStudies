@@ -1,0 +1,52 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Universities{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
+                <table class="table table-striped table-bordered table-hover table-full-width" id="">
+                    <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Currency</th>
+                            <th>Average price</th>
+                            <th>Site</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for university in universities %}
+                            <tr>
+                                <td class="center"><img src="{{ asset(university.image.getAssetPath) }}" class="img-rounded" width="50px" height="50px"/></td>
+                                <td>{{ university.name }}</td>
+                                <td>{{ university.city.country.code }}, {{ university.city }}</td>
+                                <td>{{ university.currency }}</td>
+                                <td>{{ university.averagePrice }} {{ university.currency.code }}</td>
+                                <td>{{ university.site }}</td>
+                                <td class="center">
+                                    {% if university.enabled %}
+                                        <a href="{{ path('enable_university',{'id':university.id}) }}" ><span class="label label-sm label-success">Enabled</span></a>
+                                    {% else %}
+                                        <a href="{{ path('enable_university',{'id':university.id}) }}"><span class="label label-sm label-danger">Disabled</span></a>
+                                    {% endif %}
+                                </td>
+                                <td class="center">
+                                    {{ macro.fiche(path('add_university',{'id':university.id})) }}
+                                    {{ macro.delete(path('delete_university',{'id':university.id})) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(universities) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

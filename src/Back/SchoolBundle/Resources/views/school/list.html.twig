@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
-                <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                <table class="table table-striped table-bordered table-hover table-full-width" id="">
                     <thead>
                         <tr>
                             <th>Photo</th>
@@ -43,7 +43,6 @@
                                     {% endif %}
                                 </td>
                                 <td class="center">
-                                    {{ macro.photos(path('gallery_school',{'id':school.id})) }}
                                     {{ macro.fiche(path('edit_school',{'id':school.id})) }}
                                     {{ macro.delete(path('delete_school',{'id':school.id})) }}
                                 </td>
@@ -51,6 +50,9 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(schools) }}
+                </div>
             </div>
         </div>
 

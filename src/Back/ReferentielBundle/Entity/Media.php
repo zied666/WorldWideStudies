@@ -35,6 +35,11 @@ class Media
      * @ORM\ManyToOne(targetEntity="Back\SchoolBundle\Entity\SchoolLocation", inversedBy="photos")
      */
     protected $schoolLocation ;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\AccommodationBundle\Entity\Accommodation", inversedBy="photos")
+     */
+    protected $accommodation ;
 
     /**
      * @ORM\PostLoad()
@@ -203,5 +208,28 @@ class Media
     public function getSchoolLocation()
     {
         return $this->schoolLocation;
+    }
+
+    /**
+     * Set accommodation
+     *
+     * @param \Back\AccommodationBundle\Entity\Accommodation $accommodation
+     * @return Media
+     */
+    public function setAccommodation(\Back\AccommodationBundle\Entity\Accommodation $accommodation = null)
+    {
+        $this->accommodation = $accommodation;
+
+        return $this;
+    }
+
+    /**
+     * Get accommodation
+     *
+     * @return \Back\AccommodationBundle\Entity\Accommodation, 
+     */
+    public function getAccommodation()
+    {
+        return $this->accommodation;
     }
 }
