@@ -5,7 +5,10 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_ADMIN_UNIVERSITY:       [ROLE_USER,ROLE_ADMIN]
+        ROLE_ADMIN_ACCOMMODATION:       [ROLE_USER,ROLE_ADMIN]
+        ROLE_ADMIN_SCHOOL:       [ROLE_USER,ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ADMIN_ACCOMMODATION,ROLE_ADMIN_SCHOOL]
 
     providers:
         fos_userbundle:
@@ -24,4 +27,11 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        
+        - { path: ^/admin/ref/administrator, role: ROLE_SUPER_ADMIN }
+        
+        - { path: ^/admin/accommodation, role: ROLE_ADMIN_ACCOMMODATION }
+        - { path: ^/admin/university, role: ROLE_ADMIN_UNIVERSITY }
+        - { path: ^/admin/school, role: ROLE_ADMIN_SCHOOL }
+        
+        - { path: ^/admin, role: ROLE_ADMIN }

@@ -12,6 +12,9 @@
                         {{ formulaire.input("col-md-3","Email",form.email,true) }}
                     </div>
                     <div class="row">
+                        {{ formulaire.input("col-md-3","Roles",form.roles,true) }}
+                    </div>
+                    <div class="row">
                         {{ formulaire.input("col-md-3","Mot de passe",form.plainPassword.first,true) }}
                     </div>
                     <div class="row">
@@ -28,6 +31,7 @@
                     <thead>
                         <tr>
                             <th>Username</th>
+                            <th>Roles</th>
                             <th>Email</th>
                             <th>State</th>
                             <th>Action</th>
@@ -37,6 +41,11 @@
                         {% for user in users %}
                             <tr>
                                 <td>{{ user.username }}</td>
+                                <td>
+                                    {% for role in user.roles if role!= 'ROLE_USER' %}
+                                        - {{ role }} <br>
+                                    {% endfor %}
+                                </td>
                                 <td>{{ user.email }}</td>
                                 <td>
                                     {% if user.enabled %}

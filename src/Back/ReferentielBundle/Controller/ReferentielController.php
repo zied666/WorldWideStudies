@@ -48,7 +48,7 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackReferentielBundle:Ref:currency.html.twig', array(
-                    'form'    =>$form->createView(),
+                    'form'     =>$form->createView(),
                     'currency' =>$currency,
                     'currencys'=>$currencys
         ));
@@ -221,8 +221,20 @@ class ReferentielController extends Controller
             $user=new User ();
         else
             $user=$em->getRepository("BackUserBundle:User")->find($id);
-        $users=$this->findByRole("ROLE_ADMIN");
+        $users=$this->findByRoleAdmin();
         $form=$this->createForm(new RegistrationFormType(), $user);
+        $form->add('roles', 'choice', array( 'choices' =>
+            array(
+                'ROLE_SUPER_ADMIN'=>'ROLE SUPER ADMIN',
+                'ROLE_ADMIN_UNIVERSITY'=>'ROLE UNIVERSITY',
+                'ROLE_ADMIN_ACCOMMODATION'=>'ROLE ACCOMMODATION',
+                'ROLE_ADMIN_SCHOOL'=>'ROLE SCHOOL',
+
+            ),
+            'required'=>true,
+            'expanded'=>true,
+            'multiple'=>true
+        ));
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
@@ -230,7 +242,7 @@ class ReferentielController extends Controller
             if($form->isValid())
             {
                 $user=$form->getData();
-                $em->persist($user->addRole("ROLE_ADMIN")->setEnabled(TRUE));
+                $em->persist($user);
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your administrator has been added successfully");
                 return $this->redirect($this->generateUrl("administrator"));
@@ -282,6 +294,23 @@ class ReferentielController extends Controller
                 ->from('BackUserBundle:User', 'u')
                 ->where('u.roles LIKE :roles')
                 ->setParameter('roles', '%"'.$role.'"%');
+        return $qb->getQuery()->getResult();
+    }
+    public function findByRoleAdmin()
+    {
+        $qb=$this->getDoctrine()->getManager()->createQueryBuilder();
+        $qb->select('u')
+                ->from('BackUserBundle:User', 'u')
+                ->where('u.roles LIKE :role')
+                ->orWhere('u.roles LIKE :role1')
+                ->orWhere('u.roles LIKE :role2')
+                ->orWhere('u.roles LIKE :role3')
+                ->orWhere('u.roles LIKE :role4')
+                ->setParameter('role', '%ROLE_ADMIN%')
+                ->setParameter('role1', '%ROLE_SUPER_ADMIN%')
+                ->setParameter('role2', '%ROLE_UNIVERSITY%')
+                ->setParameter('role3', '%ROLE_ACCOMMODATION%')
+                ->setParameter('role4', '%ROLE_ADMIN_SCHOOL%');
         return $qb->getQuery()->getResult();
     }
 
