@@ -308,8 +308,8 @@ class ReferentielController extends Controller
                 ->orWhere('u.roles LIKE :role4')
                 ->setParameter('role', '%ROLE_ADMIN%')
                 ->setParameter('role1', '%ROLE_SUPER_ADMIN%')
-                ->setParameter('role2', '%ROLE_UNIVERSITY%')
-                ->setParameter('role3', '%ROLE_ACCOMMODATION%')
+                ->setParameter('role2', '%ROLE_ADMIN_UNIVERSITY%')
+                ->setParameter('role3', '%ROLE_ADMIN_ACCOMMODATION%')
                 ->setParameter('role4', '%ROLE_ADMIN_SCHOOL%');
         return $qb->getQuery()->getResult();
     }
