@@ -238,10 +238,8 @@ class ReferentielController extends Controller
         $form->add("Submit","submit",array('attr'=>array('class'=>'btn btn-primary btn-wide pull-right')));
         if($id!=NULL  && $password==NULL)
             $form->remove("plainPassword");
-        else
-        {
+        elseif($id!=NULL)
             $form->remove("roles")->remove("email");
-        }
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
