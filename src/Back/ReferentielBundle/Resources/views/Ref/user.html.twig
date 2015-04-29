@@ -3,25 +3,9 @@
 {% block body %}
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
-            <div class="col-md-12">
-                <h5 class="over-title margin-bottom-15"><span class="text-bold">Formulaire</span></h5>
-                <form action="{{ path('administrator',{'id':user.id}) }}" method="post" role="form" id="form">
-                    {{ form_widget(form._token) }}
-                    <div class="row">
-                        {{ formulaire.input("col-md-3","User name",form.username,true) }}
-                        {{ formulaire.input("col-md-3","Email",form.email,true) }}
-                    </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-3","Roles",form.roles,true) }}
-                    </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-3","Mot de passe",form.plainPassword.first,true) }}
-                    </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-3","Mot de passe confirmation",form.plainPassword.second,true) }}
-                    </div>
-                    {{ macro.enregistrer }}
-                </form>
+            <div class="col-md-4">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">Administrator</span></h5>
+                {{ form(form) }}
             </div>
         </div>
         <div class="row">
@@ -56,6 +40,7 @@
                                 </td>
                                 <td>
                                     {{ macro.edit(path('administrator',{'id':user.id})) }}
+                                    {{ macro.password(path('administrator',{'id':user.id,'password':'password'})) }}
                                     {% if user != currentUser %}
                                         {{ macro.delete(path('delete_administrator',{'id':user.id})) }}
                                     {% endif %}

@@ -34,8 +34,8 @@ delete_type_accommodation:
     defaults: { _controller: BackReferentielBundle:Referentiel:deleteTypeAccomodation, }
 #********************************************************************************************************
 administrator:
-    path:     /administrator/{id}
-    defaults: { _controller: BackReferentielBundle:Referentiel:administrator,id:null }
+    path:     /administrator/{id}/{password}
+    defaults: { _controller: BackReferentielBundle:Referentiel:administrator,id:null,password:null }
 delete_administrator:
     path:     /deleteadministrator/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:deleteAdministrator }

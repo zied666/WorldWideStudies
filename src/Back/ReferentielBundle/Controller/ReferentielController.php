@@ -212,7 +212,7 @@ class ReferentielController extends Controller
         return $this->redirect($this->generateUrl("school"));
     }
 
-    public function administratorAction($id)
+    public function administratorAction($id,$password)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
@@ -225,16 +225,23 @@ class ReferentielController extends Controller
         $form=$this->createForm(new RegistrationFormType(), $user);
         $form->add('roles', 'choice', array( 'choices' =>
             array(
-                'ROLE_SUPER_ADMIN'=>'ROLE SUPER ADMIN',
-                'ROLE_ADMIN_UNIVERSITY'=>'ROLE UNIVERSITY',
+                'ROLE_SUPER_ADMIN'        =>'ROLE SUPER ADMIN',
+                'ROLE_ADMIN_CONFIG'       =>'ROLE CONFIG',
+                'ROLE_ADMIN_UNIVERSITY'   =>'ROLE UNIVERSITY',
                 'ROLE_ADMIN_ACCOMMODATION'=>'ROLE ACCOMMODATION',
-                'ROLE_ADMIN_SCHOOL'=>'ROLE SCHOOL',
-
+                'ROLE_ADMIN_SCHOOL'       =>'ROLE SCHOOL',
             ),
             'required'=>true,
             'expanded'=>true,
             'multiple'=>true
         ));
+        $form->add("Submit","submit",array('attr'=>array('class'=>'btn btn-primary btn-wide pull-right')));
+        if($id!=NULL  && $password==NULL)
+            $form->remove("plainPassword");
+        else
+        {
+            $form->remove("roles")->remove("email");
+        }
         $request=$this->getRequest();
         if($request->isMethod("POST"))
         {
@@ -242,7 +249,7 @@ class ReferentielController extends Controller
             if($form->isValid())
             {
                 $user=$form->getData();
-                $em->persist($user);
+                $em->persist($user->setEnabled(TRUE));
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your administrator has been added successfully");
                 return $this->redirect($this->generateUrl("administrator"));
@@ -296,6 +303,7 @@ class ReferentielController extends Controller
                 ->setParameter('roles', '%"'.$role.'"%');
         return $qb->getQuery()->getResult();
     }
+
     public function findByRoleAdmin()
     {
         $qb=$this->getDoctrine()->getManager()->createQueryBuilder();
@@ -306,11 +314,13 @@ class ReferentielController extends Controller
                 ->orWhere('u.roles LIKE :role2')
                 ->orWhere('u.roles LIKE :role3')
                 ->orWhere('u.roles LIKE :role4')
+                ->orWhere('u.roles LIKE :role5')
                 ->setParameter('role', '%ROLE_ADMIN%')
                 ->setParameter('role1', '%ROLE_SUPER_ADMIN%')
                 ->setParameter('role2', '%ROLE_ADMIN_UNIVERSITY%')
                 ->setParameter('role3', '%ROLE_ADMIN_ACCOMMODATION%')
-                ->setParameter('role4', '%ROLE_ADMIN_SCHOOL%');
+                ->setParameter('role4', '%ROLE_ADMIN_SCHOOL%')
+                ->setParameter('role5', '%ROLE_ADMIN_CONFIG%');
         return $qb->getQuery()->getResult();
     }
 

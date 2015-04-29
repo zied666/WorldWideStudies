@@ -8,7 +8,8 @@ security:
         ROLE_ADMIN_UNIVERSITY:       [ROLE_USER,ROLE_ADMIN]
         ROLE_ADMIN_ACCOMMODATION:       [ROLE_USER,ROLE_ADMIN]
         ROLE_ADMIN_SCHOOL:       [ROLE_USER,ROLE_ADMIN]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ADMIN_ACCOMMODATION,ROLE_ADMIN_SCHOOL,ROLE_ADMIN_UNIVERSITY]
+        ROLE_ADMIN_CONFIG:       [ROLE_USER,ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ADMIN_ACCOMMODATION,ROLE_ADMIN_SCHOOL,ROLE_ADMIN_UNIVERSITY,ROLE_ADMIN_CONFIG]
 
     providers:
         fos_userbundle:
@@ -29,6 +30,8 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         
         - { path: ^/admin/ref/administrator, role: ROLE_SUPER_ADMIN }
+        
+        - { path: ^/admin/ref, role: ROLE_ADMIN_CONFIG }
         
         - { path: ^/admin/accommodation, role: ROLE_ADMIN_ACCOMMODATION }
         - { path: ^/admin/university, role: ROLE_ADMIN_UNIVERSITY }
