@@ -17,6 +17,7 @@
                             <th>Username</th>
                             <th>Roles</th>
                             <th>Email</th>
+                            <th>Last login</th>
                             <th>State</th>
                             <th>Action</th>
                         </tr>
@@ -31,6 +32,7 @@
                                     {% endfor %}
                                 </td>
                                 <td>{{ user.email }}</td>
+                                <td>{{ user.lastLogin|date('d F Y, H:i') }}</td>
                                 <td>
                                     {% if user.enabled %}
                                         <a href="{{ path('enabled_user',{'id':user.id}) }}" ><span class="label label-sm label-success">Enabled</span></a>

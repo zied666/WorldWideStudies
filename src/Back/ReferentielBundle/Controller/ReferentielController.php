@@ -47,7 +47,7 @@ class ReferentielController extends Controller
                 return $this->redirect($this->generateUrl("currency"));
             }
         }
-        return $this->render('BackReferentielBundle:Ref:currency.html.twig', array(
+        return $this->render('BackReferentielBundle::currency.html.twig', array(
                     'form'     =>$form->createView(),
                     'currency' =>$currency,
                     'currencys'=>$currencys
@@ -94,7 +94,7 @@ class ReferentielController extends Controller
                 return $this->redirect($this->generateUrl("country"));
             }
         }
-        return $this->render('BackReferentielBundle:Ref:country.html.twig', array(
+        return $this->render('BackReferentielBundle::country.html.twig', array(
                     'form'    =>$form->createView(),
                     'country' =>$country,
                     'countrys'=>$countrys
@@ -141,7 +141,7 @@ class ReferentielController extends Controller
                 return $this->redirect($this->generateUrl("city"));
             }
         }
-        return $this->render('BackReferentielBundle:Ref:city.html.twig', array(
+        return $this->render('BackReferentielBundle::city.html.twig', array(
                     'form' =>$form->createView(),
                     'city' =>$city,
                     'citys'=>$citys
@@ -188,7 +188,7 @@ class ReferentielController extends Controller
                 return $this->redirect($this->generateUrl("school"));
             }
         }
-        return $this->render('BackReferentielBundle:Ref:school.html.twig', array(
+        return $this->render('BackReferentielBundle::school.html.twig', array(
                     'form'   =>$form->createView(),
                     'school' =>$school,
                     'schools'=>$schools
@@ -225,11 +225,11 @@ class ReferentielController extends Controller
         $form=$this->createForm(new RegistrationFormType(), $user);
         $form->add('roles', 'choice', array( 'choices' =>
             array(
-                'ROLE_SUPER_ADMIN'        =>'ROLE SUPER ADMIN',
-                'ROLE_ADMIN_CONFIG'       =>'ROLE CONFIG',
-                'ROLE_ADMIN_UNIVERSITY'   =>'ROLE UNIVERSITY',
-                'ROLE_ADMIN_ACCOMMODATION'=>'ROLE ACCOMMODATION',
-                'ROLE_ADMIN_SCHOOL'       =>'ROLE SCHOOL',
+                'ROLE_SUPER_ADMIN'        =>'SUPER ADMIN',
+                'ROLE_ADMIN_CONFIG'       =>'CONFIGURATION',
+                'ROLE_ADMIN_UNIVERSITY'   =>'UNIVERSITY',
+                'ROLE_ADMIN_ACCOMMODATION'=>'ACCOMMODATION',
+                'ROLE_ADMIN_SCHOOL'       =>'SCHOOL',
             ),
             'required'=>true,
             'expanded'=>true,
@@ -253,7 +253,7 @@ class ReferentielController extends Controller
                 return $this->redirect($this->generateUrl("administrator"));
             }
         }
-        return $this->render('BackReferentielBundle:Ref:user.html.twig', array(
+        return $this->render('BackReferentielBundle::user.html.twig', array(
                     'form'       =>$form->createView(),
                     'user'       =>$user,
                     'users'      =>$users,
@@ -346,7 +346,7 @@ class ReferentielController extends Controller
                 return $this->redirect($this->generateUrl("language"));
             }
         }
-        return $this->render("BackReferentielBundle:Ref:language.html.twig", array(
+        return $this->render("BackReferentielBundle::language.html.twig", array(
                     'form'     =>$form->createView(),
                     'language' =>$language,
                     'languages'=>$languages
@@ -394,7 +394,7 @@ class ReferentielController extends Controller
                 return $this->redirect($this->generateUrl("program"));
             }
         }
-        return $this->render("BackReferentielBundle:Ref:program.html.twig", array(
+        return $this->render("BackReferentielBundle::program.html.twig", array(
                     'form'    =>$form->createView(),
                     'program' =>$program,
                     'programs'=>$programs
@@ -442,7 +442,7 @@ class ReferentielController extends Controller
                 return $this->redirect($this->generateUrl("type_accommodation"));
             }
         }
-        return $this->render("BackReferentielBundle:Ref:type_accomodation.html.twig", array(
+        return $this->render("BackReferentielBundle::type_accomodation.html.twig", array(
                     'form'              =>$form->createView(),
                     'typeAccommodation' =>$typeAccommodation,
                     'typeAccommodations'=>$typeAccommodations
