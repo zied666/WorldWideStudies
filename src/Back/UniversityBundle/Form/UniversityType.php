@@ -17,8 +17,9 @@ class UniversityType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('nameUniversity')
+            ->add('rank')
             ->add('description')
-            ->add('averagePrice')
             ->add('enabled')
             ->add('site')
             ->add('image',new MediaType())

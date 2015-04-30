@@ -41,6 +41,13 @@ class Currency
      * @ORM\Column(name="symbol", type="string", length=3)
      */
     private $symbol;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="scale", type="integer")
+     */
+    private $scale;
 
 
     /**
@@ -125,5 +132,28 @@ class Currency
     public function __toString()
     {
         return $this->name.' - '.$this->code;
+    }
+
+    /**
+     * Set scale
+     *
+     * @param integer $scale
+     * @return Currency
+     */
+    public function setScale($scale)
+    {
+        $this->scale = $scale;
+
+        return $this;
+    }
+
+    /**
+     * Get scale
+     *
+     * @return integer 
+     */
+    public function getScale()
+    {
+        return $this->scale;
     }
 }

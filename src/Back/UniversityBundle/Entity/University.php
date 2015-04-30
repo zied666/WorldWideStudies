@@ -31,16 +31,28 @@ class University
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(name="nameUniversity", type="string", length=255)
+     */
+    private $nameUniversity;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rank", type="integer")
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 100
+     * )
+     */
+    private $rank;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-
-    /**
-     * @var string
-     * @ORM\Column(name="averagePrice", type="decimal")
-     */
-    private $averagePrice;
 
     /**
      * @var boolean
@@ -129,29 +141,6 @@ class University
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set averagePrice
-     *
-     * @param string $averagePrice
-     * @return University
-     */
-    public function setAveragePrice($averagePrice)
-    {
-        $this->averagePrice = $averagePrice;
-
-        return $this;
-    }
-
-    /**
-     * Get averagePrice
-     *
-     * @return string 
-     */
-    public function getAveragePrice()
-    {
-        return $this->averagePrice;
     }
 
     /**
@@ -278,5 +267,51 @@ class University
     public function getCurrency()
     {
         return $this->currency;
+    }
+
+    /**
+     * Set nameUniversity
+     *
+     * @param string $nameUniversity
+     * @return University
+     */
+    public function setNameUniversity($nameUniversity)
+    {
+        $this->nameUniversity = $nameUniversity;
+
+        return $this;
+    }
+
+    /**
+     * Get nameUniversity
+     *
+     * @return string 
+     */
+    public function getNameUniversity()
+    {
+        return $this->nameUniversity;
+    }
+
+    /**
+     * Set rank
+     *
+     * @param integer $rank
+     * @return University
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
+     *
+     * @return integer 
+     */
+    public function getRank()
+    {
+        return $this->rank;
     }
 }

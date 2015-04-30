@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CurrencyType extends AbstractType
+class StudyModeType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,9 +16,6 @@ class CurrencyType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('code')
-            ->add('symbol')
-            ->add('scale')
         ;
     }
     
@@ -28,7 +25,7 @@ class CurrencyType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Back\ReferentielBundle\Entity\Currency'
+            'data_class' => 'Back\ReferentielBundle\Entity\StudyMode'
         ));
     }
 
@@ -37,6 +34,6 @@ class CurrencyType extends AbstractType
      */
     public function getName()
     {
-        return 'back_referentielbundle_currency';
+        return 'back_referentielbundle_studymode';
     }
 }

@@ -24,10 +24,28 @@ class University
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @ORM\Column(name="nameUniversity", type="string", length=255)
+     */
+    private $nameUniversity;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rank", type="integer")
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5
+     * )
+     */
+    private $rank;
 
     /**
      * @var string
@@ -35,13 +53,6 @@ class University
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="averagePrice", type="decimal")
-     */
-    private $averagePrice;
 
     /**
      * @var boolean
@@ -52,7 +63,7 @@ class University
 
     /**
      * @var string
-     *
+     * @Assert\Url()
      * @ORM\Column(name="site", type="string", length=255)
      */
     private $site;
@@ -133,29 +144,6 @@ class University
     }
 
     /**
-     * Set averagePrice
-     *
-     * @param string $averagePrice
-     * @return University
-     */
-    public function setAveragePrice($averagePrice)
-    {
-        $this->averagePrice = $averagePrice;
-
-        return $this;
-    }
-
-    /**
-     * Get averagePrice
-     *
-     * @return string 
-     */
-    public function getAveragePrice()
-    {
-        return $this->averagePrice;
-    }
-
-    /**
      * Set enabled
      *
      * @param boolean $enabled
@@ -174,7 +162,7 @@ class University
      * @param boolean $enabled
      * @return University
      */
-    public function isEnabled($enabled)
+    public function isEnabled()
     {
         return $this->enabled;
     }
@@ -210,5 +198,120 @@ class University
     public function getSite()
     {
         return $this->site;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Back\ReferentielBundle\Entity\Media $image
+     * @return University
+     */
+    public function setImage(\Back\ReferentielBundle\Entity\Media $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Back\ReferentielBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set city
+     *
+     * @param \Back\ReferentielBundle\Entity\City $city
+     * @return University
+     */
+    public function setCity(\Back\ReferentielBundle\Entity\City $city = null)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return \Back\ReferentielBundle\Entity\City 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set currency
+     *
+     * @param \Back\ReferentielBundle\Entity\Currency $currency
+     * @return University
+     */
+    public function setCurrency(\Back\ReferentielBundle\Entity\Currency $currency = null)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return \Back\ReferentielBundle\Entity\Currency 
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * Set nameUniversity
+     *
+     * @param string $nameUniversity
+     * @return University
+     */
+    public function setNameUniversity($nameUniversity)
+    {
+        $this->nameUniversity = $nameUniversity;
+
+        return $this;
+    }
+
+    /**
+     * Get nameUniversity
+     *
+     * @return string 
+     */
+    public function getNameUniversity()
+    {
+        return $this->nameUniversity;
+    }
+
+    /**
+     * Set rank
+     *
+     * @param integer $rank
+     * @return University
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
+     *
+     * @return integer 
+     */
+    public function getRank()
+    {
+        return $this->rank;
     }
 }

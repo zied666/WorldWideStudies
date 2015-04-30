@@ -1,3 +1,31 @@
+subject:
+    path:     /subject/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:subject,id:null }
+delete_subject:
+    path:     /deleteSubject/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteSubject }
+#********************************************************************************************************
+qualification:
+    path:     /qualification/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:qualification,id:null }
+delete_qualification:
+    path:     /deleteQualification/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteQualification }
+#********************************************************************************************************
+studyMode:
+    path:     /studyMode/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:studyMode,id:null }
+delete_studyMode:
+    path:     /deleteStudyMode/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteStudyMode }
+#********************************************************************************************************
+level:
+    path:     /level/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:level,id:null }
+delete_level:
+    path:     /deletelevel/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteLevels }
+#********************************************************************************************************
 currency:
     path:     /currency/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:currency,id:null }

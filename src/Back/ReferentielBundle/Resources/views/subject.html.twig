@@ -1,16 +1,13 @@
 {% extends ":Back:base.html.twig" %}
-{% block title %}Currencies{% endblock %}
+{% block title %}Subjects{% endblock %}
 {% block body %}
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ path('currency',{'id':currency.id}) }}" method="post" role="form" id="form">
+                <form action="{{ path('subject',{'id':subject.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                     {{ form_widget(form._token) }}
                     <div class="row">
                         {{ formulaire.input("col-md-3","Name",form.name,true) }}
-                        {{ formulaire.input("col-md-1","Code",form.code,true) }}
-                        {{ formulaire.input("col-md-1","Symbol",form.symbol,true) }}
-                        {{ formulaire.input("col-md-3","Number of decimal points",form.scale,true) }}
                     </div>
                     {{ macro.enregistrer }}
                 </form>
@@ -23,22 +20,15 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Code</th>
-                            <th>Symbol</th>
-                            <th>Number of decimal points</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for currency in currencys %}
+                        {% for subject in subjects %}
                             <tr>
-                                <td>{{ currency.name }}</td>
-                                <td>{{ currency.code }}</td>
-                                <td>{{ currency.symbol }}</td>
-                                <td>{{ currency.scale }}</td>
+                                <td>{{ subject.name }}</td>
                                 <td>
-                                    {{ macro.edit(path('currency',{'id':currency.id})) }}
-                                    {{ macro.delete(path('delete_currency',{'id':currency.id})) }}
+                                    {{ macro.edit(path('subject',{'id':subject.id})) }}
+                                    {{ macro.delete(path('delete_subject',{'id':subject.id})) }}
                                 </td>
                             </tr>
                         {% endfor %}

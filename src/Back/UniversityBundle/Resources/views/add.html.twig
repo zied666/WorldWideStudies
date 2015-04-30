@@ -8,13 +8,14 @@
                     {{ form_widget(form._token) }}
                     <div class="row">
                         {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                        {{ formulaire.input("col-md-2","Name University",form.nameUniversity,true) }}
                         {{ formulaire.input("col-md-2","City",form.city,true) }}
                         {{ formulaire.select2("col-md-2","Currecy",form.currency,true) }}
-                        {{ formulaire.select2("col-md-2","Average Price",form.averagePrice,true) }}
                         {{ formulaire.input("col-md-2","Photo",form.image.file,true) }}
                     </div>
                     <div class="row">
-                        {{ formulaire.input("col-md-10","Site",form.site,true) }}
+                        {{ formulaire.select2("col-md-2","Rank",form.rank,true) }}
+                        {{ formulaire.input("col-md-8","Site",form.site,true) }}
                     </div>
                     <div class="row">
                         {{ formulaire.input("col-md-10","Descriptionn",form.description,true) }}

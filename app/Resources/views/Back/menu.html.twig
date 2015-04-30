@@ -106,6 +106,28 @@
                     </div>
                 </a>
                 <ul class="sub-menu">
+                    <li {% if app.request.get('_route')=='subject' %}class="active"{% endif %}>
+                        <a href="{{ path('subject') }}">
+                            <span class="title">Subject</span>
+                        </a>
+                    </li>
+                    <li {% if app.request.get('_route')=='qualification' %}class="active"{% endif %}>
+                        <a href="{{ path('qualification') }}">
+                            <span class="title">Qualification</span>
+                        </a>
+                    </li>
+                    <li {% if app.request.get('_route')=='studyMode' %}class="active"{% endif %}>
+                        <a href="{{ path('studyMode') }}">
+                            <span class="title">Study Mode</span>
+                        </a>
+                    </li>
+                    <li {% if app.request.get('_route')=='level' %}class="active"{% endif %}>
+                        <a href="{{ path('level') }}">
+                            <span class="title">Level of study</span>
+                        </a>
+                    </li>
+
+
                     <li {% if app.request.get('_route')=='currency' %}class="active"{% endif %}>
                         <a href="{{ path('currency') }}">
                             <span class="title">Currencies</span>

@@ -20,6 +20,14 @@ use Back\ReferentielBundle\Entity\TypeAccommodation;
 use Back\ReferentielBundle\Form\TypeAccommodationType;
 use Back\ReferentielBundle\Entity\Currency;
 use Back\ReferentielBundle\Form\CurrencyType;
+use Back\ReferentielBundle\Entity\Level;
+use Back\ReferentielBundle\Form\LevelType;
+use Back\ReferentielBundle\Entity\StudyMode;
+use Back\ReferentielBundle\Form\StudyModeType;
+use Back\ReferentielBundle\Entity\Qualification;
+use Back\ReferentielBundle\Form\QualificationType;
+use Back\ReferentielBundle\Entity\Subject;
+use Back\ReferentielBundle\Form\SubjectType;
 
 class ReferentielController extends Controller
 {
@@ -69,6 +77,194 @@ class ReferentielController extends Controller
             $session->getFlashBag()->add('danger', 'This object is used by another table ');
         }
         return $this->redirect($this->generateUrl("currency"));
+    }
+
+    public function subjectAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($id == NULL)
+            $subject= new Subject();
+        else
+            $subject=$em->getRepository("BackReferentielBundle:Subject")->find($id);
+        $subjects=$em->getRepository("BackReferentielBundle:Subject")->findAll();
+        $form=$this->createForm(new SubjectType(), $subject);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $subject=$form->getData();
+                $em->persist($subject);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your subject has been added successfully");
+                return $this->redirect($this->generateUrl("subject"));
+            }
+        }
+        return $this->render('BackReferentielBundle::subject.html.twig', array(
+                    'form'     =>$form->createView(),
+                    'subject' =>$subject,
+                    'subjects'=>$subjects
+        ));
+    }
+
+    public function deleteSubjectAction(Subject $subject)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($subject);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your object has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This object is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("subject"));
+    }
+
+    public function qualificationAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($id == NULL)
+            $qualification=new Qualification ();
+        else
+            $qualification=$em->getRepository("BackReferentielBundle:Qualification")->find($id);
+        $qualifications=$em->getRepository("BackReferentielBundle:Qualification")->findAll();
+        $form=$this->createForm(new QualificationType(), $qualification);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $qualification=$form->getData();
+                $em->persist($qualification);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your qualification has been added successfully");
+                return $this->redirect($this->generateUrl("qualification"));
+            }
+        }
+        return $this->render('BackReferentielBundle::qualification.html.twig', array(
+                    'form'     =>$form->createView(),
+                    'qualification' =>$qualification,
+                    'qualifications'=>$qualifications
+        ));
+    }
+
+    public function deleteQualificationAction(Qualification $qualification)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($qualification);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your object has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This object is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("qualification"));
+    }
+    
+    public function studyModeAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($id == NULL)
+            $studyMode=new StudyMode ();
+        else
+            $studyMode=$em->getRepository("BackReferentielBundle:StudyMode")->find($id);
+        $studyModes=$em->getRepository("BackReferentielBundle:StudyMode")->findAll();
+        $form=$this->createForm(new StudyModeType(), $studyMode);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $studyMode=$form->getData();
+                $em->persist($studyMode);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your studyMode has been added successfully");
+                return $this->redirect($this->generateUrl("studyMode"));
+            }
+        }
+        return $this->render('BackReferentielBundle::studyMode.html.twig', array(
+                    'form'     =>$form->createView(),
+                    'studyModes' =>$studyModes,
+                    'studyMode'=>$studyMode
+        ));
+    }
+
+    public function deleteStudyModeAction(StudyMode $studyMode)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($studyMode);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your object has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This object is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("studyMode"));
+    }
+
+    public function levelAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($id == NULL)
+            $level=new Level ();
+        else
+            $level=$em->getRepository("BackReferentielBundle:Level")->find($id);
+        $levels=$em->getRepository("BackReferentielBundle:Level")->findAll();
+        $form=$this->createForm(new LevelType(), $level);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $level=$form->getData();
+                $em->persist($level);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your level has been added successfully");
+                return $this->redirect($this->generateUrl("level"));
+            }
+        }
+        return $this->render('BackReferentielBundle::level.html.twig', array(
+                    'form'  =>$form->createView(),
+                    'level' =>$level,
+                    'levels'=>$levels
+        ));
+    }
+
+    public function deleteLevelAction(Currency $currency)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($level);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your object has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This object is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("level"));
     }
 
     public function countryAction($id)
@@ -212,7 +408,7 @@ class ReferentielController extends Controller
         return $this->redirect($this->generateUrl("school"));
     }
 
-    public function administratorAction($id,$password)
+    public function administratorAction($id, $password)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
@@ -235,10 +431,10 @@ class ReferentielController extends Controller
             'expanded'=>true,
             'multiple'=>true
         ));
-        $form->add("Submit","submit",array('attr'=>array('class'=>'btn btn-primary btn-wide pull-right')));
-        if($id!=NULL  && $password==NULL)
+        $form->add("Submit", "submit", array( 'attr'=>array( 'class'=>'btn btn-primary btn-wide pull-right' ) ));
+        if($id != NULL && $password == NULL)
             $form->remove("plainPassword");
-        elseif($id!=NULL)
+        elseif($id != NULL)
             $form->remove("roles")->remove("email");
         $request=$this->getRequest();
         if($request->isMethod("POST"))
