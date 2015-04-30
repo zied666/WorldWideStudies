@@ -1,27 +1,32 @@
 {% extends ":Back:base.html.twig" %}
 {% block title %}University{% endblock %}
 {% block body %}
-    <div class="container-fluid container-fullw bg-white">
-        <div class="row">
-            <div class="col-md-12">
-                <form action="{{ path('add_university',{'id':university.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
-                    {{ form_widget(form._token) }}
-                    <div class="row">
-                        {{ formulaire.input("col-md-2","Name",form.name,true) }}
-                        {{ formulaire.input("col-md-2","Name University",form.nameUniversity,true) }}
-                        {{ formulaire.input("col-md-2","City",form.city,true) }}
-                        {{ formulaire.select2("col-md-2","Currecy",form.currency,true) }}
-                        {{ formulaire.input("col-md-2","Photo",form.image.file,true) }}
+    <div class="tabbable">
+        {% include 'BackUniversityBundle::menu.html.twig' %}
+        <div class="tab-content">
+            <div class="container-fluid container-fullw bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{{ path('add_university',{'id':university.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                                {{ formulaire.input("col-md-2","Name University",form.nameUniversity,true) }}
+                                {{ formulaire.input("col-md-2","City",form.city,true) }}
+                                {{ formulaire.select2("col-md-2","Currecy",form.currency,true) }}
+                                {{ formulaire.input("col-md-2","Photo",form.image.file,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.select2("col-md-2","Rank",form.rank,true) }}
+                                {{ formulaire.input("col-md-8","Site",form.site,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-10","Descriptionn",form.description,true) }}
+                            </div>
+                            {{ macro.enregistrer }}
+                        </form>
                     </div>
-                    <div class="row">
-                        {{ formulaire.select2("col-md-2","Rank",form.rank,true) }}
-                        {{ formulaire.input("col-md-8","Site",form.site,true) }}
-                    </div>
-                    <div class="row">
-                        {{ formulaire.input("col-md-10","Descriptionn",form.description,true) }}
-                    </div>
-                    {{ macro.enregistrer }}
-                </form>
+                </div>
             </div>
         </div>
     </div>

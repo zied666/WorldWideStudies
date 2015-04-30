@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+    <li {% if app.request.get('_route')=='add_university' %}class="active"{% endif %}>
+        <a href="{{ path('add_university',{'id':university.id}) }}">
+            {{ university.name }}
+        </a>
+    </li>
+</ul>
