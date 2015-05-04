@@ -85,6 +85,11 @@ class University
      * @Assert\NotNull()
      */
     protected $currency ;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="CourseTitle", mappedBy="university")
+     */
+    protected $courseTitles;
 
 
     /**
@@ -313,5 +318,45 @@ class University
     public function getRank()
     {
         return $this->rank;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->courseTitles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add courseTitles
+     *
+     * @param \Back\UniversityBundle\Entity\CourseTitle $courseTitles
+     * @return University
+     */
+    public function addCourseTitle(\Back\UniversityBundle\Entity\CourseTitle $courseTitles)
+    {
+        $this->courseTitles[] = $courseTitles;
+
+        return $this;
+    }
+
+    /**
+     * Remove courseTitles
+     *
+     * @param \Back\UniversityBundle\Entity\CourseTitle $courseTitles
+     */
+    public function removeCourseTitle(\Back\UniversityBundle\Entity\CourseTitle $courseTitles)
+    {
+        $this->courseTitles->removeElement($courseTitles);
+    }
+
+    /**
+     * Get courseTitles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCourseTitles()
+    {
+        return $this->courseTitles;
     }
 }

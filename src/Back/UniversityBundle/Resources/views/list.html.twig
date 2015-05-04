@@ -14,6 +14,7 @@
                             <th>Currency</th>
                             <th>Rank</th>
                             <th>Site</th>
+                            <th>Courses title</th>
                             <th>status</th>
                             <th>Action</th>
                         </tr>
@@ -27,6 +28,7 @@
                                 <td>{{ university.currency }}</td>
                                 <td>{{ university.rank }}/100</td>
                                 <td>{{ university.site }}</td>
+                                <td class="center">{{ university.courseTitles|length }}</td>
                                 <td class="center">
                                     {% if university.enabled %}
                                         <a href="{{ path('enable_university',{'id':university.id}) }}" ><span class="label label-sm label-success">Enabled</span></a>
@@ -47,7 +49,5 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 {% endblock %}

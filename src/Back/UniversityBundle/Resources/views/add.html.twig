@@ -2,7 +2,9 @@
 {% block title %}University{% endblock %}
 {% block body %}
     <div class="tabbable">
-        {% include 'BackUniversityBundle::menu.html.twig' %}
+        {% if university.id is not null %}
+            {% include 'BackUniversityBundle::menu.html.twig' %}
+        {% endif %}    
         <div class="tab-content">
             <div class="container-fluid container-fullw bg-white">
                 <div class="row">

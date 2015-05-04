@@ -13,3 +13,19 @@ enable_university:
 delete_university:
     path:     /delete/{id}
     defaults: { _controller: BackUniversityBundle:University:delete }
+    
+course_title:
+    path:     /add/{id}/CourseTitle/{id2}
+    defaults: { _controller: BackUniversityBundle:University:courseTitle,id2:null }
+    
+delete_course_title:
+    path:     /delete_course_title/{id}
+    defaults: { _controller: BackUniversityBundle:University:deleteCourseTitle }
+    
+course_title_startingdate:
+    path:     /CourseTitle/{id}/StartingDate
+    defaults: { _controller: BackUniversityBundle:University:startingDate }
+    
+delete_course_title_startingdate:
+    path:     /delete_course_title_startingdate/{id}
+    defaults: { _controller: BackUniversityBundle:University:deleteStartingDate }

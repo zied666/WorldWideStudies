@@ -42,7 +42,7 @@ class University
      * @ORM\Column(name="rank", type="integer")
      * @Assert\Range(
      *      min = 1,
-     *      max = 5
+     *      max = 100
      * )
      */
     private $rank;
@@ -85,6 +85,11 @@ class University
      * @Assert\NotNull()
      */
     protected $currency ;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="CourseTitle", mappedBy="university")
+     */
+    protected $courseTitles;
 
 
     /**
@@ -313,5 +318,12 @@ class University
     public function getRank()
     {
         return $this->rank;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->courseTitles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

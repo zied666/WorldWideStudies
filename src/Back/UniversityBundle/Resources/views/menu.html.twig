@@ -4,4 +4,16 @@
             {{ university.name }}
         </a>
     </li>
+    <li {% if app.request.get('_route')=='course_title' %}class="active"{% endif %}>
+        <a href="{{ path('course_title',{'id':university.id}) }}">
+            Courses Title ({{ university.courseTitles|length }})
+        </a>
+    </li>
+    {% if app.request.get('_route')=='course_title_startingdate' %}
+        <li class="active">
+            <a href="javascript:void(0)">
+                Starting dates ({{ courseTitle.startDates|length }})
+            </a>
+        </li>
+    {% endif %}
 </ul>

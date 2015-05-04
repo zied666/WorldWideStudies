@@ -1,0 +1,82 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}University{% endblock %}
+{% block body %}
+    <div class="tabbable">
+        {% include 'BackUniversityBundle::menu.html.twig' %}
+        <div class="tab-content">
+            <div class="container-fluid container-fullw bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="{{ path('course_title',{'id':university.id,'id2':courseTitle.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
+                            {{ form_widget(form._token) }}
+                            <div class="row">
+                                {{ formulaire.select2("col-md-2","Subject",form.subject,true) }}
+                                {{ formulaire.select2("col-md-2","Qualification",form.qualification,true) }}
+                                {{ formulaire.select2("col-md-2","Study Mode",form.studyMode,true) }}
+                                {{ formulaire.select2("col-md-2","Level of study",form.level,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-2","Price",form.price,true) }}
+                                {{ formulaire.input("col-md-2","Duration",form.duration,true) }}
+                                {{ formulaire.input("col-md-2","Dead line",form.deadLine,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-10","Descriptionn",form.description,true) }}
+                            </div>
+                            {{ macro.enregistrer }}
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
+                        <table class="table table-striped table-bordered table-hover table-full-width" id="">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Qualification</th>
+                                    <th>Study Mode</th>
+                                    <th>Level of study</th>
+                                    <th>Price</th>
+                                    <th>Duration</th>
+                                    <th>Dead line</th>
+                                    <th>Starting dates</th>
+                                    <th class="center" >Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for courseTitle in university.courseTitles %}
+                                    <tr>
+                                        <td>{{ courseTitle.subject }}</td>
+                                        <td>{{ courseTitle.qualification }}</td>
+                                        <td>{{ courseTitle.studyMode }}</td>
+                                        <td>{{ courseTitle.level }}</td>
+                                        <td>{{ courseTitle.price }} {{ university.currency.code }}</td>
+                                        <td>{{ courseTitle.duration }}</td>
+                                        <td>{{ courseTitle.deadLine }}</td>
+                                        <td>
+                                            {% for startDate in courseTitle.startDates %}
+                                                 -
+                                                {% if "now"|date("Y-m-d") >=  startDate.date|date("Y-m-d") %}
+                                                    <s>{{ startDate.date|date("l  d/m/Y") }}</s>
+                                                {% else %}  
+                                                    {{ startDate.date|date("l  d/m/Y") }}
+                                                {% endif %}
+                                                <br>
+                                            {% endfor %}
+                                        </td>
+                                <td class="center">
+                                    {{ macro.fiche(path('course_title',{'id':university.id,'id2':courseTitle.id})) }}
+                                    {{ macro.dates(path('course_title_startingdate',{'id':courseTitle.id})) }}
+                                    {{ macro.delete(path('delete_course_title',{'id':courseTitle.id})) }}
+                                </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
