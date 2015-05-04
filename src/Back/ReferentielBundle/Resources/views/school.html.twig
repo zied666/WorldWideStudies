@@ -30,7 +30,9 @@
                     <tbody>
                         {% for school in schools %}
                             <tr>
-                                <td class="center"><img src="{{ asset(school.image.getAssetPath) }}" class="img-rounded" width="50px" height="50px"/></td>
+                                <td class="center">
+                                    <img class="img-rounded"  src="{{ school.image.getAssetPath | imagine_filter('small') }}" />
+                                </td>
                                 <td class="center">{{ school.name }}</td>
                                 <td class="center">{{ school.description }}</td>
                                 <td class="center">

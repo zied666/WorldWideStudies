@@ -89,3 +89,20 @@ fos_user:
     db_driver: orm 
     firewall_name: main
     user_class: Back\UserBundle\Entity\User    
+    
+    
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        small:
+            quality: 75
+            filters:
+                thumbnail: { size: [50, 50], mode: inset }    
+        albums:
+            quality: 75
+            filters:
+                thumbnail: { size: [175, 131], mode: inset }    

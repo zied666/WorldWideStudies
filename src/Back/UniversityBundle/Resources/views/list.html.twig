@@ -22,7 +22,9 @@
                     <tbody>
                         {% for university in universities %}
                             <tr>
-                                <td class="center"><img src="{{ asset(university.image.getAssetPath) }}" class="img-rounded" width="50px" height="50px"/></td>
+                                <td class="center">
+                                    <img class="img-rounded"  src="{{ university.image.getAssetPath | imagine_filter('small') }}" />
+                                </td>
                                 <td>{{ university.nameUniversity|upper }} {{ university.name }}</td>
                                 <td>{{ university.city.country.code }}, {{ university.city }}</td>
                                 <td>{{ university.currency }}</td>
