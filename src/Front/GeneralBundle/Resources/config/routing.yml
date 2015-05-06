@@ -1,3 +1,12 @@
 accueil:
     path:     /
     defaults: { _controller: FrontGeneralBundle:Default:index }
+accueil1:
+    path:     /1
+    defaults: { _controller: FrontGeneralBundle:Default:index1 }
+accueil2:
+    path:     /2
+    defaults: { _controller: FrontGeneralBundle:Default:index2 }
+accueil3:
+    path:     /3
+    defaults: { _controller: FrontGeneralBundle:Default:index3 }
