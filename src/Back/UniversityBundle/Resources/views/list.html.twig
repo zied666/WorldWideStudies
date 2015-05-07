@@ -23,7 +23,9 @@
                         {% for university in universities %}
                             <tr>
                                 <td class="center">
-                                    <img class="img-rounded"  src="{{ university.image.getAssetPath | imagine_filter('small') }}" />
+                                    {% if university.image.getAssetPath is defined %}
+                                        <img class="img-rounded"  src="{{ university.image.getAssetPath | imagine_filter('small') }}" />
+                                    {% endif%}
                                 </td>
                                 <td>{{ university.nameUniversity|upper }} {{ university.name }}</td>
                                 <td>{{ university.city.country.code }}, {{ university.city }}</td>

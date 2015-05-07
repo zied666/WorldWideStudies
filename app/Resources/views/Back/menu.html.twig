@@ -106,6 +106,11 @@
                     </div>
                 </a>
                 <ul class="sub-menu">
+                    <li {% if app.request.get('_route')=='subjectschool' %}class="active"{% endif %}>
+                        <a href="{{ path('subjectschool') }}">
+                            <span class="title">Subject School location</span>
+                        </a>
+                    </li>
                     <li {% if app.request.get('_route')=='subject' %}class="active"{% endif %}>
                         <a href="{{ path('subject') }}">
                             <span class="title">Subject</span>

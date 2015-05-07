@@ -12,7 +12,7 @@
                         <form action="{{ path('add_university',{'id':university.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                             {{ form_widget(form._token) }}
                             <div class="row">
-                                {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                                {{ formulaire.input("col-md-2","School name",form.name,true) }}
                                 {{ formulaire.input("col-md-2","Name University",form.nameUniversity,true) }}
                                 {{ formulaire.input("col-md-2","City",form.city,true) }}
                                 {{ formulaire.select2("col-md-2","Currecy",form.currency,true) }}

@@ -10,11 +10,14 @@
                         <form action="{{ path('list_courses',{'id':school.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                             {{ form_widget(form._token) }}
                             <div class="row">
-                                {{ formulaire.input("col-md-3","Name",form.name,true) }}
                                 {% if school.type == 1 %}
+                                    {{ formulaire.input("col-md-3","Name",form.name,true) }}
                                     {{ formulaire.select2("col-md-3","Language course",form.language,true) }}
-                                {% else %}
+                                {% endif %}
+                                {% if school.type == 2 %}
+                                    {{ formulaire.select2("col-md-3","Subject",form.subject,true) }}
                                     {{ formulaire.select2("col-md-3","Pathways programs",form.program,true) }}
+                                    {{ formulaire.select2("col-md-3","Language course",form.language,true) }}
                                 {% endif %}
                             </div>
                             <div class="row">
@@ -28,12 +31,14 @@
                         <table class="table table-hover" id="sample-table-1">
                             <thead>
                                 <tr>
-                                    <th class="center">Name</th>
-                                            {% if school.type == 1 %}
-                                            <th class="center">Language course</th>
-                                            {% else %}
-                                            <th class="center">Pathways programs</th>
-                                            {% endif %}
+                                    {% if school.type == 1 %}
+                                        <th class="center">Name</th>
+                                        <th class="center">Language course</th>
+                                        {% else %}
+                                        <th class="center">Subject</th>
+                                        <th class="center">Pathways programs</th>
+                                        <th class="center">Language course</th>
+                                        {% endif %}
                                     <th class="center">Start Dates</th>
                                     <th class="center">Prices</th>
                                     <th class="center">Action</th>
@@ -42,12 +47,14 @@
                             <tbody>
                                 {% for cours in school.courses %}
                                     <tr>
-                                        <td class="center">{{ cours.name }}</td>
-                                            {% if school.type == 1 %}
-                                                <td class="center">{{ cours.language }}</td>
-                                            {% else %}
-                                                <td class="center">{{ cours.program }}</td>
-                                            {% endif %}
+                                        {% if school.type == 1 %}
+                                            <td class="center">{{ cours.name }}</td>
+                                            <td class="center">{{ cours.language }}</td>
+                                        {% else %}
+                                            <td class="center">{{ cours.subject }}</td>
+                                            <td class="center">{{ cours.program }}</td>
+                                            <td class="center">{{ cours.language }}</td>
+                                        {% endif %}
                                         <td class="center">{{ cours.startDates|length }}</td>
                                         <td class="center">{{ cours.prices|length }}</td>
                                         <td class="center">

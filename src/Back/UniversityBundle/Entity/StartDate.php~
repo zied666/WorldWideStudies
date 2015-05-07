@@ -69,29 +69,6 @@ class StartDate
     }
 
     /**
-     * Set course
-     *
-     * @param \Back\SchoolBundle\Entity\Course $course
-     * @return StartDate
-     */
-    public function setCourse(\Back\SchoolBundle\Entity\Course $course = null)
-    {
-        $this->course = $course;
-
-        return $this;
-    }
-
-    /**
-     * Get course
-     *
-     * @return \Back\SchoolBundle\Entity\Course 
-     */
-    public function getCourse()
-    {
-        return $this->course;
-    }
-
-    /**
      * Set courseTitle
      *
      * @param \Back\UniversityBundle\Entity\CourseTitle $courseTitle

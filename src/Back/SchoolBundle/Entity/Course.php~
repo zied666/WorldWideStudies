@@ -46,6 +46,11 @@ class Course
     protected $program ;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\SubjectSchoolLocation")
+     */
+    protected $subject ;
+    
+    /**
      * @ORM\OneToMany(targetEntity="StartDate", mappedBy="course")
      * @ORM\OrderBy({"date" = "ASC"})
      */
@@ -304,5 +309,28 @@ class Course
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param \Back\ReferentielBundle\Entity\SubjectSchoolLocation $subject
+     * @return Course
+     */
+    public function setSubject(\Back\ReferentielBundle\Entity\SubjectSchoolLocation $subject = null)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return \Back\ReferentielBundle\Entity\SubjectSchoolLocation 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

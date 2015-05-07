@@ -5,12 +5,12 @@ namespace Back\ReferentielBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * StudyMode
+ * SubjectSchoolLocation
  *
- * @ORM\Table(name="wws_studymode")
+ * @ORM\Table(name="wws_subject_school_location")
  * @ORM\Entity
  */
-class StudyMode
+class SubjectSchoolLocation
 {
     /**
      * @var integer
@@ -43,7 +43,7 @@ class StudyMode
      * Set name
      *
      * @param string $name
-     * @return StudyMode
+     * @return SubjectSchoolLocation
      */
     public function setName($name)
     {
@@ -62,10 +62,6 @@ class StudyMode
         return $this->name;
     }
     
-    /**
-     * To string
-     * @return string 
-     */
     public function __toString()
     {
         return $this->name;

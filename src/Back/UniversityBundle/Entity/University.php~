@@ -326,4 +326,37 @@ class University
     {
         $this->courseTitles = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * Add courseTitles
+     *
+     * @param \Back\UniversityBundle\Entity\CourseTitle $courseTitles
+     * @return University
+     */
+    public function addCourseTitle(\Back\UniversityBundle\Entity\CourseTitle $courseTitles)
+    {
+        $this->courseTitles[] = $courseTitles;
+
+        return $this;
+    }
+
+    /**
+     * Remove courseTitles
+     *
+     * @param \Back\UniversityBundle\Entity\CourseTitle $courseTitles
+     */
+    public function removeCourseTitle(\Back\UniversityBundle\Entity\CourseTitle $courseTitles)
+    {
+        $this->courseTitles->removeElement($courseTitles);
+    }
+
+    /**
+     * Get courseTitles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCourseTitles()
+    {
+        return $this->courseTitles;
+    }
 }

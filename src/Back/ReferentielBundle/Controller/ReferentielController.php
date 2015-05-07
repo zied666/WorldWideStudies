@@ -28,6 +28,8 @@ use Back\ReferentielBundle\Entity\Qualification;
 use Back\ReferentielBundle\Form\QualificationType;
 use Back\ReferentielBundle\Entity\Subject;
 use Back\ReferentielBundle\Form\SubjectType;
+use Back\ReferentielBundle\Entity\SubjectSchoolLocation;
+use Back\ReferentielBundle\Form\SubjectSchoolLocationType;
 
 class ReferentielController extends Controller
 {
@@ -84,7 +86,7 @@ class ReferentielController extends Controller
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
         if($id == NULL)
-            $subject= new Subject();
+            $subject=new Subject();
         else
             $subject=$em->getRepository("BackReferentielBundle:Subject")->find($id);
         $subjects=$em->getRepository("BackReferentielBundle:Subject")->findAll();
@@ -103,7 +105,7 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackReferentielBundle::subject.html.twig', array(
-                    'form'     =>$form->createView(),
+                    'form'    =>$form->createView(),
                     'subject' =>$subject,
                     'subjects'=>$subjects
         ));
@@ -150,7 +152,7 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackReferentielBundle::qualification.html.twig', array(
-                    'form'     =>$form->createView(),
+                    'form'          =>$form->createView(),
                     'qualification' =>$qualification,
                     'qualifications'=>$qualifications
         ));
@@ -172,7 +174,7 @@ class ReferentielController extends Controller
         }
         return $this->redirect($this->generateUrl("qualification"));
     }
-    
+
     public function studyModeAction($id)
     {
         $em=$this->getDoctrine()->getManager();
@@ -197,9 +199,9 @@ class ReferentielController extends Controller
             }
         }
         return $this->render('BackReferentielBundle::studyMode.html.twig', array(
-                    'form'     =>$form->createView(),
-                    'studyModes' =>$studyModes,
-                    'studyMode'=>$studyMode
+                    'form'      =>$form->createView(),
+                    'studyModes'=>$studyModes,
+                    'studyMode' =>$studyMode
         ));
     }
 
@@ -660,6 +662,52 @@ class ReferentielController extends Controller
             $session->getFlashBag()->add('danger', 'This program is used by another table ');
         }
         return $this->redirect($this->generateUrl("type_accommodation"));
+    }
+
+    public function subjectSchoolAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(is_null($id))
+            $subject=new SubjectSchoolLocation();
+        else
+            $subject=$em->getRepository("BackReferentielBundle:SubjectSchoolLocation")->find($id);
+        $form=$this->createForm(new SubjectSchoolLocationType(), $subject);
+        $subjects=$em->getRepository("BackReferentielBundle:SubjectSchoolLocation")->findAll();
+        if($this->getRequest()->isMethod("POST"))
+        {
+            $form->submit($this->getRequest());
+            if($form->isValid())
+            {
+                $subject=$form->getData();
+                $em->persist($subject);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your subject has been added successfully");
+                return $this->redirect($this->generateUrl("subjectschool"));
+            }
+        }
+        return $this->render("BackReferentielBundle::subject_school.html.twig", array(
+                    'form'    =>$form->createView(),
+                    'subject' =>$subject,
+                    'subjects'=>$subjects
+        ));
+    }
+
+    public function deleteSubjectSchoolAction(SubjectSchoolLocation $subject)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($subject);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your subject has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This subject is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("subjectschool"));
     }
 
 }

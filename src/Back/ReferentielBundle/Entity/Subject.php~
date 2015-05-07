@@ -61,4 +61,13 @@ class Subject
     {
         return $this->name;
     }
+    
+    /**
+     * To string
+     * @return string 
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

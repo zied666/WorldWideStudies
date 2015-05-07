@@ -23,7 +23,9 @@
                         {% for accommodation in accommodations %}
                             <tr>
                                 <td class="center">
-                                    <img class="img-rounded"  src="{{ accommodation.image.getAssetPath | imagine_filter('small') }}" />
+                                    {% if accommodation.image.getAssetPath is defined %}
+                                        <img class="img-rounded"  src="{{ accommodation.image.getAssetPath | imagine_filter('small') }}" />
+                                    {% endif %}
                                 </td>
                                 <td>{{ accommodation.name }}</td>
                                 <td>{{ accommodation.typeAccommodation }}</td>

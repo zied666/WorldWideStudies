@@ -1,3 +1,10 @@
+subjectschool:
+    path:     /subjectschool/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:subjectSchool,id:null }
+delete_subjectschool:
+    path:     /deleteSubjectSchool/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteSubjectSchool}
+#********************************************************************************************************
 subject:
     path:     /subject/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:subject,id:null }
