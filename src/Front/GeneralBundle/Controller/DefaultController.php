@@ -18,8 +18,4 @@ class DefaultController extends Controller
     {
         return $this->render('FrontGeneralBundle::accueil2.html.twig');
     }
-    public function index3Action()
-    {
-        return $this->render('FrontGeneralBundle::accueil3.html.twig');
-    }
 }
