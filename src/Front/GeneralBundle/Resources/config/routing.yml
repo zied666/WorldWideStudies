@@ -1,3 +1,7 @@
+SchoolRouting:
+    resource: "@FrontGeneralBundle/Resources/config/routing/languageCourses.yml"
+    prefix:   /languageCourses/
+
 accueil:
     path:     /
     defaults: { _controller: FrontGeneralBundle:Default:index }
@@ -5,13 +9,3 @@ accueil:
 ajax_country_to_city:
     path:     /ajax_country_to_city/
     defaults: { _controller: FrontGeneralBundle:Default:ajax } 
-    
-accueil1:
-    path:     /1
-    defaults: { _controller: FrontGeneralBundle:Default:index1 }
-accueil2:
-    path:     /2
-    defaults: { _controller: FrontGeneralBundle:Default:index2 }
-accueil3:
-    path:     /3
-    defaults: { _controller: FrontGeneralBundle:Default:index3 }
