@@ -48,16 +48,20 @@
                                             <i class="soap-icon-conference"></i>
                                         </div>
                                         <div class="search-content">
-                                            <h5 class="title">Select a language</h5>
-                                            <label></label>
-                                            <div class="selector">
-                                                <select class="full-width">
-                                                    <option value=""></option>
-                                                    <option value="1">English</option>
-                                                    <option value="2">French</option>
-                                                    <option value="3">German</option>
-                                                    <option value="4">Arabic</option>
-                                                </select>
+                                            <h5 class="title"></h5>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <label>Select a language</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All languages</option>
+                                                            <option value="1">English</option>
+                                                            <option value="2">French</option>
+                                                            <option value="3">German</option>
+                                                            <option value="4">Arabic</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <hr>
                                             <h5 class="title">Where</h5>
@@ -66,7 +70,7 @@
                                                     <label>Country</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value=""></option>
+                                                            <option value="">All countries</option>
                                                             <option value="1">Uk</option>
                                                             <option value="2">USA</option>
                                                             <option value="3">France</option>
@@ -78,16 +82,16 @@
                                                     <label>City</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value="">Loading ...</option>
+                                                            <option value="">All cities</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <hr>
-                                            <h5 class="title">Key word</h5>
+                                            <h5 class="title">Keyword</h5>
                                             <div class="row">
                                                 <div class="col-xs-12">
-                                                    <input type="text" class="input-text full-width" placeholder="School's name, courses, city, country ..." />
+                                                    <input type="text" class="input-text full-width" placeholder="Search..." />
                                                 </div>
                                             </div>
                                             <hr>
@@ -109,7 +113,7 @@
                                                     <label>Select a level of study</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value=""></option>
+                                                            <option value="">All levels</option>
                                                             <option value="1">Foundation year</option>
                                                             <option value="2">Pre-Master</option>
                                                         </select>
@@ -119,9 +123,10 @@
                                                     <label>Language</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value=""></option>
-                                                            <option value="1">Foundation year</option>
-                                                            <option value="2">Pre-Master</option>
+                                                            <option value="">All languages</option>
+                                                            <option value="1">French</option>
+                                                            <option value="2">English</option>
+                                                            <option value="2">Germany</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -129,9 +134,10 @@
                                                     <label>Subject</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value=""></option>
-                                                            <option value="1">Foundation year</option>
-                                                            <option value="2">Pre-Master</option>
+                                                            <option value="">All subjects</option>
+                                                            <option value="1">Art</option>
+                                                            <option value="2">Biology</option>
+                                                            <option value="2">MSC</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -143,7 +149,7 @@
                                                     <label>Country</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value=""></option>
+                                                            <option value="">All countries</option>
                                                             <option value="1">Uk</option>
                                                             <option value="2">USA</option>
                                                             <option value="3">France</option>
@@ -155,7 +161,7 @@
                                                     <label>City</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value="">Loading ...</option>
+                                                            <option value="">All cities</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -173,222 +179,149 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="flight-and-hotel-tab">
-                                    <form action="flight-list-view.html" method="post">
+                                    <form action="hotel-list-view.html" method="post">
                                         <div class="title-container">
-                                            <h2 class="search-title">Search and Book Flight &amp; Hotels</h2>
+                                            <h2 class="search-title">Universities</h2>
                                             <p>We're bringing you a new level of comfort.</p>
-                                            <i class="soap-icon-hotel-1"></i>
+                                            <i class="soap-icon-conference"></i>
                                         </div>
                                         <div class="search-content">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label>Select a level of study</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All levels</option>
+                                                            <option value="1">Foundation year</option>
+                                                            <option value="2">Pre-Master</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label>Qualification</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All qualifications</option>
+                                                            <option value="1">MSC</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label>Subject</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All subjects</option>
+                                                            <option value="1">Art</option>
+                                                            <option value="2">Biology</option>
+                                                            <option value="2">MSC</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label>Study Mode</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">all modes</option>
+                                                            <option value="">Full time</option>
+                                                            <option value="">past time</option>
+                                                            <option value="1">on line</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
                                             <h5 class="title">Where</h5>
                                             <div class="row">
                                                 <div class="col-xs-6">
-                                                    <label>Leaving From</label>
-                                                    <input type="text" class="input-text full-width" placeholder="enter your location" />
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    <label>Going To</label>
-                                                    <input type="text" class="input-text full-width" placeholder="enter a destination" />
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <h5 class="title">When</h5>
-                                            <label>Departing On</label>
-                                            <div class="row">
-                                                <div class="col-xs-6 col-md-5">
-                                                    <div class="datepicker-wrap">
-                                                        <input type="text" class="input-text full-width" placeholder="select date" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 col-md-5">
+                                                    <label>Country</label>
                                                     <div class="selector">
-                                                        <select>
-                                                            <option value="">select date</option>
-                                                            <option value="1">anytime</option>
-                                                            <option value="2">morning</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <label>Arriving On</label>
-                                            <div class="row">
-                                                <div class="col-xs-6 col-md-5">
-                                                    <div class="datepicker-wrap">
-                                                        <input type="text" class="input-text full-width" placeholder="select date" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 col-md-5">
-                                                    <div class="selector">
-                                                        <select>
-                                                            <option value="">select date</option>
-                                                            <option value="1">anytime</option>
-                                                            <option value="2">morning</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <h5 class="title">Who</h5>
-                                            <div class="row">
-                                                <div class="col-xs-4 col-md-3">
-                                                    <label>Adults</label>
-                                                    <div class="selector">
-                                                        <select>
-                                                            <option value="1">01</option>
-                                                            <option value="2">02</option>
-                                                            <option value="3">03</option>
-                                                            <option value="4">04</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-md-3">
-                                                    <label>Kids</label>
-                                                    <div class="selector">
-                                                        <select>
-                                                            <option value="1">01</option>
-                                                            <option value="2">02</option>
-                                                            <option value="3">03</option>
-                                                            <option value="4">04</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-md-3">
-                                                    <label>Infants</label>
-                                                    <div class="selector">
-                                                        <select>
-                                                            <option value="1">01</option>
-                                                            <option value="2">02</option>
-                                                            <option value="3">03</option>
-                                                            <option value="4">04</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <h5 class="title">Class <small>(Optional)</small></h5>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <label>Class of travel</label>
-                                                    <div class="selector">
-                                                        <select>
-                                                            <option value="">Economy</option>
+                                                        <select class="full-width">
+                                                            <option value="">All countries</option>
+                                                            <option value="1">Uk</option>
+                                                            <option value="2">USA</option>
+                                                            <option value="3">France</option>
+                                                            <option value="4">Cananda</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-6">
-                                                    <label>Preferred Airline</label>
+                                                    <label>City</label>
                                                     <div class="selector">
-                                                        <select>
-                                                            <option value="">select name</option>
+                                                        <select class="full-width">
+                                                            <option value="">All cities</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <hr>
-                                            <button type="submit" class="full-width btn-medium">PROCEED TO RESULT</button>
+                                            <h5 class="title">Key word</h5>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <input type="text" class="input-text full-width" placeholder="School's name, courses, city, country ..." />
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="cars-tab">
-                                    <form action="car-list-view.html" method="post">
+                                    <form action="hotel-list-view.html" method="post">
                                         <div class="title-container">
-                                            <h2 class="search-title">Search Cars</h2>
+                                            <h2 class="search-title">Accomodation</h2>
                                             <p>We're bringing you a new level of comfort.</p>
-                                            <i class="soap-icon-carryon"></i>
+                                            <i class="soap-icon-conference"></i>
                                         </div>
                                         <div class="search-content">
+                                            <h5 class="title"></h5>
                                             <div class="row">
-                                                <h5 class="title">Where</h5>
-                                                <div class="col-xs-6">
-                                                    <label>Pick Up</label>
-                                                    <input type="text" class="input-text full-width" placeholder="city, distirct or specific airpot" />
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    <label>Drop Off</label>
-                                                    <input type="text" class="input-text full-width" placeholder="city, distirct or specific airpot" />
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <h5 class="title">When</h5>
-                                            <label>Pick-Up Date / Time</label>
-                                            <div class="form-group row">
-                                                <div class="col-xs-6">
-                                                    <div class="datepicker-wrap">
-                                                        <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6">
+                                                <div class="col-xs-12">
+                                                    <label>Select type accommodation</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value="1">anytime</option>
-                                                            <option value="2">morning</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <label>Drop-Off Date / Time</label>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <div class="datepicker-wrap">
-                                                        <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    <div class="selector">
-                                                        <select class="full-width">
-                                                            <option value="1">anytime</option>
-                                                            <option value="2">morning</option>
+                                                            <option value="">All types</option>
+                                                            <option value="1">Residence</option>
+                                                            <option value="2">Home stay</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <hr>
-                                            <h5 class="title">Who</h5>
+                                            <h5 class="title">Where</h5>
                                             <div class="row">
-                                                <div class="col-xs-3">
-                                                    <label>Adults</label>
+                                                <div class="col-xs-6">
+                                                    <label>Country</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value="1">01</option>
-                                                            <option value="2">02</option>
-                                                            <option value="3">03</option>
-                                                            <option value="4">04</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <label>Kids</label>
-                                                    <div class="selector">
-                                                        <select class="full-width">
-                                                            <option value="1">01</option>
-                                                            <option value="2">02</option>
-                                                            <option value="3">03</option>
-                                                            <option value="4">04</option>
+                                                            <option value="">All countries</option>
+                                                            <option value="1">Uk</option>
+                                                            <option value="2">USA</option>
+                                                            <option value="3">France</option>
+                                                            <option value="4">Cananda</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-6">
-                                                    <label>Promo Code</label>
-                                                    <input type="text" class="input-text full-width" placeholder="type here" />
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <label>Car Type</label>
+                                                    <label>City</label>
                                                     <div class="selector">
                                                         <select class="full-width">
-                                                            <option value="">select a car type</option>
-                                                            <option value="economy">Economy</option>
-                                                            <option value="compact">Compact</option>
+                                                            <option value="">All cities</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <hr>
-                                            <div class="form-group">
-                                                <button type="submit" class="full-width">PROCEED TO RESULT</button>
+                                            <h5 class="title">Keyword</h5>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <input type="text" class="input-text full-width" placeholder="Search..." />
+                                                </div>
                                             </div>
+                                            <hr>
+                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
                                         </div>
                                     </form>
                                 </div>
@@ -397,7 +330,7 @@
                     </div>
                 </div>
                 <div class="sidebar col-sm-4 col-md-3" style="  z-index: 11;padding-top: 20px;">
-                    <div class="travelo-box contact-box">
+{#                    <div class="travelo-box contact-box">
                         <h4>Need Travelo Help?</h4>
                         <p>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</p>
                         <address class="contact-details">
@@ -405,27 +338,8 @@
                             <br>
                             <a class="contact-email" href="#">help@travelo.com</a>
                         </address>
-                    </div>
-                    <div class="travelo-box book-with-us-box">
-                        <h4>Why Book with us?</h4>
-                        <ul>
-                            <li>
-                                <i class="soap-icon-hotel-1 circle"></i>
-                                <h5 class="title"><a href="#">135,00+ Hotels</a></h5>
-                                <p>Nunc cursus libero pur congue arut nimspnty.</p>
-                            </li>
-                            <li>
-                                <i class="soap-icon-savings circle"></i>
-                                <h5 class="title"><a href="#">Low Rates &amp; Savings</a></h5>
-                                <p>Nunc cursus libero pur congue arut nimspnty.</p>
-                            </li>
-                            <li>
-                                <i class="soap-icon-support circle"></i>
-                                <h5 class="title"><a href="#">Excellent Support</a></h5>
-                                <p>Nunc cursus libero pur congue arut nimspnty.</p>
-                            </li>
-                        </ul>
-                    </div>
+                    </div>#}
+                    <div class="fb-page" data-href="https://www.facebook.com/WorldwideStudiesTunisia" data-width="270px" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/WorldwideStudiesTunisia"><a href="https://www.facebook.com/WorldwideStudiesTunisia">Worldwide Studies</a></blockquote></div></div>                   
                 </div>
             </div>
         </div>
