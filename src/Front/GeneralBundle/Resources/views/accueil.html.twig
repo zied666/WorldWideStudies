@@ -1,1 +1,434 @@
-accueil
+{% extends ":Front:base.html.twig" %}
+{% block body %}
+    <section id="content" class="slideshow-bg">
+        <div id="slideshow">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <div class="slidebg" style="background-image: url('{{ asset('front-assets/images/group.jpg') }}');"></div>
+                    </li>
+                    <li>
+                        <div class="slidebg" style="background-image: url('{{ asset('front-assets/images/group2.jpg') }}');"></div>
+                    </li>
+                    <li>
+                        <div class="slidebg" style="background-image: url('{{ asset('front-assets/images/group3.jpg') }}');"></div>
+                    </li>
+                    <li>
+                        <div class="slidebg" style="background-image: url('{{ asset('front-assets/images/group4.jpg') }}');"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div id="main" class="col-sm-8 col-md-9" style="  padding-top: 20px;">
+                    <div class="search-box-wrapper style1">
+                        <div class="search-box">
+                            <ul class="search-tabs clearfix">
+                                <li class="active"><a href="#hotels-tab" data-toggle="tab"><i class="soap-icon-conference"></i>Language course</a></li>
+                                <li><a href="#flights-tab" data-toggle="tab"><i class="soap-icon-businessbag"></i>Pathway program</a></li>
+                                <li><a href="#flight-and-hotel-tab" data-toggle="tab"><i class="soap-icon-hotel-1"></i>Universities</a></li>
+                                <li><a href="#cars-tab" data-toggle="tab"><i class="soap-icon-carryon"></i>Student accommodation</a></li>
+                            </ul>
+                            <div class="visible-mobile">
+                                <ul id="mobile-search-tabs" class="search-tabs clearfix">
+                                    <li class="active"><a href="#hotels-tab">Language course</a></li>
+                                    <li><a href="#flights-tab">Pathway program</a></li>
+                                    <li><a href="#flight-and-hotel-tab">Universities</a></li>
+                                    <li><a href="#cars-tab">Student accommodation</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="search-tab-content">
+                                <div class="tab-pane fade  active in" id="hotels-tab">
+                                    <form action="hotel-list-view.html" method="post">
+                                        <div class="title-container">
+                                            <h2 class="search-title">Language course</h2>
+                                            <p>We're bringing you a new level of comfort.</p>
+                                            <i class="soap-icon-conference"></i>
+                                        </div>
+                                        <div class="search-content">
+                                            <h5 class="title"></h5>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <label>Select a language</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All languages</option>
+                                                            {% for language in languages %}
+                                                                <option value="{{ language.id }}">{{ language|title  }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5 class="title">Where</h5>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label>Country</label>
+                                                    <div class="selector">
+                                                        <select class="full-width" id="CountrySelect1">
+                                                            <option value="">All countries</option>
+                                                            {% for country in countries %}
+                                                                <option value="{{ country.id }}">{{ country|title  }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label>City</label>
+                                                    <div class="selector">
+                                                        <select class="full-width" id="CitySelect1">
+                                                            <option value="">All cities</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5 class="title">Keyword</h5>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <input type="text" class="input-text full-width" placeholder="Search..." />
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="flights-tab">
+                                    <form action="hotel-list-view.html" method="post">
+                                        <div class="title-container">
+                                            <h2 class="search-title">Pathway program</h2>
+                                            <p>We're bringing you a new level of comfort.</p>
+                                            <i class="soap-icon-conference"></i>
+                                        </div>
+                                        <div class="search-content">
+                                            <h5 class="title"></h5>
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <label>Select a level of study</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All levels</option>
+                                                            {% for level in levels %}
+                                                                <option value="{{ level.id }}">{{ level|title }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <label>Language</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All languages</option>
+                                                            {% for language in languages %}
+                                                                <option value="{{ language.id }}">{{ language|title }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <label>Subject</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All subjects</option>
+                                                            {% for subject in subjectsSchool %}
+                                                                <option value="{{ subject.id }}">{{ subject|title }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5 class="title">Where</h5>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label>Country</label>
+                                                    <div class="selector">
+                                                        <select class="full-width" id="CountrySelect2">
+                                                            <option value="">All countries</option>
+                                                            {% for country in countries %}
+                                                                <option value="{{ country.id }}">{{ country|title  }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label>City</label>
+                                                    <div class="selector">
+                                                        <select class="full-width" id="CitySelect2">
+                                                            <option value="">All cities</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5 class="title">Key word</h5>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <input type="text" class="input-text full-width" placeholder="School's name, courses, city, country ..." />
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="flight-and-hotel-tab">
+                                    <form action="hotel-list-view.html" method="post">
+                                        <div class="title-container">
+                                            <h2 class="search-title">Universities</h2>
+                                            <p>We're bringing you a new level of comfort.</p>
+                                            <i class="soap-icon-conference"></i>
+                                        </div>
+                                        <div class="search-content">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label>Select a level of study</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All levels</option>
+                                                            {% for level in levels %}
+                                                                <option value="{{ level.id }}">{{ level|title }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label>Qualification</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All qualifications</option>
+                                                            {% for qualification in qualifications %}
+                                                                <option value="{{ qualification.id }}">{{ qualification|title }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label>Subject</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All subjects</option>
+                                                            {% for subject in subjects %}
+                                                                <option value="{{ subject.id }}">{{ subject|title }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label>Study Mode</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">all modes</option>
+                                                            {% for studyMode in studyModes %}
+                                                                <option value="{{ studyMode.id }}">{{ studyMode|title }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5 class="title">Where</h5>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label>Country</label>
+                                                    <div class="selector">
+                                                        <select class="full-width" id="CountrySelect3">
+                                                            <option value="">All countries</option>
+                                                            {% for country in countries %}
+                                                                <option value="{{ country.id }}">{{ country|title  }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label>City</label>
+                                                    <div class="selector">
+                                                        <select class="full-width" id="CitySelect3">
+                                                            <option value="">All cities</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5 class="title">Key word</h5>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <input type="text" class="input-text full-width" placeholder="School's name, courses, city, country ..." />
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="cars-tab">
+                                    <form action="hotel-list-view.html" method="post">
+                                        <div class="title-container">
+                                            <h2 class="search-title">Accomodation</h2>
+                                            <p>We're bringing you a new level of comfort.</p>
+                                            <i class="soap-icon-conference"></i>
+                                        </div>
+                                        <div class="search-content">
+                                            <h5 class="title"></h5>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <label>Select type accommodation</label>
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="">All types</option>
+                                                            {% for typeAccommodation in typeAccommodations %}
+                                                                <option value="{{ typeAccommodation.id }}">{{ typeAccommodation|title  }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5 class="title">Where</h5>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label>Country</label>
+                                                    <div class="selector">
+                                                        <select class="full-width" id="CountrySelect4">
+                                                            <option value="">All countries</option>
+                                                            {% for country in countries %}
+                                                                <option value="{{ country.id }}">{{ country|title  }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label>City</label>
+                                                    <div class="selector">
+                                                        <select class="full-width" id="CitySelect4">
+                                                            <option value="">All cities</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5 class="title">Keyword</h5>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <input type="text" class="input-text full-width" placeholder="Search..." />
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-sm-4 col-md-3" style="  z-index: 11;padding-top: 20px;">
+                    {#                    <div class="travelo-box contact-box">
+                                            <h4>Need Travelo Help?</h4>
+                                            <p>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</p>
+                                            <address class="contact-details">
+                                                <span class="contact-phone"><i class="soap-icon-phone"></i> 1-800-123-HELLO</span>
+                                                <br>
+                                                <a class="contact-email" href="#">help@travelo.com</a>
+                                            </address>
+                                        </div>#}
+                    <div class="fb-page" data-href="https://www.facebook.com/WorldwideStudiesTunisia" data-width="270px" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/WorldwideStudiesTunisia"><a href="https://www.facebook.com/WorldwideStudiesTunisia">Worldwide Studies</a></blockquote></div></div>                   
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        tjq(document).ready(function () {
+            tjq('#CountrySelect1').on('change', function () {
+                var city = tjq('#CitySelect1');
+                city.empty();
+                city.append('<option value="">Loading ...</option>');
+                updateTraveloElementUI(city);
+                var id = tjq(this).val();
+                tjq.ajax({
+                    url: '{{ path('ajax_country_to_city') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        city.empty();
+                        tjq.each(json, function (index, value) {
+                            city.append('<option value="' + index + '">' + value + '</option>');
+                            updateTraveloElementUI(city);
+                        });
+                    }
+                });
+            })
+            tjq('#CountrySelect2').on('change', function () {
+                var city = tjq('#CitySelect2');
+                city.empty();
+                city.append('<option value="">Loading ...</option>');
+                updateTraveloElementUI(city);
+                var id = tjq(this).val();
+                tjq.ajax({
+                    url: '{{ path('ajax_country_to_city') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        city.empty();
+                        tjq.each(json, function (index, value) {
+                            city.append('<option value="' + index + '">' + value + '</option>');
+                            updateTraveloElementUI(city);
+                        });
+                    }
+                });
+            })
+            tjq('#CountrySelect3').on('change', function () {
+                var city = tjq('#CitySelect3');
+                city.empty();
+                city.append('<option value="">Loading ...</option>');
+                updateTraveloElementUI(city);
+                var id = tjq(this).val();
+                tjq.ajax({
+                    url: '{{ path('ajax_country_to_city') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        city.empty();
+                        tjq.each(json, function (index, value) {
+                            city.append('<option value="' + index + '">' + value + '</option>');
+                            updateTraveloElementUI(city);
+                        });
+                    }
+                });
+            })
+            tjq('#CountrySelect4').on('change', function () {
+                var city = tjq('#CitySelect4');
+                city.empty();
+                city.append('<option value="">Loading ...</option>');
+                updateTraveloElementUI(city);
+                var id = tjq(this).val();
+                tjq.ajax({
+                    url: '{{ path('ajax_country_to_city') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        city.empty();
+                        tjq.each(json, function (index, value) {
+                            city.append('<option value="' + index + '">' + value + '</option>');
+                            updateTraveloElementUI(city);
+                        });
+                    }
+                });
+            })
+        })
+    </script>
+{% endblock %}

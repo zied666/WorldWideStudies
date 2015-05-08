@@ -17,10 +17,19 @@ back_school:
 back_referentiel:
     resource: "@BackReferentielBundle/Resources/config/routing.yml"
     prefix:   /admin/ref
+
+root:
+    pattern: /
+    defaults:
+        _controller: FrontGeneralBundle:Default:index
+        path: /{_locale}
+        permanent: true    
     
 front_general:
     resource: "@FrontGeneralBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /{_locale}/
+    requirements:
+        _locale: en|fr|de
 
 back_user:
     resource: "@BackUserBundle/Resources/config/routing.yml"

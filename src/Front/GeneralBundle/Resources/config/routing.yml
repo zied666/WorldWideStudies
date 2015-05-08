@@ -1,6 +1,11 @@
 accueil:
     path:     /
     defaults: { _controller: FrontGeneralBundle:Default:index }
+    
+ajax_country_to_city:
+    path:     /ajax_country_to_city/
+    defaults: { _controller: FrontGeneralBundle:Default:ajax } 
+    
 accueil1:
     path:     /1
     defaults: { _controller: FrontGeneralBundle:Default:index1 }
