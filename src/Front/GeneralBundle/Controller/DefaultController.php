@@ -52,4 +52,37 @@ class DefaultController extends Controller
         return $response;
     }
 
+    public function redirectAction()
+    {
+        $request=$this->getRequest();
+        if($request->get('language') != null)
+            $language=$request->get('language');
+        else
+            $language='all';
+
+        if($request->get('country') != null)
+            $country=$request->get('country');
+        else
+            $country='all';
+
+        if(!is_null($request->get('city')) && $request->get('city') != 0)
+            $city=$request->get('city');
+        else
+            $city='all';
+
+        if($request->get('stars') != null)
+            $stars=$request->get('stars');
+        else
+            $stars='all';
+
+        return $this->redirect($this->generateUrl('front_language_courses', array(
+                            'page'    =>1,
+                            'language'=>$language,
+                            'country' =>$country,
+                            'city'    =>$city,
+                            'stars'   =>$stars,
+                            'keyword' =>urlencode($request->get('keyword')),
+        )));
+    }
+
 }

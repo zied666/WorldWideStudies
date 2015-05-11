@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * School
  *
  * @ORM\Table(name="wws_school_location")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Front\GeneralBundle\Entity\SchoolLocationRepository")
  */
 class SchoolLocation
 {

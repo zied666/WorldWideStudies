@@ -9,3 +9,7 @@ accueil:
 ajax_country_to_city:
     path:     /ajax_country_to_city/
     defaults: { _controller: FrontGeneralBundle:Default:ajax } 
+    
+front_language_courses_redirect:
+    path:     /redirect_language_courses
+    defaults: { _controller: FrontGeneralBundle:Default:redirect }    

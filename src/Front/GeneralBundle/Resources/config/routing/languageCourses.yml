@@ -1,3 +1,4 @@
 front_language_courses:
-    path:     /
-    defaults: { _controller: FrontGeneralBundle:LanguageCourses:list }
+    path:     /{page}/{language}/{country}/{city}/{stars}/{sort}/{desc}/{keyword}
+    defaults: { _controller: FrontGeneralBundle:LanguageCourses:list,page : 1,language : all,country : all,city: all,stars : all,sort: name,desc: asc,keyword: null }
+          

@@ -66,10 +66,8 @@ class SchoolController extends Controller
         $request=$this->getRequest();
         $session=$this->getRequest()->getSession();
         $query=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array(),array('id'=>'desc'));
-        
         $paginator=$this->get('knp_paginator');
         $schoolLocations=$paginator->paginate($query, $request->query->get('page', 1), 10);
-
         return $this->render('BackSchoolBundle:school:list.html.twig', array(
                     'schools'=>$schoolLocations
         ));
