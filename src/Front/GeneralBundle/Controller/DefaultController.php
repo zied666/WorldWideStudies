@@ -25,7 +25,7 @@ class DefaultController extends Controller
                     'languages'         =>$languages,
                     'countries'         =>$countries,
                     'programs'          =>$programs,
-                    'levels'          =>$levels,
+                    'levels'            =>$levels,
                     'studyModes'        =>$studyModes,
                     'subjects'          =>$subjects,
                     'subjectsSchool'    =>$subjectsSchool,
@@ -38,18 +38,18 @@ class DefaultController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $request=$this->getRequest();
-        $id = $request->get("id");
-        $country= $em->getRepository("BackReferentielBundle:Country")->find($id);
-        $response = new JsonResponse();
-        $cities = $em->getRepository("BackReferentielBundle:City")->findBy(
-                                                                    array('country' => $country), 
-                                                                    array('libelle' => 'asc')
-                                                                );
-        $tab = array();
-        foreach ($cities as $city)
-            $tab[$city->getId()] = $city->getLibelle();
+        $id=$request->get("id");
+        $country=$em->getRepository("BackReferentielBundle:Country")->find($id);
+        $response=new JsonResponse();
+        $cities=$em->getRepository("BackReferentielBundle:City")->findBy(
+                array( 'country'=>$country ), array( 'libelle'=>'asc' )
+        );
+        $tab=array();
+        $tab[]='All Cities in '.$country->getLibelle();
+        foreach($cities as $city)
+            $tab[$city->getId()]=$city->getLibelle();
         $response->setData($tab);
         return $response;
     }
-    
+
 }

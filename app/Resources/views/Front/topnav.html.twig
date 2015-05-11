@@ -1,47 +1,38 @@
 <div class="topnav hidden-xs">
     <div class="container">
         <ul class="quick-menu pull-left">
-            <li><a href="#">MY ACCOUNT</a></li>
             <li class="ribbon">
-                <a href="#">English</a>
+                <a href="#">
+                    {% if app.request.getLocale()=='fr' %}
+                        Français
+                    {% endif %}
+                    {% if app.request.getLocale()=='en' %}
+                        English
+                    {% endif %}
+                </a>
                 <ul class="menu mini">
-                    <li><a href="#" title="Dansk">Dansk</a></li>
-                    <li><a href="#" title="Deutsch">Deutsch</a></li>
-                    <li class="active"><a href="#" title="English">English</a></li>
-                    <li><a href="#" title="Español">Español</a></li>
-                    <li><a href="#" title="Français">Français</a></li>
-                    <li><a href="#" title="Italiano">Italiano</a></li>
-                    <li><a href="#" title="Magyar">Magyar</a></li>
-                    <li><a href="#" title="Nederlands">Nederlands</a></li>
-                    <li><a href="#" title="Norsk">Norsk</a></li>
-                    <li><a href="#" title="Polski">Polski</a></li>
-                    <li><a href="#" title="Português">Português</a></li>
-                    <li><a href="#" title="Suomi">Suomi</a></li>
-                    <li><a href="#" title="Svenska">Svenska</a></li>
+                    <li {% if app.request.getLocale()=='en' %}class="active"{% endif %}><a href="{{ path('accueil',{'_locale':'en'}) }}">English</a></li>
+                    <li {% if app.request.getLocale()=='fr' %}class="active"{% endif %}><a href="{{ path('accueil',{'_locale':'fr'}) }}">Français</a></li>
                 </ul>
             </li>
         </ul>
         <ul class="quick-menu pull-right">
-            <li><a href="#travelo-login" class="soap-popupbox">LOGIN</a></li>
-            <li><a href="#travelo-signup" class="soap-popupbox">SIGNUP</a></li>
-            <li class="ribbon currency">
-                <a href="#" title="">USD</a>
-                <ul class="menu mini">
-                    <li><a href="#" title="AUD">AUD</a></li>
-                    <li><a href="#" title="BRL">BRL</a></li>
-                    <li class="active"><a href="#" title="USD">USD</a></li>
-                    <li><a href="#" title="CAD">CAD</a></li>
-                    <li><a href="#" title="CHF">CHF</a></li>
-                    <li><a href="#" title="CNY">CNY</a></li>
-                    <li><a href="#" title="CZK">CZK</a></li>
-                    <li><a href="#" title="DKK">DKK</a></li>
-                    <li><a href="#" title="EUR">EUR</a></li>
-                    <li><a href="#" title="GBP">GBP</a></li>
-                    <li><a href="#" title="HKD">HKD</a></li>
-                    <li><a href="#" title="HUF">HUF</a></li>
-                    <li><a href="#" title="IDR">IDR</a></li>
-                </ul>
-            </li>
+            {% if not is_granted('ROLE_USER') %}
+                <li><a href="{{ path('fos_user_security_login') }}">LOGIN</a></li>
+                <li><a href="{{ path('fos_user_registration_register') }}">SIGNUP</a></li>
+                {% else %}
+                <li class="ribbon currency">
+                    <a href="javascript:void(0)">{{ app.user.username }}</a>
+                    <ul class="menu mini">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a target="_blank" href="{{ path('dashboard') }}">Back Office</a></li>
+                            {% endif %}
+                        <li><a href="{{ path('fos_user_profile_edit') }}">Edit profile</a></li>
+                        <li><a href="{{ path('fos_user_change_password') }}">Change password</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                    </ul>
+                </li>
+            {% endif %}
         </ul>
     </div>
 </div>

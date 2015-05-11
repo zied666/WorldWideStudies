@@ -41,7 +41,7 @@
               <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js') }}"></script>
             <![endif]-->
         {% endblock %}
-        {% if app.request.get('_route')=='accueil' %}
+        {% if app.request.get('_route')=='root' or  app.request.get('_route')=='accueil'%}
             <style>
                 section#content {  min-height: 1000px; padding: 0; position: relative; overflow: hidden; }
                 #main { padding-top: 200px; }

@@ -1,0 +1,27 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+            </div>
+        </div>
+    </div>
+    <section id="content" class="gray-area">
+        <div class="container">
+            <div class="row">
+                <div id="main" class="col-sms-6 col-sm-8 col-md-12">
+                    <div class="booking-section travelo-box">
+                        <h1>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</h1>
+                        {% if app.session is not empty %}
+                            {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
+                            {% if targetUrl is not empty %}<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>{% endif %}
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock fos_user_content %}
