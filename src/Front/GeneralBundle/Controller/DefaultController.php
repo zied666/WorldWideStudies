@@ -119,7 +119,7 @@ class DefaultController extends Controller
 
         return $this->redirect($this->generateUrl('front_program_courses', array(
                             'page'    =>1,
-                            'langauge'=>$langauge,
+                            'language'=>$language,
                             'program' =>$program,
                             'subject' =>$subject,
                             'country' =>$country,
