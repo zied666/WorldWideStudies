@@ -1,6 +1,10 @@
-SchoolRouting:
+SchoolRoutingLanguage:
     resource: "@FrontGeneralBundle/Resources/config/routing/languageCourses.yml"
-    prefix:   /languageCourses/
+    prefix:   /LanguageCourses/
+
+SchoolRoutingPathway:
+    resource: "@FrontGeneralBundle/Resources/config/routing/programCourses.yml"
+    prefix:   /PathwayCourses/
 
 accueil:
     path:     /
@@ -12,4 +16,8 @@ ajax_country_to_city:
     
 front_language_courses_redirect:
     path:     /redirect_language_courses
-    defaults: { _controller: FrontGeneralBundle:Default:redirect }    
+    defaults: { _controller: FrontGeneralBundle:Default:redirectLanguage }    
+
+front_program_courses_redirect:
+    path:     /redirect_program_courses
+    defaults: { _controller: FrontGeneralBundle:Default:redirectProgram }    

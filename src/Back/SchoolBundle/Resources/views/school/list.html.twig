@@ -13,7 +13,7 @@
                             <th>Type</th>
                             <th>City</th>
                             <th>School</th>
-                            <th>Currency</th>
+                            <th>Avg Price</th>
                             <th>Note</th>
                             <th>Reviews</th>
                             <th>Courses</th>
@@ -34,7 +34,7 @@
                                 <td>{{ school.showType }}</td>
                                 <td>{{ school.city.country.code }}, {{ school.city }}</td>
                                 <td>{{ school.school }}</td>
-                                <td>{{ school.currency.code }}</td>
+                                <td>{{ school.avgPrice }} {{ school.currency.code }}</td>
                                 <td>{{ school.note }}/5</td>
                                 <td>{{ school.reviews }} reviews</td>
                                 <td>{{ school.courses|length }}</td>

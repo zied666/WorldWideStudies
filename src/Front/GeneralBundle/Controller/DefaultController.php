@@ -52,7 +52,7 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function redirectAction()
+    public function redirectLanguageAction()
     {
         $request=$this->getRequest();
         if($request->get('language') != null)
@@ -78,6 +78,50 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('front_language_courses', array(
                             'page'    =>1,
                             'language'=>$language,
+                            'country' =>$country,
+                            'city'    =>$city,
+                            'stars'   =>$stars,
+                            'keyword' =>urlencode($request->get('keyword')),
+        )));
+    }
+
+    public function redirectProgramAction()
+    {
+        $request=$this->getRequest();
+        if($request->get('program') != null)
+            $program=$request->get('program');
+        else
+            $program='all';
+        if($request->get('langauge') != null)
+            $langauge=$request->get('langauge');
+        else
+            $langauge='all';
+
+        if($request->get('subject') != null)
+            $subject=$request->get('subject');
+        else
+            $subject='all';
+
+        if($request->get('country') != null)
+            $country=$request->get('country');
+        else
+            $country='all';
+
+        if(!is_null($request->get('city')) && $request->get('city') != 0)
+            $city=$request->get('city');
+        else
+            $city='all';
+
+        if($request->get('stars') != null)
+            $stars=$request->get('stars');
+        else
+            $stars='all';
+
+        return $this->redirect($this->generateUrl('front_program_courses', array(
+                            'page'    =>1,
+                            'langauge'=>$langauge,
+                            'program' =>$program,
+                            'subject' =>$subject,
                             'country' =>$country,
                             'city'    =>$city,
                             'stars'   =>$stars,

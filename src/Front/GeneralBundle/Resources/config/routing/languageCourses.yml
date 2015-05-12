@@ -1,4 +1,8 @@
 front_language_courses:
-    path:     /{page}/{language}/{country}/{city}/{stars}/{sort}/{desc}/{keyword}
+    path:     /list/{page}/{language}/{country}/{city}/{stars}/{sort}/{desc}/{keyword}
     defaults: { _controller: FrontGeneralBundle:LanguageCourses:list,page : 1,language : all,country : all,city: all,stars : all,sort: name,desc: asc,keyword: null }
+          
+front_language_courses_filtre:
+    path:     /filtre/{page}/{language}/{country}/{city}/{stars}/{sort}/{desc}/{keyword}
+    defaults: { _controller: FrontGeneralBundle:LanguageCourses:filtre,page : 1,language : all,country : all,city: all,stars : all,sort: name,desc: asc,keyword: null }
           

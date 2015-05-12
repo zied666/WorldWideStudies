@@ -30,6 +30,7 @@ class SchoolLocationType extends AbstractType
                 ->add('shortDescription')
                 ->add('longDescription')
                 ->add('reviews')
+                ->add('avgPrice')
                 ->add('note')
                 ->add('stars')
                 ->add('image', new MediaType())

@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * School
  *
  * @ORM\Table(name="wws_school_location")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Front\GeneralBundle\Entity\SchoolLocationRepository")
  */
 class SchoolLocation
 {
@@ -134,6 +134,14 @@ class SchoolLocation
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
      */
     private $enabled;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="decimal", precision=11, scale=3)
+     * @Assert\Range( min = 1)
+     */
+    private $avgPrice;
 
 
     /**

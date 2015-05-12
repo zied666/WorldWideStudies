@@ -13,7 +13,7 @@
             </h4>
             <div id="keyword-filter" class="panel-collapse collapse in">
                 <div class="panel-content">
-                    <form method="post"  action="{{ path('front_language_courses_filtre',{'page':1,'language':language,'country':country,'city':city,'stars':stars,'keyword':keyword,'sort':'name','desc':desc}) }}"  >
+                    <form method="post"  action="{{ path('front_program_courses_filtre',{'page':1,'program':program,'country':country,'city':city,'stars':stars,'keyword':keyword,'sort':'name','desc':desc}) }}"  >
                         <div class="form-group">
                             <label>Keyword</label>
                             <div>
@@ -32,12 +32,34 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label>Program</label>
+                            <div class="selector">
+                                <select class="full-width" name="programSearch">
+                                    <option value="">All programs</option>
+                                    {% for prog in programs %}
+                                        <option value="{{ prog.id }}" {% if program==prog.id %}selected{% endif %}>{{ prog|title  }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label>Language</label>
                             <div class="selector">
                                 <select class="full-width" name="languageSearch">
-                                    <option value="">All languages</option>
+                                    <option value="">All Languages</option>
                                     {% for lang in languages %}
                                         <option value="{{ lang.id }}" {% if language==lang.id %}selected{% endif %}>{{ lang|title  }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <div class="selector">
+                                <select class="full-width" name="subjectSearch">
+                                    <option value="">All subjects</option>
+                                    {% for sub in subjects %}
+                                        <option value="{{ sub.id }}" {% if subject==sub.id %}selected{% endif %}>{{ sub|title  }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -66,7 +88,7 @@
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-xs-2"><a style="  margin-top: 8px;" class="button btn-mini red" href="{{ path('front_language_courses') }}">Reset</a></div>
+                                <div class="col-xs-2"><a style="  margin-top: 8px;" class="button btn-mini red" href="{{ path('front_program_courses') }}">Reset</a></div>
                                 <div class="col-xs-2"> </div>
                                 <div class="col-xs-8"><button class="btn-medium icon-check uppercase full-width">Search</button> </div>
                             </div>

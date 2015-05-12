@@ -73,7 +73,7 @@ class SchoolLocation
      * )
      */
     private $stars;
-    
+
     /**
      * @var integer
      *
@@ -86,48 +86,48 @@ class SchoolLocation
      * @ORM\JoinColumn(nullable=true)
      */
     private $image;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\City", inversedBy="schoolLocations")
      * @Assert\NotNull()
      */
-    protected $city ;
-    
+    protected $city;
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\School", inversedBy="schoolLocations")
      * @Assert\NotNull()
      */
-    protected $school ;
-    
+    protected $school;
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\Currency")
      * @Assert\NotNull()
      */
-    protected $currency ;
-    
+    protected $currency;
+
     /**
      * @ORM\OneToMany(targetEntity="Course", mappedBy="schoolLocation")
      * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $courses;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Back\ReferentielBundle\Entity\Media", mappedBy="schoolLocation")
      */
     protected $photos;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Accommodation", mappedBy="schoolLocation")
      * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $accommodations;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Extra", mappedBy="schoolLocation")
      * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $extras;
-    
+
     /**
      * @var boolean
      *
@@ -135,6 +135,13 @@ class SchoolLocation
      */
     private $enabled;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="decimal", precision=11, scale=3)
+     * @Assert\Range( min = 1)
+     */
+    private $avgPrice;
 
     /**
      * Get id
@@ -284,7 +291,6 @@ class SchoolLocation
         return $this->stars;
     }
 
-
     /**
      * Set image
      *
@@ -293,7 +299,7 @@ class SchoolLocation
      */
     public function setImage(\Back\ReferentielBundle\Entity\Media $image)
     {
-        $this->image = $image;
+        $this->image=$image;
 
         return $this;
     }
@@ -314,9 +320,9 @@ class SchoolLocation
      * @param \Back\ReferentielBundle\Entity\City $city
      * @return School
      */
-    public function setCity(\Back\ReferentielBundle\Entity\City $city = null)
+    public function setCity(\Back\ReferentielBundle\Entity\City $city=null)
     {
-        $this->city = $city;
+        $this->city=$city;
 
         return $this;
     }
@@ -339,7 +345,7 @@ class SchoolLocation
      */
     public function setEnabled($enabled)
     {
-        $this->enabled = $enabled;
+        $this->enabled=$enabled;
 
         return $this;
     }
@@ -353,7 +359,7 @@ class SchoolLocation
     {
         return $this->enabled;
     }
-    
+
     /**
      * Is enables
      * 
@@ -363,12 +369,13 @@ class SchoolLocation
     {
         return $this->enabled;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->courses=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -379,7 +386,7 @@ class SchoolLocation
      */
     public function addCourse(\Back\SchoolBundle\Entity\Course $courses)
     {
-        $this->courses[] = $courses;
+        $this->courses[]=$courses;
 
         return $this;
     }
@@ -403,7 +410,7 @@ class SchoolLocation
     {
         return $this->courses;
     }
-    
+
     /**
      * to string
      * 
@@ -422,7 +429,7 @@ class SchoolLocation
      */
     public function addAccommodation(\Back\SchoolBundle\Entity\Accommodation $accommodations)
     {
-        $this->accommodations[] = $accommodations;
+        $this->accommodations[]=$accommodations;
 
         return $this;
     }
@@ -453,9 +460,9 @@ class SchoolLocation
      * @param \Back\ReferentielBundle\Entity\School $school
      * @return SchoolLocation
      */
-    public function setSchool(\Back\ReferentielBundle\Entity\School $school = null)
+    public function setSchool(\Back\ReferentielBundle\Entity\School $school=null)
     {
-        $this->school = $school;
+        $this->school=$school;
 
         return $this;
     }
@@ -478,7 +485,7 @@ class SchoolLocation
      */
     public function addExtra(\Back\SchoolBundle\Entity\Extra $extras)
     {
-        $this->extras[] = $extras;
+        $this->extras[]=$extras;
 
         return $this;
     }
@@ -511,7 +518,7 @@ class SchoolLocation
      */
     public function addPhoto(\Back\ReferentielBundle\Entity\Media $photos)
     {
-        $this->photos[] = $photos;
+        $this->photos[]=$photos;
 
         return $this;
     }
@@ -544,7 +551,7 @@ class SchoolLocation
      */
     public function setType($type)
     {
-        $this->type = $type;
+        $this->type=$type;
 
         return $this;
     }
@@ -558,10 +565,10 @@ class SchoolLocation
     {
         return $this->type;
     }
-    
+
     public function showType()
     {
-        if($this->type==1)
+        if($this->type == 1)
             return "Language course";
         else
             return "Pathway programs";
@@ -573,9 +580,9 @@ class SchoolLocation
      * @param \Back\ReferentielBundle\Entity\Currency $currency
      * @return SchoolLocation
      */
-    public function setCurrency(\Back\ReferentielBundle\Entity\Currency $currency = null)
+    public function setCurrency(\Back\ReferentielBundle\Entity\Currency $currency=null)
     {
-        $this->currency = $currency;
+        $this->currency=$currency;
 
         return $this;
     }
@@ -589,4 +596,28 @@ class SchoolLocation
     {
         return $this->currency;
     }
+
+    /**
+     * Set avgPrice
+     *
+     * @param string $avgPrice
+     * @return SchoolLocation
+     */
+    public function setAvgPrice($avgPrice)
+    {
+        $this->avgPrice=$avgPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get avgPrice
+     *
+     * @return string 
+     */
+    public function getAvgPrice()
+    {
+        return number_format($this->avgPrice, $this->currency->getScale(), '.', '');
+    }
+
 }
