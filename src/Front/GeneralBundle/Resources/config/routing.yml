@@ -17,6 +17,10 @@ AccommodationFront:
 accueil:
     path:     /
     defaults: { _controller: FrontGeneralBundle:Default:index }
+
+contact:
+    path:     /contact
+    defaults: { _controller: FrontGeneralBundle:Default:contact }
     
 ajax_country_to_city:
     path:     /ajax_country_to_city/

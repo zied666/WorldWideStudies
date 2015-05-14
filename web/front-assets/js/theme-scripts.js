@@ -1157,7 +1157,7 @@ tjq(document).ready(function () {
                 miHrefs = mi.attr("href"),
                 miParents = mi.parents('li');
         if (page == miHrefs) {
-            miParents.addClass("active").siblings().removeClass('active');
+//            miParents.addClass("active").siblings().removeClass('active');
         }
     });
 });

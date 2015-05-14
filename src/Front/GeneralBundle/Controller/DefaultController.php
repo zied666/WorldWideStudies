@@ -33,6 +33,11 @@ class DefaultController extends Controller
                     'qualifications'    =>$qualifications,
         ));
     }
+    
+    public function contactAction()
+    {
+        return $this->render('FrontGeneralBundle::contact.html.twig');
+    }
 
     public function ajaxAction()
     {

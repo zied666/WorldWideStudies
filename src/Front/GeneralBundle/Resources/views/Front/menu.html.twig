@@ -1,0 +1,109 @@
+<li class="menu-item-has-children  {% if route in ['accueil','root'] %}active{% endif %}">
+    <a href="{{ path('accueil') }}">
+        {{ 'homepage.home'|trans }}
+    </a>
+</li>
+<li class="menu-item-has-children {% if route in ['front_language_courses'] %}active{% endif %}">
+    <a href="javascript:void(0)">Language courses</a>
+    <ul>
+        {% for language in languages %}
+            <li>
+                <a href="{{ path('front_language_courses',{'language':language.id}) }}">{{ language }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</li>
+<li class="menu-item-has-children {% if route in ['front_program_courses'] %}active{% endif %}">
+    <a href="javascript:void(0)">Pathway program courses</a>
+    <ul>
+        <li>
+            <a href="javascript:void(0)">Programs</a>
+            <ul>
+                {% for program in programs %}
+                    <li>
+                        <a href="{{ path('front_program_courses',{'program':program.id}) }}">{{ program }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Languages</a>
+            <ul>
+                {% for language in languages %}
+                    <li>
+                        <a href="{{ path('front_program_courses',{'language':language.id}) }}">{{ language }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Subjects</a>
+            <ul>
+                {% for sujectSchool in sujectSchools %}
+                    <li>
+                        <a href="{{ path('front_program_courses',{'subject':sujectSchool.id}) }}">{{ sujectSchool }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</li>
+<li class="menu-item-has-children {% if route in ['front_university'] %}active{% endif %}">
+    <a href="javascript:void(0)">Universities</a>
+    <ul>
+        <li>
+            <a href="javascript:void(0)">Levels of study</a>
+            <ul>
+                {% for level in levels %}
+                    <li>
+                        <a href="{{ path('front_university',{'level':level.id}) }}">{{ level }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Subjects</a>
+            <ul>
+                {% for subject in subjects %}
+                    <li>
+                        <a href="{{ path('front_university',{'subject':subject.id}) }}">{{ subject }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Qualifications</a>
+            <ul>
+                {% for qualification in qualifications %}
+                    <li>
+                        <a href="{{ path('front_university',{'qualification':qualification.id}) }}">{{ qualification }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0)">Study Modes</a>
+            <ul>
+                {% for studymode in studymodes %}
+                    <li>
+                        <a href="{{ path('front_university',{'studymode':studymode.id}) }}">{{ studymode }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</li>
+<li class="menu-item-has-children {% if route in ['front_accommodations'] %}active{% endif %}">
+    <a href="javascript:void(0)">Accommodations</a>
+    <ul>
+        {% for type in types %}
+            <li>
+                <a href="{{ path('front_accommodations',{'type':type.id}) }}">{{ type }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</li>
+<li class="menu-item-has-children {% if route in ['contact'] %}active{% endif %}">
+    <a href="{{ path('contact') }}">Contact us</a>
+</li>
+
