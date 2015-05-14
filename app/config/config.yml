@@ -110,3 +110,15 @@ liip_imagine:
             quality: 99
             filters:
                 thumbnail: { size: [270, 160], mode: inset }    
+        album_front:
+            quality: 99
+            filters:
+                thumbnail: { size: [900, 500], mode: inset }    
+        minature_front:
+            quality: 99
+            filters:
+                thumbnail: { size: [70, 70], mode: inset }    
+        minature_details:
+            quality: 99
+            filters:
+                thumbnail: { size: [240, 85], mode: inset }    
