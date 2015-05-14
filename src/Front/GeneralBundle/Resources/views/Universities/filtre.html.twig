@@ -1,0 +1,101 @@
+<div class="col-sm-4 col-md-3">
+    <div class="icon-box style3 counters-box">
+        <div class="numbers">
+            <i class="soap-icon-hotel hotel-color"></i>
+            <span class="display-counter" data-value="{{ count }}">0</span>
+        </div>
+        <div class="description">Courses Title</div>
+    </div>
+    <div class="toggle-container filters-container">
+        <div class="panel style1 arrow-right">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#keyword-filter" {#class="collapsed"#}>Refine search</a>
+            </h4>
+            <div id="keyword-filter" class="panel-collapse collapse in">
+                <div class="panel-content">
+                    <form method="post"  action="{{ path('front_university_filtre',{'page':1,'level':level,'qualification':qualification,'subject':subject,'studymode':studymode,'country':country,'city':city,'keyword':keyword,'sort':'name','desc':desc}) }}"  >
+                        <div class="form-group">
+                            <label>Keyword</label>
+                            <div>
+                                <input type="text" class="input-text full-width" name="keywordSearch" value="{% if keyword is not null %}{{ keyword }}{% endif %}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Level of stude</label>
+                            <div class="selector">
+                                <select class="full-width" name="levelSearch">
+                                    <option value="">All levels</option>
+                                    {% for lvl in levels %}
+                                        <option value="{{ lvl.id }}" {% if level==lvl.id %}selected{% endif %}>{{ lvl|title  }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Qualifications</label>
+                            <div class="selector">
+                                <select class="full-width" name="qualificationSearch">
+                                    <option value="">All Qualifications</option>
+                                    {% for qual in qualifications %}
+                                        <option value="{{ qual.id }}" {% if qualification==qual.id %}selected{% endif %}>{{ qual|title  }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Study mode</label>
+                            <div class="selector">
+                                <select class="full-width" name="studymodeSearch">
+                                    <option value="">All Study modes</option>
+                                    {% for std in studymodes %}
+                                        <option value="{{ std.id }}" {% if studymode==std.id %}selected{% endif %}>{{ std|title  }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <div class="selector">
+                                <select class="full-width" name="subjectSearch">
+                                    <option value="">All subjects</option>
+                                    {% for sub in subjects %}
+                                        <option value="{{ sub.id }}" {% if subject==sub.id %}selected{% endif %}>{{ sub|title  }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <div class="selector">
+                                <select class="full-width" id="CountrySelect1" name="countrySearch">
+                                    <option value="">All countries</option>
+                                    {% for count in countries %}
+                                        <option value="{{ count.id }}" {% if count.id==country %}selected{% endif %}>{{ count|title  }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <div class="selector">
+                                <select class="full-width" id="CitySelect1" name="citySearch">
+                                    <option value="">All cities</option>
+                                    {% for cit in cities %}
+                                        <option value="{{ cit.id }}" {% if cit.id==city %}selected{% endif %}>{{ cit|title  }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-2"><a style="  margin-top: 8px;" class="button btn-mini red" href="{{ path('front_university') }}">Reset</a></div>
+                                <div class="col-xs-2"> </div>
+                                <div class="col-xs-8"><button class="btn-medium icon-check uppercase full-width">Search</button> </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

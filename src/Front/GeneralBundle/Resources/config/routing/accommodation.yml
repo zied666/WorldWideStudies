@@ -1,0 +1,7 @@
+front_accommodations:
+    path:     /list/{page}/{type}/{country}/{city}/{sort}/{desc}/{keyword}
+    defaults: { _controller: FrontGeneralBundle:Accomodation:list,page : 1,type : all,country: all,city: all,sort: name,desc: asc,keyword: null }
+
+front_accommodations_filtre:
+    path:     /filtre/{page}/{type}/{country}/{city}/{sort}/{desc}/{keyword}
+    defaults: { _controller: FrontGeneralBundle:Accomodation:filtre,page : 1,type : all,country: all,city: all,sort: name,desc: asc,keyword: null }

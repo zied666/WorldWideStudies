@@ -1,0 +1,10 @@
+<div class="sort-by-section clearfix">
+    <h4 class="sort-by-title block-sm">Sort results by:</h4>
+    <ul class="sort-bar clearfix block-sm">
+        <li class="sort-by-name {% if sort=='name' %}active{% endif %}">
+            <a class="sort-by-container" href="{{ path('front_accommodations',{'page':1,'type':type,'country':country,'city':city,'keyword':keyword,'sort':'name','desc':desc}) }}">
+                <span>Name</span>
+            </a>
+        </li>
+    </ul>
+</div>

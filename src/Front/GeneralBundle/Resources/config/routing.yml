@@ -6,6 +6,14 @@ SchoolRoutingPathway:
     resource: "@FrontGeneralBundle/Resources/config/routing/programCourses.yml"
     prefix:   /PathwayCourses/
 
+UniversityCourses:
+    resource: "@FrontGeneralBundle/Resources/config/routing/university.yml"
+    prefix:   /university/
+
+AccommodationFront:
+    resource: "@FrontGeneralBundle/Resources/config/routing/accommodation.yml"
+    prefix:   /accommodation/
+
 accueil:
     path:     /
     defaults: { _controller: FrontGeneralBundle:Default:index }
@@ -21,3 +29,11 @@ front_language_courses_redirect:
 front_program_courses_redirect:
     path:     /redirect_program_courses
     defaults: { _controller: FrontGeneralBundle:Default:redirectProgram }    
+
+front_university_redirect:
+    path:     /redirect_university
+    defaults: { _controller: FrontGeneralBundle:Default:redirectUniversity }    
+
+front_accommodation_redirect:
+    path:     /redirect_accommodation
+    defaults: { _controller: FrontGeneralBundle:Default:redirectAccommodation }    

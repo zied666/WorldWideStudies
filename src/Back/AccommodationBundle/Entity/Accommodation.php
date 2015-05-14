@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Accommodation
  *
  * @ORM\Table(name="wws_big_accommodation")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Front\GeneralBundle\Entity\AccommodationRepository")
  */
 class Accommodation
 {

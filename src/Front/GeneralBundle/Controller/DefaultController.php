@@ -55,26 +55,10 @@ class DefaultController extends Controller
     public function redirectLanguageAction()
     {
         $request=$this->getRequest();
-        if($request->get('language') != null)
-            $language=$request->get('language');
-        else
-            $language='all';
-
-        if($request->get('country') != null)
-            $country=$request->get('country');
-        else
-            $country='all';
-
-        if(!is_null($request->get('city')) && $request->get('city') != 0)
-            $city=$request->get('city');
-        else
-            $city='all';
-
-        if($request->get('stars') != null)
-            $stars=$request->get('stars');
-        else
-            $stars='all';
-
+        $language=$this->testValue($request->get('language'));
+        $country=$this->testValue($request->get('country'));
+        $city=$this->testValue($request->get('city'));
+        $stars=$this->testValue($request->get('stars'));
         return $this->redirect($this->generateUrl('front_language_courses', array(
                             'page'    =>1,
                             'language'=>$language,
@@ -88,35 +72,13 @@ class DefaultController extends Controller
     public function redirectProgramAction()
     {
         $request=$this->getRequest();
-        if($request->get('program') != null)
-            $program=$request->get('program');
-        else
-            $program='all';
-        if($request->get('langauge') != null)
-            $langauge=$request->get('langauge');
-        else
-            $langauge='all';
-
-        if($request->get('subject') != null)
-            $subject=$request->get('subject');
-        else
-            $subject='all';
-
-        if($request->get('country') != null)
-            $country=$request->get('country');
-        else
-            $country='all';
-
-        if(!is_null($request->get('city')) && $request->get('city') != 0)
-            $city=$request->get('city');
-        else
-            $city='all';
-
-        if($request->get('stars') != null)
-            $stars=$request->get('stars');
-        else
-            $stars='all';
-
+        $program=$this->testValue($request->get('program'));
+        $langauge=$this->testValue($request->get('langauge'));
+        $subject=$this->testValue($request->get('subject'));
+        $country=$this->testValue($request->get('country'));
+        $city=$this->testValue($request->get('city'));
+        $stars=$this->testValue($request->get('stars'));
+        $language=$this->testValue($request->get('language'));
         return $this->redirect($this->generateUrl('front_program_courses', array(
                             'page'    =>1,
                             'language'=>$language,
@@ -126,6 +88,51 @@ class DefaultController extends Controller
                             'city'    =>$city,
                             'stars'   =>$stars,
                             'keyword' =>urlencode($request->get('keyword')),
+        )));
+    }
+
+    public function redirectUniversityAction()
+    {
+        $request=$this->getRequest();
+
+        $level=$this->testValue($request->get('level'));
+        $qualification=$this->testValue($request->get('qualification'));
+        $subject=$this->testValue($request->get('subject'));
+        $studymode=$this->testValue($request->get('studymode'));
+        $country=$this->testValue($request->get('country'));
+        $city=$this->testValue($request->get('city'));
+        return $this->redirect($this->generateUrl('front_university', array(
+                            'page'         =>1,
+                            'level'        =>$level,
+                            'qualification'=>$qualification,
+                            'subject'      =>$subject,
+                            'studymode'    =>$studymode,
+                            'country'      =>$country,
+                            'city'         =>$city,
+                            'keyword'      =>urlencode($request->get('keyword')),
+        )));
+    }
+
+    public function testValue($obj)
+    {
+        if(is_null($obj) || $obj == 0)
+            return 'all';
+        else
+            return $obj;
+    }
+
+    public function redirectAccommodationAction()
+    {
+        $request=$this->getRequest();
+        $type=$this->testValue($request->get('type'));
+        $country=$this->testValue($request->get('country'));
+        $city=$this->testValue($request->get('city'));
+        return $this->redirect($this->generateUrl('front_accommodations', array(
+                            'page'   =>1,
+                            'type'   =>$type,
+                            'country'=>$country,
+                            'city'   =>$city,
+                            'keyword'=>urlencode($request->get('keyword')),
         )));
     }
 

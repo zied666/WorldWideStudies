@@ -1,0 +1,8 @@
+front_university:
+    path:     /list/{page}/{level}/{qualification}/{subject}/{studymode}/{country}/{city}/{sort}/{desc}/{keyword}
+    defaults: { _controller: FrontGeneralBundle:University:list,page : 1,level : all,qualification : all,subject : all,studymode : all,country : all,city: all,sort: name,desc: asc,keyword: null }
+          
+front_university_filtre:
+    path:     /filtre/{page}/{level}/{qualification}/{subject}/{studymode}/{country}/{city}/{sort}/{desc}/{keyword}
+    defaults: { _controller: FrontGeneralBundle:University:filtre,page : 1,level : all,qualification : all,subject : all,studymode : all,country : all,city: all,sort: name,desc: asc,keyword: null }
+          
