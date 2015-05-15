@@ -28,17 +28,9 @@ class DefaultController extends Controller
         $qb->select('u')
                 ->from('BackUserBundle:User', 'u')
                 ->where('u.roles LIKE :role')
-                ->orWhere('u.roles LIKE :role1')
                 ->orWhere('u.roles LIKE :role2')
-                ->orWhere('u.roles LIKE :role3')
-                ->orWhere('u.roles LIKE :role4')
-                ->orWhere('u.roles LIKE :role5')
                 ->setParameter('role', '%ROLE_ADMIN%')
-                ->setParameter('role1', '%ROLE_SUPER_ADMIN%')
-                ->setParameter('role2', '%ROLE_ADMIN_UNIVERSITY%')
-                ->setParameter('role3', '%ROLE_ADMIN_ACCOMMODATION%')
-                ->setParameter('role4', '%ROLE_ADMIN_SCHOOL%')
-                ->setParameter('role5', '%ROLE_ADMIN_CONFIG%');
+                ->setParameter('role2', '%ROLE_SUPER_ADMIN%');
         return $qb->getQuery()->getResult();
     }
 

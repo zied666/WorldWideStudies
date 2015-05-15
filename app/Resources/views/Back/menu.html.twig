@@ -15,6 +15,32 @@
                 </div>
             </a>
         </li>
+        {% if is_granted('ROLE_ADMIN_FRONTOFFICE')  %}
+            <li {% if app.request.getPathInfo|split('admin/frontoffice')|length > 1 %}class="active open" {% endif %}>
+                <a href="javascript:void(0)">
+                    <div class="item-content">
+                        <div class="item-media">
+                            <i class="ti-fullscreen"></i>
+                        </div>
+                        <div class="item-inner">
+                            <span class="title"> Front Office </span><i class="icon-arrow"></i>
+                        </div>
+                    </div>
+                </a>
+                <ul class="sub-menu">
+                    <li {% if app.request.get('_route')=='backoffice_contact' %}class="active"{% endif %}>
+                        <a href="{{ path('backoffice_contact') }}">
+                            <span class="title">Page Contact</span>
+                        </a>
+                    </li>
+                    <li {% if app.request.get('_route')=='backoffice_slider' %}class="active"{% endif %}>
+                        <a href="{{ path('backoffice_slider') }}">
+                            <span class="title">Slider</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
         {% if is_granted('ROLE_ADMIN_UNIVERSITY') %}
             <li {% if app.request.getPathInfo|split('admin/university')|length > 1 %}class="active open" {% endif %}>
                 <a href="javascript:void(0)">

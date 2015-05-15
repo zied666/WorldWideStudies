@@ -12,6 +12,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em=$this->getDoctrine()->getManager();
+        $sliders=$em->getRepository("BackGeneralBundle:Slider")->findBy(array(), array('ordre'=>'asc'));
         $languages=$em->getRepository("BackReferentielBundle:Language")->findBy(array(), array( "name"=>"asc" ));
         $countries=$em->getRepository("BackReferentielBundle:Country")->findBy(array(), array( "libelle"=>"asc" ));
         $programs=$em->getRepository("BackReferentielBundle:Program")->findBy(array(), array( "name"=>"asc" ));
@@ -22,6 +23,7 @@ class DefaultController extends Controller
         $typeAccommodations=$em->getRepository("BackReferentielBundle:TypeAccommodation")->findBy(array(), array( "name"=>"asc" ));
         $qualifications=$em->getRepository("BackReferentielBundle:Qualification")->findBy(array(), array( "name"=>"asc" ));
         return $this->render('FrontGeneralBundle::accueil.html.twig', array(
+                    'sliders'         =>$sliders,
                     'languages'         =>$languages,
                     'countries'         =>$countries,
                     'programs'          =>$programs,
@@ -33,10 +35,34 @@ class DefaultController extends Controller
                     'qualifications'    =>$qualifications,
         ));
     }
-    
+
     public function contactAction()
     {
-        return $this->render('FrontGeneralBundle::contact.html.twig');
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $request=$this->getRequest();
+        $contact=$em->getRepository("BackGeneralBundle:Contact")->find(1);
+        if($request->isMethod("POST"))
+        {
+            $body="Hi, you received a contact Message :<br>";
+            $body.="<br> <strong> Name </strong> :  ".$request->get("name");
+            $body.="<br> <strong> Phone </strong> :  ".$request->get("phone");
+            $body.="<br> <strong> Email </strong> :  ".$request->get("email");
+            $body.="<br> <strong> Message </strong> :  <br>".$request->get("message");
+            $body.="<br><br>World Wide Studies";
+            $message=\Swift_Message::newInstance()
+                    ->setSubject('Contact Message from World Wide Studies ')
+                    ->setFrom($request->get("email"))
+                    ->setTo($contact->getEmail())
+                    ->setContentType("text/html")
+                    ->setBody($body);
+            $this->get('mailer')->send($message);
+            $session->getFlashBag()->add('alert-success', 'Your message was sent successfully');
+            return $this->redirect($this->generateUrl("contact"));
+        }
+        return $this->render('FrontGeneralBundle::contact.html.twig', array(
+                    'contact'=>$contact
+        ));
     }
 
     public function ajaxAction()

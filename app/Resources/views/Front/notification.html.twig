@@ -1,0 +1,12 @@
+<section id="alertBoxes">   
+    {% for k,v in app.session.getFlashBag %}
+        <div class="alert {{ k }} in fade">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>
+                {% if k == "alert-error" %}Alert - {% endif %}
+                {% if k == "alert-success" %}Succes -  {% endif %}
+            </strong>
+            {{ v.0 }}
+        </div>
+    {% endfor %}
+</section>

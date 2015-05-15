@@ -1,3 +1,15 @@
 dashboard:
     path:     /
     defaults: { _controller: BackGeneralBundle:Default:index }
+
+backoffice_contact:
+    path:     /frontoffice/contact
+    defaults: { _controller: BackGeneralBundle:FrontOffice:contact }
+
+backoffice_slider:
+    path:     /frontoffice/slider/{id}
+    defaults: { _controller: BackGeneralBundle:FrontOffice:slider,id:null }
+
+backoffice_slider_delete:
+    path:     /delete_slider/{id}
+    defaults: { _controller: BackGeneralBundle:FrontOffice:deleteSlider }

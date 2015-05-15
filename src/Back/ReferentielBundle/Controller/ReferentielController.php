@@ -424,6 +424,7 @@ class ReferentielController extends Controller
         $form->add('roles', 'choice', array( 'choices' =>
             array(
                 'ROLE_SUPER_ADMIN'        =>'SUPER ADMIN',
+                'ROLE_ADMIN_FRONTOFFICE'        =>'FRONT OFFICE',
                 'ROLE_ADMIN_CONFIG'       =>'CONFIGURATION',
                 'ROLE_ADMIN_UNIVERSITY'   =>'UNIVERSITY',
                 'ROLE_ADMIN_ACCOMMODATION'=>'ACCOMMODATION',
@@ -507,16 +508,8 @@ class ReferentielController extends Controller
                 ->from('BackUserBundle:User', 'u')
                 ->where('u.roles LIKE :role')
                 ->orWhere('u.roles LIKE :role1')
-                ->orWhere('u.roles LIKE :role2')
-                ->orWhere('u.roles LIKE :role3')
-                ->orWhere('u.roles LIKE :role4')
-                ->orWhere('u.roles LIKE :role5')
                 ->setParameter('role', '%ROLE_ADMIN%')
-                ->setParameter('role1', '%ROLE_SUPER_ADMIN%')
-                ->setParameter('role2', '%ROLE_ADMIN_UNIVERSITY%')
-                ->setParameter('role3', '%ROLE_ADMIN_ACCOMMODATION%')
-                ->setParameter('role4', '%ROLE_ADMIN_SCHOOL%')
-                ->setParameter('role5', '%ROLE_ADMIN_CONFIG%');
+                ->setParameter('role1', '%ROLE_SUPER_ADMIN%');
         return $qb->getQuery()->getResult();
     }
 

@@ -1,0 +1,275 @@
+<?php
+
+namespace Back\GeneralBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Contact
+ *
+ * @ORM\Table(name="wws_front_contact")
+ * @ORM\Entity
+ */
+class Contact
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=255)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fax", type="string", length=255, nullable=true)
+     */
+    private $fax;
+
+    /**
+     * @var string
+     * @Assert\Email()
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @var string
+     * @Assert\Url()
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     */
+    private $facebook;
+
+    /**
+     * @var string
+     * @Assert\Url()
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
+     */
+    private $twitter;
+
+    /**
+     * @var string
+     * @Assert\Url()
+     * @ORM\Column(name="googlePlus", type="string", length=255, nullable=true)
+     */
+    private $googlePlus;
+
+    /**
+     * @var string
+     * @Assert\Url()
+     * @ORM\Column(name="linkedIn", type="string", length=255, nullable=true)
+     */
+    private $linkedIn;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Contact
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Contact
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     * @return Contact
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string 
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Contact
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set facebook
+     *
+     * @param string $facebook
+     * @return Contact
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    /**
+     * Get facebook
+     *
+     * @return string 
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+    /**
+     * Set twitter
+     *
+     * @param string $twitter
+     * @return Contact
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
+
+        return $this;
+    }
+
+    /**
+     * Get twitter
+     *
+     * @return string 
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * Set googlePlus
+     *
+     * @param string $googlePlus
+     * @return Contact
+     */
+    public function setGooglePlus($googlePlus)
+    {
+        $this->googlePlus = $googlePlus;
+
+        return $this;
+    }
+
+    /**
+     * Get googlePlus
+     *
+     * @return string 
+     */
+    public function getGooglePlus()
+    {
+        return $this->googlePlus;
+    }
+
+    /**
+     * Set linkedIn
+     *
+     * @param string $linkedIn
+     * @return Contact
+     */
+    public function setLinkedIn($linkedIn)
+    {
+        $this->linkedIn = $linkedIn;
+
+        return $this;
+    }
+
+    /**
+     * Get linkedIn
+     *
+     * @return string 
+     */
+    public function getLinkedIn()
+    {
+        return $this->linkedIn;
+    }
+}

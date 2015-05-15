@@ -5,11 +5,12 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-        ROLE_ADMIN_UNIVERSITY:       [ROLE_USER,ROLE_ADMIN]
-        ROLE_ADMIN_ACCOMMODATION:       [ROLE_USER,ROLE_ADMIN]
-        ROLE_ADMIN_SCHOOL:       [ROLE_USER,ROLE_ADMIN]
-        ROLE_ADMIN_CONFIG:       [ROLE_USER,ROLE_ADMIN]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ADMIN_ACCOMMODATION,ROLE_ADMIN_SCHOOL,ROLE_ADMIN_UNIVERSITY,ROLE_ADMIN_CONFIG]
+        ROLE_ADMIN_UNIVERSITY:       [ROLE_ADMIN]
+        ROLE_ADMIN_ACCOMMODATION:       [ROLE_ADMIN]
+        ROLE_ADMIN_SCHOOL:       [ROLE_ADMIN]
+        ROLE_ADMIN_CONFIG:       [ROLE_ADMIN]
+        ROLE_ADMIN_FRONTOFFICE:       [ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN,ROLE_ADMIN_FRONTOFFICE, ROLE_ADMIN_ACCOMMODATION,ROLE_ADMIN_SCHOOL,ROLE_ADMIN_UNIVERSITY,ROLE_ADMIN_CONFIG]
 
     providers:
         fos_userbundle:
@@ -36,5 +37,6 @@ security:
         - { path: ^/admin/accommodation, role: ROLE_ADMIN_ACCOMMODATION }
         - { path: ^/admin/university, role: ROLE_ADMIN_UNIVERSITY }
         - { path: ^/admin/school, role: ROLE_ADMIN_SCHOOL }
+        - { path: ^/admin/frontoffice, role: ROLE_ADMIN_FRONTOFFICE }
         
         - { path: ^/admin, role: ROLE_ADMIN }

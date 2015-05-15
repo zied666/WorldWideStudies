@@ -4,18 +4,11 @@
         <div id="slideshow">
             <div class="flexslider">
                 <ul class="slides">
-                    <li>
-                        <div class="slidebg" style="background-image: url('{{ asset('front-assets/images/group.jpg') }}');"></div>
-                    </li>
-                    <li>
-                        <div class="slidebg" style="background-image: url('{{ asset('front-assets/images/group2.jpg') }}');"></div>
-                    </li>
-                    <li>
-                        <div class="slidebg" style="background-image: url('{{ asset('front-assets/images/group3.jpg') }}');"></div>
-                    </li>
-                    <li>
-                        <div class="slidebg" style="background-image: url('{{ asset('front-assets/images/group4.jpg') }}');"></div>
-                    </li>
+                    {% for slider in sliders %}
+                        <li>
+                            <div class="slidebg" style="background-image: url('{{ slider.image.getAssetPath | imagine_filter('slider') }}');"></div>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
