@@ -4,6 +4,11 @@
             {{ university.name }}
         </a>
     </li>
+    <li {% if app.request.get('_route')=='university_gallery' %}class="active"{% endif %}>
+        <a href="{{ path('university_gallery',{'id':university.id}) }}">
+            GELLERY PHOTO ({{ university.photos|length }})
+        </a>
+    </li>
     <li {% if app.request.get('_route')=='course_title' %}class="active"{% endif %}>
         <a href="{{ path('course_title',{'id':university.id}) }}">
             Courses Title ({{ university.courseTitles|length }})

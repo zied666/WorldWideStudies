@@ -29,3 +29,13 @@ course_title_startingdate:
 delete_course_title_startingdate:
     path:     /delete_course_title_startingdate/{id}
     defaults: { _controller: BackUniversityBundle:University:deleteStartingDate }
+    
+    
+university_gallery:
+    path:     /add/{id}/AlbumPhoto
+    defaults: { _controller: BackUniversityBundle:University:album }    
+    
+    
+university_gallery_delete:
+    path:     /university_gallery_delete/{id}
+    defaults: { _controller: BackUniversityBundle:University:albumDelete }    

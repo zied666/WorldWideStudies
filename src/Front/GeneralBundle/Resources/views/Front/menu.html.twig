@@ -3,7 +3,7 @@
         {{ 'homepage.home'|trans }}
     </a>
 </li>
-<li class="menu-item-has-children {% if route in ['front_language_courses'] %}active{% endif %}">
+<li class="menu-item-has-children {% if route in ['front_language_courses','front_language_courses_details'] %}active{% endif %}">
     <a href="javascript:void(0)">Language courses</a>
     <ul>
         {% for language in languages %}
@@ -13,7 +13,7 @@
         {% endfor %}
     </ul>
 </li>
-<li class="menu-item-has-children {% if route in ['front_program_courses'] %}active{% endif %}">
+<li class="menu-item-has-children {% if route in ['front_program_courses','front_program_courses_details'] %}active{% endif %}">
     <a href="javascript:void(0)">Pathway program courses</a>
     <ul>
         <li>
@@ -48,7 +48,7 @@
         </li>
     </ul>
 </li>
-<li class="menu-item-has-children {% if route in ['front_university'] %}active{% endif %}">
+<li class="menu-item-has-children {% if route in ['front_university','front_courses_title_details'] %}active{% endif %}">
     <a href="javascript:void(0)">Universities</a>
     <ul>
         <li>

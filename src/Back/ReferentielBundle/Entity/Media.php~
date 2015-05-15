@@ -40,6 +40,11 @@ class Media
      * @ORM\ManyToOne(targetEntity="Back\AccommodationBundle\Entity\Accommodation", inversedBy="photos")
      */
     protected $accommodation ;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UniversityBundle\Entity\University", inversedBy="photos")
+     */
+    protected $university ;
 
     /**
      * @ORM\PostLoad()

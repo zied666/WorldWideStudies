@@ -1,0 +1,125 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}{{ course }}{% endblock %}
+{% block body %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">{{ course }}</h2>
+            </div>
+        </div>
+    </div>
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div id="main" class="col-md-9">
+                    {% if course.university.photos|length!=0 %}
+                        <div class="tab-container style1" id="hotel-main-content">
+                            <div class="tab-content">
+                                <div id="photos-tab" class="tab-pane fade in active">
+                                    <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
+                                        <ul class="slides">
+                                            {% for photo in course.university.photos %}
+                                                <li>
+                                                    <img src="{{ photo.getAssetPath | imagine_filter('album_front') }}" alt="" />
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="image-carousel style1" data-animation="slide" data-item-width="70" data-item-margin="10" data-sync="#photos-tab .photo-gallery">
+                                        <ul class="slides">
+                                            {% for photo in course.university.photos %}
+                                                <li>
+                                                    <img src="{{ photo.getAssetPath | imagine_filter('minature_front') }}" alt="" />
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div id="hotel-features" class="tab-container">
+                        <ul class="tabs">
+                            <li class="active"><a href="#School-description" data-toggle="tab">Description</a></li>
+                            <li><a href="#School-Courses" data-toggle="tab">Starting dates</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="School-description">
+                                <div class="long-description">
+                                    <div class="clearfix">
+                                        <img src="{{ course.university.image.getAssetPath | imagine_filter('minature_details') }}" alt="" width="74" height="74" />
+                                        <h2 class="name">{{ course.university }}</h2>
+                                    </div>
+                                    <p class="description">
+                                        {{ course.university.description }}
+                                    </p>
+                                </div>
+                                <hr>
+                                <div class="long-description">
+                                    <h2>{{ course }}</h2>
+                                    <div class="panel-content">
+                                        <dl class="term-description">
+                                            <dt>Name:</dt><dd>{{ course }}</dd>
+                                            <dt>Subject:</dt><dd>{{ course.subject }}</dd>
+                                            <dt>Qualification :</dt><dd>{{ course.qualification }}</dd>
+                                            <dt>Study mode :</dt><dd>{{ course.studyMode }}</dd>
+                                            <dt>Level of study :</dt><dd>{{ course.level }}</dd>
+                                            <dt>Duration :</dt><dd>{{ course.duration }}</dd>
+                                            <dt>Dead line :</dt><dd>{{ course.deadLine }}</dd>
+                                        </dl>
+                                    </div>
+                                    <p>{{ course.description }}</p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="School-Courses">
+                                <div class="col-md-2">
+                                    <ul class="circle box">
+                                        {% for date in course.startDates %}
+                                            <li>
+                                                {{ date.date|date('d F Y') }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar col-md-3">
+                    <article class="detailed-logo" id="hotel-reviews">
+                        <figure>
+                            <img width="114" height="85" src="{{ course.image.getAssetPath | imagine_filter('minature_details') }}" alt="">
+                        </figure>
+                        <div class="details">
+                            <h2 class="box-title">{{ course|title }}<small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space">{{ course.university.city.country|upper }}, {{ course.university.city }}</span></small></h2>
+                                        {#<span class="price clearfix">
+                                            <small class="pull-left">avg/week</small>
+                                            <span class="pull-right">{{ course.avgPrice~' '~course.currency.code }}</span>
+                                        </span>#}
+                            <p class="description">{{ course.description }}</p>
+                            <a class="button yellow full-width uppercase btn-small">add to wishlist</a>
+                        </div>
+                    </article>
+                    {% if courses|length>1 %}
+                        <div class="travelo-box">
+                            <h4>Other courses in  {{ course.university }}</h4>
+                            <div class="image-box style14">
+                                {% for sch in courses if sch.id!=course.id %}
+                                    <article class="box">
+                                        <figure>
+                                            <a href="{{ path('front_courses_title_details',{'id':sch.id}) }}"><img src="{{ sch.image.getAssetPath | imagine_filter('small') }}" /></a>
+                                        </figure>
+                                        <div class="details">
+                                            <h5 class="box-title"><a href="{{ path('front_courses_title_details',{'id':sch.id}) }}">{{ sch|title }}</a></h5>
+                                        </div>
+                                    </article>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

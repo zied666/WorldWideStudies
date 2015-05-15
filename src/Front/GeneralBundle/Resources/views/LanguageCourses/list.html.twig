@@ -20,9 +20,7 @@
                                 {% set stars= (school.stars/5) *100 %}
                                 <article class="box">
                                     <figure class="col-sm-5 col-md-4">
-                                        <a title="" href="ajax/slideshow-popup.html" class="hover-effect popup-gallery">
-                                            <img style="width: 270px;height: 160px" alt="" src="{{ school.image.getAssetPath | imagine_filter('list') }}">
-                                        </a>
+                                        <img style="width: 270px;height: 160px" alt="" src="{{ school.image.getAssetPath | imagine_filter('list') }}">
                                     </figure>
                                     <div class="details col-sm-7 col-md-8">
                                         <div>

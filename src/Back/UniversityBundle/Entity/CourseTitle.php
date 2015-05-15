@@ -429,4 +429,9 @@ class CourseTitle
     {
         return $this->image;
     }
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

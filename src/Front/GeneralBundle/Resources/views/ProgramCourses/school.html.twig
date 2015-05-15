@@ -74,13 +74,14 @@
                                     {% for course in school.courses %}
                                         <div class="panel style1 arrow-right">
                                             <h2 class="panel-title">
-                                                <a class="collapsed" href="#course{{ loop.index }}" data-toggle="collapse">{{ course }}</a>
+                                                <a class="collapsed" href="#course{{ loop.index }}" data-toggle="collapse">{{ course.subject }}</a>
                                             </h2>
                                             <div class="panel-collapse collapse" id="course{{ loop.index }}">
                                                 <p>{{ course.description }}</p>
                                                 <div class="panel-content">
                                                     <dl class="term-description">
-                                                        <dt>Name:</dt><dd>{{ course }}</dd>
+                                                        <dt>Subject:</dt><dd>{{ course.subject }}</dd>
+                                                        <dt>Pathway program:</dt><dd>{{ course.program }}</dd>
                                                         <dt>Language :</dt><dd>{{ course.language }}</dd>
                                                     </dl>
                                                 </div>

@@ -5,6 +5,7 @@ namespace Front\GeneralBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Back\UniversityBundle\Entity\CourseTitle;
 
 class UniversityController extends Controller
 {
@@ -52,16 +53,16 @@ class UniversityController extends Controller
         $country=$this->testValue($request->get('countrySearch'));
         $city=$this->testValue($request->get('citySearch'));
         return $this->redirect($this->generateUrl('front_university', array(
-                            'page'          =>1,
+                            'page'         =>1,
                             'level'        =>$level,
                             'qualification'=>$qualification,
-                            'subject'       =>$subject,
-                            'studymode'     =>$studymode,
-                            'country'       =>$country,
-                            'city'          =>$city,
-                            'keyword'       =>urlencode($request->get('keywordSearch')),
-                            'sort'    =>$sort,
-                            'desc'    =>$desc,
+                            'subject'      =>$subject,
+                            'studymode'    =>$studymode,
+                            'country'      =>$country,
+                            'city'         =>$city,
+                            'keyword'      =>urlencode($request->get('keywordSearch')),
+                            'sort'         =>$sort,
+                            'desc'         =>$desc,
         )));
     }
 
@@ -71,6 +72,16 @@ class UniversityController extends Controller
             return 'all';
         else
             return $obj;
+    }
+
+    public function universityAction(CourseTitle $courseTitle)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $courseTitles=$em->getRepository("BackUniversityBundle:CourseTitle")->findBy(array( 'university'=>$courseTitle->getUniversity() ), array(), 5);
+        return $this->render('FrontGeneralBundle:Universities:CourseTitle.html.twig', array(
+                    'courses'=>$courseTitles,
+                    'course' =>$courseTitle,
+        ));
     }
 
 }

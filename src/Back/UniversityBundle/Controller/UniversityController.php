@@ -10,6 +10,8 @@ use Back\UniversityBundle\Entity\CourseTitle;
 use Back\UniversityBundle\Form\CourseTitleType;
 use Back\UniversityBundle\Entity\StartDate;
 use Back\UniversityBundle\Form\StartDateType;
+use Back\ReferentielBundle\Entity\Media;
+use Back\ReferentielBundle\Form\MediaType;
 
 class UniversityController extends Controller
 {
@@ -150,16 +152,16 @@ class UniversityController extends Controller
                 $em->persist($startDate->setCourseTitle($courseTitle));
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your Start Date has been updated successfully");
-                return $this->redirect($this->generateUrl("course_title_startingdate",array('id'=>$courseTitle->getId())));
+                return $this->redirect($this->generateUrl("course_title_startingdate", array( 'id'=>$courseTitle->getId() )));
             }
         }
         return $this->render('BackUniversityBundle::starting_date.html.twig', array(
-                    'university'=>$courseTitle->getUniversity(),
+                    'university' =>$courseTitle->getUniversity(),
                     'courseTitle'=>$courseTitle,
                     'form'       =>$form->createView()
         ));
     }
-    
+
     public function deleteStartingDateAction(StartDate $startDate)
     {
         $em=$this->getDoctrine()->getManager();
@@ -178,5 +180,45 @@ class UniversityController extends Controller
                             'id'=>$startDate->getCourseTitle()->getId()
         )));
     }
-    
+
+    public function albumAction(University $university)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $media=new Media();
+        $media->setUniversity($university);
+        $form=$this->createForm(new MediaType, $media);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $media=$form->getData();
+                $em->persist($media);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your photo has been added successfully");
+                return $this->redirect($this->generateUrl("university_gallery", array(
+                                    'id'=>$university->getId()
+                )));
+            }
+        }
+        return $this->render('BackUniversityBundle::gallery.html.twig', array(
+                    'form'      =>$form->createView(),
+                    'university'=>$university
+        ));
+    }
+
+    public function albumDeleteAction(Media $media)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($media);
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your photo has been deleted successfully");
+        return $this->redirect($this->generateUrl("university_gallery", array(
+                            'id'=>$media->getUniversity()->getId()
+        )));
+    }
+
 }

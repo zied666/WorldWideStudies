@@ -19,9 +19,7 @@
                             {% for course in courses %}
                                 <article class="box">
                                     <figure class="col-sm-5 col-md-4">
-                                        <a title="" href="ajax/slideshow-popup.html" class="hover-effect popup-gallery">
-                                            <img style="width: 270px;height: 160px" alt="" src="{{ course.university.image.getAssetPath | imagine_filter('list') }}">
-                                        </a>
+                                        <img style="width: 270px;height: 160px" alt="" src="{{ course.university.image.getAssetPath | imagine_filter('list') }}">
                                     </figure>
                                     <div class="details col-sm-7 col-md-8">
                                         <div>
@@ -45,7 +43,7 @@
                                             <p>{{ course.description }}</p>
                                             <div>
                                                 <span class="price"><small>PRICE</small>{{ course.price }} {{ course.university.currency.code }} </span>
-                                                <a class="button btn-small full-width text-center" title="" href="hotel-detailed.html">SELECT</a>
+                                                <a class="button btn-small full-width text-center" title="" href="{{ path('front_courses_title_details',{'id':course.id}) }}">SELECT</a>
                                             </div>
                                         </div>
                                     </div>

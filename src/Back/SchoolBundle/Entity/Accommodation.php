@@ -226,4 +226,9 @@ class Accommodation
     {
         return $this->typeAccommodation;
     }
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

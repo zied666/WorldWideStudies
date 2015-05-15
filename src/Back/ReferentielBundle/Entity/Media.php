@@ -40,6 +40,11 @@ class Media
      * @ORM\ManyToOne(targetEntity="Back\AccommodationBundle\Entity\Accommodation", inversedBy="photos")
      */
     protected $accommodation ;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\UniversityBundle\Entity\University", inversedBy="photos")
+     */
+    protected $university ;
 
     /**
      * @ORM\PostLoad()
@@ -231,5 +236,28 @@ class Media
     public function getAccommodation()
     {
         return $this->accommodation;
+    }
+
+    /**
+     * Set university
+     *
+     * @param \Back\UniversityBundle\Entity\University $university
+     * @return Media
+     */
+    public function setUniversity(\Back\UniversityBundle\Entity\University $university = null)
+    {
+        $this->university = $university;
+
+        return $this;
+    }
+
+    /**
+     * Get university
+     *
+     * @return \Back\UniversityBundle\Entity\University 
+     */
+    public function getUniversity()
+    {
+        return $this->university;
     }
 }

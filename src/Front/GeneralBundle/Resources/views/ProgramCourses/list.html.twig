@@ -20,9 +20,7 @@
                                 {% set stars= (school.stars/5) *100 %}
                                 <article class="box">
                                     <figure class="col-sm-5 col-md-4">
-                                        <a title="" href="ajax/slideshow-popup.html" class="hover-effect popup-gallery">
-                                            <img style="width: 270px;height: 160px" alt="" src="{{ school.image.getAssetPath | imagine_filter('list') }}">
-                                        </a>
+                                        <img style="width: 270px;height: 160px" alt="" src="{{ school.image.getAssetPath | imagine_filter('list') }}">
                                     </figure>
                                     <div class="details col-sm-7 col-md-8">
                                         <div>
@@ -49,7 +47,7 @@
                                             <p>{{ school.shortDescription }}</p>
                                             <div>
                                                 <span class="price"><small>AVG/WEEK</small>{{ school.avgPrice }} {{ school.currency.code }} </span>
-                                                <a class="button btn-small full-width text-center" title="" href="hotel-detailed.html">SELECT</a>
+                                                <a class="button btn-small full-width text-center" title="" href="{{ path('front_program_courses_details',{'id':school.id}) }}">SELECT</a>
                                             </div>
                                         </div>
                                     </div>

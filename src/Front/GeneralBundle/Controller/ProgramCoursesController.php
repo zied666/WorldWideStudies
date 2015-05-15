@@ -83,5 +83,15 @@ class ProgramCoursesController extends Controller
                             'desc'    =>$desc,
         )));
     }
+    
+    public function schoolAction(SchoolLocation $school)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $schools=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array('city'=>$school->getCity(),'type'=>2), array(), 5);
+        return $this->render('FrontGeneralBundle:ProgramCourses:school.html.twig', array(
+                    'schools'  =>$schools,
+                    'school'  =>$school,
+        ));
+    }
 
 }

@@ -241,4 +241,9 @@ class Extra
     {
         return $this->schoolLocation;
     }
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
