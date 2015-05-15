@@ -90,13 +90,13 @@
         tjq(".travelo-google-map").gmap3({
             map: {
                 options: {
-                    center: [48.85661, 2.35222],
+                    center: [{{ contact.longitude }},{{ contact.latitude }}],
                     zoom: 12
                 }
             },
             marker: {
                 values: [
-                    {latLng: [48.85661, 2.35222], data: "Paris"}
+                    {latLng: [{{ contact.longitude }}, {{ contact.latitude }}], data: "{{ contact.address }}"}
 
                 ],
                 options: {
