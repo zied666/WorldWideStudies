@@ -36,16 +36,12 @@
                                                     </small>
                                                 </h4>
                                             </div>
-                                            {#<div>
-                                                <p>Excellent ! {{ accommodation.note }}/5</p>
-                                                <span class="review">{{ accommodation.reviews }} reviews</span>
-                                            </div>#}
                                         </div>
                                         <div>
                                             <p>{{ accommodation.shortDescription }}</p>
                                             <div>
                                                 {#<span class="price"><small>AVG/WEEK</small>{{ accommodation.avgPrice }} {{ accommodation.currency.code }} </span>#}
-                                                <a class="button btn-small full-width text-center" title="" href="hotel-detailed.html">SELECT</a>
+                                                <a class="button btn-small full-width text-center" title="" href="{{ path('front_accommodations_details',{'id':accommodation.id}) }}">SELECT</a>
                                             </div>
                                         </div>
                                     </div>

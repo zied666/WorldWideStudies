@@ -5,7 +5,7 @@ namespace Front\GeneralBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Back\AccommodationBundle\Entity\Accommodation;
 class AccomodationController extends Controller
 {
 
@@ -55,6 +55,16 @@ class AccomodationController extends Controller
             return 'all';
         else
             return $obj;
+    }
+
+    public function accommodationAction(Accommodation $accommodation)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $accommodations=$em->getRepository("BackAccommodationBundle:Accommodation")->findBy(array('city'=>$accommodation->getCity(),'enabled'=>1), array(), 5);
+        return $this->render('FrontGeneralBundle:Accommodations:accommodation.html.twig', array(
+                    'accommodation'=>$accommodation,
+                    'accommodations' =>$accommodations,
+        ));
     }
 
 }

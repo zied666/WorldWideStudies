@@ -87,7 +87,7 @@ class ProgramCoursesController extends Controller
     public function schoolAction(SchoolLocation $school)
     {
         $em=$this->getDoctrine()->getManager();
-        $schools=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array('city'=>$school->getCity(),'type'=>2), array(), 5);
+        $schools=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array('city'=>$school->getCity(),'type'=>2,'enabled'=>1), array(), 5);
         return $this->render('FrontGeneralBundle:ProgramCourses:school.html.twig', array(
                     'schools'  =>$schools,
                     'school'  =>$school,

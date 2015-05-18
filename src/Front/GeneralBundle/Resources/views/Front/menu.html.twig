@@ -4,7 +4,7 @@
     </a>
 </li>
 <li class="menu-item-has-children {% if route in ['front_language_courses','front_language_courses_details'] %}active{% endif %}">
-    <a href="javascript:void(0)">Language courses</a>
+    <a href="{{ path('front_language_courses') }}">Language courses</a>
     <ul>
         {% for language in languages %}
             <li>
@@ -14,7 +14,7 @@
     </ul>
 </li>
 <li class="menu-item-has-children {% if route in ['front_program_courses','front_program_courses_details'] %}active{% endif %}">
-    <a href="javascript:void(0)">Pathway program courses</a>
+    <a href="{{ path('front_program_courses') }}">Pathway program courses</a>
     <ul>
         <li>
             <a href="javascript:void(0)">Programs</a>
@@ -49,7 +49,7 @@
     </ul>
 </li>
 <li class="menu-item-has-children {% if route in ['front_university','front_courses_title_details'] %}active{% endif %}">
-    <a href="javascript:void(0)">Universities</a>
+    <a href="{{ path('front_university') }}">Universities</a>
     <ul>
         <li>
             <a href="javascript:void(0)">Levels of study</a>
@@ -94,7 +94,7 @@
     </ul>
 </li>
 <li class="menu-item-has-children {% if route in ['front_accommodations'] %}active{% endif %}">
-    <a href="javascript:void(0)">Accommodations</a>
+    <a href="{{ path('front_accommodations') }}">Accommodations</a>
     <ul>
         {% for type in types %}
             <li>

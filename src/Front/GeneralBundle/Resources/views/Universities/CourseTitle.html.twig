@@ -20,7 +20,7 @@
                                         <ul class="slides">
                                             {% for photo in course.university.photos %}
                                                 <li>
-                                                    <img src="{{ photo.getAssetPath | imagine_filter('album_front') }}" alt="" />
+                                                    <img src="{{ photo.getAssetPath | imagine_filter('album_front') }}"  style="width: 900px;height: 500px" />
                                                 </li>
                                             {% endfor %}
                                         </ul>

@@ -404,4 +404,9 @@ class Accommodation
         }
         return $i;
     }
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

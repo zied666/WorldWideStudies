@@ -21,7 +21,7 @@
                                         <ul class="slides">
                                             {% for photo in school.photos %}
                                                 <li>
-                                                    <img src="{{ photo.getAssetPath | imagine_filter('album_front') }}" alt="" />
+                                                    <img src="{{ photo.getAssetPath | imagine_filter('album_front') }}"  style="width: 900px;height: 500px" />
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -42,15 +42,15 @@
                     <div id="hotel-features" class="tab-container">
                         <ul class="tabs">
                             <li class="active"><a href="#School-description" data-toggle="tab">Description</a></li>
-                            {% if school.courses|length!=0 %}
+                                {% if school.courses|length!=0 %}
                                 <li><a href="#School-Courses" data-toggle="tab">Courses</a></li>
-                            {% endif %}
-                            {% if school.accommodations|length!=0 %}
+                                {% endif %}
+                                {% if school.accommodations|length!=0 %}
                                 <li><a href="#School-accommodation" data-toggle="tab">Accommodations</a></li>
-                            {% endif %}
-                            {% if school.extras|length!=0 %}
+                                {% endif %}
+                                {% if school.extras|length!=0 %}
                                 <li><a href="#School-extras" data-toggle="tab">Extras</a></li>
-                            {% endif %}
+                                {% endif %}
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="School-description">
@@ -77,13 +77,15 @@
                                                 <a class="collapsed" href="#course{{ loop.index }}" data-toggle="collapse">{{ course.subject }}</a>
                                             </h2>
                                             <div class="panel-collapse collapse" id="course{{ loop.index }}">
-                                                <p>{{ course.description }}</p>
                                                 <div class="panel-content">
-                                                    <dl class="term-description">
-                                                        <dt>Subject:</dt><dd>{{ course.subject }}</dd>
-                                                        <dt>Pathway program:</dt><dd>{{ course.program }}</dd>
-                                                        <dt>Language :</dt><dd>{{ course.language }}</dd>
-                                                    </dl>
+                                                    <p>{{ course.description }}</p>
+                                                    <div class="panel-content">
+                                                        <dl class="term-description">
+                                                            <dt>Subject:</dt><dd>{{ course.subject }}</dd>
+                                                            <dt>Pathway program:</dt><dd>{{ course.program }}</dd>
+                                                            <dt>Language :</dt><dd>{{ course.language }}</dd>
+                                                        </dl>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,8 +101,8 @@
                                                 <a class="collapsed" href="#accommodation{{ loop.index }}" data-toggle="collapse">{{ accommodation }}</a>
                                             </h2>
                                             <div class="panel-collapse collapse" id="accommodation{{ loop.index }}">
-                                                <p>{{ accommodation.description }}</p>
                                                 <div class="panel-content">
+                                                    <p>{{ accommodation.description }}</p>
                                                     <dl class="term-description">
                                                         <dt>Name:</dt><dd>{{ accommodation }}</dd>
                                                         <dt>Type :</dt><dd>{{ accommodation.typeAccommodation }}</dd>

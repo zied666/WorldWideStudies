@@ -6,7 +6,6 @@ front_program_courses_filtre:
     path:     /filtre/{page}/{program}/{language}/{subject}/{country}/{city}/{stars}/{sort}/{desc}/{keyword}
     defaults: { _controller: FrontGeneralBundle:ProgramCourses:filtre,page : 1,program : all,subject : all,language : all,country : all,city: all,stars : all,sort: name,desc: asc,keyword: null }
           
-          
 front_program_courses_details:
     path:     /school/{id}
     defaults: { _controller: FrontGeneralBundle:ProgramCourses:school}
