@@ -145,7 +145,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="sidebar col-md-3">
@@ -169,7 +168,7 @@
                                     <div class="five-stars-container"><div class="five-stars" style="width: {{ stars }}%;"></div></div>
                                 </div>
                             </div>
-                            <a class="button yellow full-width uppercase btn-small">add to wishlist</a>
+                            <a class="button yellow full-width uppercase btn-small" href="{{ path('book_school_redirect',{'id':school.id}) }}">Get a quote & Book</a>
                         </div>
                     </article>
                     {% if schools|length>1 %}

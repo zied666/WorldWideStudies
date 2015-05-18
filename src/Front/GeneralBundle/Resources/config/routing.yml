@@ -2,6 +2,10 @@ SchoolRoutingLanguage:
     resource: "@FrontGeneralBundle/Resources/config/routing/languageCourses.yml"
     prefix:   /LanguageCourses/
 
+FrontBooking:
+    resource: "@FrontGeneralBundle/Resources/config/routing/booking.yml"
+    prefix:   /book/
+
 SchoolRoutingPathway:
     resource: "@FrontGeneralBundle/Resources/config/routing/programCourses.yml"
     prefix:   /PathwayCourses/

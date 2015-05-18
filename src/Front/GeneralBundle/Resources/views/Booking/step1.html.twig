@@ -1,0 +1,106 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Book step 1{% endblock %}
+{% block body %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Book step 1</h2>
+            </div>
+        </div>
+    </div>
+    <section id="content" class="gray-area">
+        <div class="container">
+            <div class="row">
+                <div id="main" class="col-sms-6 col-sm-8 col-md-9">
+                    <div class="booking-section travelo-box">
+                        <form class="booking-form">
+                            <div class="person-information">
+                                <h2>See Courses, Prices & Dates</h2>
+
+                                <div class="form-group row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-5"><label>Courses</label></div>
+                                    <div class="col-md-2"><label>Duration</label></div>
+                                    <div class="col-md-2"><label>Starting Date</label></div>
+                                    <div class="col-md-2"><label>Price</label></div>
+                                </div>
+
+                                {% for course in school.courses %}
+                                    <hr style="border-color:burlywood;  margin-top: 0px;">
+                                    <div class="form-group row">
+                                        <div class="col-md-1">
+                                            <input type="radio" name="course" required value="{{ course.id }}"/>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label>
+                                                <strong>{{ course }}</strong>
+                                                <small>
+                                                    (
+                                                    {% if school.type==2 %}
+                                                        {{ course.program }} ,
+                                                    {% endif %}
+                                                    {{ course.language }}
+                                                    )
+                                                </small>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="">
+                                                <select class="full-width"  name="city">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2"><label>Starting Date</label></div>
+                                        <div class="col-md-2"><label>Price</label></div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 col-md-5">
+                                    <button type="submit" class="full-width btn-large">CONFIRM BOOKING</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="sidebar col-sms-6 col-sm-4 col-md-3">
+                    <div class="booking-details travelo-box">
+                        <h4>Booking Details</h4>
+                        <article class="image-box hotel listing-style1">
+                            <figure class="clearfix">
+                                <a href="hotel-detailed.html" class="hover-effect middle-block">
+                                    <img class="middle-item" src="{{ school.image.getAssetPath | imagine_filter('minature_front') }}" style="width: 70px;height: 70px">
+                                </a>
+                                <div class="travel-title">
+                                    <h5 class="box-title">{{ school }}
+                                        <small style="color: red">{{ school.showType}}</small>
+                                        <small>{{ school.city.country|upper }} {{ school.city }}</small>
+                                    </h5>
+                                </div>
+                            </figure>
+                            <div class="details">
+                                <div class="feedback">
+                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container"><span style="width: {{ (school.stars/5) *100 }}%;" class="five-stars"></span></div>
+                                    <span class="review">{{ school.reviews }} reviews</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        {#<h4>Other Details</h4>
+                        <dl class="other-details">
+                            <dt class="feature">room Type:</dt><dd class="value">Standard Family</dd>
+                            <dt class="feature">per Room price:</dt><dd class="value">$121</dd>
+                            <dt class="feature">2 night Stay:</dt><dd class="value">$242</dd>
+                            <dt class="feature">taxes and fees:</dt><dd class="value">$10</dd>
+                            <dt class="total-price">Total Price</dt><dd class="total-price-value">$252</dd>
+                        </dl>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
