@@ -28,6 +28,11 @@
                     </div>
                 </a>
                 <ul class="sub-menu">
+                    <li {% if app.request.get('_route')=='backoffice_homepage' %}class="active"{% endif %}>
+                        <a href="{{ path('backoffice_homepage') }}">
+                            <span class="title">Homepage</span>
+                        </a>
+                    </li>
                     <li {% if app.request.get('_route')=='backoffice_contact' %}class="active"{% endif %}>
                         <a href="{{ path('backoffice_contact') }}">
                             <span class="title">Page Contact</span>

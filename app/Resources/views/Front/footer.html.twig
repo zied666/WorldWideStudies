@@ -2,8 +2,8 @@
     <div class="bottom">
         <div class="container">
             <div class="logo pull-left">
-                <a href="index.html" title="Travelo - home">
-                    <img src="{{ asset('front-assets/images/logo.png') }}" alt="Travelo HTML5 Template" />
+                <a href="{{ path('accueil') }}" title="Home page" style=" background: url('{{ render(controller('FrontGeneralBundle:Front:logo')) }}') no-repeat 0 0;">
+                    <img src="{{ render(controller('FrontGeneralBundle:Front:logo')) }}" alt="" />
                 </a>
             </div>
             <div class="pull-right">

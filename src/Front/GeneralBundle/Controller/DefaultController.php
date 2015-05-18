@@ -12,7 +12,9 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em=$this->getDoctrine()->getManager();
-        $sliders=$em->getRepository("BackGeneralBundle:Slider")->findBy(array(), array('ordre'=>'asc'));
+        $homePage=$em->getRepository("BackGeneralBundle:HomePage")->find(1);
+        $contact=$em->getRepository("BackGeneralBundle:Contact")->find(1);
+        $sliders=$em->getRepository("BackGeneralBundle:Slider")->findBy(array(), array( 'ordre'=>'asc' ));
         $languages=$em->getRepository("BackReferentielBundle:Language")->findBy(array(), array( "name"=>"asc" ));
         $countries=$em->getRepository("BackReferentielBundle:Country")->findBy(array(), array( "libelle"=>"asc" ));
         $programs=$em->getRepository("BackReferentielBundle:Program")->findBy(array(), array( "name"=>"asc" ));
@@ -23,7 +25,9 @@ class DefaultController extends Controller
         $typeAccommodations=$em->getRepository("BackReferentielBundle:TypeAccommodation")->findBy(array(), array( "name"=>"asc" ));
         $qualifications=$em->getRepository("BackReferentielBundle:Qualification")->findBy(array(), array( "name"=>"asc" ));
         return $this->render('FrontGeneralBundle::accueil.html.twig', array(
-                    'sliders'         =>$sliders,
+                    'homepage'          =>$homePage,
+                    'contact'           =>$contact,
+                    'sliders'           =>$sliders,
                     'languages'         =>$languages,
                     'countries'         =>$countries,
                     'programs'          =>$programs,

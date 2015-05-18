@@ -19,15 +19,24 @@ class FrontController extends Controller
         $levels=$em->getRepository("BackReferentielBundle:Level")->findBy(array(), array( 'name'=>'asc' ));
         $types=$em->getRepository("BackReferentielBundle:TypeAccommodation")->findBy(array(), array( 'name'=>'asc' ));
         return $this->render('FrontGeneralBundle:Front:menu.html.twig', array(
-                    'route'    =>$route,
-                    'languages'    =>$languages,
-                    'programs'     =>$programs,
-                    'sujectSchools'=>$sujectSchools,
+                    'route'         =>$route,
+                    'languages'     =>$languages,
+                    'programs'      =>$programs,
+                    'sujectSchools' =>$sujectSchools,
                     'subjects'      =>$subjects,
                     'qualifications'=>$qualfications,
-                    'studymodes'   =>$studymodes,
-                    'levels'       =>$levels,
-                    'types'        =>$types,
+                    'studymodes'    =>$studymodes,
+                    'levels'        =>$levels,
+                    'types'         =>$types,
+        ));
+    }
+
+    public function logoAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $homePage=$em->getRepository("BackGeneralBundle:HomePage")->find(1);
+        return $this->render('FrontGeneralBundle:Front:logo.html.twig', array(
+                    'homepage'=>$homePage,
         ));
     }
 

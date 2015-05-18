@@ -6,6 +6,10 @@ backoffice_contact:
     path:     /frontoffice/contact
     defaults: { _controller: BackGeneralBundle:FrontOffice:contact }
 
+backoffice_homepage:
+    path:     /frontoffice/homepage
+    defaults: { _controller: BackGeneralBundle:FrontOffice:homepage }
+
 backoffice_slider:
     path:     /frontoffice/slider/{id}
     defaults: { _controller: BackGeneralBundle:FrontOffice:slider,id:null }

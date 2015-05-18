@@ -1,0 +1,40 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Page contact{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                <div class="row">
+                    {{ formulaire.input("col-md-3","Title",form.title,true) }}
+                    {{ formulaire.input("col-md-5","Description",form.description,true) }}
+                    {{ formulaire.input("col-md-2","Logo",form.logo.file,true) }}
+                    <div class="col-md-2">
+                        <img src="{{ asset(homePage.logo.getAssetPath()) }}" />
+                    </div>
+                </div>
+                <div class="row">
+                    {{ formulaire.input("col-md-3","Title 1",form.title1,true) }}
+                    {{ formulaire.input("col-md-5","Descripion 1",form.description1,true) }}
+                </div>
+                <div class="row">
+                    {{ formulaire.input("col-md-3","Title 2",form.title2,true) }}
+                    {{ formulaire.input("col-md-5","Descripion 2",form.description2,true) }}
+                </div>
+                <div class="row">
+                    {{ formulaire.input("col-md-3","Title 3",form.title3,true) }}
+                    {{ formulaire.input("col-md-5","Descripion 3",form.description3,true) }}
+                </div>
+                <div class="row">
+                    {{ formulaire.input("col-md-3","Title 4",form.title4,true) }}
+                    {{ formulaire.input("col-md-5","Descripion 4",form.description4,true) }}
+                </div>
+                <div class="no-display">
+                    {{ formulaire.input("col-md-2","Photo",form.logo.updateAt,true) }}
+                </div>
+                {{ macro.enregistrer }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

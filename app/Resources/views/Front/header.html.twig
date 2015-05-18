@@ -6,8 +6,8 @@
         </a>
         <div class="container">
             <h1 class="logo navbar-brand">
-                <a href="{{ path('accueil') }}" title="Home page">
-                    <img src="{{ asset('front-assets/images/logo.png') }}" alt="Logo" id="PrincipalLogo" />
+                <a href="{{ path('accueil') }}" title="Home page" style=" background: url('{{ render(controller('FrontGeneralBundle:Front:logo')) }}') no-repeat 0 0;">
+                    <img src="{{ render(controller('FrontGeneralBundle:Front:logo')) }}" alt="Logo" id="PrincipalLogo" />
                 </a>
             </h1>
             {% include ':Front:menu.html.twig' %}
