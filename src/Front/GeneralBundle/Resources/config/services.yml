@@ -1,4 +1,7 @@
 services:
-#    front_general.example:
-#        class: Front\GeneralBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    interface:
+        class: Front\GeneralBundle\Twig\Extension\InterfacesExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            em: "@doctrine.orm.entity_manager"

@@ -1,11 +1,19 @@
 <div class="col-sm-4 col-md-3">
     <div class="icon-box style3 counters-box">
         <div class="numbers">
-            <i class="soap-icon-hotel hotel-color"></i>
+            <i class="soap-icon-carryon hotel-color"></i>
             <span class="display-counter" data-value="{{ count }}">0</span>
         </div>
         <div class="description">Accommodations</div>
     </div>
+    {% if city!='all' %}
+        <div class="icon-box style3 counters-box">
+            <div class="numbers">
+                <img src='{{ asset(getPhotoCity(city)) }}' style="width: 220px;height: 127px" >
+            </div>
+            <div class="description">{{ getNameCity(city) }}</div>
+        </div>
+    {% endif %}
     <div class="toggle-container filters-container">
         <div class="panel style1 arrow-right">
             <h4 class="panel-title">
