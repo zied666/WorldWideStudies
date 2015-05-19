@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Back\SchoolBundle\Entity\SchoolLocation;
-
+use Back\SchoolBundle\Entity\Room;
 class BookingController extends Controller
 {
 
@@ -19,14 +19,79 @@ class BookingController extends Controller
         return $this->redirect($this->generateUrl("book_school_step1"));
     }
 
+    public function ajaxUpdatePriceAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $response=new JsonResponse();
+        $request=$this->getRequest();
+        $course=$em->getRepository("BackSchoolBundle:Course")->find($request->get('course'));
+        if($course->getSchoolLocation()->getType() == 2)
+        {
+            $price=$em->getRepository('BackSchoolBundle:PathwayPrice')->find($request->get('val'));
+            $response->setData(array( 'price'=>$price->getPrice().' '.$course->getSchoolLocation()->getCurrency()->getCode() ));
+        }
+        if($course->getSchoolLocation()->getType() == 1)
+        {
+            $price=$course->calculePrice($request->get('val'));
+            $response->setData(array( 'price'=>$price.' '.$course->getSchoolLocation()->getCurrency()->getCode() ));
+        }
+        return $response;
+    }
+    
+    public function ajaxUpdateDurationAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $response=new JsonResponse();
+        $request=$this->getRequest();
+        $response=new JsonResponse();
+        $room= new Room();
+        $room=$em->getRepository("BackSchoolBundle:Room")->find($request->get('room'));
+        $tab=array();
+        $price=0;
+        if($room->getAccommodation()->getSchoolLocation()->getType()==1)
+        {
+            for($i=$room->getMinWeek();$i<=$room->getMaxWeek();$i++)
+                $tab[$i]=$i.' weeks';
+            $price=$room->calculePrice($room->getMinWeek()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
+        }
+        if($room->getAccommodation()->getSchoolLocation()->getType()==2)
+        {
+            foreach($room->getPathwayPrices() as $price)
+                $tab[$price->getId()]=$price->getStartDate()->format('d F Y').' - '.$price->getEndDate()->format('d F Y');
+            $price=$room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
+        }
+        $response->setData(array('select'=>$tab,'price'=>$price));
+        return $response;
+    }
+
     public function step1Action()
     {
         $session=$this->getRequest()->getSession();
         $em=$this->getDoctrine()->getManager();
-        dump($session->get("booking"));
         $booking=$session->get("booking");
+        $request=$this->getRequest();
+        if($request->isMethod("post"))
+        {
+            $course=$request->get('course');
+            $booking["course"]=array('id'=>$course,'duration'=>$request->get('duration_'.$course),'startDate'=>$request->get('startingDate_'.$course));
+            $session->set("booking", $booking);
+            return $this->redirect($this->generateUrl("book_school_step2"));
+        }
         $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
         return $this->render('FrontGeneralBundle:Booking:step1.html.twig', array(
+                    'school'=>$school,
+        ));
+    }
+    
+    public function step2Action()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $booking=$session->get("booking");
+        dump($booking);
+        $request=$this->getRequest();
+        $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
+        return $this->render('FrontGeneralBundle:Booking:step2.html.twig', array(
                     'school'=>$school,
         ));
     }

@@ -2,6 +2,18 @@ book_school_redirect:
     path:     /schools/book_redirect/{id}
     defaults: { _controller: FrontGeneralBundle:Booking:bookRedirect}
 
+ajax_update_price_course:
+    path:     /ajax_update_price_course
+    defaults: { _controller: FrontGeneralBundle:Booking:ajaxUpdatePrice}
+
+ajax_update_duration:
+    path:     /ajax_update_duration
+    defaults: { _controller: FrontGeneralBundle:Booking:ajaxUpdateDuration}
+
 book_school_step1:
     path:     /schools/Step1
     defaults: { _controller: FrontGeneralBundle:Booking:step1}
+
+book_school_step2:
+    path:     /schools/Step2
+    defaults: { _controller: FrontGeneralBundle:Booking:step2}

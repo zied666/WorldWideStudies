@@ -47,7 +47,7 @@ class Room
      * @ORM\OrderBy({"weekStart" = "ASC"})
      */
     protected $prices;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="PathwayPrice", mappedBy="room")
      * @ORM\OrderBy({"startDate" = "ASC"})
@@ -138,7 +138,7 @@ class Room
      */
     public function __construct()
     {
-        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->prices=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -149,7 +149,7 @@ class Room
      */
     public function addPrice(\Back\SchoolBundle\Entity\Price $prices)
     {
-        $this->prices[] = $prices;
+        $this->prices[]=$prices;
 
         return $this;
     }
@@ -173,7 +173,7 @@ class Room
     {
         return $this->prices;
     }
-    
+
     /**
      * to string
      * @return String 
@@ -183,8 +183,6 @@ class Room
         return $this->name;
     }
 
-
-
     /**
      * Add pathwayPrices
      *
@@ -193,7 +191,7 @@ class Room
      */
     public function addPathwayPrice(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPrices)
     {
-        $this->pathwayPrices[] = $pathwayPrices;
+        $this->pathwayPrices[]=$pathwayPrices;
 
         return $this;
     }
@@ -217,4 +215,64 @@ class Room
     {
         return $this->pathwayPrices;
     }
+
+    public function getMinWeek()
+    {
+        $min=999;
+        if(count($this->prices) == 0)
+            return 0;
+        foreach($this->prices as $price)
+        {
+            if($price->getWeekStart() < $min)
+                $min=$price->getWeekStart();
+        }
+        return $min;
+    }
+
+    public function getMaxWeek()
+    {
+        $max=0;
+        if(count($this->prices) == 0)
+            return 0;
+        foreach($this->prices as $price)
+        {
+            if($price->getWeekEnd() > $max)
+                $max=$price->getWeekEnd();
+        }
+        return $max;
+    }
+
+    public function calculePrice($week)
+    {
+        if(count($this->prices) == 0)
+            return 0;
+        foreach($this->prices as $price)
+        {
+            if($price->getWeekEnd() >= $week && $price->getWeekStart() <= $week)
+            {
+                if($price->getFix())
+                    return number_format($price->getPrice(), $this->accommodation->getSchoolLocation()->getCurrency()->getScale(), '.', '');
+                else
+                    return number_format($price->getPrice() * $week, $this->accommodation->getSchoolLocation()->getCurrency()->getScale(), '.', '');
+            }
+        }
+    }
+
+    public function getFirstPathwayPrice()
+    {
+        if(count($this->pathwayPrices) != 0)
+            return $this->pathwayPrices->first()->getId();
+    }
+
+    public function calculePathwayPrice($id)
+    {
+        if(count($this->pathwayPrices) == 0)
+            return 0;
+        foreach($this->pathwayPrices as $price)
+        {
+            if($price->getId() == $id)
+                return number_format($price->getPrice(), $this->accommodation->getSchoolLocation()->getCurrency()->getScale(), '.', '');
+        }
+    }
+
 }

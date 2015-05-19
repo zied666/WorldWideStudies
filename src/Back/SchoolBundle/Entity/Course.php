@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Course
 {
+
     /**
      * @var integer
      *
@@ -34,34 +35,34 @@ class Course
      * @Assert\NotNull()
      */
     protected $schoolLocation;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\Language")
      */
-    protected $language ;
-    
+    protected $language;
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\Program")
      */
-    protected $program ;
-    
+    protected $program;
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\SubjectSchoolLocation")
      */
-    protected $subject ;
-    
+    protected $subject;
+
     /**
      * @ORM\OneToMany(targetEntity="StartDate", mappedBy="course")
      * @ORM\OrderBy({"date" = "ASC"})
      */
     protected $startDates;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Price", mappedBy="course")
      * @ORM\OrderBy({"weekStart" = "ASC"})
      */
     protected $prices;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="PathwayPrice", mappedBy="course")
      * @ORM\OrderBy({"name" = "ASC"})
@@ -93,7 +94,7 @@ class Course
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name=$name;
 
         return $this;
     }
@@ -114,9 +115,9 @@ class Course
      * @param \Back\ReferentielBundle\Entity\Language $language
      * @return Course
      */
-    public function setLanguage(\Back\ReferentielBundle\Entity\Language $language = null)
+    public function setLanguage(\Back\ReferentielBundle\Entity\Language $language=null)
     {
-        $this->language = $language;
+        $this->language=$language;
 
         return $this;
     }
@@ -137,9 +138,9 @@ class Course
      * @param \Back\ReferentielBundle\Entity\Program $program
      * @return Course
      */
-    public function setProgram(\Back\ReferentielBundle\Entity\Program $program = null)
+    public function setProgram(\Back\ReferentielBundle\Entity\Program $program=null)
     {
-        $this->program = $program;
+        $this->program=$program;
 
         return $this;
     }
@@ -153,12 +154,13 @@ class Course
     {
         return $this->program;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->startDates = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->startDates=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -169,7 +171,7 @@ class Course
      */
     public function addStartDate(\Back\SchoolBundle\Entity\StartDate $startDates)
     {
-        $this->startDates[] = $startDates;
+        $this->startDates[]=$startDates;
 
         return $this;
     }
@@ -202,7 +204,7 @@ class Course
      */
     public function addPrice(\Back\SchoolBundle\Entity\Price $prices)
     {
-        $this->prices[] = $prices;
+        $this->prices[]=$prices;
 
         return $this;
     }
@@ -226,10 +228,10 @@ class Course
     {
         return $this->prices;
     }
-    
+
     public function __toString()
     {
-        if($this->schoolLocation->getType()==1)
+        if($this->schoolLocation->getType() == 1)
             return $this->name;
         else
             return $this->subject->getName();
@@ -241,9 +243,9 @@ class Course
      * @param \Back\SchoolBundle\Entity\SchoolLocation $schoolLocation
      * @return Course
      */
-    public function setSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocation = null)
+    public function setSchoolLocation(\Back\SchoolBundle\Entity\SchoolLocation $schoolLocation=null)
     {
-        $this->schoolLocation = $schoolLocation;
+        $this->schoolLocation=$schoolLocation;
 
         return $this;
     }
@@ -266,7 +268,7 @@ class Course
      */
     public function addPathwayPrice(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPrices)
     {
-        $this->pathwayPrices[] = $pathwayPrices;
+        $this->pathwayPrices[]=$pathwayPrices;
 
         return $this;
     }
@@ -299,7 +301,7 @@ class Course
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description=$description;
 
         return $this;
     }
@@ -320,9 +322,9 @@ class Course
      * @param \Back\ReferentielBundle\Entity\SubjectSchoolLocation $subject
      * @return Course
      */
-    public function setSubject(\Back\ReferentielBundle\Entity\SubjectSchoolLocation $subject = null)
+    public function setSubject(\Back\ReferentielBundle\Entity\SubjectSchoolLocation $subject=null)
     {
-        $this->subject = $subject;
+        $this->subject=$subject;
 
         return $this;
     }
@@ -336,4 +338,64 @@ class Course
     {
         return $this->subject;
     }
+
+    public function getMinWeek()
+    {
+        $min=999;
+        if(count($this->prices) == 0)
+            return 0;
+        foreach($this->prices as $price)
+        {
+            if($price->getWeekStart() < $min)
+                $min=$price->getWeekStart();
+        }
+        return $min;
+    }
+
+    public function getMaxWeek()
+    {
+        $max=0;
+        if(count($this->prices) == 0)
+            return 0;
+        foreach($this->prices as $price)
+        {
+            if($price->getWeekEnd() > $max)
+                $max=$price->getWeekEnd();
+        }
+        return $max;
+    }
+
+    public function calculePrice($week)
+    {
+        if(count($this->prices) == 0)
+            return 0;
+        foreach($this->prices as $price)
+        {
+            if($price->getWeekEnd() >= $week && $price->getWeekStart() <= $week)
+            {
+                if($price->getFix())
+                    return number_format($price->getPrice(), $this->schoolLocation->getCurrency()->getScale(), '.', '');
+                else
+                    return number_format($price->getPrice() * $week, $this->schoolLocation->getCurrency()->getScale(), '.', '');
+            }
+        }
+    }
+
+    public function getFirstPathwayPrice()
+    {
+        if(count($this->pathwayPrices) != 0)
+            return $this->pathwayPrices->first()->getId();
+    }
+
+    public function calculePathwayPrice($id)
+    {
+        if(count($this->pathwayPrices) == 0)
+            return 0;
+        foreach($this->pathwayPrices as $price)
+        {
+            if($price->getId()==$id)
+                return number_format($price->getPrice(), $this->schoolLocation->getCurrency()->getScale(), '.', '');
+        }
+    }
+
 }

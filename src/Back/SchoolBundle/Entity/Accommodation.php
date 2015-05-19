@@ -231,4 +231,10 @@ class Accommodation
     {
         return $this->name;
     }
+    
+    public function getFirstRoom()
+    {
+        if(count($this->rooms)!=0)
+            return $this->rooms->first();
+    }
 }

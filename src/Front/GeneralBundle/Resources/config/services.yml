@@ -5,3 +5,10 @@ services:
             - { name: twig.extension }
         arguments:
             em: "@doctrine.orm.entity_manager"
+    booking:
+        class: Front\GeneralBundle\Twig\Extension\BookingExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            session: "@session"
