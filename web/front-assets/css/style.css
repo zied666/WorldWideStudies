@@ -7405,7 +7405,7 @@ ul.search-tabs {
   text-align: right;
   text-transform: uppercase; }
   .booking-details .other-details dt, .booking-details .other-details dd {
-    padding: 1.3em 0;
+    padding: 0.5em 0;
     border-top: 1px solid #f5f5f5; }
   .booking-details .other-details dt {
     float: left;
@@ -7415,8 +7415,8 @@ ul.search-tabs {
     clear: both; }
   .booking-details .other-details .total-price {
     font-size: 1.5em;
-    color: #2d3e52;
-    text-transform: none; }
+    /*color: #2d3e52;*/
+    /*text-transform: none;*/ }
   .booking-details .other-details .total-price-value {
     color: #98ce44;
     font-size: 1.4em; }

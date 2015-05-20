@@ -88,7 +88,9 @@
                         <h4>Booking Details</h4>
                         <article class="image-box hotel listing-style1">
                             <figure class="clearfix">
-                                <img class="middle-item" src="{{ school.image.getAssetPath | imagine_filter('minature_front') }}" style="width: 70px;height: 70px">
+                                <a href="javascript:void(0)" class="hover-effect middle-block">
+                                    <img class="middle-item" src="{{ school.image.getAssetPath | imagine_filter('minature_front') }}" style="width: 70px;height: 70px">
+                                </a>
                                 <div class="travel-title">
                                     <h5 class="box-title">{{ school }}
                                         <small style="color: red">{{ school.showType}}</small>
