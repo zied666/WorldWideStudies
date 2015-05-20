@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 col-md-5">
-                                    <button type="submit" class="full-width btn-large">CONFIRM BOOKING</button>
+                                    <button type="submit" class="full-width btn-large">Next step 2</button>
                                 </div>
                             </div>
                         </form>
@@ -88,9 +88,7 @@
                         <h4>Booking Details</h4>
                         <article class="image-box hotel listing-style1">
                             <figure class="clearfix">
-                                <a href="hotel-detailed.html" class="hover-effect middle-block">
-                                    <img class="middle-item" src="{{ school.image.getAssetPath | imagine_filter('minature_front') }}" style="width: 70px;height: 70px">
-                                </a>
+                                <img class="middle-item" src="{{ school.image.getAssetPath | imagine_filter('minature_front') }}" style="width: 70px;height: 70px">
                                 <div class="travel-title">
                                     <h5 class="box-title">{{ school }}
                                         <small style="color: red">{{ school.showType}}</small>
@@ -105,15 +103,6 @@
                                 </div>
                             </div>
                         </article>
-
-                        {#<h4>Other Details</h4>
-                        <dl class="other-details">
-                            <dt class="feature">room Type:</dt><dd class="value">Standard Family</dd>
-                            <dt class="feature">per Room price:</dt><dd class="value">$121</dd>
-                            <dt class="feature">2 night Stay:</dt><dd class="value">$242</dd>
-                            <dt class="feature">taxes and fees:</dt><dd class="value">$10</dd>
-                            <dt class="total-price">Total Price</dt><dd class="total-price-value">$252</dd>
-                        </dl>#}
                     </div>
                 </div>
             </div>

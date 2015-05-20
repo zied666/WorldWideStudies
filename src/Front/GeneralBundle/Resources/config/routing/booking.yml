@@ -4,7 +4,11 @@ book_school_redirect:
 
 ajax_update_price_course:
     path:     /ajax_update_price_course
-    defaults: { _controller: FrontGeneralBundle:Booking:ajaxUpdatePrice}
+    defaults: { _controller: FrontGeneralBundle:Booking:ajaxUpdatePriceCourse}
+
+ajax_update_price_accommodation:
+    path:     /ajax_update_price_accommodation
+    defaults: { _controller: FrontGeneralBundle:Booking:ajaxUpdatePriceAcco}
 
 ajax_update_duration:
     path:     /ajax_update_duration

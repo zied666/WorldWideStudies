@@ -274,5 +274,4 @@ class Room
                 return number_format($price->getPrice(), $this->accommodation->getSchoolLocation()->getCurrency()->getScale(), '.', '');
         }
     }
-
 }

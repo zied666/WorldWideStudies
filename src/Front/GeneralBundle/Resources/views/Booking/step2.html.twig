@@ -13,7 +13,7 @@
             <div class="row">
                 <div id="main" class="col-sms-6 col-sm-8 col-md-9">
                     <div class="booking-section travelo-box">
-                        <form class="booking-form" method="post" action="{{ path('book_school_step1') }}">
+                        <form class="booking-form" method="post" action="{{ path('book_school_step2') }}">
                             <div class="person-information">
                                 <h2>See Accommodations</h2>
 
@@ -29,20 +29,20 @@
                                     <div class="form-group row">
                                         <div class="col-md-3">
                                             <label style="padding-top: 7px;">
-                                                <input  type="radio" name="course" required value="{{ acco.id }}" style="vertical-align: sub;"/>
+                                                <input  type="radio" name="accommodation" value="{{ acco.id }}" style="vertical-align: sub;"/>
                                                 <strong>{{ acco }}</strong>
                                                 <small> {{ acco.typeAccommodation }} </small>
                                             </label>
                                         </div>
                                         <div class="col-md-3">
-                                            <select class="full-width Rooms"  name="room_{{ acco.id }}" data-acco="{{ acco.id }}" >
+                                            <select class="full-width Rooms"  name="room_{{ acco.id }}" data-acco="{{ acco.id }}" id="Room_{{ acco.id }}" >
                                                 {% for room in acco.rooms %}
                                                     <option value="{{ room.id }}">{{ room }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
                                         <div class="col-md-4">
-                                            <select class="full-width"  name="duration_{{ acco.id }}" data-acco="{{ acco.id }}" id="Duration_{{ acco.id }}" >
+                                            <select class="full-width DurationSelect"  name="duration_{{ acco.id }}" data-acco="{{ acco.id }}" id="Duration_{{ acco.id }}" >
                                                 {% if school.type==1 %}
                                                     {% for i in acco.getFirstRoom.getMinWeek..acco.getFirstRoom.getMaxWeek %}
                                                         <option value="{{ i }}">{{ i }} weeks</option>
@@ -57,7 +57,12 @@
                                         </div>
                                         <div class="col-md-2">
                                             <label style="padding-top: 7px;" id="price_{{ acco.id }}">
-                                                
+                                                {% if school.type==1 %}
+                                                    {{ acco.getFirstRoom.calculePrice(acco.getFirstRoom.getMinWeek) }} {{ school.currency.code }}
+                                                {% endif %}
+                                                {% if school.type==2 %}
+                                                    {{ acco.getFirstRoom.calculePathwayPrice(acco.getFirstRoom.getFirstPathwayPrice) }} {{ school.currency.code }}
+                                                {% endif %}
                                             </label>
                                         </div>
                                     </div>
@@ -65,7 +70,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 col-md-5">
-                                    <button type="submit" class="full-width btn-large">CONFIRM BOOKING</button>
+                                    <button type="submit" class="full-width btn-large">Next step 3</button>
                                 </div>
                             </div>
                         </form>
@@ -76,9 +81,7 @@
                         <h4>Booking Details</h4>
                         <article class="image-box hotel listing-style1">
                             <figure class="clearfix">
-                                <a href="hotel-detailed.html" class="hover-effect middle-block">
-                                    <img class="middle-item" src="{{ school.image.getAssetPath | imagine_filter('minature_front') }}" style="width: 70px;height: 70px">
-                                </a>
+                                <img class="middle-item" src="{{ school.image.getAssetPath | imagine_filter('minature_front') }}" style="width: 70px;height: 70px">
                                 <div class="travel-title">
                                     <h5 class="box-title">{{ school }}
                                         <small style="color: red">{{ school.showType}}</small>
@@ -115,7 +118,7 @@
                 var room = tjq(this).val();
                 var acco = tjq(this).data('acco');
                 var duration = tjq('#Duration_' + acco);
-                        tjq('#price_'+acco).html("loading ..");
+                tjq('#price_' + acco).html("loading price ...");
                 duration.empty();
                 duration.append('<option value="">Loading ...</option>');
                 tjq.ajax({
@@ -124,11 +127,26 @@
                     type: 'POST',
                     dataType: 'json',
                     success: function (json) {
-                        tjq('#price_'+acco).html(json['price']);
+                        tjq('#price_' + acco).html(json['price']);
                         duration.empty();
                         tjq.each(json['select'], function (index, value) {
                             duration.append('<option value="' + index + '">' + value + '</option>');
                         });
+                    }
+                });
+            })
+            tjq('.DurationSelect').change(function () {
+                var val = tjq(this).val();
+                var acco = tjq(this).data('acco');
+                var room = tjq('#Room_' + acco).val();
+                tjq('#price_' + acco).html('loading price ...');
+                tjq.ajax({
+                    url: '{{ path('ajax_update_price_accommodation') }}',
+                    data: {'val': val, 'room': room},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        tjq('#price_' + acco).html(json['price']);
                     }
                 });
             })
