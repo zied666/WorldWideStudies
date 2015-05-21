@@ -223,42 +223,4 @@ class Extra
     {
         return $this->name;
     }
-
-    /**
-     * Set perWeek
-     *
-     * @param integer $perWeek
-     * @return Extra
-     */
-    public function setPerWeek($perWeek)
-    {
-        $this->perWeek = $perWeek;
-
-        return $this;
-    }
-
-    /**
-     * Get perWeek
-     *
-     * @return integer 
-     */
-    public function getPerWeek()
-    {
-        return $this->perWeek;
-    }
-
-    /**
-     * Get perWeek
-     *
-     * @return integer 
-     */
-    public function showPerWeek()
-    {
-        if($this->perWeek==1)
-            return 'Per week (school)';
-        elseif($this->perWeek==2)
-            return 'Per week (accommodation)';
-        else
-            return 'No';
-    }
 }

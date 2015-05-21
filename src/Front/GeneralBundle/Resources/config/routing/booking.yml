@@ -25,3 +25,7 @@ book_school_step2:
 book_school_step3:
     path:     /schools/Step3
     defaults: { _controller: FrontGeneralBundle:Booking:step3}
+
+book_school_review:
+    path:     /schools/review
+    defaults: { _controller: FrontGeneralBundle:Booking:review}

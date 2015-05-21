@@ -1,0 +1,65 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Booking Confirmation{% endblock %}
+{% block body %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Booking Confirmation</h2>
+            </div>
+        </div>
+    </div>
+    
+    <section id="content" class="gray-area">
+        <div class="container">
+            <div class="row">
+                <div id="main" class="col-sm-8 col-md-9">
+                    <div class="booking-information travelo-box">
+                        <dl class="term-description">
+                            {{ GetReview()|raw }}
+                        </dl>
+                        <hr />
+                        <form class="booking-form" action="" method="post">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input required type="checkbox"> By continuing, you agree to the <a href="#"><span class="skin-color">Terms and Conditions</span></a>.
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 col-md-5">
+                                    <button type="submit" class="full-width btn-large">CONFIRM BOOKING</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="sidebar col-sm-4 col-md-3">
+                    <div class="booking-details travelo-box">
+                        <h4>Booking Details</h4>
+                        <article class="image-box hotel listing-style1">
+                            <figure class="clearfix">
+                                <a href="javascript:void(0)" class="hover-effect middle-block">
+                                    <img class="middle-item" src="{{ school.image.getAssetPath | imagine_filter('minature_front') }}" style="width: 70px;height: 70px">
+                                </a>
+                                <div class="travel-title">
+                                    <h5 class="box-title">{{ school }}
+                                        <small style="color: red">{{ school.showType}}</small>
+                                        <small>{{ school.city.country|upper }} {{ school.city }}</small>
+                                    </h5>
+                                </div>
+                            </figure>
+                            <div class="details">
+                                <div class="feedback">
+                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container"><span style="width: {{ (school.stars/5) *100 }}%;" class="five-stars"></span></div>
+                                    <span class="review">{{ school.reviews }} reviews</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

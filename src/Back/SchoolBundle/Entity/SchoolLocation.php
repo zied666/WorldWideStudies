@@ -76,7 +76,7 @@ class SchoolLocation
 
     /**
      * @var integer
-     *
+     * 1:language, 2: pathway
      * @ORM\Column(name="type", type="integer")
      */
     private $type;

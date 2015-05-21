@@ -12,6 +12,7 @@
                             {{ form_widget(form._token) }}
                             <div class="row">
                                 {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                                {{ formulaire.input("col-md-2","Week",form.week,true) }}
                                 {{ formulaire.input("col-md-2","Price",form.price,true) }}
                             </div>
                             {{ macro.enregistrer }}
@@ -29,7 +30,7 @@
                             <tbody>
                                 {% for price in course.pathwayPrices %}
                                     <tr>
-                                        <td class="center">{{ price.name }}</td>
+                                        <td class="center">{{ price.name }} ({{ price.week }} weeks) </td>
                                         <td class="center">{{ price.price }}   {{ price.course.schoolLocation.currency.code }}</td>
                                         <td class="center">
                                             {{ macro.delete(path('delete_pathway_price_courses',{'id':price.id})) }}

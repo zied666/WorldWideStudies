@@ -20,6 +20,7 @@ class PathwayPriceType extends AbstractType
             ->add('startDate')
             ->add('endDate')
             ->add('course')
+            ->add('week')
         ;
     }
     

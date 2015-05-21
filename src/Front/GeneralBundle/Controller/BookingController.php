@@ -89,6 +89,8 @@ class BookingController extends Controller
     {
         $session=$this->getRequest()->getSession();
         $em=$this->getDoctrine()->getManager();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
         $booking=$session->get("booking");
         $request=$this->getRequest();
         if($request->isMethod("post"))
@@ -108,6 +110,8 @@ class BookingController extends Controller
     {
         $session=$this->getRequest()->getSession();
         $em=$this->getDoctrine()->getManager();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
         $booking=$session->get("booking");
         $request=$this->getRequest();
         if($request->isMethod("post"))
@@ -126,16 +130,44 @@ class BookingController extends Controller
                     'school'=>$school,
         ));
     }
-    
+
     public function step3Action()
     {
         $session=$this->getRequest()->getSession();
         $em=$this->getDoctrine()->getManager();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
         $booking=$session->get("booking");
+        $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
         $request=$this->getRequest();
+        if($request->isMethod('POST'))
+        {
+            $tabExtras=array();
+            foreach($school->getExtras() as $extra)
+            {
+                if($extra->getObligatory() || $request->get('extra_'.$extra->getId()))
+                    $tabExtras[]=$extra->getId();
+            }
+            $booking['extras']=$tabExtras;
+            $session->set("booking", $booking);
+            return $this->redirect($this->generateUrl('book_school_review'));
+        }
+        return $this->render('FrontGeneralBundle:Booking:step3.html.twig', array(
+                    'school' =>$school,
+                    'booking'=>$booking,
+        ));
+    }
+
+    public function reviewAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
+        $booking=$session->get("booking");
         dump($booking);
         $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
-        return $this->render('FrontGeneralBundle:Booking:step3.html.twig', array(
+        return $this->render('FrontGeneralBundle:Booking:review.html.twig', array(
                     'school'=>$school,
         ));
     }

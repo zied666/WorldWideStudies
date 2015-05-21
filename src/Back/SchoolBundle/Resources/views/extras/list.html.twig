@@ -41,7 +41,7 @@
                                         <td class="center">{{ extra.name }}</td>
                                         <td class="center">{{ extra.price }}</td>
                                         <td class="center">{% if extra.startDate is not null %}{{ extra.startDate|date('d/m/Y') }} to {{ extra.endDate|date('d/m/Y') }}{% endif %}</td>
-                                        <td class="center">{% if extra.perWeek %}Yes{% else %}No{% endif %}</td>
+                                        <td class="center">{{ extra.showPerWeek }}</td>
                                         <td class="center">{% if extra.obligatory %}Yes{% else %}No{% endif %}</td>
                                         <td class="center">
                                             {{ macro.edit(path('list_extras',{'id':school.id,'extra':extra.id})) }}

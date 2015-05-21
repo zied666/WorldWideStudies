@@ -39,7 +39,7 @@ class PathwayPrice
     /**
      * @var integer
      *
-     * @ORM\Column(name="week", type="integer",nullable=true)
+     * @ORM\Column(name="week", type="integer")
      */
     private $week;
 
@@ -227,27 +227,4 @@ class PathwayPrice
         return round($nbrJours / 86400 / 7);
     }
 
-
-    /**
-     * Set week
-     *
-     * @param integer $week
-     * @return PathwayPrice
-     */
-    public function setWeek($week)
-    {
-        $this->week = $week;
-
-        return $this;
-    }
-
-    /**
-     * Get week
-     *
-     * @return integer 
-     */
-    public function getWeek()
-    {
-        return $this->week;
-    }
 }

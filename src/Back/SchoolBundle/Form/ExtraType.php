@@ -19,17 +19,22 @@ class ExtraType extends AbstractType
                 ->add('name')
                 ->add('price')
                 ->add('startDate', 'date', array(
-                    'widget'=>'single_text',
-                    'format'=>'yyyy-MM-dd',
+                    'widget'  =>'single_text',
+                    'format'  =>'yyyy-MM-dd',
                     'required'=>false
                 ))
                 ->add('endDate', 'date', array(
-                    'widget'=>'single_text',
-                    'format'=>'yyyy-MM-dd',
+                    'widget'  =>'single_text',
+                    'format'  =>'yyyy-MM-dd',
                     'required'=>false
                 ))
-                ->add('perWeek', 'checkbox', array(
-                    'label'   =>'Per Week',
+                ->add('perWeek', 'choice', array(
+                    'choices' =>array(
+                        '1'=>'Per week (course)',
+                        '2'=>'Per week (accommodation) ' 
+                    ),
+                    'expanded'=>true,
+                    'multiple'=>false,
                     'required'=>false
                 ))
                 ->add('obligatory', 'checkbox', array(
