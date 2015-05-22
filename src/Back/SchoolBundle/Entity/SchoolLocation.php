@@ -617,7 +617,10 @@ class SchoolLocation
      */
     public function getAvgPrice()
     {
-        return number_format($this->avgPrice, $this->currency->getScale(), '.', '');
+        if(!is_null($this->currency))
+            return number_format($this->avgPrice, $this->currency->getScale(), '.', '');
+        else
+            return $this->avgPrice;
     }
 
 }

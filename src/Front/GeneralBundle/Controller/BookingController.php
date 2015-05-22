@@ -120,7 +120,7 @@ class BookingController extends Controller
             $booking["accommodation"]=array();
             if(!is_null($acco))
             {
-                $booking["accommodation"]=array( 'id'=>$acco, 'room'=>$request->get('room_'.$acco), 'duration'=>$request->get('duration_'.$acco),'startDate'=>$this->container->get('library')->convertDate($request->get('startDate_'.$acco)) );
+                $booking["accommodation"]=array( 'id'=>$acco, 'room'=>$request->get('room_'.$acco), 'duration'=>$request->get('duration_'.$acco), 'startDate'=>$this->container->get('library')->convertDate($request->get('startDate_'.$acco)) );
             }
             $session->set("booking", $booking);
             return $this->redirect($this->generateUrl("book_school_step3"));
@@ -138,7 +138,6 @@ class BookingController extends Controller
         if(!$session->has("booking"))
             return $this->redirect($this->generateUrl('accueil'));
         $booking=$session->get("booking");
-        dump($booking);
         $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
         $request=$this->getRequest();
         if($request->isMethod('POST'))
@@ -166,7 +165,6 @@ class BookingController extends Controller
         if(!$session->has("booking"))
             return $this->redirect($this->generateUrl('accueil'));
         $booking=$session->get("booking");
-        dump($booking);
         $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
         return $this->render('FrontGeneralBundle:Booking:review.html.twig', array(
                     'school'=>$school,
