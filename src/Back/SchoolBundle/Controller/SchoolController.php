@@ -28,7 +28,7 @@ class SchoolController extends Controller
                 $em->persist($schoolLocation->setEnabled(TRUE));
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your school has been added successfully");
-                return $this->redirect($this->generateUrl("list_school"));
+                return $this->redirect($this->generateUrl("add_school"));
             }
         }
         return $this->render('BackSchoolBundle:school:add.html.twig', array(
@@ -101,7 +101,10 @@ class SchoolController extends Controller
         {
             $session->getFlashBag()->add('danger', 'This school is used by another table ');
         }
-        return $this->redirect($this->generateUrl("list_school"));
+        if($schoolLocation->getType() == 1)
+            return $this->redirect($this->generateUrl("list_schoolLanguage"));
+        else
+            return $this->redirect($this->generateUrl("list_schoolPathway"));
     }
 
     public function enableSchoolAction(SchoolLocation $schoolLocation)
@@ -115,7 +118,10 @@ class SchoolController extends Controller
         $em->persist($schoolLocation);
         $em->flush();
         $session->getFlashBag()->add('success', "Your school has been updates successfully");
-        return $this->redirect($this->generateUrl("list_school"));
+        if($schoolLocation->getType() == 1)
+            return $this->redirect($this->generateUrl("list_schoolLanguage"));
+        else
+            return $this->redirect($this->generateUrl("list_schoolPathway"));
     }
 
     public function galleryAction(SchoolLocation $schoolLocation)
