@@ -59,6 +59,7 @@ class BookingExtension extends \Twig_Extension
     public function getBlockAccommodation()
     {
         $booking=$this->session->get("booking");
+        $date=\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']);
         if(isset($booking['accommodation']) && count($booking['accommodation']) > 0)
         {
             $accommodation=$this->em->getRepository("BackSchoolBundle:Accommodation")->find($booking['accommodation']['id']);
@@ -69,6 +70,7 @@ class BookingExtension extends \Twig_Extension
                             <dt class="feature">Name :</dt><dd class="value">'.$accommodation->getName().'</dd>
                             <dt class="feature">Room:</dt><dd class="value">'.$room->getName().'</dd>
                             <dt class="feature">Duration:</dt><dd class="value">'.$booking['accommodation']['duration'].' weeks</dd>
+                            <dt class="feature">Starting date:</dt><dd class="value">'.$date->format("d F Y").'</dd>
                             <dt class="total-price">Price</dt><dd class="total-price-value">'.$room->calculePrice($booking['accommodation']['duration']).' '.$accommodation->getSchoolLocation()->getCurrency()->getCode().'</dd>
                         </dl>';
             else
@@ -161,6 +163,7 @@ class BookingExtension extends \Twig_Extension
         }
         if(isset($booking['accommodation']) && count($booking['accommodation']) > 0)
         {
+            $date=\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']);
             $accommodation=$this->em->getRepository("BackSchoolBundle:Accommodation")->find($booking['accommodation']['id']);
             $room=$this->em->getRepository("BackSchoolBundle:Room")->find($booking['accommodation']['room']);
             if($accommodation->getSchoolLocation()->getType() == 1)
@@ -170,6 +173,7 @@ class BookingExtension extends \Twig_Extension
                             <dt class="feature">Name :</dt><dd class="value">'.$accommodation->getName().'</dd>
                             <dt class="feature">Room:</dt><dd class="value">'.$room->getName().'</dd>
                             <dt class="feature">Duration:</dt><dd class="value">'.$booking['accommodation']['duration'].' weeks</dd>
+                            <dt class="feature">Starting date:</dt><dd class="value">'.$date->format("d F Y").'</dd>
                             <dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$room->calculePrice($booking['accommodation']['duration']).' '.$accommodation->getSchoolLocation()->getCurrency()->getCode().'</dd>
                         </dl>';
                 $total+=$room->calculePrice($booking['accommodation']['duration']);

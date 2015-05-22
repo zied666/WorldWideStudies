@@ -58,7 +58,7 @@
                                         <div class="col-md-3">
                                             <select class="full-width"  name="startingDate_{{ course.id }}">
                                                 {% for date in course.startDates if date.date|date('Y-m-d')>'now'|date('Y-m-d')  %}
-                                                    <option value="{{ date.date|date('Y-m-d') }}">{{ date.date|date('d F Y') }}</option>
+                                                    <option value="{{ date.date|date('Y-m-d') }}">{{ date.date|date('D, d F Y') }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>

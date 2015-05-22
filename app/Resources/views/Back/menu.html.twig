@@ -111,9 +111,14 @@
                     </div>
                 </a>
                 <ul class="sub-menu">
-                    <li {% if app.request.get('_route')=='list_school' %}class="active"{% endif %}>
-                        <a href="{{ path('list_school') }}">
-                            <span class="title">List</span>
+                    <li {% if app.request.get('_route')=='list_schoolLanguage' %}class="active"{% endif %}>
+                        <a href="{{ path('list_schoolLanguage') }}">
+                            <span class="title">Language schools</span>
+                        </a>
+                    </li>
+                    <li {% if app.request.get('_route')=='list_schoolPathway' %}class="active"{% endif %}>
+                        <a href="{{ path('list_schoolPathway') }}">
+                            <span class="title">Pathway Schools</span>
                         </a>
                     </li>
                     <li {% if app.request.get('_route')=='add_school' %}class="active"{% endif %}>

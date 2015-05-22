@@ -15,33 +15,34 @@
                     <div class="booking-section travelo-box">
                         <form class="booking-form" method="post" action="{{ path('book_school_step2') }}">
                             <div class="person-information">
-                                <h2>See Accommodations</h2>
+                                <h2>See Accommodations <small>(not required)</small></h2>
 
                                 <div class="form-group row">
-                                    <div class="col-md-3"><label>Accommodations</label></div>
-                                    <div class="col-md-3"><label>Rooms</label></div>
-                                    <div class="col-md-4"><label>Duration</label></div>
+                                    <div class="col-md-2"><label>Accommodations</label></div>
+                                    <div class="col-md-2"><label>Rooms</label></div>
+                                    <div class="col-md-3"><label>Duration</label></div>
+                                    <div class="col-md-3"><label>Starting Date</label></div>
                                     <div class="col-md-2"><label>Price</label></div>
                                 </div>
 
                                 {% for acco in school.accommodations %}
                                     <hr style="border-color:burlywood;  margin-top: 0px;">
                                     <div class="form-group row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <label style="padding-top: 7px;">
                                                 <input  type="radio" name="accommodation" value="{{ acco.id }}" style="vertical-align: sub;"/>
                                                 <strong>{{ acco }}</strong>
                                                 <small> {{ acco.typeAccommodation }} </small>
                                             </label>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <select class="full-width Rooms"  name="room_{{ acco.id }}" data-acco="{{ acco.id }}" id="Room_{{ acco.id }}" >
                                                 {% for room in acco.rooms %}
                                                     <option value="{{ room.id }}">{{ room }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <select class="full-width DurationSelect"  name="duration_{{ acco.id }}" data-acco="{{ acco.id }}" id="Duration_{{ acco.id }}" >
                                                 {% if school.type==1 %}
                                                     {% for i in acco.getFirstRoom.getMinWeek..acco.getFirstRoom.getMaxWeek %}
@@ -54,6 +55,11 @@
                                                     {% endfor %}
                                                 {% endif %}
                                             </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="datepicker-wrap dark-blue">
+                                                <input type="text" class="input-text full-width" name="startDate_{{ acco.id }}" placeholder="mm/dd/yy" />
+                                            </div>
                                         </div>
                                         <div class="col-md-2">
                                             <label style="padding-top: 7px;" id="price_{{ acco.id }}">

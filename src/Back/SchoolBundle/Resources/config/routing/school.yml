@@ -6,9 +6,13 @@ edit_school:
     path:     /edit/{id}
     defaults: { _controller: BackSchoolBundle:School:editSchool,id:null }
 
-list_school:
-    path:     /
-    defaults: { _controller: BackSchoolBundle:School:listSchool }
+list_schoolLanguage:
+    path:     /listLanguage
+    defaults: { _controller: BackSchoolBundle:School:listSchoolLanguage }
+
+list_schoolPathway:
+    path:     /ListPathway
+    defaults: { _controller: BackSchoolBundle:School:listSchoolPathway }
 
 delete_school_location:
     path:     /delete/{id}

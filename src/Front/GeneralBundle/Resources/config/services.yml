@@ -1,4 +1,6 @@
 services:
+    library:
+        class: Front\GeneralBundle\Services\Library
     interface:
         class: Front\GeneralBundle\Twig\Extension\InterfacesExtension
         tags:

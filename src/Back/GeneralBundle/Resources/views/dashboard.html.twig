@@ -3,17 +3,29 @@
 {% block body %}
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
-            <div class="col-sm-3 links cl-effect-13">
+            <div class="col-sm-1 links cl-effect-13">
+            </div>
+            <div class="col-sm-2 links cl-effect-13">
                 <div class="panel panel-white no-radius text-center">
-                    <a href="{{ path('list_school') }}">
+                    <a href="{{ path('list_schoolLanguage') }}">
                         <div class="panel-body">
-                            <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-home fa-stack-1x fa-inverse"></i> </span>
-                            <h3 class="StepTitle">Schools location ({{ countSchoolLocations }})</h3>
+                            <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-comment fa-stack-1x fa-inverse"></i> </span>
+                            <h3 class="StepTitle">Language Schools ({{ countSchoolLocationsLanguage }})</h3>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-sm-3 links cl-effect-13">
+            <div class="col-sm-2 links cl-effect-13">
+                <div class="panel panel-white no-radius text-center">
+                    <a href="{{ path('list_schoolPathway') }}">
+                        <div class="panel-body">
+                            <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-flask fa-stack-1x fa-inverse"></i> </span>
+                            <h3 class="StepTitle">Pathway schools ({{ countSchoolLocationsPathway }})</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-2 links cl-effect-13">
                 <div class="panel panel-white no-radius text-center">
                     <a href="{{ path('list_accommodation') }}">
                         <div class="panel-body">
@@ -23,17 +35,17 @@
                     </a>
                 </div>
             </div>
-            <div class="col-sm-3 links cl-effect-13">
+            <div class="col-sm-2 links cl-effect-13">
                 <div class="panel panel-white no-radius text-center">
                     <a href="{{ path('list_university') }}">
                         <div class="panel-body">
-                            <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-pencil fa-stack-1x fa-inverse"></i> </span>
+                            <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-mortar-board fa-stack-1x fa-inverse"></i> </span>
                             <h3 class="StepTitle">Universities ({{ countUniversitys }}) </h3>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-sm-3 links cl-effect-13">
+            <div class="col-sm-2 links cl-effect-13">
                 <div class="panel panel-white no-radius text-center">
                     <a href="{{ path('administrator') }}">
                         <div class="panel-body">

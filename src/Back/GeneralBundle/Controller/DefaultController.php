@@ -10,15 +10,17 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em=$this->getDoctrine()->getManager();
-        $SchoolsLocations=$em->getRepository("BackSchoolBundle:SchoolLocation")->findAll();
+        $SchoolsLocationsLanguage=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array('type'=>1));
+        $SchoolsLocationsPathway=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array('type'=>2));
         $Accommodations=$em->getRepository("BackAccommodationBundle:Accommodation")->findAll();
         $Universitys=$em->getRepository("BackUniversityBundle:University")->findAll();
         $admins=$this->findByRoleAdmin();
         return $this->render('BackGeneralBundle::dashboard.html.twig', array(
-                    'countSchoolLocations'=>count($SchoolsLocations),
-                    'countAccommodations'=>count($Accommodations),
-                    'countUniversitys'=>count($Universitys),
-                    'countAdmins'=>count($admins),
+                    'countSchoolLocationsPathway'=>count($SchoolsLocationsPathway),
+                    'countSchoolLocationsLanguage'=>count($SchoolsLocationsLanguage),
+                    'countAccommodations' =>count($Accommodations),
+                    'countUniversitys'    =>count($Universitys),
+                    'countAdmins'         =>count($admins),
         ));
     }
 
