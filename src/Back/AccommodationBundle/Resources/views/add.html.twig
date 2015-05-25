@@ -12,12 +12,15 @@
                         <form action="{{ path('add_accommodation',{'id':accommodation.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                             {{ form_widget(form._token) }}
                             <div class="row">
-                                {{ formulaire.input("col-md-2","Name",form.name,true) }}
-                                {{ formulaire.select2("col-md-2","City",form.city,true) }}
-                                {{ formulaire.select2("col-md-2","Type Accommodation",form.typeAccommodation,true) }}
-                                {{ formulaire.select2("col-md-2","Currency",form.currency,true) }}
+                                {{ formulaire.input("col-md-3","Name",form.name,true) }}
+                                {{ formulaire.select2("col-md-3","City",form.city,true) }}
+                                {{ formulaire.select2("col-md-3","Type Accommodation",form.typeAccommodation,true) }}
+                                {{ formulaire.input("col-md-3","Photo",form.image.file,true) }}
+                            </div>
+                            <div class="row">
+                                {{ formulaire.input("col-md-2","Average  price",form.avgPrice,true) }}
                                 {{ formulaire.input("col-md-2","First payment",form.firstPayment,true) }}
-                                {{ formulaire.input("col-md-2","Photo",form.image.file,true) }}
+                                {{ formulaire.select2("col-md-3","Currency",form.currency,true) }}
                             </div>
                             <div class="row">
                                 {{ formulaire.input("col-md-12","Shot description",form.shortDescription,true) }}

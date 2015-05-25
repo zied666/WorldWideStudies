@@ -62,13 +62,13 @@ class Accommodation
      * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $rooms;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\Currency")
      * @Assert\NotNull()
      */
-    protected $currency ;
-    
+    protected $currency;
+
     /**
      * @ORM\OneToMany(targetEntity="Back\ReferentielBundle\Entity\Media", mappedBy="accommodation")
      */
@@ -79,19 +79,27 @@ class Accommodation
      * @ORM\JoinColumn(nullable=true)
      */
     private $image;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\City", inversedBy="schoolLocations")
      * @Assert\NotNull()
      */
-    protected $city ;
-    
+    protected $city;
+
     /**
      * @var boolean
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=true)
      */
     private $enabled;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="decimal", precision=11, scale=3)
+     * @Assert\Range( min = 1)
+     */
+    private $avgPrice;
 
     /**
      * Get id
@@ -200,8 +208,8 @@ class Accommodation
      */
     public function __construct()
     {
-        $this->rooms = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->rooms=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -210,9 +218,9 @@ class Accommodation
      * @param \Back\ReferentielBundle\Entity\TypeAccommodation $typeAccommodation
      * @return Accommodation
      */
-    public function setTypeAccommodation(\Back\ReferentielBundle\Entity\TypeAccommodation $typeAccommodation = null)
+    public function setTypeAccommodation(\Back\ReferentielBundle\Entity\TypeAccommodation $typeAccommodation=null)
     {
-        $this->typeAccommodation = $typeAccommodation;
+        $this->typeAccommodation=$typeAccommodation;
 
         return $this;
     }
@@ -233,9 +241,9 @@ class Accommodation
      * @param \Back\ReferentielBundle\Entity\Currency $currency
      * @return Accommodation
      */
-    public function setCurrency(\Back\ReferentielBundle\Entity\Currency $currency = null)
+    public function setCurrency(\Back\ReferentielBundle\Entity\Currency $currency=null)
     {
-        $this->currency = $currency;
+        $this->currency=$currency;
 
         return $this;
     }
@@ -258,7 +266,7 @@ class Accommodation
      */
     public function addPhoto(\Back\ReferentielBundle\Entity\Media $photos)
     {
-        $this->photos[] = $photos;
+        $this->photos[]=$photos;
 
         return $this;
     }
@@ -289,9 +297,9 @@ class Accommodation
      * @param \Back\ReferentielBundle\Entity\Media $image
      * @return Accommodation
      */
-    public function setImage(\Back\ReferentielBundle\Entity\Media $image = null)
+    public function setImage(\Back\ReferentielBundle\Entity\Media $image=null)
     {
-        $this->image = $image;
+        $this->image=$image;
 
         return $this;
     }
@@ -312,9 +320,9 @@ class Accommodation
      * @param \Back\ReferentielBundle\Entity\City $city
      * @return Accommodation
      */
-    public function setCity(\Back\ReferentielBundle\Entity\City $city = null)
+    public function setCity(\Back\ReferentielBundle\Entity\City $city=null)
     {
-        $this->city = $city;
+        $this->city=$city;
 
         return $this;
     }
@@ -337,7 +345,7 @@ class Accommodation
      */
     public function setEnabled($enabled)
     {
-        $this->enabled = $enabled;
+        $this->enabled=$enabled;
 
         return $this;
     }
@@ -351,7 +359,7 @@ class Accommodation
     {
         return $this->enabled;
     }
-    
+
     /**
      * Is enables
      * 
@@ -370,7 +378,7 @@ class Accommodation
      */
     public function addRoom(\Back\AccommodationBundle\Entity\Room $rooms)
     {
-        $this->rooms[] = $rooms;
+        $this->rooms[]=$rooms;
 
         return $this;
     }
@@ -394,7 +402,7 @@ class Accommodation
     {
         return $this->rooms;
     }
-    
+
     public function getCountPrice()
     {
         $i=0;
@@ -404,9 +412,36 @@ class Accommodation
         }
         return $i;
     }
-    
+
     public function __toString()
     {
         return $this->name;
     }
+
+    /**
+     * Set avgPrice
+     *
+     * @param string $avgPrice
+     * @return SchoolLocation
+     */
+    public function setAvgPrice($avgPrice)
+    {
+        $this->avgPrice=$avgPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get avgPrice
+     *
+     * @return string 
+     */
+    public function getAvgPrice()
+    {
+        if(!is_null($this->currency))
+            return number_format($this->avgPrice, $this->currency->getScale(), '.', '');
+        else
+            return $this->avgPrice;
+    }
+
 }

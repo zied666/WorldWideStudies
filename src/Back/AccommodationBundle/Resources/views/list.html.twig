@@ -12,7 +12,7 @@
                             <th>Name</th>
                             <th>Type</th>
                             <th>City</th>
-                            <th>Currency</th>
+                            <th>Avg</th>
                             <th>Fist payment</th>
                             <th>Rooms</th>
                             <th>Status</th>
@@ -30,7 +30,7 @@
                                 <td>{{ accommodation.name }}</td>
                                 <td>{{ accommodation.typeAccommodation }}</td>
                                 <td>{{ accommodation.city.country.code }}, {{ accommodation.city }}</td>
-                                <td>{{ accommodation.currency }}</td>
+                                <td>{{ accommodation.avgPrice }} {{ accommodation.currency.code }}</td>
                                 <td>{{ accommodation.firstPayment }} {{ accommodation.currency.code }}</td>
                                 <td>
                                     {% for room in accommodation.rooms %}

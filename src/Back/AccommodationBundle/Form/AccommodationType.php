@@ -20,6 +20,7 @@ class AccommodationType extends AbstractType
             ->add('shortDescription')
             ->add('longDescription')
             ->add('firstPayment')
+            ->add('avgPrice')
             ->add('typeAccommodation')
             ->add('currency')
             ->add('image',new MediaType())
