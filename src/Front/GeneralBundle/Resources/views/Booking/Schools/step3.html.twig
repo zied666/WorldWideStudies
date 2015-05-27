@@ -16,6 +16,18 @@
                         <form class="booking-form" method="post" action="{{ path('book_school_step3') }}">
                             <div class="person-information">
                                 <h2>See Extras</h2>
+                                {% if school.extras|length==0 %}
+                                    <div class="block">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="alert alert-notice">
+                                                    No Extras available
+                                                    <span class="close"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
                                 {% for extra in school.extras %}
                                     {% if testAccommodation(extra.id) %}
                                         <hr style="border-color:burlywood;  margin-top: 0px;">

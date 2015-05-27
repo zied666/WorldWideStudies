@@ -34,14 +34,17 @@ class BookingExtension extends \Twig_Extension
     public function getBlockCourse()
     {
         $booking=$this->session->get("booking");
+        $showDate='';
         $course=$this->em->getRepository("BackSchoolBundle:Course")->find($booking['course']['id']);
         $date=\DateTime::createFromFormat('Y-m-d', $booking['course']['startDate']);
+        if($booking['course']['startDate'] != '')
+            $showDate=$date->format("d F Y");
         if($course->getSchoolLocation()->getType() == 1)
             return '<h4>Course</h4>
                         <dl class="other-details">
                             <dt class="feature">Course Type:</dt><dd class="value">'.$course->getName().'</dd>
                             <dt class="feature">Duration:</dt><dd class="value">'.$booking['course']['duration'].' weeks</dd>
-                            <dt class="feature">Starting date:</dt><dd class="value">'.$date->format("d F Y").'</dd>
+                            <dt class="feature">Starting date:</dt><dd class="value">'.$showDate.'</dd>
                             <dt class="total-price">Price</dt><dd class="total-price-value">'.$course->calculePrice($booking['course']['duration']).' '.$course->getSchoolLocation()->getCurrency()->getCode().'</dd>
                         </dl>';
         else
@@ -60,7 +63,10 @@ class BookingExtension extends \Twig_Extension
     public function getBlockAccommodation()
     {
         $booking=$this->session->get("booking");
+        $showDate='';
         $date=\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']);
+        if($booking['accommodation']['startDate'] != '')
+            $showDate=$date->format("d F Y");
         if(isset($booking['accommodation']) && count($booking['accommodation']) > 0)
         {
             $accommodation=$this->em->getRepository("BackSchoolBundle:Accommodation")->find($booking['accommodation']['id']);
@@ -71,7 +77,7 @@ class BookingExtension extends \Twig_Extension
                             <dt class="feature">Name :</dt><dd class="value">'.$accommodation->getName().'</dd>
                             <dt class="feature">Room:</dt><dd class="value">'.$room->getName().'</dd>
                             <dt class="feature">Duration:</dt><dd class="value">'.$booking['accommodation']['duration'].' weeks</dd>
-                            <dt class="feature">Starting date:</dt><dd class="value">'.$date->format("d F Y").'</dd>
+                            <dt class="feature">Starting date:</dt><dd class="value">'.$showDate.'</dd>
                             <dt class="total-price">Price</dt><dd class="total-price-value">'.$room->calculePrice($booking['accommodation']['duration']).' '.$accommodation->getSchoolLocation()->getCurrency()->getCode().'</dd>
                         </dl>';
             else
@@ -137,6 +143,9 @@ class BookingExtension extends \Twig_Extension
         $booking=$this->session->get("booking");
         $course=$this->em->getRepository("BackSchoolBundle:Course")->find($booking['course']['id']);
         $date=\DateTime::createFromFormat('Y-m-d', $booking['course']['startDate']);
+        $showDate="";
+        if($booking['course']['startDate'] != '')
+            $showDate=$date->format("d F Y");
         $block='';
         $total=0;
         if($course->getSchoolLocation()->getType() == 1)
@@ -145,7 +154,7 @@ class BookingExtension extends \Twig_Extension
                         <dl class="other-details">
                             <dt class="feature">Course Type:</dt><dd class="value">'.$course->getName().'</dd>
                             <dt class="feature">Duration:</dt><dd class="value">'.$booking['course']['duration'].' weeks</dd>
-                            <dt class="feature">Starting date:</dt><dd class="value">'.$date->format("d F Y").'</dd>
+                            <dt class="feature">Starting date:</dt><dd class="value">'.$showDate.'</dd>
                             <dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$course->calculePrice($booking['course']['duration']).' '.$course->getSchoolLocation()->getCurrency()->getCode().'</dd>
                         </dl>';
             $total+=$course->calculePrice($booking['course']['duration']);
@@ -165,16 +174,19 @@ class BookingExtension extends \Twig_Extension
         if(isset($booking['accommodation']) && count($booking['accommodation']) > 0)
         {
             $date=\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']);
+            if($booking['accommodation']['startDate'] != '')
+                $showDate=$date->format("d F Y");
             $accommodation=$this->em->getRepository("BackSchoolBundle:Accommodation")->find($booking['accommodation']['id']);
             $room=$this->em->getRepository("BackSchoolBundle:Room")->find($booking['accommodation']['room']);
             if($accommodation->getSchoolLocation()->getType() == 1)
             {
-                $block.= '<h4>Accommodation</h4>
+                $block.= '<div class="clearfix"></div>
+                        <h4>Accommodation</h4>
                         <dl class="other-details">
                             <dt class="feature">Name :</dt><dd class="value">'.$accommodation->getName().'</dd>
                             <dt class="feature">Room:</dt><dd class="value">'.$room->getName().'</dd>
                             <dt class="feature">Duration:</dt><dd class="value">'.$booking['accommodation']['duration'].' weeks</dd>
-                            <dt class="feature">Starting date:</dt><dd class="value">'.$date->format("d F Y").'</dd>
+                            <dt class="feature">Starting date:</dt><dd class="value">'.$showDate.'</dd>
                             <dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$room->calculePrice($booking['accommodation']['duration']).' '.$accommodation->getSchoolLocation()->getCurrency()->getCode().'</dd>
                         </dl>';
                 $total+=$room->calculePrice($booking['accommodation']['duration']);
@@ -182,7 +194,8 @@ class BookingExtension extends \Twig_Extension
             else
             {
                 $price=$this->em->getRepository("BackSchoolBundle:PathwayPrice")->find($booking['accommodation']['duration']);
-                $block.= '<h4>Accommodation</h4>
+                $block.= '<div class="clearfix"></div>
+                        <h4>Accommodation</h4>
                         <dl class="other-details">
                             <dt class="feature">Name:</dt><dd class="value">'.$accommodation->getName().'</dd>
                             <dt class="feature">Room:</dt><dd class="value">'.$room->getName().'</dd>
@@ -195,7 +208,8 @@ class BookingExtension extends \Twig_Extension
 
         if(count($booking['extras']) > 0)
         {
-            $block.= '<h4>Extras</h4>'
+            $block.= '<div class="clearfix"></div>'
+                    . '<h4>Extras</h4>'
                     .'<dl class="other-details">';
             foreach($booking['extras'] as $id)
             {
@@ -206,7 +220,8 @@ class BookingExtension extends \Twig_Extension
             $block.= '</dl>';
         }
 
-        $block.= '<hr><h4>Total</h4>'
+        $block.= '<div class="clearfix"></div>'
+                . '<hr><h4>Total</h4>'
                 .'<dl class="other-details">'
                 .'<dt class="feature">Total</dt><dd class="value" style="color: #01b7f2;">'.$total.' '.$course->getSchoolLocation()->getCurrency()->getCode().'</dd>'
                 .'</dl>';
