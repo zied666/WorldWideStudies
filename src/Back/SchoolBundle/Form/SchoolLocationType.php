@@ -36,7 +36,10 @@ class SchoolLocationType extends AbstractType
                 ->add('image', new MediaType())
                 ->add('city')
                 ->add('school')
-        ;
+                ->add('homepage', 'checkbox', array(
+                    'label'   =>'Display in Popular schools',
+                    'required'=>false
+                ));
     }
 
     /**

@@ -26,6 +26,8 @@ class HomePageType extends AbstractType
             ->add('title4')
             ->add('description4')
             ->add('logo',new MediaType())
+            ->add('photo',new MediaType())
+            ->add('cercle',new MediaType())
         ;
     }
     

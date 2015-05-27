@@ -126,3 +126,11 @@ liip_imagine:
             quality: 99
             filters:
                 thumbnail: { size: [2000, 1214], mode: inset }    
+        city:
+            quality: 99
+            filters:
+                thumbnail: { size: [370, 160], mode: inset }    
+        homepage:
+            quality: 99
+            filters:
+                thumbnail: { size: [2080, 1000], mode: inset }    

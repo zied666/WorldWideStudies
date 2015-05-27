@@ -18,6 +18,7 @@
                             <th>Reviews</th>
                             <th>Courses</th>
                             <th>Accommodations</th>
+                            <th>HomePage</th>
                             <th>State</th>
                             <th>Action</th>
                         </tr>
@@ -39,6 +40,13 @@
                                 <td>{{ school.reviews }} reviews</td>
                                 <td>{{ school.courses|length }}</td>
                                 <td>{{ school.accommodations|length }}</td>
+                                <td class="center">
+                                    {% if school.homepage %}
+                                        <a href="{{ path('homepage_school',{'id':school.id}) }}" ><span class="label label-sm label-success">Displayed</span></a>
+                                    {% else %}
+                                        <a href="{{ path('homepage_school',{'id':school.id}) }}"><span class="label label-sm label-danger">Not displayed</span></a>
+                                    {% endif %}
+                                </td>
                                 <td class="center">
                                     {% if school.enabled %}
                                         <a href="{{ path('enabled_school',{'id':school.id}) }}" ><span class="label label-sm label-success">Enabled</span></a>

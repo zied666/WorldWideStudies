@@ -23,8 +23,13 @@ edit_school:
     defaults: { _controller: BackSchoolBundle:School:editSchool }
     
 enabled_school:
-    path:     /enableUser/{id}
+    path:     /enableSchool/{id}
     defaults: { _controller: BackSchoolBundle:School:enableSchool}   
+    
+    
+homepage_school:
+    path:     /homepageSchool/{id}
+    defaults: { _controller: BackSchoolBundle:School:homepageSchool}   
     
 gallery_school:
     path:     /gallery/{id}

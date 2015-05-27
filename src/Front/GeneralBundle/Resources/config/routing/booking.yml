@@ -1,6 +1,6 @@
 book_school_redirect:
     path:     /schools/book_redirect/{id}
-    defaults: { _controller: FrontGeneralBundle:Booking:bookRedirect}
+    defaults: { _controller: FrontGeneralBundle:Booking:bookRedirectSchool}
 
 ajax_update_price_course:
     path:     /ajax_update_price_course
@@ -28,4 +28,22 @@ book_school_step3:
 
 book_school_review:
     path:     /schools/review
-    defaults: { _controller: FrontGeneralBundle:Booking:review}
+    defaults: { _controller: FrontGeneralBundle:Booking:reviewCourse}
+
+
+
+book_accommodation_redirect:
+    path:     /accommodation/book_redirect/{id}
+    defaults: { _controller: FrontGeneralBundle:Booking:bookRedirectAccommodation}
+     
+book_accommodation_step1:
+    path:     /accommodation/Step1
+    defaults: { _controller: FrontGeneralBundle:Booking:step1Accommodation}
+
+ajax_update_accommodation_price_accommodation:
+    path:     /ajax_update_accommodation_price_accommodation
+    defaults: { _controller: FrontGeneralBundle:Booking:ajaxUpdatePriceAccommodation}
+
+book_accommodation_review:
+    path:     /accommodation/review
+    defaults: { _controller: FrontGeneralBundle:Booking:reviewAccommodation}

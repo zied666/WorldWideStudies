@@ -41,7 +41,7 @@ class Room
      * @ORM\ManyToOne(targetEntity="Accommodation", inversedBy="rooms")
      */
     protected $accommodation;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Price", mappedBy="room")
      * @ORM\OrderBy({"startDate" = "ASC"})
@@ -109,10 +109,9 @@ class Room
      */
     public function __construct()
     {
-        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->prices=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    
     /**
      * to string
      * @return String 
@@ -128,9 +127,9 @@ class Room
      * @param \Back\AccommodationBundle\Entity\Accommodation $accommodation
      * @return Room
      */
-    public function setAccommodation(\Back\AccommodationBundle\Entity\Accommodation $accommodation = null)
+    public function setAccommodation(\Back\AccommodationBundle\Entity\Accommodation $accommodation=null)
     {
-        $this->accommodation = $accommodation;
+        $this->accommodation=$accommodation;
 
         return $this;
     }
@@ -153,7 +152,7 @@ class Room
      */
     public function addPrice(\Back\AccommodationBundle\Entity\Price $prices)
     {
-        $this->prices[] = $prices;
+        $this->prices[]=$prices;
 
         return $this;
     }
@@ -177,4 +176,22 @@ class Room
     {
         return $this->prices;
     }
+
+    public function getFirstPrice()
+    {
+        if(count($this->prices) != 0)
+            return $this->prices->first()->getId();
+    }
+
+    public function calculePrice($id)
+    {
+        if(count($this->prices) == 0)
+            return 0;
+        foreach($this->prices as $price)
+        {
+            if($price->getId() == $id)
+                return number_format($price->getPrice(), $this->accommodation->getCurrency()->getScale(), '.', '');
+        }
+    }
+
 }

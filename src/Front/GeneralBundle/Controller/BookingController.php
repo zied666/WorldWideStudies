@@ -7,11 +7,12 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Entity\Room;
+use Back\AccommodationBundle\Entity\Accommodation;
 
 class BookingController extends Controller
 {
 
-    public function bookRedirectAction(SchoolLocation $school)
+    public function bookRedirectSchoolAction(SchoolLocation $school)
     {
         $session=$this->getRequest()->getSession();
         if($session->has("booking"))
@@ -101,7 +102,7 @@ class BookingController extends Controller
             return $this->redirect($this->generateUrl("book_school_step2"));
         }
         $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
-        return $this->render('FrontGeneralBundle:Booking:step1.html.twig', array(
+        return $this->render('FrontGeneralBundle:Booking\Schools:step1.html.twig', array(
                     'school'=>$school,
         ));
     }
@@ -126,7 +127,7 @@ class BookingController extends Controller
             return $this->redirect($this->generateUrl("book_school_step3"));
         }
         $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
-        return $this->render('FrontGeneralBundle:Booking:step2.html.twig', array(
+        return $this->render('FrontGeneralBundle:Booking\Schools:step2.html.twig', array(
                     'school'=>$school,
         ));
     }
@@ -152,13 +153,13 @@ class BookingController extends Controller
             $session->set("booking", $booking);
             return $this->redirect($this->generateUrl('book_school_review'));
         }
-        return $this->render('FrontGeneralBundle:Booking:step3.html.twig', array(
+        return $this->render('FrontGeneralBundle:Booking\Schools:step3.html.twig', array(
                     'school' =>$school,
                     'booking'=>$booking,
         ));
     }
 
-    public function reviewAction()
+    public function reviewCourseAction()
     {
         $session=$this->getRequest()->getSession();
         $em=$this->getDoctrine()->getManager();
@@ -166,8 +167,65 @@ class BookingController extends Controller
             return $this->redirect($this->generateUrl('accueil'));
         $booking=$session->get("booking");
         $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
-        return $this->render('FrontGeneralBundle:Booking:review.html.twig', array(
+        return $this->render('FrontGeneralBundle:Booking\Schools:review.html.twig', array(
                     'school'=>$school,
+        ));
+    }
+
+    public function bookRedirectAccommodationAction(Accommodation $accommodation)
+    {
+        $session=$this->getRequest()->getSession();
+        if($session->has("booking"))
+            $session->remove("booking");
+        $session->set("booking", array( 'accommodation'=>$accommodation->getId() ));
+        return $this->redirect($this->generateUrl("book_accommodation_step1"));
+    }
+
+    public function step1AccommodationAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
+        $booking=$session->get("booking");
+        $request=$this->getRequest();
+        if($request->isMethod("post"))
+        {
+            $room=$request->get('room');
+            $booking["room"]=$room;
+            $booking["price"]=$request->get('price_'.$room);
+            $booking["startDate"]=$this->container->get('library')->convertDate($request->get('startDate_'.$room));
+            $session->set("booking", $booking);
+            return $this->redirect($this->generateUrl("book_accommodation_review"));
+        }
+        dump($booking);
+        $accommodation=$em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
+        return $this->render('FrontGeneralBundle:Booking\Accommodation:step1.html.twig', array(
+                    'accommodation'=>$accommodation,
+        ));
+    }
+
+    public function ajaxUpdatePriceAccommodationAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $response=new JsonResponse();
+        $request=$this->getRequest();
+        $room=$em->getRepository("BackAccommodationBundle:Room")->find($request->get('room'));
+        $accommodation=$room->getAccommodation();
+        $response->setData(array( 'price'=>$room->calculePrice($request->get('val')).' '.$accommodation->getCurrency()->getCode() ));
+        return $response;
+    }
+
+    public function reviewAccommodationAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
+        $booking=$session->get("booking");
+        $accommodation=$em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
+        return $this->render('FrontGeneralBundle:Booking\Accommodation:review.html.twig', array(
+                    'accommodation'=>$accommodation,
         ));
     }
 

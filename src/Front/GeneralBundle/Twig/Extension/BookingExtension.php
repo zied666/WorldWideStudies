@@ -22,11 +22,12 @@ class BookingExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'getBlockCourse'       =>new \Twig_Function_Method($this, 'getBlockCourse'),
-            'getBlockAccommodation'=>new \Twig_Function_Method($this, 'getBlockAccommodation'),
-            'getPriceExtra'        =>new \Twig_Function_Method($this, 'getPriceExtra'),
-            'testAccommodation'    =>new \Twig_Function_Method($this, 'testAccommodation'),
-            'GetReview'            =>new \Twig_Function_Method($this, 'GetReview'),
+            'getBlockCourse'        =>new \Twig_Function_Method($this, 'getBlockCourse'),
+            'getBlockAccommodation' =>new \Twig_Function_Method($this, 'getBlockAccommodation'),
+            'getPriceExtra'         =>new \Twig_Function_Method($this, 'getPriceExtra'),
+            'testAccommodation'     =>new \Twig_Function_Method($this, 'testAccommodation'),
+            'GetReview'             =>new \Twig_Function_Method($this, 'GetReview'),
+            'GetReviewAccommodation'=>new \Twig_Function_Method($this, 'GetReviewAccommodation'),
         );
     }
 
@@ -210,6 +211,22 @@ class BookingExtension extends \Twig_Extension
                 .'<dt class="feature">Total</dt><dd class="value" style="color: #01b7f2;">'.$total.' '.$course->getSchoolLocation()->getCurrency()->getCode().'</dd>'
                 .'</dl>';
         return $block;
+    }
+
+    public function GetReviewAccommodation()
+    {
+        $booking=$this->session->get("booking");
+        $accommodation=$this->em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
+        $date=\DateTime::createFromFormat('Y-m-d', $booking['startDate']);
+        $room=$this->em->getRepository("BackAccommodationBundle:Room")->find($booking['room']);
+        $price=$this->em->getRepository("BackAccommodationBundle:Price")->find($booking['price']);
+        return '<h4>Accommodation</h4>
+                        <dl class="other-details">
+                            <dt class="feature">Name:</dt><dd class="value">'.$accommodation->getName().'</dd>
+                            <dt class="feature">Room:</dt><dd class="value">'.$room->getName().'</dd>
+                            <dt class="feature">Duration:</dt><dd class="value">'.$price->getStartDate()->format('d F Y').' to '.$price->getEndDate()->format('d F Y').'</dd>
+                            <dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$price->getPrice().' '.$accommodation->getCurrency()->getCode().'</dd>
+                        </dl>';
     }
 
     public function getName()

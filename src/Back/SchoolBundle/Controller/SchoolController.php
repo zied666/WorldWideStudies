@@ -123,6 +123,23 @@ class SchoolController extends Controller
         else
             return $this->redirect($this->generateUrl("list_schoolPathway"));
     }
+    
+    public function homepageSchoolAction(SchoolLocation $schoolLocation)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($schoolLocation->getHomepage())
+            $schoolLocation->setHomepage(FALSE);
+        else
+            $schoolLocation->setHomepage(TRUE);
+        $em->persist($schoolLocation);
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your school has been updates successfully");
+        if($schoolLocation->getType() == 1)
+            return $this->redirect($this->generateUrl("list_schoolLanguage"));
+        else
+            return $this->redirect($this->generateUrl("list_schoolPathway"));
+    }
 
     public function galleryAction(SchoolLocation $schoolLocation)
     {

@@ -8,10 +8,6 @@
                 <div class="row">
                     {{ formulaire.input("col-md-3","Title",form.title,true) }}
                     {{ formulaire.input("col-md-5","Description",form.description,true) }}
-                    {{ formulaire.input("col-md-2","Logo",form.logo.file,true) }}
-                    <div class="col-md-2">
-                        <img src="{{ asset(homePage.logo.getAssetPath()) }}" />
-                    </div>
                 </div>
                 <div class="row">
                     {{ formulaire.input("col-md-3","Title 1",form.title1,true) }}
@@ -29,8 +25,32 @@
                     {{ formulaire.input("col-md-3","Title 4",form.title4,true) }}
                     {{ formulaire.input("col-md-5","Descripion 4",form.description4,true) }}
                 </div>
+                <div class="row">
+                    {{ formulaire.input("col-md-3","Logo",form.logo.file,true) }}
+                    {{ formulaire.input("col-md-3","Cercle",form.cercle.file,true) }}
+                    {{ formulaire.input("col-md-3","Photo",form.photo.file,true) }}
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        {% if homePage.logo.getAssetPath is defined %}
+                            <img src="{{ asset(homePage.logo.getAssetPath) }}" />
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3">
+                        {% if homePage.cercle.getAssetPath is defined %}
+                            <img src="{{ asset(homePage.cercle.getAssetPath) }}" style="width: 200px;height: 200px;" />
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3">
+                        {% if homePage.photo.getAssetPath is defined %}
+                            <img src="{{ asset(homePage.photo.getAssetPath) }}" style="width: 200px;height: 200px;" />
+                        {% endif %}
+                    </div>
+                </div>
                 <div class="no-display">
+                    {{ formulaire.input("col-md-2","Photo",form.cercle.updateAt,true) }}
                     {{ formulaire.input("col-md-2","Photo",form.logo.updateAt,true) }}
+                    {{ formulaire.input("col-md-2","Photo",form.photo.updateAt,true) }}
                 </div>
                 {{ macro.enregistrer }}
                 {{ form_end(form) }}

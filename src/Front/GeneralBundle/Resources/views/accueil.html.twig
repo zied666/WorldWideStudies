@@ -2,7 +2,7 @@
 {% block body %}
     <section id="content" class="slideshow-bg">
         <div id="slideshow">
-            <div class="flexslider">
+            <div class="flexslider ABCD">
                 <ul class="slides">
                     {% for slider in sliders %}
                         <li>
@@ -354,99 +354,54 @@
     </section>
     <section id="content">
         <div class="section container">
-            <h2>Popular Hotels</h2>
-            <div class="row image-box hotel listing-style1">
-                <div class="col-sms-6 col-sm-6 col-md-3">
-                    <article class="box">
-                        <figure class="animated" data-animation-type="fadeInDown" data-animation-delay="0">
-                            <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="270" height="160" src="http://placehold.it/270x160" alt=""></a>
-                        </figure>
-                        <div class="details">
-                            <span class="price">
-                                <small>avg/night</small>
-                                $360
-                            </span>
-                            <h4 class="box-title">Hotel Hilton<small>Paris france</small></h4>
-                            <div class="feedback">
-                                <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
-                                <span class="review">270 reviews</span>
-                            </div>
-                            <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
-                            <div class="action">
-                                <a href="hotel-detailed.html" class="button btn-small">SELECT</a>
-                                <a href="#" class="button btn-small yellow popup-map" data-box="48.856614, 2.352222">VIEW ON MAP</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-sms-6 col-sm-6 col-md-3">
-                    <article class="box">
-                        <figure class="animated" data-animation-type="fadeInDown" data-animation-delay="0.6">
-                            <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="270" height="160" src="http://placehold.it/270x160" alt=""></a>
-                        </figure>
-                        <div class="details">
-                            <span class="price"><small>avg/night</small>$188</span>
-                            <h4 class="box-title">Forte Do Vale<small>Albufeira</small></h4>
-                            <div class="feedback">
-                                <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
-                                <span class="review">170 reviews</span>
-                            </div>
-                            <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
-                            <div class="action">
-                                <a href="hotel-detailed.html" class="button btn-small">SELECT</a>
-                                <a href="#" class="button btn-small yellow popup-map" data-box="37.089072, -8.247880">VIEW ON MAP</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-sms-6 col-sm-6 col-md-3">
-                    <article class="box">
-                        <figure class="animated" data-animation-type="fadeInDown" data-animation-delay="0.9">
-                            <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="270" height="160" src="http://placehold.it/270x160" alt=""></a>
-                        </figure>
-                        <div class="details">
-                            <span class="price"><small>avg/night</small>$322</span>
-                            <h4 class="box-title">Gran Canaria<small>spain</small></h4>
-                            <div class="feedback">
-                                <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
-                                <span class="review">485 reviews</span>
-                            </div>
-                            <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
-                            <div class="action">
-                                <a href="hotel-detailed.html" class="button btn-small">SELECT</a>
-                                <a href="#" class="button btn-small yellow popup-map" data-box="40.463667, -3.749220">VIEW ON MAP</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-sms-6 col-sm-6 col-md-3">
-                    <article class="box">
-                        <figure class="animated" data-animation-type="fadeInDown" data-animation-delay="1.2">
-                            <a class="hover-effect popup-gallery" href="ajax/slideshow-popup.html" title=""><img width="270" height="160" src="http://placehold.it/270x160" alt=""></a>
-                        </figure>
-                        <div class="details">
-                            <span class="price"><small>avg/night</small>$170</span>
-                            <h4 class="box-title">Roosevelt Hotel<small>New york</small></h4>
-                            <div class="feedback">
-                                <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
-                                <span class="review">75 reviews</span>
-                            </div>
-                            <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
-                            <div class="action">
-                                <a href="hotel-detailed.html" class="button btn-small">SELECT</a>
-                                <a href="#" class="button btn-small yellow popup-map" data-box="40.705631, -73.978003">VIEW ON MAP</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+            <h2>Popular Schools</h2>
+            <div class="flexslider image-carousel style2 row-2" data-animation="slide" data-item-width="270" data-item-margin="30">
+                <ul class="slides image-box style11">
+                    {% for school in schools %}
+                        <li>
+                            <article class="box">
+                                <figure class="animated" data-animation-type="fadeInDown" data-animation-delay="0">
+                                    <img style="width: 270px;height: 160px" src="{{ school.image.getAssetPath | imagine_filter('list') }}" alt="">
+                                </figure>
+                                <div class="details">
+                                    <span class="price">
+                                        <small>avg/WEEK</small>
+                                        {{ school.avgPrice }} {{ school.currency.code }}
+                                    </span>
+                                    <h4 class="box-title" style="min-height: 80px;">
+                                        {{ school.school|title }}
+                                        <small style="color:red">
+                                            {{ school|title }} 
+                                        </small>
+                                        <small>
+                                            <i class="soap-icon-departure yellow-color"></i>
+                                            {{ school.city.country.code|upper }}, {{ school.city }}
+                                        </small>
+                                    </h4>
+                                    <div class="feedback">
+                                        <div class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{ (school.stars/5) *100 }}%;"></span></div>
+                                        <span class="review">{{ school.reviews }} reviews</span>
+                                    </div>
+                                    <div>
+                                        {% if school.type==1 %}
+                                            <a href="{{ path('front_language_courses_details',{'id':school.id}) }}" class="button btn-small full-width">SELECT</a>
+                                        {% else %}
+                                            <a href="{{ path('front_program_courses_details',{'id':school.id}) }}" class="button btn-small full-width">SELECT</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
-        <div class="global-map-area section parallax" data-stellar-background-ratio="0.5">
+        <div style="background: url('{{  asset(homepage.photo.getAssetPath)}}') no-repeat;" class="global-map-area section parallax" data-stellar-background-ratio="0.5">
             <div class="container description text-center">
                 <h1>How Worl wide Studies Works?</h1>
                 <br>
                 <div class="travelo-process">
-                    <img src="{{ asset('front-assets/images/travelo_process.png') }}" alt="">
+                    <img src="{{ asset(homepage.cercle.getAssetPath ) }}">
                     <div class="process first icon-box style12">
                         <div class="details animated" data-animation-type="fadeInUp" data-animation-delay="1">
                             <h4>{{ homepage.title1 }}</h4>
@@ -486,15 +441,77 @@
                 </div>
             </div>
         </div>
+        <div class="container">
+            <div class="section">
+                <h2>Featured Destinations</h2>
+                <div class="flexslider image-carousel style2 row-2" data-animation="slide" data-item-width="370" data-item-margin="30">
+                    <ul class="slides image-box style11">
+                        {% for city in cities %}
+                            {% if loop.index is not divisible by(2) %}
+                                <li>
+                                {% endif %}
+                                <article class="box">
+                                    <figure>
+                                        <a title="" href="#">
+                                            <img style="width: 360px;height: 270px" alt="" src="{{ city.image.getAssetPath | imagine_filter('city')}}">
+                                        </a>
+                                        <figcaption>
+                                            <h3 class="caption-title">{{ city.libelle }}</h3>
+                                            <span>{{ city.country }}</span>
+                                        </figcaption>
+                                    </figure>
+                                </article>
+                                {% if loop.index is divisible by(2) %}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </section>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript">
+        tjq(".ABCD").flexslider({
+            animation: "fade",
+            controlNav: false,
+            animationLoop: true,
+            directionNav: false,
+            slideshow: true,
+            slideshowSpeed: 5000
+        });
+    </script>
+    <script type="text/javascript">
+        tjq(document).ready(function () {
+            tjq("#price-range").slider({
+                range: true,
+                min: 0,
+                max: 1000,
+                values: [100, 800],
+                slide: function (event, ui) {
+                    tjq(".min-price-label").html("$" + ui.values[ 0 ]);
+                    tjq(".max-price-label").html("$" + ui.values[ 1 ]);
+                }
+            });
+            tjq(".min-price-label").html("$" + tjq("#price-range").slider("values", 0));
+            tjq(".max-price-label").html("$" + tjq("#price-range").slider("values", 1));
+
+            tjq("#rating").slider({
+                range: "min",
+                value: 40,
+                min: 0,
+                max: 50,
+                slide: function (event, ui) {
+
+                }
+            });
+        });
+    </script>
     <script>
-
         var tid = setInterval(tagline_vertical_slide, 2500);
-
-// vertical slide
         function tagline_vertical_slide() {
             var curr = tjq("#tagline ul li.active");
             curr.removeClass("active").addClass("vs-out");
