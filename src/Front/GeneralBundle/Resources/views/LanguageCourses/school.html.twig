@@ -1,11 +1,11 @@
 {% extends ":Front:base.html.twig" %}
-{% block title %}{{ school }}{% endblock %}
+{% block title %}{{ school|title }}{% endblock %}
 {% block body %}
     {% set stars= (school.stars/5) *100 %}
     <div class="page-title-container">
         <div class="container">
             <div class="page-title pull-left">
-                <h2 class="entry-title">{{ school }}</h2>
+                <h2 class="entry-title">{{ school|title }}</h2>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
                                 <div class="long-description">
                                     <div class="clearfix">
                                         <img src="{{ school.school.image.getAssetPath | imagine_filter('minature_details') }}" alt="" width="74" height="74" />
-                                        <h2 class="name">{{ school.school }}</h2>
+                                        <h2 class="name">{{ school.school|title }}</h2>
                                     </div>
                                     <p class="description">
                                         {{ school.school.description }}
@@ -74,14 +74,14 @@
                                     {% for course in school.courses %}
                                         <div class="panel style1 arrow-right">
                                             <h2 class="panel-title">
-                                                <a class="collapsed" href="#course{{ loop.index }}" data-toggle="collapse">{{ course }}</a>
+                                                <a class="collapsed" href="#course{{ loop.index }}" data-toggle="collapse">{{ course|title }}</a>
                                             </h2>
                                             <div class="panel-collapse collapse" id="course{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <p>{{ course.description }}</p>
                                                     <dl class="term-description">
-                                                        <dt>Name:</dt><dd>{{ course }}</dd>
-                                                        <dt>Language :</dt><dd>{{ course.language }}</dd>
+                                                        <dt>Name:</dt><dd>{{ course|title }}</dd>
+                                                        <dt>Language :</dt><dd>{{ course.language|title }}</dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -95,20 +95,20 @@
                                     {% for accommodation in school.accommodations %}
                                         <div class="panel style1 arrow-right">
                                             <h2 class="panel-title">
-                                                <a class="collapsed" href="#accommodation{{ loop.index }}" data-toggle="collapse">{{ accommodation }}</a>
+                                                <a class="collapsed" href="#accommodation{{ loop.index }}" data-toggle="collapse">{{ accommodation|title }}</a>
                                             </h2>
                                             <div class="panel-collapse collapse" id="accommodation{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <p>{{ accommodation.description }}</p>
                                                     <dl class="term-description">
-                                                        <dt>Name:</dt><dd>{{ accommodation }}</dd>
+                                                        <dt>Name:</dt><dd>{{ accommodation|title }}</dd>
                                                         <dt>Type :</dt><dd>{{ accommodation.typeAccommodation }}</dd>
                                                         <dt>Rooms :</dt>
                                                         <dd>
                                                             <ul class="circle box">
                                                                 {% for room in accommodation.rooms %}
                                                                     <li>
-                                                                        <strong>{{ room }} :</strong>
+                                                                        <strong>{{ room|title }} :</strong>
                                                                         <p>{{ room.description }}</p>
                                                                     </li>
                                                                 {% endfor %}
@@ -127,12 +127,12 @@
                                     {% for extra in school.extras %}
                                         <div class="panel style1 arrow-right">
                                             <h2 class="panel-title">
-                                                <a class="collapsed" href="#extra{{ loop.index }}" data-toggle="collapse">{{ extra }}</a>
+                                                <a class="collapsed" href="#extra{{ loop.index }}" data-toggle="collapse">{{ extra|title }}</a>
                                             </h2>
                                             <div class="panel-collapse collapse" id="extra{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <dl class="term-description">
-                                                        <dt>Name:</dt><dd>{{ extra }}</dd>
+                                                        <dt>Name:</dt><dd>{{ extra|title }}</dd>
                                                         {% if extra.startDate is not null %}
                                                             <dt>Dates :</dt><dd>{{ extra.startDate|date('d F Y')~' to '~extra.endDate|date('d F Y') }}</dd>
                                                         {% endif %}
