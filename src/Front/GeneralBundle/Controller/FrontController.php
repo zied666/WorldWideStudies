@@ -30,6 +30,18 @@ class FrontController extends Controller
                     'types'         =>$types,
         ));
     }
+    
+    public function footerAction($route)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $homePage=$em->getRepository("BackGeneralBundle:HomePage")->find(1);
+        $contact=$em->getRepository("BackGeneralBundle:Contact")->find(1);
+        return $this->render('FrontGeneralBundle:Front:footer.html.twig', array(
+                    'route'         =>$route,
+                    'homepage'     =>$homePage,
+                    'contact'      =>$contact,
+        ));
+    }
 
     public function logoAction()
     {

@@ -1,0 +1,64 @@
+<footer id="footer">
+    <div class="footer-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <h2>Menu</h2>
+                    <ul class="discover triangle hover row">
+                        <li class="{% if route in ['accueil','root'] %}active{% endif %} col-xs-6"><a href="{{ path('root') }}">Home</a></li>
+                        <li class="{% if route=='contact' %}active{% endif %} col-xs-6"><a href="{{ path('contact') }}">Contact us</a></li>
+                        <li class="{% if route=='front_language_courses' %}active{% endif %} col-xs-6"><a href="{{ path('front_language_courses') }}">Languages</a></li>
+                        <li class="{% if route=='front_program_courses' %}active{% endif %} col-xs-6"><a href="{{ path('front_program_courses') }}">Programs</a></li>
+                        <li class="{% if route=='front_university' %}active{% endif %} col-xs-6"><a href="{{ path('front_university') }}">Universities</a></li>
+                        <li class="{% if route=='front_accommodations' %}active{% endif %} col-xs-6"><a href="{{ path('front_accommodations') }}">Accommodation</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <h2>{{ homepage.title }}</h2>
+                    <p>{{ homepage.description }}</p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <h2>Mailing List</h2>
+                    <p>Sign up for our mailing list to get latest updates and offers.</p>
+                    <br />
+                    <div class="icon-check">
+                        <input type="text" class="input-text full-width" placeholder="your email" />
+                    </div>
+                    <br />
+                    <span>We respect your privacy</span>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <address class="contact-details">
+                        <span class="contact-phone"><i class="soap-icon-phone"></i>{{ contact.phone }}</span>
+                        <br />
+                        <a href="#" class="contact-email">{{ contact.email }}</a>
+                    </address>
+                    <ul class="social-icons clearfix">
+                        <li class="twitter"><a title="twitter" href="{{ contact.twitter }}" data-toggle="tooltip"><i class="soap-icon-twitter"></i></a></li>
+                        <li class="googleplus"><a title="googleplus" href="{{ contact.googlePlus }}" data-toggle="tooltip"><i class="soap-icon-googleplus"></i></a></li>
+                        <li class="facebook"><a title="facebook" href="{{ contact.facebook }}" data-toggle="tooltip"><i class="soap-icon-facebook"></i></a></li>
+                        <li class="linkedin"><a title="linkedin" href="{{ contact.linkedIn }}" data-toggle="tooltip"><i class="soap-icon-linkedin"></i></a></li>
+                                {#<li class="vimeo"><a title="vimeo" href="#" data-toggle="tooltip"><i class="soap-icon-vimeo"></i></a></li>
+                                <li class="dribble"><a title="dribble" href="#" data-toggle="tooltip"><i class="soap-icon-dribble"></i></a></li>
+                                <li class="flickr"><a title="flickr" href="#" data-toggle="tooltip"><i class="soap-icon-flickr"></i></a></li>#}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom gray-area">
+        <div class="container">
+            <div class="logo pull-left">
+                <a href="{{ path('accueil') }}" title="Home page" style=" background: url('{{ render(controller('FrontGeneralBundle:Front:logo')) }}') no-repeat 0 0;">
+                    <img src="{{ render(controller('FrontGeneralBundle:Front:logo')) }}" alt="" />
+                </a>
+            </div>
+            <div class="pull-right">
+                <a id="back-to-top" href="#" class="animated" data-animation-type="bounce"><i class="soap-icon-longarrow-up circle"></i></a>
+            </div>
+            <div class="copyright pull-right">
+                <p>&copy; 2015 World wide studies</p>
+            </div>
+        </div>
+    </div>
+</footer>
