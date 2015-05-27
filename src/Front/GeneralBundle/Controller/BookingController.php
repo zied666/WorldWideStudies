@@ -198,7 +198,6 @@ class BookingController extends Controller
             $session->set("booking", $booking);
             return $this->redirect($this->generateUrl("book_accommodation_review"));
         }
-        dump($booking);
         $accommodation=$em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
         return $this->render('FrontGeneralBundle:Booking\Accommodation:step1.html.twig', array(
                     'accommodation'=>$accommodation,
