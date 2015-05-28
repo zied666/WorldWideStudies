@@ -6,6 +6,10 @@ edit_school:
     path:     /edit/{id}
     defaults: { _controller: BackSchoolBundle:School:editSchool,id:null }
 
+clone_school:
+    path:     /clone/{id}
+    defaults: { _controller: BackSchoolBundle:School:cloneSchool }
+
 list_schoolLanguage:
     path:     /listLanguage
     defaults: { _controller: BackSchoolBundle:School:listSchoolLanguage }

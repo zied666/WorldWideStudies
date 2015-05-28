@@ -107,7 +107,6 @@ class SchoolLocation
 
     /**
      * @ORM\OneToMany(targetEntity="Course", mappedBy="schoolLocation")
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $courses;
 
@@ -652,5 +651,16 @@ class SchoolLocation
     public function getHomepage()
     {
         return $this->homepage;
+    }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+            $this->name='(Clone) '.$this->name;
+            if ($this->image != null)
+                $this->image = clone $this->image ;
+        }
     }
 }

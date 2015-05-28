@@ -397,5 +397,13 @@ class Course
                 return number_format($price->getPrice(), $this->schoolLocation->getCurrency()->getScale(), '.', '');
         }
     }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
+    }
 
 }

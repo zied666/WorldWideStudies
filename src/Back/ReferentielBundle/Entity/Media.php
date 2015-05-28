@@ -260,4 +260,12 @@ class Media
     {
         return $this->university;
     }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
+    }
 }

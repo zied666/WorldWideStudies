@@ -17,6 +17,8 @@ class CityType extends AbstractType
     {
         $builder
                 ->add('libelle')
+                ->add('longitude')
+                ->add('latitude')
                 ->add('country')
                 ->add('image' , new MediaType())
         ;

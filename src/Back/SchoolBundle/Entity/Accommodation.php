@@ -32,7 +32,7 @@ class Accommodation
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text",nullable=true)
      */
     private $description;
     
@@ -236,5 +236,13 @@ class Accommodation
     {
         if(count($this->rooms)!=0)
             return $this->rooms->first();
+    }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
     }
 }

@@ -23,6 +23,7 @@ class InterfacesExtension extends \Twig_Extension
             'getNameCity'    =>new \Twig_Function_Method($this, 'getNameCity'),
             'getPhotoCity'   =>new \Twig_Function_Method($this, 'getPhotoCity'),
             'convertCurrency'=>new \Twig_Function_Method($this, 'convertCurrency'),
+            'getGeoLocationCity'=>new \Twig_Function_Method($this, 'getGeoLocationCity'),
         );
     }
 
@@ -46,6 +47,11 @@ class InterfacesExtension extends \Twig_Extension
     {
         $city=$this->em->getRepository("BackReferentielBundle:City")->find($id);
         return $city->getLibelle();
+    }
+    public function getGeoLocationCity($id)
+    {
+        $city=$this->em->getRepository("BackReferentielBundle:City")->find($id);
+        return $city->getLongitude().', '.$city->getLatitude();
     }
 
     public function getPhotoCity($id)

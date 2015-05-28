@@ -274,4 +274,12 @@ class Room
                 return number_format($price->getPrice(), $this->accommodation->getSchoolLocation()->getCurrency()->getScale(), '.', '');
         }
     }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
+    }
 }

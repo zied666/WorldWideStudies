@@ -4,14 +4,17 @@
             <i class="soap-icon-hotel-1 hotel-color"></i>
             <span class="display-counter" data-value="{{ count }}">0</span>
         </div>
-        <div class="description">Courses Title</div>
+        <div class="description">Results found.</div>
     </div>
     {% if city!='all' %}
-        <div class="icon-box style3 counters-box">
+        {#<div class="icon-box style3 counters-box">
             <div class="numbers">
                 <img src='{{ asset(getPhotoCity(city)) }}' style="width: 220px;height: 127px" >
             </div>
             <div class="description">{{ getNameCity(city) }}</div>
+        </div>#}
+        <div class="icon-box style3 counters-box">
+            <div class="travelo-google-map block"></div>
         </div>
     {% endif %}
     <div class="toggle-container filters-container">

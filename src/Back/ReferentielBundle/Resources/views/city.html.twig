@@ -11,6 +11,10 @@
                         {{ formulaire.input("col-md-3","Name",form.libelle,true) }}
                         {{ formulaire.input("col-md-3","Photo",form.image.file,true) }}
                     </div>
+                    <div class="row">
+                        {{ formulaire.select2("col-md-2","Longitude",form.longitude,true) }}
+                        {{ formulaire.select2("col-md-2","Latitude",form.latitude,true) }}
+                    </div>
                     {{ macro.enregistrer }}
                 </form>
             </div>
@@ -24,6 +28,7 @@
                             <th>Photo</th>
                             <th>Name</th>
                             <th>Country</th>
+                            <th>Geolocation</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -35,6 +40,7 @@
                                 </td>
                                 <td>{{ city.libelle }}</td>
                                 <td>{{ city.country }}</td>
+                                <td>[{{ city.longitude }}, {{ city.latitude }}]</td>
                                 <td>
                                     {{ macro.edit(path('city',{'id':city.id})) }}
                                     {{ macro.delete(path('delete_city',{'id':city.id})) }}

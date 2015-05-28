@@ -56,6 +56,7 @@
                                 </td>
                                 <td class="center">
                                     {{ macro.fiche(path('edit_school',{'id':school.id})) }}
+                                    {{ macro.clone(path('clone_school',{'id':school.id})) }}
                                     {{ macro.delete(path('delete_school_location',{'id':school.id})) }}
                                 </td>
                             </tr>

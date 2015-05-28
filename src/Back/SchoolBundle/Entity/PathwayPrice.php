@@ -250,4 +250,12 @@ class PathwayPrice
     {
         return $this->week;
     }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
+    }
 }

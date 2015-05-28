@@ -90,4 +90,12 @@ class StartDate
     {
         return $this->course;
     }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
+    }
 }

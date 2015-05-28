@@ -12,6 +12,70 @@ use Back\ReferentielBundle\Form\MediaType;
 class SchoolController extends Controller
 {
 
+    public function cloneSchoolAction(SchoolLocation $schoolLocation)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $newSchoolLocation=clone $schoolLocation;
+        $em->persist($newSchoolLocation);
+        foreach($schoolLocation->getCourses() as $entity)
+        {
+            $newCourse=clone $entity;
+            $em->persist($newCourse->setSchoolLocation($newSchoolLocation));
+            foreach($entity->getStartDates() as $ent)
+            {
+                $newEnt=clone $ent;
+                $em->persist($newEnt->setCourse($newCourse));
+            }
+            foreach($entity->getPrices() as $ent)
+            {
+                $newEnt=clone $ent;
+                $em->persist($newEnt->setCourse($newCourse));
+            }
+            foreach($entity->getPathwayPrices() as $ent)
+            {
+                $newEnt=clone $ent;
+                $em->persist($newEnt->setCourse($newCourse));
+            }
+        }
+        foreach($schoolLocation->getPhotos() as $entity)
+        {
+            $newEntity=clone $entity;
+            $em->persist($newEntity->setSchoolLocation($newSchoolLocation));
+        }
+        foreach($schoolLocation->getAccommodations() as $entity)
+        {
+            $newAccommodation=clone $entity;
+            $em->persist($newAccommodation->setSchoolLocation($newSchoolLocation));
+            foreach($entity->getRooms() as $room)
+            {
+                $newRoom=clone $room;
+                $em->persist($newRoom->setAccommodation($newAccommodation));
+                foreach($room->getPrices() as $ent)
+                {
+                    $newEnt=clone $ent;
+                    $em->persist($newEnt->setRoom($newRoom));
+                }
+                foreach($room->getPathwayPrices() as $ent)
+                {
+                    $newEnt=clone $ent;
+                    $em->persist($newEnt->setRoom($newRoom));
+                }
+            }
+        }
+        foreach($schoolLocation->getExtras() as $entity)
+        {
+            $newEntity=clone $entity;
+            $em->persist($newEntity->setSchoolLocation($newSchoolLocation));
+        }
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your School location has been cloned successfully");
+        if($schoolLocation->getType() == 1)
+            return $this->redirect($this->generateUrl("list_schoolLanguage"));
+        else
+            return $this->redirect($this->generateUrl("list_schoolPathway"));
+    }
+
     public function addSchoolAction()
     {
         $em=$this->getDoctrine()->getManager();
@@ -123,7 +187,7 @@ class SchoolController extends Controller
         else
             return $this->redirect($this->generateUrl("list_schoolPathway"));
     }
-    
+
     public function homepageSchoolAction(SchoolLocation $schoolLocation)
     {
         $em=$this->getDoctrine()->getManager();

@@ -51,8 +51,8 @@ class Price
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="prices")
      */
     protected $course;
-    
-     /**
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="fix", type="boolean", nullable=true)
@@ -183,9 +183,9 @@ class Price
      * @param \Back\SchoolBundle\Entity\Room $room
      * @return Price
      */
-    public function setRoom(\Back\SchoolBundle\Entity\Room $room = null)
+    public function setRoom(\Back\SchoolBundle\Entity\Room $room=null)
     {
-        $this->room = $room;
+        $this->room=$room;
 
         return $this;
     }
@@ -208,7 +208,7 @@ class Price
      */
     public function setFix($fix)
     {
-        $this->fix = $fix;
+        $this->fix=$fix;
 
         return $this;
     }
@@ -222,7 +222,7 @@ class Price
     {
         return $this->fix;
     }
-    
+
     public function shoxFix()
     {
         if($this->fix)
@@ -230,4 +230,13 @@ class Price
         else
             return 'Per Week';
     }
+
+    public function __clone()
+    {
+        if($this->id)
+        {
+            $this->id=null;
+        }
+    }
+
 }
