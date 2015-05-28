@@ -156,7 +156,7 @@
                             <h2 class="box-title">{{ school|title }}<small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space">{{ school.city.country|upper }}, {{ school.city }}</span></small></h2>
                             <span class="price clearfix">
                                 <small class="pull-left">avg/week</small>
-                                <span class="pull-right">{{ school.avgPrice~' '~school.currency.code }}</span>
+                                <span class="pull-right">{{ convertCurrency(school.avgPrice,school.currency.code) }} </span>
                             </span>
                             <p class="description">{{ school.shortDescription }}</p>
                             <div class="intro table-wrapper full-width hidden-table-sms">
@@ -183,7 +183,8 @@
                                         <div class="details">
                                             <h5 class="box-title"><a href="{{ path('front_language_courses_details',{'id':sch.id}) }}">{{ sch|title }}</a></h5>
                                             <label class="price-wrapper">
-                                                <span class="price-per-unit">{{ sch.avgPrice }}{{ sch.currency.code }}</span>week/night
+                                                {#<span class="price-per-unit">{{ sch.avgPrice }}{{ sch.currency.code }}</span>week/night#}
+                                                <span class="price-per-unit">{{ convertCurrency(sch.avgPrice,sch.currency.code) }}</span>AVG/WEEK
                                             </label>
                                         </div>
                                     </article>

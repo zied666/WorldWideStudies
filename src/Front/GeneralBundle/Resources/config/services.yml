@@ -1,12 +1,16 @@
 services:
     library:
         class: Front\GeneralBundle\Services\Library
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            session: "@session"
     interface:
         class: Front\GeneralBundle\Twig\Extension\InterfacesExtension
         tags:
             - { name: twig.extension }
         arguments:
             em: "@doctrine.orm.entity_manager"
+            session: "@session"
     booking:
         class: Front\GeneralBundle\Twig\Extension\BookingExtension
         tags:
@@ -14,3 +18,4 @@ services:
         arguments:
             em: "@doctrine.orm.entity_manager"
             session: "@session"
+            container: "@service_container"

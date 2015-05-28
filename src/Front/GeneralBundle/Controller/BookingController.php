@@ -30,12 +30,16 @@ class BookingController extends Controller
         if($course->getSchoolLocation()->getType() == 2)
         {
             $price=$em->getRepository('BackSchoolBundle:PathwayPrice')->find($request->get('val'));
-            $response->setData(array( 'price'=>$price->getPrice().' '.$course->getSchoolLocation()->getCurrency()->getCode() ));
+            $response->setData(array(
+                'price'=>$this->get('library')->convertCurrency($price->getPrice(), $course->getSchoolLocation()->getCurrency()->getCode())
+            ));
         }
         if($course->getSchoolLocation()->getType() == 1)
         {
             $price=$course->calculePrice($request->get('val'));
-            $response->setData(array( 'price'=>$price.' '.$course->getSchoolLocation()->getCurrency()->getCode() ));
+            $response->setData(array(
+                'price'=>$this->get('library')->convertCurrency($price, $course->getSchoolLocation()->getCurrency()->getCode())
+            ));
         }
         return $response;
     }
@@ -50,12 +54,16 @@ class BookingController extends Controller
         if($accommodation->getSchoolLocation()->getType() == 2)
         {
             $price=$em->getRepository('BackSchoolBundle:PathwayPrice')->find($request->get('val'));
-            $response->setData(array( 'price'=>$price->getPrice().' '.$accommodation->getSchoolLocation()->getCurrency()->getCode() ));
+            $response->setData(array(
+                'price'=>$this->get('library')->convertCurrency($price->getPrice(), $accommodation->getSchoolLocation()->getCurrency()->getCode())
+            ));
         }
         if($accommodation->getSchoolLocation()->getType() == 1)
         {
             $price=$room->calculePrice($request->get('val'));
-            $response->setData(array( 'price'=>$price.' '.$accommodation->getSchoolLocation()->getCurrency()->getCode() ));
+            $response->setData(array(
+                'price'=>$this->get('library')->convertCurrency($price, $accommodation->getSchoolLocation()->getCurrency()->getCode())
+            ));
         }
         return $response;
     }
@@ -74,13 +82,15 @@ class BookingController extends Controller
         {
             for($i=$room->getMinWeek(); $i <= $room->getMaxWeek(); $i++)
                 $tab[$i]=$i.' weeks';
-            $price=$room->calculePrice($room->getMinWeek()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
+//            $price=$room->calculePrice($room->getMinWeek()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
+            $price=$this->get('library')->convertCurrency($room->calculePrice($room->getMinWeek()),$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode());
         }
         if($room->getAccommodation()->getSchoolLocation()->getType() == 2)
         {
             foreach($room->getPathwayPrices() as $price)
                 $tab[$price->getId()]=$price->getStartDate()->format('d F Y').' - '.$price->getEndDate()->format('d F Y');
-            $price=$room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
+//            $price=$room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
+            $price=$this->get('library')->convertCurrency($room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()),$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode());
         }
         $response->setData(array( 'select'=>$tab, 'price'=>$price ));
         return $response;
@@ -211,7 +221,9 @@ class BookingController extends Controller
         $request=$this->getRequest();
         $room=$em->getRepository("BackAccommodationBundle:Room")->find($request->get('room'));
         $accommodation=$room->getAccommodation();
-        $response->setData(array( 'price'=>$room->calculePrice($request->get('val')).' '.$accommodation->getCurrency()->getCode() ));
+        $response->setData(array(
+            'price'=>$this->get('library')->convertCurrency($room->calculePrice($request->get('val')), $accommodation->getCurrency()->getCode())
+        ));
         return $response;
     }
 

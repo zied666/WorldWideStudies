@@ -1,0 +1,10 @@
+<li class="ribbon">
+    <a href="javascript:void(0)">
+        {{ currency }}
+    </a>
+    <ul class="menu mini">
+        {% for curr in currencies %}
+            <li {% if curr.code==currency %}class="active"{% endif %}><a href="{{ path('change_currency',{'code':curr.code}) }}">{{ curr.code }} ({{ curr.name }})</a></li>
+        {% endfor %}
+    </ul>
+</li>

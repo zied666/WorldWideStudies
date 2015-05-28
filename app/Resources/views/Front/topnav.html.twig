@@ -2,7 +2,7 @@
     <div class="container">
         <ul class="quick-menu pull-left">
             <li class="ribbon">
-                <a href="#">
+                <a href="javascript:void(0)">
                     {% if app.request.getLocale()=='fr' %}
                         Français
                     {% endif %}
@@ -11,10 +11,11 @@
                     {% endif %}
                 </a>
                 <ul class="menu mini">
-                    <li {% if app.request.getLocale()=='en' %}class="active"{% endif %}><a href="{{ path('accueil',{'_locale':'en'}) }}">English</a></li>
-                    <li {% if app.request.getLocale()=='fr' %}class="active"{% endif %}><a href="{{ path('accueil',{'_locale':'fr'}) }}">Français</a></li>
+                    <li {% if app.request.getLocale()=='en' %}class="active"{% endif %}><a href="{{ path('change_locale',{'locale':'en'}) }}">English</a></li>
+                    <li {% if app.request.getLocale()=='fr' %}class="active"{% endif %}><a href="{{ path('change_locale',{'locale':'fr'}) }}">Français</a></li>
                 </ul>
             </li>
+            {{ render(controller('FrontGeneralBundle:Front:currency')) }}
         </ul>
         <ul class="quick-menu pull-right">
             {% if not is_granted('ROLE_USER') %}

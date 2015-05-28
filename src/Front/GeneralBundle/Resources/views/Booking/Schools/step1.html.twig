@@ -65,10 +65,10 @@
                                         <div class="col-md-2">
                                             <label id="price_{{ course.id }}" style="  padding-top: 7px;">
                                                 {% if school.type==1 %}
-                                                    {{ course.calculePrice(course.getMinWeek) }} {{ course.schoolLocation.currency.code }}
+                                                    {{ convertCurrency(course.calculePrice(course.getMinWeek) ,course.schoolLocation.currency.code) }} 
                                                 {% endif %}
                                                 {% if school.type==2 %}
-                                                    {{ course.calculePathwayPrice(course.getFirstPathwayPrice) }} {{ course.schoolLocation.currency.code }}
+                                                    {{ convertCurrency(course.calculePathwayPrice(course.getFirstPathwayPrice) ,course.schoolLocation.currency.code) }} 
                                                 {% endif %}
                                             </label>
                                         </div>

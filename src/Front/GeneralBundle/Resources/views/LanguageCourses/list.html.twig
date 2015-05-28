@@ -46,7 +46,7 @@
                                         <div>
                                             <p>{{ school.shortDescription }}</p>
                                             <div>
-                                                <span class="price"><small>AVG/WEEK</small>{{ school.avgPrice }} {{ school.currency.code }} </span>
+                                                <span class="price"><small>AVG/WEEK</small>{{ convertCurrency(school.avgPrice,school.currency.code) }} </span>
                                                 <a class="button btn-small full-width text-center" title="" href="{{ path('front_language_courses_details',{'id':school.id}) }}">SELECT</a>
                                             </div>
                                         </div>

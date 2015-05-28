@@ -75,10 +75,12 @@
                                         <div class="col-md-2">
                                             <label style="padding-top: 7px;" id="price_{{ acco.id }}">
                                                 {% if school.type==1 %}
-                                                    {{ acco.getFirstRoom.calculePrice(acco.getFirstRoom.getMinWeek) }} {{ school.currency.code }}
+{#                                                    {{ acco.getFirstRoom.calculePrice(acco.getFirstRoom.getMinWeek) }} {{ school.currency.code }}#}
+                                                    {{ convertCurrency(acco.getFirstRoom.calculePrice(acco.getFirstRoom.getMinWeek) ,school.currency.code) }} 
                                                 {% endif %}
                                                 {% if school.type==2 %}
-                                                    {{ acco.getFirstRoom.calculePathwayPrice(acco.getFirstRoom.getFirstPathwayPrice) }} {{ school.currency.code }}
+{#                                                    {{ acco.getFirstRoom.calculePathwayPrice(acco.getFirstRoom.getFirstPathwayPrice) }} {{ school.currency.code }}#}
+                                                    {{ convertCurrency(acco.getFirstRoom.calculePathwayPrice(acco.getFirstRoom.getFirstPathwayPrice) ,school.currency.code) }} 
                                                 {% endif %}
                                             </label>
                                         </div>

@@ -46,7 +46,8 @@
                                             <div class="col-md-2">
                                                 <label style="padding-top: 7px;">
                                                     <strong>
-                                                        {{ getPriceExtra(extra.id) }} {{ school.currency.code }}
+                                                        {{ convertCurrency(getPriceExtra(extra.id) ,school.currency.code) }} 
+                                                        {#{{ getPriceExtra(extra.id) }} {{ school.currency.code }}#}
                                                     </strong>
                                                 </label>
                                             </div>

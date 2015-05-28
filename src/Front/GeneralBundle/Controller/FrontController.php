@@ -7,6 +7,37 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class FrontController extends Controller
 {
 
+    public function currencyAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(!$session->has('currency'))
+            $session->set('currency', array('code'=>'USD','scale'=>2));
+        $currencies=$em->getRepository("BackReferentielBundle:Currency")->findAll();
+        $sess=$session->get('currency');
+        return $this->render('FrontGeneralBundle:Front:currency.html.twig', array(
+                    'currencies'=>$currencies,
+                    'currency'  =>$sess['code'],
+        ));
+    }
+
+    public function changeCurrencyAction($code)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $currency=$em->getRepository('BackReferentielBundle:Currency')->findOneBy(array('code'=>$code));
+        $session=$this->getRequest()->getSession();
+        $session->set('currency', array('code'=>$code,'scale'=>$currency->getScale()));
+        return $this->redirect($this->getRequest()->server->get('HTTP_REFERER'));
+    }
+    
+    public function changeLocaleAction($locale)
+    {
+        $session=$this->getRequest()->getSession();
+        $request=$this->getRequest();
+        $route=str_ireplace('/'.$request->getLocale().'/', '/'.$locale.'/', $this->getRequest()->server->get('HTTP_REFERER'));
+        return $this->redirect($route);
+    }
+
     public function menuAction($route)
     {
         $em=$this->getDoctrine()->getManager();
@@ -30,16 +61,16 @@ class FrontController extends Controller
                     'types'         =>$types,
         ));
     }
-    
+
     public function footerAction($route)
     {
         $em=$this->getDoctrine()->getManager();
         $homePage=$em->getRepository("BackGeneralBundle:HomePage")->find(1);
         $contact=$em->getRepository("BackGeneralBundle:Contact")->find(1);
         return $this->render('FrontGeneralBundle:Front:footer.html.twig', array(
-                    'route'         =>$route,
-                    'homepage'     =>$homePage,
-                    'contact'      =>$contact,
+                    'route'   =>$route,
+                    'homepage'=>$homePage,
+                    'contact' =>$contact,
         ));
     }
 
@@ -51,5 +82,4 @@ class FrontController extends Controller
                     'homepage'=>$homePage,
         ));
     }
-
 }

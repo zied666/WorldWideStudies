@@ -25,6 +25,14 @@ accueil:
 contact:
     path:     /contact
     defaults: { _controller: FrontGeneralBundle:Default:contact }
+
+change_currency:
+    path:     /ChangeCurrency/{code}
+    defaults: { _controller: FrontGeneralBundle:Front:changeCurrency }
+
+change_locale:
+    path:     /ChangeLocale/{locale}
+    defaults: { _controller: FrontGeneralBundle:Front:changeLocale }
     
 ajax_country_to_city:
     path:     /ajax_country_to_city/
