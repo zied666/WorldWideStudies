@@ -32,6 +32,18 @@ class Testimonial
     /**
      * @var string
      *
+     * @ORM\Column(name="school", type="string", length=255)
+     */
+    private $school;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\City")
+     */
+    protected $city;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -97,4 +109,28 @@ class Testimonial
     {
         return $this->description;
     }
+
+    /**
+     * Set image
+     *
+     * @param \Back\ReferentielBundle\Entity\Media $image
+     * @return Testimonial
+     */
+    public function setImage(\Back\ReferentielBundle\Entity\Media $image=null)
+    {
+        $this->image=$image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Back\ReferentielBundle\Entity\Media 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
 }

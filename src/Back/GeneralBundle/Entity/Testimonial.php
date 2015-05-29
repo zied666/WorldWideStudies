@@ -32,6 +32,18 @@ class Testimonial
     /**
      * @var string
      *
+     * @ORM\Column(name="school", type="string", length=255)
+     */
+    private $school;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\City")
+     */
+    protected $city;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -104,9 +116,9 @@ class Testimonial
      * @param \Back\ReferentielBundle\Entity\Media $image
      * @return Testimonial
      */
-    public function setImage(\Back\ReferentielBundle\Entity\Media $image = null)
+    public function setImage(\Back\ReferentielBundle\Entity\Media $image=null)
     {
-        $this->image = $image;
+        $this->image=$image;
 
         return $this;
     }
@@ -119,5 +131,52 @@ class Testimonial
     public function getImage()
     {
         return $this->image;
+    }
+
+
+    /**
+     * Set school
+     *
+     * @param string $school
+     * @return Testimonial
+     */
+    public function setSchool($school)
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    /**
+     * Get school
+     *
+     * @return string 
+     */
+    public function getSchool()
+    {
+        return $this->school;
+    }
+
+    /**
+     * Set city
+     *
+     * @param \Back\ReferentielBundle\Entity\City $city
+     * @return Testimonial
+     */
+    public function setCity(\Back\ReferentielBundle\Entity\City $city = null)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return \Back\ReferentielBundle\Entity\City 
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 }

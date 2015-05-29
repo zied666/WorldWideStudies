@@ -17,6 +17,8 @@ class TestimonialType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('school')
+            ->add('city')
             ->add('description')
             ->add('image', new MediaType())
         ;

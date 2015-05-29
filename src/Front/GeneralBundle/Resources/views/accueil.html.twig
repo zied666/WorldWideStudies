@@ -341,17 +341,52 @@
                     <div class="travelo-box contact-box" style="padding: 0px;">
                         <div class="testimonial style3" style="margin-top: 0px; ">
                             <ul class="slides ">
+                                {% set num=100 %}
                                 {% for testimonial in testimonials %}
-                                <li>
-                                    <div class="author"><a href="#"><img src="{{ testimonial.image.getAssetPath | imagine_filter('testimonial') }}" alt="" width="74" height="74" /></a></div>
-                                    <h2 class="name">{{ testimonial.name }}</h2>
-                                    <blockquote style="padding:0px" class="">{{ testimonial.description }}</blockquote>
-                                </li>
+                                    <li>
+                                        <div class="author"><a href="#"><img src="{{ testimonial.image.getAssetPath | imagine_filter('testimonial') }}" alt="" width="74" height="74" /></a></div>
+                                        <h2 class="name">{{ testimonial.name }}</h2>
+                                        <p style="padding:0px" class="">
+                                            {% if  testimonial.description|length >num %}
+                                                {{ testimonial.description|slice(0, num) }}...
+                                            {% else %}
+                                                {{ testimonial.description }}
+                                            {% endif %}
+                                        </p>
+                                        <h5>{{ testimonial.school }}</h5> 
+                                        {% if testimonial.city.country is defined %}
+                                            <h5>{{ testimonial.city }},{{ testimonial.city.country }}</h5>
+                                        {% endif %}
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
                     </div>
-                    <div class="fb-page" data-href="https://www.facebook.com/WorldwideStudiesTunisia" data-width="270px" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/WorldwideStudiesTunisia"><a href="https://www.facebook.com/WorldwideStudiesTunisia">Worldwide Studies</a></blockquote></div></div>                   
+                    <div class="travelo-box contact-box" style="padding: 0px;">
+                        <div class="testimonial style3" style="margin-top: 0px;   padding: 5px 50px 0px; ">
+                            <ul class="slides ">
+                                <li>
+                                    <div id="cont_6d200cf88626f7a36f5d816d0344389e">
+                                        <span id="h_6d200cf88626f7a36f5d816d0344389e"><a href="http://www.tameteo.com/meteo_Paris-Europe-France-Paris-LFPB-1-26048.html" target="_blank" style="color:#808080; font-family:Times New Roman; font-size:14px;">Paris</a></span>
+                                        <script type="text/javascript" async src="https://www.tameteo.com/wid_loader/6d200cf88626f7a36f5d816d0344389e"></script>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div id="cont_c4a30d39c5fd9f03ba44a41c61ff10a3">
+                                        <span id="h_c4a30d39c5fd9f03ba44a41c61ff10a3"><a href="http://www.tameteo.com/meteo_Londres-Europe-Royaume+Uni-Londres--1-34032.html" target="_blank" style="color:#808080; font-family:Times New Roman; font-size:14px;">London</a></span>
+                                        <script type="text/javascript" async src="https://www.tameteo.com/wid_loader/c4a30d39c5fd9f03ba44a41c61ff10a3"></script>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div id="cont_8dfdf73c726f766f69f5055c2b6839c8">
+                                        <span id="h_8dfdf73c726f766f69f5055c2b6839c8"><a href="http://www.tameteo.com/meteo_Londres-Europe-Royaume+Uni-Londres--1-34032.html" target="_blank" style="color:#808080; font-family:Times New Roman; font-size:14px;">New York</a></span>
+                                        <script type="text/javascript" async src="https://www.tameteo.com/wid_loader/8dfdf73c726f766f69f5055c2b6839c8"></script>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {#                    <div class="fb-page" data-href="https://www.facebook.com/WorldwideStudiesTunisia" data-width="270px" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/WorldwideStudiesTunisia"><a href="https://www.facebook.com/WorldwideStudiesTunisia">Worldwide Studies</a></blockquote></div></div>                   #}
                 </div>
             </div>
         </div>

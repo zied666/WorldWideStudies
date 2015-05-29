@@ -8,6 +8,8 @@
                 <div class="row">
                     {{ formulaire.input("col-md-2","Name",form.name,true) }}
                     {{ formulaire.input("col-md-2","Photo",form.image.file,true) }}
+                    {{ formulaire.select2("col-md-2","City",form.city,true) }}
+                    {{ formulaire.input("col-md-2","School",form.school,true) }}
                 </div>
                 <div class="row">
                     {{ formulaire.input("col-md-5","Text",form.description,true) }}
@@ -27,6 +29,8 @@
                         <tr>
                             <th class="center">Photo</th>
                             <th class="center">Name</th>
+                            <th class="center">City</th>
+                            <th class="center">School</th>
                             <th class="center">Text</th>
                             <th class="center">Action</th>
                         </tr>
@@ -38,6 +42,8 @@
                                     <img class="img-rounded"  src="{{ testimonial.image.getAssetPath | imagine_filter('small') }}" />
                                 </td>
                                 <td class="center">{{ testimonial.name }}</td>
+                                <td class="center">{{ testimonial.city }}</td>
+                                <td class="center">{{ testimonial.school }}</td>
                                 <td class="center">{{ testimonial.description }}</td>
                                 <td class="center">
                                     {{ macro.edit(path('backoffice_testimonial',{'id':testimonial.id})) }}
