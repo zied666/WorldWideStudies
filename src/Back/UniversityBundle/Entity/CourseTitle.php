@@ -99,6 +99,7 @@ class CourseTitle
 
     /**
      * @ORM\ManyToOne(targetEntity="University", inversedBy="courseTitles")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $university;
 

@@ -31,6 +31,7 @@ class StartDate
     
     /**
      * @ORM\ManyToOne(targetEntity="CourseTitle", inversedBy="startDates")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $courseTitle ;
 

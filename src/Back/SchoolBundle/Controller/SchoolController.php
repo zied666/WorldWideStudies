@@ -163,7 +163,8 @@ class SchoolController extends Controller
         }
         catch(\Exception $ex)
         {
-            $session->getFlashBag()->add('danger', 'This school is used by another table ');
+//            $session->getFlashBag()->add('danger', 'This school is used by another table ');
+            $session->getFlashBag()->add('danger', $ex->getMessage());
         }
         if($schoolLocation->getType() == 1)
             return $this->redirect($this->generateUrl("list_schoolLanguage"));

@@ -49,6 +49,7 @@ class Price
 
     /**
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="prices")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $course;
 
@@ -61,6 +62,7 @@ class Price
 
     /**
      * @ORM\ManyToOne(targetEntity="Room", inversedBy="prices")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * 
      */
     protected $room;

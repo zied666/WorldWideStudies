@@ -33,16 +33,19 @@ class Media
     
     /**
      * @ORM\ManyToOne(targetEntity="Back\SchoolBundle\Entity\SchoolLocation", inversedBy="photos")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $schoolLocation ;
     
     /**
      * @ORM\ManyToOne(targetEntity="Back\AccommodationBundle\Entity\Accommodation", inversedBy="photos")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $accommodation ;
     
     /**
      * @ORM\ManyToOne(targetEntity="Back\UniversityBundle\Entity\University", inversedBy="photos")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $university ;
 

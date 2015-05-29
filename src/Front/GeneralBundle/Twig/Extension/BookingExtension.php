@@ -197,7 +197,7 @@ class BookingExtension extends \Twig_Extension
             $room=$this->em->getRepository("BackSchoolBundle:Room")->find($booking['accommodation']['room']);
             if($accommodation->getSchoolLocation()->getType() == 1)
             {
-                $block.= '<div class="clearfix"></div>';
+                $block.= '<div class="clearfix" style="  margin-top: 160px;"></div>';
                 $block.= '<h4>Accommodation</h4>';
                 $block.= '<dl class="other-details">';
                 $block.= '<dt class="feature">Name :</dt><dd class="value">'.$accommodation->getName().'</dd>';
@@ -212,7 +212,7 @@ class BookingExtension extends \Twig_Extension
             else
             {
                 $price=$this->em->getRepository("BackSchoolBundle:PathwayPrice")->find($booking['accommodation']['duration']);
-                $block.= '<div class="clearfix"></div>';
+                $block.= '<div class="clearfix" style="  margin-top: 160px;"></div>';
                 $block.= '<h4>Accommodation</h4>';
                 $block.= '<dl class="other-details">';
                 $block.= '<dt class="feature">Name:</dt><dd class="value">'.$accommodation->getName().'</dd>';

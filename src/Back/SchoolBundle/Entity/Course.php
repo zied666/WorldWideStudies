@@ -32,6 +32,7 @@ class Course
 
     /**
      * @ORM\ManyToOne(targetEntity="SchoolLocation", inversedBy="courses")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @Assert\NotNull()
      */
     protected $schoolLocation;

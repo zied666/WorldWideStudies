@@ -39,6 +39,7 @@ class Room
 
     /**
      * @ORM\ManyToOne(targetEntity="Accommodation", inversedBy="rooms")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $accommodation;
 

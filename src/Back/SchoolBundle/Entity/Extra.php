@@ -66,6 +66,7 @@ class Extra
     
     /**
      * @ORM\ManyToOne(targetEntity="SchoolLocation", inversedBy="extras")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * @Assert\NotNull()
      */
     protected $schoolLocation;

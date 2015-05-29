@@ -59,11 +59,13 @@ class PathwayPrice
 
     /**
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="pathwayPrices")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $course;
 
     /**
      * @ORM\ManyToOne(targetEntity="Room", inversedBy="pathwayPrices")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * 
      */
     protected $room;
