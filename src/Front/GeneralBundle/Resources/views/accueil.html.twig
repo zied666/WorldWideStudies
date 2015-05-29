@@ -341,18 +341,18 @@
                     <div class="travelo-box contact-box" style="padding: 0px;">
                         <div class="testimonial style3" style="margin-top: 0px; ">
                             <ul class="slides ">
-                                {% set num=100 %}
+                                {% set num=80 %}
                                 {% for testimonial in testimonials %}
                                     <li>
                                         <div class="author"><a href="#"><img src="{{ testimonial.image.getAssetPath | imagine_filter('testimonial') }}" alt="" width="74" height="74" /></a></div>
                                         <h2 class="name">{{ testimonial.name }}</h2>
-                                        <p style="padding:0px" class="">
+                                        <blockquote style="padding:0px;text-indent: 0px;" class="">
                                             {% if  testimonial.description|length >num %}
                                                 {{ testimonial.description|slice(0, num) }}...
                                             {% else %}
                                                 {{ testimonial.description }}
                                             {% endif %}
-                                        </p>
+                                        </blockquote>
                                         <h5>{{ testimonial.school }}</h5> 
                                         {% if testimonial.city.country is defined %}
                                             <h5>{{ testimonial.city }},{{ testimonial.city.country }}</h5>
