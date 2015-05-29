@@ -14,6 +14,14 @@ backoffice_slider:
     path:     /frontoffice/slider/{id}
     defaults: { _controller: BackGeneralBundle:FrontOffice:slider,id:null }
 
+backoffice_testimonial:
+    path:     /frontoffice/testimonial/{id}
+    defaults: { _controller: BackGeneralBundle:FrontOffice:testimonial,id:null }
+
 backoffice_slider_delete:
     path:     /delete_slider/{id}
     defaults: { _controller: BackGeneralBundle:FrontOffice:deleteSlider }
+    
+backoffice_testimonial_delete:
+    path:     /delete_testimonial/{id}
+    defaults: { _controller: BackGeneralBundle:FrontOffice:deleteTestimonial }

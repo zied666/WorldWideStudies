@@ -1,0 +1,53 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Testimonial{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                <div class="row">
+                    {{ formulaire.input("col-md-2","Name",form.name,true) }}
+                    {{ formulaire.input("col-md-2","Photo",form.image.file,true) }}
+                </div>
+                <div class="row">
+                    {{ formulaire.input("col-md-5","Text",form.description,true) }}
+                </div>
+                <div class="no-display">
+                    {{ formulaire.input("col-md-5","Photo",form.image.updateAt,true) }}
+                </div>
+                {{ macro.enregistrer }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
+                <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                    <thead>
+                        <tr>
+                            <th class="center">Photo</th>
+                            <th class="center">Name</th>
+                            <th class="center">Text</th>
+                            <th class="center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for testimonial in testimonials %}
+                            <tr>
+                                <td class="center">
+                                    <img class="img-rounded"  src="{{ testimonial.image.getAssetPath | imagine_filter('small') }}" />
+                                </td>
+                                <td class="center">{{ testimonial.name }}</td>
+                                <td class="center">{{ testimonial.description }}</td>
+                                <td class="center">
+                                    {{ macro.edit(path('backoffice_testimonial',{'id':testimonial.id})) }}
+                                    {{ macro.delete(path('backoffice_testimonial_delete',{'id':testimonial.id})) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -33,6 +33,11 @@
                             <span class="title">Homepage</span>
                         </a>
                     </li>
+                    <li {% if app.request.get('_route')=='backoffice_testimonial' %}class="active"{% endif %}>
+                        <a href="{{ path('backoffice_testimonial') }}">
+                            <span class="title">Testimonial</span>
+                        </a>
+                    </li>
                     <li {% if app.request.get('_route')=='backoffice_contact' %}class="active"{% endif %}>
                         <a href="{{ path('backoffice_contact') }}">
                             <span class="title">Page Contact</span>

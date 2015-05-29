@@ -659,6 +659,7 @@ class SchoolLocation
         {
             $this->id = null ;
             $this->name='(Clone) '.$this->name;
+            $this->enabled=FALSE;
             if ($this->image != null)
                 $this->image = clone $this->image ;
         }

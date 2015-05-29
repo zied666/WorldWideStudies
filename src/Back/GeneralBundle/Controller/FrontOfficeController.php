@@ -10,6 +10,9 @@ use Back\GeneralBundle\Entity\Slider;
 use Back\GeneralBundle\Form\SliderType;
 use Back\GeneralBundle\Entity\HomePage;
 use Back\GeneralBundle\Form\HomePageType;
+use Back\GeneralBundle\Entity\Testimonial;
+use Back\GeneralBundle\Form\TestimonialType;
+
 
 class FrontOfficeController extends Controller
 {
@@ -102,6 +105,45 @@ class FrontOfficeController extends Controller
         $em->flush();
         $session->getFlashBag()->add('success', "Your slider has been updated successfully");
         return $this->redirect($this->generateUrl("backoffice_slider"));
+    }
+
+    public function testimonialAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(is_null($id))
+            $testimonial=new Testimonial();
+        else
+            $testimonial=$em->getRepository("BackGeneralBundle:Testimonial")->find($id);
+        $form=$this->createForm(new TestimonialType(), $testimonial);
+        $testimonials=$em->getRepository("BackGeneralBundle:Testimonial")->findAll();
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $testimonial=$form->getData();
+                $em->persist($testimonial);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your Testimonial has been updated successfully");
+                return $this->redirect($this->generateUrl("backoffice_testimonial"));
+            }
+        }
+        return $this->render('BackGeneralBundle:FrontOffice:testimonial.html.twig', array(
+                    'form'   =>$form->createView(),
+                    'testimonials'=>$testimonials
+        ));
+    }
+
+    public function deleteTestimonialAction(Testimonial $testimonial)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($testimonial);
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your Testimonial has been updated successfully");
+        return $this->redirect($this->generateUrl("backoffice_testimonial"));
     }
 
 }

@@ -134,3 +134,7 @@ liip_imagine:
             quality: 99
             filters:
                 thumbnail: { size: [2080, 1000], mode: inset }    
+        testimonial:
+            quality: 99
+            filters:
+                thumbnail: { size: [74, 74], mode: inset }    

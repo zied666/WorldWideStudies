@@ -12,7 +12,8 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $em=$this->getDoctrine()->getManager();
-        $schools=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array('homepage'=>true));
+        $schools=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array( 'homepage'=>true, 'enabled'=>true ));
+        $testimonials=$em->getRepository("BackGeneralBundle:Testimonial")->findAll();
         $homePage=$em->getRepository("BackGeneralBundle:HomePage")->find(1);
         $contact=$em->getRepository("BackGeneralBundle:Contact")->find(1);
         $cities=$em->getRepository("BackReferentielBundle:City")->findAll();
@@ -27,7 +28,8 @@ class DefaultController extends Controller
         $typeAccommodations=$em->getRepository("BackReferentielBundle:TypeAccommodation")->findBy(array(), array( "name"=>"asc" ));
         $qualifications=$em->getRepository("BackReferentielBundle:Qualification")->findBy(array(), array( "name"=>"asc" ));
         return $this->render('FrontGeneralBundle::accueil.html.twig', array(
-                    'schools'          =>$schools,
+                    'testimonials'      =>$testimonials,
+                    'schools'           =>$schools,
                     'homepage'          =>$homePage,
                     'cities'            =>$cities,
                     'contact'           =>$contact,
