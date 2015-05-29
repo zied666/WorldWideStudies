@@ -792,9 +792,9 @@ tjq(window).load(function () {
                 tjq('.testimonial.style3').flexslider({
                     namespace: "testimonial-",
                     controlNav: false,
-                    animationLoop: false,
+                    animationLoop: true,
                     directionNav: true,
-                    slideshow: false,
+                    slideshow: true,
                     start: fixTestimonialHeight
                 });
             }
