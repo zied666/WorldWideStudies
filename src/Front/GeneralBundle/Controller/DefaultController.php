@@ -80,15 +80,51 @@ class DefaultController extends Controller
         $em=$this->getDoctrine()->getManager();
         $request=$this->getRequest();
         $id=$request->get("id");
-        $country=$em->getRepository("BackReferentielBundle:Country")->find($id);
-        $response=new JsonResponse();
-        $cities=$em->getRepository("BackReferentielBundle:City")->findBy(
-                array( 'country'=>$country ), array( 'libelle'=>'asc' )
-        );
         $tab=array();
-        $tab[]='All Cities in '.$country->getLibelle();
+        $response=new JsonResponse();
+        if($id == '')
+        {
+            $cities=$em->getRepository("BackReferentielBundle:City")->findAll();
+            $tab[]='All Cities ';
+        }
+        else
+        {
+            $country=$em->getRepository("BackReferentielBundle:Country")->find($id);
+            $cities=$em->getRepository("BackReferentielBundle:City")->findBy(
+                    array( 'country'=>$country ), array( 'libelle'=>'asc' )
+            );
+            $tab[]='All Cities in '.$country->getLibelle();
+        }
         foreach($cities as $city)
             $tab[$city->getId()]=$city->getLibelle();
+        $response->setData($tab);
+        return $response;
+    }
+
+    public function ajaxLevelAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $request=$this->getRequest();
+        $id=$request->get("id");
+        if($id == '')
+        {
+            $qualifications=$em->getRepository("BackReferentielBundle:Qualification")->findAll();
+            $tab[]='All Qualifications ';
+        }
+        else
+        {
+            $level=$em->getRepository("BackReferentielBundle:Level")->find($id);
+            $qualifications=$em->getRepository("BackReferentielBundle:Qualification")->findBy(
+                    array( 'level'=>$level ), array( 'name'=>'asc' )
+            );
+            $tab[]='All Qualifications  in '.$level->getName();
+        }
+        if($id != '')
+            $level=$em->getRepository("BackReferentielBundle:Level")->find($id);
+
+        $response=new JsonResponse();
+        foreach($qualifications as $qualification)
+            $tab[$qualification->getId()]=$qualification->getName();
         $response->setData($tab);
         return $response;
     }

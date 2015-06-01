@@ -7,12 +7,6 @@
         <div class="description">Results found.</div>
     </div>
     {% if city!='all' %}
-        {#<div class="icon-box style3 counters-box">
-            <div class="numbers">
-                <img src='{{ asset(getPhotoCity(city)) }}' style="width: 220px;height: 127px" >
-            </div>
-            <div class="description">{{ getNameCity(city) }}</div>
-        </div>#}
         <div class="icon-box style3 counters-box">
             <div class="travelo-google-map block"></div>
         </div>
@@ -34,7 +28,7 @@
                         <div class="form-group">
                             <label>Level of stude</label>
                             <div class="selector">
-                                <select class="full-width" name="levelSearch">
+                                <select class="full-width" name="levelSearch" id="levelOfStudy">
                                     <option value="">All levels</option>
                                     {% for lvl in levels %}
                                         <option value="{{ lvl.id }}" {% if level==lvl.id %}selected{% endif %}>{{ lvl|title  }}</option>
@@ -45,7 +39,7 @@
                         <div class="form-group">
                             <label>Qualifications</label>
                             <div class="selector">
-                                <select class="full-width" name="qualificationSearch">
+                                <select class="full-width" name="qualificationSearch" id="qualification">
                                     <option value="">All Qualifications</option>
                                     {% for qual in qualifications %}
                                         <option value="{{ qual.id }}" {% if qualification==qual.id %}selected{% endif %}>{{ qual|title  }}</option>

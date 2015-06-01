@@ -18,7 +18,7 @@
             {{ render(controller('FrontGeneralBundle:Front:currency')) }}
         </ul>
         <ul class="quick-menu pull-right">
-            {% if not is_granted('ROLE_USER') %}
+            {% if app.security.token is null or not is_granted('ROLE_USER') %}
                 <li><a href="{{ path('fos_user_security_login') }}">LOGIN</a></li>
                 <li><a href="{{ path('fos_user_registration_register') }}">SIGNUP</a></li>
                 {% else %}

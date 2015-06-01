@@ -16,6 +16,7 @@ class QualificationType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('level')
         ;
     }
     

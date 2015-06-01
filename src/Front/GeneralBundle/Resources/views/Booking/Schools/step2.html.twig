@@ -41,14 +41,14 @@
                                     <div class="form-group row">
                                         <div class="col-md-2">
                                             <label style="padding-top: 7px;">
-                                                <input  type="radio" name="accommodation" value="{{ acco.id }}" style="vertical-align: sub;"/>
+                                                <input  type="radio" class="InputRadio" name="accommodation" value="{{ acco.id }}" style="vertical-align: sub;"/>
                                                 <strong>{{ acco }}</strong>
                                                 <small> {{ acco.typeAccommodation }} </small>
                                             </label>
                                         </div>
                                         <div class="col-md-2">
                                             <select class="full-width Rooms"  name="room_{{ acco.id }}" data-acco="{{ acco.id }}" id="Room_{{ acco.id }}" >
-                                                {% for room in acco.rooms %}
+                                                {% for room in acco.rooms if room.prices|length>0 or room.pathwayPrices|length>0 %}
                                                     <option value="{{ room.id }}">{{ room }}</option>
                                                 {% endfor %}
                                             </select>
@@ -69,17 +69,17 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="datepicker-wrap dark-blue">
-                                                <input type="text" class="input-text full-width" name="startDate_{{ acco.id }}" placeholder="mm/dd/yy" />
+                                                <input type="text" class="input-text full-width StartingDate" name="startDate_{{ acco.id }}" placeholder="mm/dd/yy" />
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <label style="padding-top: 7px;" id="price_{{ acco.id }}">
                                                 {% if school.type==1 %}
-{#                                                    {{ acco.getFirstRoom.calculePrice(acco.getFirstRoom.getMinWeek) }} {{ school.currency.code }}#}
+                                                    {#                                                    {{ acco.getFirstRoom.calculePrice(acco.getFirstRoom.getMinWeek) }} {{ school.currency.code }}#}
                                                     {{ convertCurrency(acco.getFirstRoom.calculePrice(acco.getFirstRoom.getMinWeek) ,school.currency.code) }} 
                                                 {% endif %}
                                                 {% if school.type==2 %}
-{#                                                    {{ acco.getFirstRoom.calculePathwayPrice(acco.getFirstRoom.getFirstPathwayPrice) }} {{ school.currency.code }}#}
+                                                    {#                                                    {{ acco.getFirstRoom.calculePathwayPrice(acco.getFirstRoom.getFirstPathwayPrice) }} {{ school.currency.code }}#}
                                                     {{ convertCurrency(acco.getFirstRoom.calculePathwayPrice(acco.getFirstRoom.getFirstPathwayPrice) ,school.currency.code) }} 
                                                 {% endif %}
                                             </label>
@@ -123,11 +123,14 @@
             </div>
         </div>
     </section>
-
 {% endblock %}
 {% block jquery %}
     <script>
         tjq(document).ready(function () {
+            tjq('.InputRadio').on('change',function () {
+                tjq('.StartingDate').prop('required', false);
+                tjq(this).parent().parent().parent().find('.StartingDate').prop('required', true);
+            });
             tjq('.Rooms').change(function () {
                 var room = tjq(this).val();
                 var acco = tjq(this).data('acco');
@@ -163,7 +166,7 @@
                         tjq('#price_' + acco).html(json['price']);
                     }
                 });
-            })
+            });
         })
     </script>
 

@@ -76,27 +76,4 @@ class Qualification
         return $this->name;
     }
 
-    /**
-     * Set level
-     *
-     * @param \Back\ReferentielBundle\Entity\Level $level
-     * @return Qualification
-     */
-    public function setLevel(\Back\ReferentielBundle\Entity\Level $level=null)
-    {
-        $this->level=$level;
-
-        return $this;
-    }
-
-    /**
-     * Get level
-     *
-     * @return \Back\ReferentielBundle\Entity\Level 
-     */
-    public function getLevel()
-    {
-        return $this->level;
-    }
-
 }

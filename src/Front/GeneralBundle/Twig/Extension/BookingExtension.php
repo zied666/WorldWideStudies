@@ -74,9 +74,11 @@ class BookingExtension extends \Twig_Extension
         $booking=$this->session->get("booking");
         $showDate='';
         $block='';
-        $date=\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']);
-        if($booking['accommodation']['startDate'] != '')
+        if(isset($booking['accommodation']['startDate']) && $booking['accommodation']['startDate'] != '')
+        {
+            $date=\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']);
             $showDate=$date->format("d F Y");
+        }
         if(isset($booking['accommodation']) && count($booking['accommodation']) > 0)
         {
             $accommodation=$this->em->getRepository("BackSchoolBundle:Accommodation")->find($booking['accommodation']['id']);
@@ -171,7 +173,7 @@ class BookingExtension extends \Twig_Extension
             $block.= '<dt class="feature">Duration:</dt><dd class="value">'.$booking['course']['duration'].' weeks</dd>';
             $block.= '<dt class="feature">Starting date:</dt><dd class="value">'.$showDate.'</dd>';
 //            $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$course->calculePrice($booking['course']['duration']).' '.$course->getSchoolLocation()->getCurrency()->getCode().'</dd>';
-            $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($course->calculePrice($booking['course']['duration']),$course->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
+            $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($course->calculePrice($booking['course']['duration']), $course->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
             $block.= '</dl>';
             $total+=$course->calculePrice($booking['course']['duration']);
         }
@@ -184,7 +186,7 @@ class BookingExtension extends \Twig_Extension
             $block.= '<dt class="feature">Duration:</dt><dd class="value">'.$price->getName().'</dd>';
             $block.= '<dt class="feature">Starting date:</dt><dd class="value">'.$date->format("d F Y").'</dd>';
 //            $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$course->calculePathwayPrice($booking['course']['duration']).' '.$course->getSchoolLocation()->getCurrency()->getCode().'</dd>';
-            $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($course->calculePathwayPrice($booking['course']['duration']),$course->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
+            $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($course->calculePathwayPrice($booking['course']['duration']), $course->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
             $block.= '</dl>';
             $total+=$course->calculePathwayPrice($booking['course']['duration']);
         }
@@ -205,7 +207,7 @@ class BookingExtension extends \Twig_Extension
                 $block.= '<dt class="feature">Duration:</dt><dd class="value">'.$booking['accommodation']['duration'].' weeks</dd>';
                 $block.= '<dt class="feature">Starting date:</dt><dd class="value">'.$showDate.'</dd>';
 //                $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$room->calculePrice($booking['accommodation']['duration']).' '.$accommodation->getSchoolLocation()->getCurrency()->getCode().'</dd>';
-                $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($room->calculePrice($booking['accommodation']['duration']),$accommodation->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
+                $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($room->calculePrice($booking['accommodation']['duration']), $accommodation->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
                 $block.= '</dl>';
                 $total+=$room->calculePrice($booking['accommodation']['duration']);
             }
@@ -219,7 +221,7 @@ class BookingExtension extends \Twig_Extension
                 $block.= '<dt class="feature">Room:</dt><dd class="value">'.$room->getName().'</dd>';
                 $block.= '<dt class="feature">Duration:</dt><dd class="value">'.$price->getStartDate()->format('d F Y').' to '.$price->getEndDate()->format('d F Y').'</dd>';
 //                $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$price->getPrice().' '.$accommodation->getSchoolLocation()->getCurrency()->getCode().'</dd>';
-                $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($price->getPrice(),$accommodation->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
+                $block.= '<dt class="total-price">Price</dt><dd class="total-price-value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($price->getPrice(), $accommodation->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
                 $block.= '</dl>';
                 $total+=$price->getPrice();
             }
@@ -235,7 +237,7 @@ class BookingExtension extends \Twig_Extension
                 $extra=$this->em->getRepository("BackSchoolBundle:Extra")->find($id);
                 $block.='<dt class="feature">'.$extra->getName().'</dt>';
 //                $block.='<dd class="value" style="color: #01b7f2;">'.$this->getPriceExtra($id).' '.$course->getSchoolLocation()->getCurrency()->getCode().'</dd>';
-                $block.='<dd class="value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($this->getPriceExtra($id),$course->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
+                $block.='<dd class="value" style="color: #01b7f2;">'.$this->container->get('library')->convertCurrency($this->getPriceExtra($id), $course->getSchoolLocation()->getCurrency()->getCode()).'</dd>';
                 $total+=$this->getPriceExtra($id);
             }
             $block.= '</dl>';

@@ -8,6 +8,7 @@
                     {{ form_widget(form._token) }}
                     <div class="row">
                         {{ formulaire.input("col-md-3","Name",form.name,true) }}
+                        {{ formulaire.select2("col-md-3","Level of study",form.level,true) }}
                     </div>
                     {{ macro.enregistrer }}
                 </form>
@@ -20,12 +21,14 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Level of study</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for qualification in qualifications %}
                             <tr>
                                 <td>{{ qualification.name }}</td>
+                                <td>{{ qualification.level }}</td>
                                 <td>
                                     {{ macro.edit(path('qualification',{'id':qualification.id})) }}
                                     {{ macro.delete(path('delete_qualification',{'id':qualification.id})) }}

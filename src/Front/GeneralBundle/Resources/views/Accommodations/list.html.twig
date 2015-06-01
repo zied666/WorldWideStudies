@@ -38,7 +38,13 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <p>{{ accommodation.shortDescription }}</p>
+                                            <p>
+                                                {% if  accommodation.shortDescription|length >200 %}
+                                                    {{ accommodation.shortDescription|slice(0, 200) }} ...
+                                                {% else %}
+                                                    {{ accommodation.shortDescription }}
+                                                {% endif %}
+                                            </p>
                                             <div>
                                                 <span class="price"><small>AVG/WEEK</small>{{ accommodation.avgPrice }} {{ accommodation.currency.code }} </span>
                                                 <a class="button btn-small full-width text-center" title="" href="{{ path('front_accommodations_details',{'id':accommodation.id}) }}">SELECT</a>

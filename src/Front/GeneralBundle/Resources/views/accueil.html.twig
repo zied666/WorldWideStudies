@@ -14,7 +14,7 @@
         </div>
         <div class="container">
             <div class="row">
-                <div id="main" class="col-sm-8 col-md-9" style="  padding-top: 20px;">
+                <div id="main" class="col-sm-8 col-md-9" style="  padding-top: 30px;">
                     <div class="tagline visible-lg" id="tagline"><span>It's time to</span>
                         <ul>
                             <li>live</li>
@@ -30,7 +30,7 @@
                             <li>play</li>
                         </ul>
                     </div>
-                    <div class="search-box-wrapper style1">
+                    <div class="search-box-wrapper style1" style="margin-top: 30px;">
                         <div class="search-box">
                             <ul class="search-tabs clearfix">
                                 <li class="active"><a href="#hotels-tab" data-toggle="tab"><i class="soap-icon-conference"></i>{{ homepage.title1 }}</a></li>
@@ -196,7 +196,7 @@
                                                 <div class="col-xs-6">
                                                     <label>Select a level of study</label>
                                                     <div class="selector">
-                                                        <select class="full-width" name="level">
+                                                        <select class="full-width" name="level" id="levelOfStudy">
                                                             <option value="">All levels</option>
                                                             {% for level in levels %}
                                                                 <option value="{{ level.id }}">{{ level|title }}</option>
@@ -207,7 +207,7 @@
                                                 <div class="col-xs-6">
                                                     <label>Qualification</label>
                                                     <div class="selector">
-                                                        <select class="full-width" name="qualification">
+                                                        <select class="full-width" name="qualification" id="qualification">
                                                             <option value="">All qualifications</option>
                                                             {% for qualification in qualifications %}
                                                                 <option value="{{ qualification.id }}">{{ qualification|title }}</option>
@@ -337,7 +337,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="sidebar col-sm-4 col-md-3" style="  z-index: 11;padding-top: 103px;">
+                <div class="sidebar col-sm-4 col-md-3" style="  z-index: 11;padding-top: 145px;">
                     <div class="travelo-box contact-box" style="padding: 0px;">
                         <div class="testimonial style3" style="margin-top: 0px; ">
                             <ul class="slides ">
@@ -345,7 +345,7 @@
                                 {% for testimonial in testimonials %}
                                     <li>
                                         <div class="author"><a href="#"><img src="{{ testimonial.image.getAssetPath | imagine_filter('testimonial') }}" alt="" width="74" height="74" /></a></div>
-                                        <h2 class="name">{{ testimonial.name }}</h2>
+                                        <h2 class="name">{{ testimonial.name|title }} - {% if testimonial.city.country is defined %}{{ testimonial.city.country|title }}{% endif %}</h2>
                                         <blockquote style="padding:0px;text-indent: 0px;" class="">
                                             {% if  testimonial.description|length >num %}
                                                 {{ testimonial.description|slice(0, num) }}...
@@ -353,10 +353,7 @@
                                                 {{ testimonial.description }}
                                             {% endif %}
                                         </blockquote>
-                                        <h5>{{ testimonial.school }}</h5> 
-                                        {% if testimonial.city.country is defined %}
-                                            <h5>{{ testimonial.city }},{{ testimonial.city.country }}</h5>
-                                        {% endif %}
+                                        <h4>{{ testimonial.school|title }}</h4> 
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -570,6 +567,27 @@
         }
 
         tjq(document).ready(function () {
+
+            tjq('#levelOfStudy').on('change', function () {
+                var qualification = tjq('#qualification');
+                qualification.empty();
+                qualification.append('<option value="">Loading ...</option>');
+                updateTraveloElementUI(qualification);
+                var id = tjq(this).val();
+                tjq.ajax({
+                    url: '{{ path('ajax_level_to_qualification') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        qualification.empty();
+                        tjq.each(json, function (index, value) {
+                            qualification.append('<option value="' + index + '">' + value + '</option>');
+                            updateTraveloElementUI(qualification);
+                        });
+                    }
+                });
+            })
             tjq('#CountrySelect1').on('change', function () {
                 var city = tjq('#CitySelect1');
                 city.empty();

@@ -37,6 +37,10 @@ change_locale:
 ajax_country_to_city:
     path:     /ajax_country_to_city/
     defaults: { _controller: FrontGeneralBundle:Default:ajax } 
+
+ajax_level_to_qualification:
+    path:     /ajax_level_to_qualification/
+    defaults: { _controller: FrontGeneralBundle:Default:ajaxLevel } 
     
 front_language_courses_redirect:
     path:     /redirect_language_courses

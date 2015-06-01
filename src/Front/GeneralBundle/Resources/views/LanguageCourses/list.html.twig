@@ -44,7 +44,13 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <p>{{ school.shortDescription }}</p>
+                                            <p>
+                                                {% if  school.shortDescription|length >200 %}
+                                                    {{ school.shortDescription|slice(0, 200) }} ...
+                                                {% else %}
+                                                    {{ school.shortDescription }}
+                                                {% endif %}
+                                            </p>
                                             <div>
                                                 <span class="price"><small>AVG/WEEK</small>{{ convertCurrency(school.avgPrice,school.currency.code) }} </span>
                                                 <a class="button btn-small full-width text-center" title="" href="{{ path('front_language_courses_details',{'id':school.id}) }}">SELECT</a>

@@ -40,7 +40,13 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <p>{{ course.description }}</p>
+                                            <p>
+                                                {% if  course.description|length >200 %}
+                                                    {{ course.description|slice(0, 200) }} ...
+                                                {% else %}
+                                                    {{ course.description }}
+                                                {% endif %}
+                                            </p>
                                             <div>
                                                 <span class="price"><small>PRICE</small>{{ course.price }} {{ course.university.currency.code }} </span>
                                                 <a class="button btn-small full-width text-center" title="" href="{{ path('front_courses_title_details',{'id':course.id}) }}">SELECT</a>
@@ -86,6 +92,26 @@
     {% endif %}
     <script>
         tjq(document).ready(function () {
+            tjq('#levelOfStudy').on('change', function () {
+                var qualification = tjq('#qualification');
+                qualification.empty();
+                qualification.append('<option value="">Loading ...</option>');
+                updateTraveloElementUI(qualification);
+                var id = tjq(this).val();
+                tjq.ajax({
+                    url: '{{ path('ajax_level_to_qualification') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        qualification.empty();
+                        tjq.each(json, function (index, value) {
+                            qualification.append('<option value="' + index + '">' + value + '</option>');
+                            updateTraveloElementUI(qualification);
+                        });
+                    }
+                });
+            })
             tjq('#CountrySelect1').on('change', function () {
                 var city = tjq('#CitySelect1');
                 city.empty();
