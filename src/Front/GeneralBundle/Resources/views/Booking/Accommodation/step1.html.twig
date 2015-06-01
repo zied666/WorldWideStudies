@@ -29,7 +29,7 @@
                                     <div class="form-group row">
                                         <div class="col-md-3">
                                             <label style="padding-top: 7px;">
-                                                <input  type="radio" required name="room" value="{{ room.id }}" style="vertical-align: sub;"/>
+                                                <input  type="radio" required name="room" value="{{ room.id }}" class="InputRadio" style="vertical-align: sub;"/>
                                                 <strong>{{ room }}</strong>
                                             </label>
                                         </div>
@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="datepicker-wrap dark-blue">
-                                                <input type="text" class="input-text full-width" name="startDate_{{ room.id }}" placeholder="mm/dd/yy" />
+                                                <input type="text" class="input-text full-width StartingDate" name="startDate_{{ room.id }}" placeholder="mm/dd/yy" />
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -89,6 +89,10 @@
 {% block jquery %}
     <script>
         tjq(document).ready(function () {
+            tjq('.InputRadio').on('change',function () {
+                tjq('.StartingDate').prop('required', false);
+                tjq(this).parent().parent().parent().find('.StartingDate').prop('required', true);
+            });
             tjq('.DurationSelect').change(function () {
                 var val = tjq(this).val();
                 var room = tjq(this).data('room');
