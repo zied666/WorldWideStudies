@@ -39,7 +39,7 @@ class PathwayPrice
     /**
      * @var integer
      *
-     * @ORM\Column(name="week", type="integer")
+     * @ORM\Column(name="week", type="integer",nullable=true)
      */
     private $week;
 
@@ -59,11 +59,13 @@ class PathwayPrice
 
     /**
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="pathwayPrices")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $course;
 
     /**
      * @ORM\ManyToOne(targetEntity="Room", inversedBy="pathwayPrices")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * 
      */
     protected $room;
@@ -227,4 +229,35 @@ class PathwayPrice
         return round($nbrJours / 86400 / 7);
     }
 
+
+    /**
+     * Set week
+     *
+     * @param integer $week
+     * @return PathwayPrice
+     */
+    public function setWeek($week)
+    {
+        $this->week = $week;
+
+        return $this;
+    }
+
+    /**
+     * Get week
+     *
+     * @return integer 
+     */
+    public function getWeek()
+    {
+        return $this->week;
+    }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+        }
+    }
 }

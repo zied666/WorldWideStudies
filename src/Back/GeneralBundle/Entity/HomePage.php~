@@ -394,4 +394,27 @@ class HomePage
     {
         return $this->photo;
     }
+
+    /**
+     * Set cercle
+     *
+     * @param \Back\ReferentielBundle\Entity\Media $cercle
+     * @return HomePage
+     */
+    public function setCercle(\Back\ReferentielBundle\Entity\Media $cercle = null)
+    {
+        $this->cercle = $cercle;
+
+        return $this;
+    }
+
+    /**
+     * Get cercle
+     *
+     * @return \Back\ReferentielBundle\Entity\Media 
+     */
+    public function getCercle()
+    {
+        return $this->cercle;
+    }
 }

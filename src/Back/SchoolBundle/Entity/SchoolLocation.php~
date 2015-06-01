@@ -107,7 +107,6 @@ class SchoolLocation
 
     /**
      * @ORM\OneToMany(targetEntity="Course", mappedBy="schoolLocation")
-     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $courses;
 
@@ -630,4 +629,39 @@ class SchoolLocation
             return $this->avgPrice;
     }
 
+
+    /**
+     * Set homepage
+     *
+     * @param boolean $homepage
+     * @return SchoolLocation
+     */
+    public function setHomepage($homepage)
+    {
+        $this->homepage = $homepage;
+
+        return $this;
+    }
+
+    /**
+     * Get homepage
+     *
+     * @return boolean 
+     */
+    public function getHomepage()
+    {
+        return $this->homepage;
+    }
+    
+    public function __clone()
+    {
+        if ($this->id)
+        {
+            $this->id = null ;
+            $this->name='(Clone) '.$this->name;
+            $this->enabled=FALSE;
+            if ($this->image != null)
+                $this->image = clone $this->image ;
+        }
+    }
 }

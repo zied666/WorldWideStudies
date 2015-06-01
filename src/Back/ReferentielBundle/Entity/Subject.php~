@@ -5,14 +5,13 @@ namespace Back\ReferentielBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Qualification
+ * Subject
  *
- * @ORM\Table(name="wws_qualification")
+ * @ORM\Table(name="wws_subject")
  * @ORM\Entity
  */
-class Qualification
+class Subject
 {
-
     /**
      * @var integer
      *
@@ -29,10 +28,6 @@ class Qualification
      */
     private $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\Level")
-     */
-    protected $level;
 
     /**
      * Get id
@@ -48,11 +43,11 @@ class Qualification
      * Set name
      *
      * @param string $name
-     * @return Qualification
+     * @return Subject
      */
     public function setName($name)
     {
-        $this->name=$name;
+        $this->name = $name;
 
         return $this;
     }
@@ -66,7 +61,7 @@ class Qualification
     {
         return $this->name;
     }
-
+    
     /**
      * To string
      * @return string 
@@ -75,28 +70,4 @@ class Qualification
     {
         return $this->name;
     }
-
-    /**
-     * Set level
-     *
-     * @param \Back\ReferentielBundle\Entity\Level $level
-     * @return Qualification
-     */
-    public function setLevel(\Back\ReferentielBundle\Entity\Level $level=null)
-    {
-        $this->level=$level;
-
-        return $this;
-    }
-
-    /**
-     * Get level
-     *
-     * @return \Back\ReferentielBundle\Entity\Level 
-     */
-    public function getLevel()
-    {
-        return $this->level;
-    }
-
 }

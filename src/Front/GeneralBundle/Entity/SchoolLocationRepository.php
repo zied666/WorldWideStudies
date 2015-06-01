@@ -30,7 +30,9 @@ class SchoolLocationRepository extends EntityRepository
         {
             $query->andWhere(
                     $query->expr()->orX(
-                            $query->expr()->like("s.name", ":keyword"), $query->expr()->like("s.shortDescription", ":keyword"), $query->expr()->like("s.longDescription", ":keyword")
+                            $query->expr()->like("s.name", ":keyword"),
+                            $query->expr()->like("s.shortDescription", ":keyword"),
+                            $query->expr()->like("s.longDescription", ":keyword")
                     )
             )->setParameter('keyword', '%'.$keyword.'%');
         }
@@ -63,7 +65,9 @@ class SchoolLocationRepository extends EntityRepository
         {
             $query->andWhere(
                     $query->expr()->orX(
-                            $query->expr()->like("s.name", ":keyword"), $query->expr()->like("s.shortDescription", ":keyword"), $query->expr()->like("s.longDescription", ":keyword")
+                            $query->expr()->like("s.name", ":keyword"),
+                            $query->expr()->like("s.shortDescription", ":keyword"),
+                            $query->expr()->like("s.longDescription", ":keyword")
                     )
             )->setParameter('keyword', '%'.$keyword.'%');
         }

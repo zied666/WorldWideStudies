@@ -70,6 +70,12 @@ class Extra
      * @Assert\NotNull()
      */
     protected $schoolLocation;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Front\GeneralBundle\Entity\BookingLanguageCourse", inversedBy="extras")
+     * @Assert\NotNull()
+     */
+    protected $bookingLanguageCourse;
 
 
     /**

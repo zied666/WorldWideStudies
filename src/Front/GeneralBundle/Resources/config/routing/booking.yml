@@ -30,6 +30,17 @@ book_school_review:
     path:     /schools/review
     defaults: { _controller: FrontGeneralBundle:Booking:reviewCourse}
 
+book_school_thinkyou:
+    path:     /schools/thinkyou
+    defaults: { _controller: FrontGeneralBundle:Booking:thinkyouCourse}
+
+book_validation_language_course:
+    path:     /schools/book_validation_language_course
+    defaults: { _controller: FrontGeneralBundle:Booking:validationLanguageCourse}
+
+book_validation_pathway_course:
+    path:     /schools/book_validation_pathway_course
+    defaults: { _controller: FrontGeneralBundle:Booking:validationPathwayCourse}
 
 
 book_accommodation_redirect:
@@ -47,3 +58,11 @@ ajax_update_accommodation_price_accommodation:
 book_accommodation_review:
     path:     /accommodation/review
     defaults: { _controller: FrontGeneralBundle:Booking:reviewAccommodation}
+    
+book_validation_accommodation:
+    path:     /accommodation/book_validation_accommodation
+    defaults: { _controller: FrontGeneralBundle:Booking:validationAccommodation}
+    
+book_accommodation_thinkyou:
+    path:     /accommodation/thinkyou
+    defaults: { _controller: FrontGeneralBundle:Booking:thinkyouAccommodation}

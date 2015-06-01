@@ -168,7 +168,9 @@
                                     <div class="five-stars-container"><div class="five-stars" style="width: {{ stars }}%;"></div></div>
                                 </div>
                             </div>
-                            <a class="button yellow full-width uppercase btn-small" href="{{ path('book_school_redirect',{'id':school.id}) }}">Get a quote & Book</a>
+                            {% if school.courses|length!=0 %}
+                                <a class="button yellow full-width uppercase btn-small" href="{{ path('book_school_redirect',{'id':school.id}) }}">Get a quote & Book</a>
+                            {% endif %}
                         </div>
                     </article>
                     {% if schools|length>1 %}
@@ -183,7 +185,6 @@
                                         <div class="details">
                                             <h5 class="box-title"><a href="{{ path('front_language_courses_details',{'id':sch.id}) }}">{{ sch|title }}</a></h5>
                                             <label class="price-wrapper">
-                                                {#<span class="price-per-unit">{{ sch.avgPrice }}{{ sch.currency.code }}</span>week/night#}
                                                 <span class="price-per-unit">{{ convertCurrency(sch.avgPrice,sch.currency.code) }}</span>AVG/WEEK
                                             </label>
                                         </div>

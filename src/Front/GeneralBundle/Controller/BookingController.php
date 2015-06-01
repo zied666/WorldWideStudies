@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Entity\Room;
 use Back\AccommodationBundle\Entity\Accommodation;
+use Front\GeneralBundle\Entity\BookingLanguageCourse;
+use Front\GeneralBundle\Entity\BookingPathwayCourse;
+use Front\GeneralBundle\Entity\BookingAccommodation;
 
 class BookingController extends Controller
 {
@@ -83,14 +86,14 @@ class BookingController extends Controller
             for($i=$room->getMinWeek(); $i <= $room->getMaxWeek(); $i++)
                 $tab[$i]=$i.' weeks';
 //            $price=$room->calculePrice($room->getMinWeek()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
-            $price=$this->get('library')->convertCurrency($room->calculePrice($room->getMinWeek()),$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode());
+            $price=$this->get('library')->convertCurrency($room->calculePrice($room->getMinWeek()), $room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode());
         }
         if($room->getAccommodation()->getSchoolLocation()->getType() == 2)
         {
             foreach($room->getPathwayPrices() as $price)
                 $tab[$price->getId()]=$price->getStartDate()->format('d F Y').' - '.$price->getEndDate()->format('d F Y');
 //            $price=$room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
-            $price=$this->get('library')->convertCurrency($room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()),$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode());
+            $price=$this->get('library')->convertCurrency($room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()), $room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode());
         }
         $response->setData(array( 'select'=>$tab, 'price'=>$price ));
         return $response;
@@ -182,6 +185,19 @@ class BookingController extends Controller
         ));
     }
 
+    public function thinkyouCourseAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
+        $booking=$session->get("booking");
+        $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
+        return $this->render('FrontGeneralBundle:Booking\Schools:thinkyou.html.twig', array(
+                    'school'=>$school,
+        ));
+    }
+
     public function bookRedirectAccommodationAction(Accommodation $accommodation)
     {
         $session=$this->getRequest()->getSession();
@@ -239,5 +255,133 @@ class BookingController extends Controller
                     'accommodation'=>$accommodation,
         ));
     }
+    public function thinkyouAccommodationAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
+        $booking=$session->get("booking");
+        $accommodation=$em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
+        return $this->render('FrontGeneralBundle:Booking\Accommodation:thinkyou.html.twig', array(
+                    'accommodation'=>$accommodation,
+        ));
+    }
 
+    public function validationLanguageCourseAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $user=$this->get('security.context')->getToken()->getUser();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
+        $booking=$session->get("booking");
+        $curr=$session->get("currency");
+        $currency=$em->getRepository("BackReferentielBundle:Currency")->findOneBy(array( 'code'=>$curr['code'] ));
+        $bookingLanguageCourse=new BookingLanguageCourse();
+        $bookingLanguageCourse->setClient($user);
+        $bookingLanguageCourse->setCurrency($currency);
+        $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
+        //Course
+        $course=$em->getRepository("BackSchoolBundle:Course")->find($booking['course']['id']);
+        $bookingLanguageCourse->setCourse($course);
+        $bookingLanguageCourse->setWeekCourse($booking['course']['duration']);
+        $bookingLanguageCourse->setStartingDateCourse(\DateTime::createFromFormat('Y-m-d', $booking['course']['startDate']));
+        $bookingLanguageCourse->setTotalCourse($this->container->get('library')->convertCurrency($course->calculePrice($booking['course']['duration']), $school->getCurrency()->getCode()));
+        //Accommodation 
+        if(isset($booking['accommodation']['id']))
+        {
+            $room=$em->getRepository("BackSchoolBundle:Room")->find($booking['accommodation']['room']);
+            $bookingLanguageCourse->setRoom($room);
+            $bookingLanguageCourse->setWeekAccommodation($booking['accommodation']['duration']);
+            $bookingLanguageCourse->setStartingDateAccommodation(\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']));
+            $bookingLanguageCourse->setTotalAccommodation($this->container->get('library')->convertCurrency($room->calculePrice($booking['accommodation']['duration']), $school->getCurrency()->getCode()));
+        }
+        //Extras
+        $totalExtra=0;
+        foreach($booking['extras'] as $ext)
+        {
+            $extra=$em->getRepository("BackSchoolBundle:Extra")->find($ext);
+            $bookingLanguageCourse->addExtra($extra);
+            $totalExtra +=$this->container->get('booking')->getPriceExtra($ext);
+            $bookingLanguageCourse->setTotalExtra($this->container->get('library')->convertCurrency($totalExtra, $school->getCurrency()->getCode()));
+        }
+        $bookingLanguageCourse->setTotal($bookingLanguageCourse->getTotalCourse() + $bookingLanguageCourse->getTotalAccommodation() + $bookingLanguageCourse->getTotalExtra());
+        $em->persist($bookingLanguageCourse->setStatus(1)->setBookingDate(new \DateTime()));
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your booking has been done successfully");
+        return $this->redirect($this->generateUrl('book_school_thinkyou'));
+    }
+
+    public function validationPathwayCourseAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $user=$this->get('security.context')->getToken()->getUser();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
+        $booking=$session->get("booking");
+        $curr=$session->get("currency");
+        $currency=$em->getRepository("BackReferentielBundle:Currency")->findOneBy(array( 'code'=>$curr['code'] ));
+        $bookingPahwayCourse=new BookingPathwayCourse();
+        $bookingPahwayCourse->setClient($user);
+        $bookingPahwayCourse->setCurrency($currency);
+        $school=$em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
+        //Course
+        $course=$em->getRepository("BackSchoolBundle:Course")->find($booking['course']['id']);
+        $pathwayPrice=$em->getRepository("BackSchoolBundle:PathwayPrice")->find($booking['course']['duration']);
+        $bookingPahwayCourse->setCourse($course);
+        $bookingPahwayCourse->setPathwayPriceCourse($pathwayPrice);
+        $bookingPahwayCourse->setStartingDateCourse(\DateTime::createFromFormat('Y-m-d', $booking['course']['startDate']));
+        $bookingPahwayCourse->setTotalCourse($this->container->get('library')->convertCurrency($pathwayPrice->getPrice(), $school->getCurrency()->getCode()));
+        //Accommodation 
+        if(isset($booking['accommodation']['id']))
+        {
+            $room=$em->getRepository("BackSchoolBundle:Room")->find($booking['accommodation']['room']);
+            $pathwayPrice=$em->getRepository("BackSchoolBundle:PathwayPrice")->find($booking['accommodation']['duration']);
+            $bookingPahwayCourse->setRoom($room);
+            $bookingPahwayCourse->setPathwayPriceAccommodation($pathwayPrice);
+            $bookingPahwayCourse->setStartingDateAccommodation(\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']));
+            $bookingPahwayCourse->setTotalAccommodation($this->container->get('library')->convertCurrency($pathwayPrice->getPrice(), $school->getCurrency()->getCode()));
+        }
+        //Extras
+        $totalExtra=0;
+        foreach($booking['extras'] as $ext)
+        {
+            $extra=$em->getRepository("BackSchoolBundle:Extra")->find($ext);
+            $bookingPahwayCourse->addExtra($extra);
+            $totalExtra +=$this->container->get('booking')->getPriceExtra($ext);
+            $bookingPahwayCourse->setTotalExtra($this->container->get('library')->convertCurrency($totalExtra, $school->getCurrency()->getCode()));
+        }
+        $bookingPahwayCourse->setTotal($bookingPahwayCourse->getTotalCourse() + $bookingPahwayCourse->getTotalAccommodation() + $bookingPahwayCourse->getTotalExtra());
+        $em->persist($bookingPahwayCourse->setStatus(1)->setBookingDate(new \DateTime()));
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your booking has been done successfully");
+        return $this->redirect($this->generateUrl('book_school_thinkyou'));
+    }
+
+    public function validationAccommodationAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $user=$this->get('security.context')->getToken()->getUser();
+        if(!$session->has("booking"))
+            return $this->redirect($this->generateUrl('accueil'));
+        $curr=$session->get("currency");
+        $currency=$em->getRepository("BackReferentielBundle:Currency")->findOneBy(array( 'code'=>$curr['code'] ));
+        $booking=$session->get("booking");
+        $bookingAccommodation = new BookingAccommodation();
+        $accommodation=$em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
+        $room=$em->getRepository("BackAccommodationBundle:Room")->find($booking['room']);
+        $price=$em->getRepository("BackAccommodationBundle:Price")->find($booking['price']);
+        $bookingAccommodation->setClient($user);
+        $bookingAccommodation->setCurrency($currency);
+        $bookingAccommodation->setRoom($room);
+        $bookingAccommodation->setPrice($price);
+        $bookingAccommodation->setStartingDate(\DateTime::createFromFormat('Y-m-d', $booking['startDate']));
+        $bookingAccommodation->setTotal($this->container->get('library')->convertCurrency($price->getPrice(), $accommodation->getCurrency()->getCode()));
+        $em->persist($bookingAccommodation->setStatus(1)->setBookingDate(new \DateTime()));
+        $em->flush();
+        return $this->redirect($this->generateUrl('book_accommodation_thinkyou'));
+    }
 }
