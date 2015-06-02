@@ -228,7 +228,6 @@ class BookingController extends Controller
         $receiver_email=$_POST['receiver_email'];
         $payer_email=$_POST['payer_email'];
         parse_str($_POST['custom'], $custom);
-        $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
         if(!$fp)
         {
             
@@ -246,6 +245,7 @@ class BookingController extends Controller
                         if($email_account == $receiver_email)
                         {
                             file_put_contents('log', print_r($_POST, true));
+                            $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
                             if($payment_amount == $booking->getTotal())
                             {
                                 $booking->setDateTrasaction(new \DateTime());
@@ -258,16 +258,14 @@ class BookingController extends Controller
                     }
                     else
                     {
-                        $booking->setStatus(9);
-                        $em->persist($booking);
+                        $em->persist($booking->setStatus(9));
                         $em->flush();
                     }
                     exit();
                 }
                 else if(strcmp($res, "INVALID") == 0)
                 {
-                    $booking->setStatus(9);
-                    $em->persist($booking);
+                    $em->persist($booking->setStatus(9));
                     $em->flush();
                 }
             }
