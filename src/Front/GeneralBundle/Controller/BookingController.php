@@ -202,128 +202,76 @@ class BookingController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $paypal=$em->getRepository("BackReferentielBundle:Paypal")->find(1);
-        $raw_post_data=file_get_contents('php://input');
-        $raw_post_array=explode('&', $raw_post_data);
-        $myPost=array();
-        $logger=$this->get('logger');
-        foreach($raw_post_array as $keyval)
-        {
-            $keyval=explode('=', $keyval);
-            if(count($keyval) == 2)
-                $myPost[$keyval[0]]=urldecode($keyval[1]);
-        }
+        $request=$this->getRequest();
+        $email_account=$paypal->getAccount();
         $req='cmd=_notify-validate';
-        if(function_exists('get_magic_quotes_gpc'))
+
+        foreach($_POST as $key=> $value)
         {
-            $get_magic_quotes_exists=true;
-            $logger->info('PAYPAL - get_magic_quotes_gpc');
-        }
-        foreach($myPost as $key=> $value)
-        {
-            if($get_magic_quotes_exists == true && get_magic_quotes_gpc() == 1)
-            {
-                $value=urlencode(stripslashes($value));
-            }
-            else
-            {
-                $value=urlencode($value);
-            }
+            $value=urlencode(stripslashes($value));
             $req .= "&$key=$value";
         }
+
+        $header="POST /cgi-bin/webscr HTTP/1.0\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: ".strlen($req)."\r\n\r\n";
         if($paypal->getTestMode())
-            $paypal_url="https://www.sandbox.paypal.com/cgi-bin/webscr";
+            $fp=fsockopen('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
         else
-            $paypal_url="https://www.paypal.com/cgi-bin/webscr";
-
-        
-        $ch=curl_init($paypal_url);
-        if($ch == FALSE)
+            $fp=fsockopen('ssl://www.paypal.com', 443, $errno, $errstr, 30);
+        $item_name=$_POST['item_name'];
+        $item_number=$_POST['item_number'];
+        $payment_status=$_POST['payment_status'];
+        $payment_amount=$_POST['mc_gross'];
+        $payment_currency=$_POST['mc_currency'];
+        $txn_id=$_POST['txn_id'];
+        $receiver_email=$_POST['receiver_email'];
+        $payer_email=$_POST['payer_email'];
+        parse_str($_POST['custom'], $custom);
+        $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
+        if(!$fp)
         {
-            $logger->error('PAYPAL - ch == false');
-            return FALSE;
-        }
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
-
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'Connection: Close' ));
-
-        $res=curl_exec($ch);
-        if(curl_errno($ch) != 0) // cURL error
-        {
-            $logger->error('PAYPAL - curl_errno($ch) != 0');
-            curl_close($ch);
-            //exit;
-        }
-        else
-        {
-            $logger->error('PAYPAL -  curl_close($ch');
-            curl_close($ch);
-        }
-
-        $tokens=explode("\r\n\r\n", trim($res));
-        $res=trim(end($tokens));
-        if(strcmp($res, "VERIFIED") == 0)
-        {
-            $logger->info('PAYPAL - VERIFIED');
-            $item_name=$_POST['item_name'];
-            $item_number=$_POST['item_number'];
-            $payment_status=$_POST['payment_status'];
-            $payment_amount=$_POST['mc_gross'];
-            $payment_currency=$_POST['mc_currency'];
-            $txn_id=$_POST['txn_id'];
-            $receiver_email=$_POST['receiver_email'];
-            $payer_email=$_POST['payer_email'];
-            $date=convert_date($_POST['payment_date'], "mysql", null);
-            parse_str($_POST['custom'], $custom);
-
-            $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
-            if($payment_status != 'Completed')
-            {
-                $errors[]="Payment not completed";
-                $etat=2;
-            }
-            if($receiver_email != $paypal->getAccount())
-            {
-                $errors[]="Incorrect seller e-mail";
-                $logger->error('PAYPAL - Incorrect seller e-mail');
-            }
-            if($payment_amount != $booking->getTotal())
-            {
-                $errors[]="Incorrect product price";
-                $logger->error('PAYPAL - Incorrect product price');
-                $etat=2;
-            }
-            if($payment_currency != $booking->getCurrency()->getCode())
-            {
-                $errors[]="Incorrect currency code";
-                $logger->error('PAYPAL - Incorrect currency code');
-                $etat=2;
-            }
-            if(count($errors) > 0)
-            {
-                $message="IPN failed fraud checks";
-                $logger->error('PAYPAL - IPN failed fraud checks');
-            }
-            else
-            {
-                $logger->info('PAYPAL - gooooooooooood');
-                $booking->setDateTrasaction(new \DateTime());
-                $booking->setIdTransaction($_POST['txn_id']);
-                $booking->setStatus(2);
-                $em->persist($booking);
-                $em->flush();
-            }
-        }
-        else if(strcmp($res, "INVALID") == 0)
-        {
-                $logger->error('PAYPAL - Invalid');
             
+        }
+        else
+        {
+            fputs($fp, $header.$req);
+            while(!feof($fp))
+            {
+                $res=fgets($fp, 1024);
+                if(strcmp($res, "VERIFIED") == 0)
+                {
+                    if($payment_status == "Completed")
+                    {
+                        if($email_account == $receiver_email)
+                        {
+                            file_put_contents('log', print_r($_POST, true));
+                            if($payment_amount == $booking->getTotal())
+                            {
+                                $booking->setDateTrasaction(new \DateTime());
+                                $booking->setIdTransaction($_POST['txn_id']);
+                                $booking->setStatus(2);
+                                $em->persist($booking);
+                                $em->flush();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        $booking->setStatus(9);
+                        $em->persist($booking);
+                        $em->flush();
+                    }
+                    exit();
+                }
+                else if(strcmp($res, "INVALID") == 0)
+                {
+                    $booking->setStatus(9);
+                    $em->persist($booking);
+                    $em->flush();
+                }
+            }
+            fclose($fp);
         }
     }
 
