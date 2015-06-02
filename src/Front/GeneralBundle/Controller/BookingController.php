@@ -244,7 +244,7 @@ class BookingController extends Controller
                     {
                         if($email_account == $receiver_email)
                         {
-                            file_put_contents('log', print_r($_POST, true));
+                            //file_put_contents('log', print_r($_POST, true));
                             $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
                             if($payment_amount == $booking->getTotal())
                             {
@@ -252,6 +252,11 @@ class BookingController extends Controller
                                 $booking->setIdTransaction($_POST['txn_id']);
                                 $booking->setStatus(2);
                                 $em->persist($booking);
+                                $em->flush();
+                            }
+                            else
+                            {
+                                $em->persist($booking->setStatus(9));
                                 $em->flush();
                             }
                         }
