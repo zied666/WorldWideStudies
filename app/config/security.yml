@@ -33,6 +33,7 @@ security:
         - { path: ^/[a-z]+/book, role: ROLE_USER }
         
         - { path: ^/admin/ref/administrator, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/ref/paypal, role: ROLE_SUPER_ADMIN }
         
         - { path: ^/admin/ref, role: ROLE_ADMIN_CONFIG }
         

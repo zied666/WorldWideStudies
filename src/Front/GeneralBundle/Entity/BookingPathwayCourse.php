@@ -90,7 +90,7 @@ class BookingPathwayCourse
     /**
      * @var string
      *
-     * @ORM\Column(name="total_accommodation", type="decimal", precision=11, scale=3)
+     * @ORM\Column(name="total_accommodation", type="decimal", precision=11, scale=3, nullable=true)
      */
     private $totalAccommodation;
 
@@ -106,7 +106,7 @@ class BookingPathwayCourse
     /**
      * @var string
      *
-     * @ORM\Column(name="total_extra", type="decimal", precision=11, scale=3)
+     * @ORM\Column(name="total_extra", type="decimal", precision=11, scale=3, nullable=true)
      */
     private $totalExtra;
 
@@ -123,6 +123,20 @@ class BookingPathwayCourse
      * @ORM\Column(name="bookingDate", type="datetime")
      */
     private $bookingDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateTrasaction", type="datetime", nullable=true)
+     */
+    private $dateTrasaction;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="idTransaction", type="string", length=255, nullable=true)
+     */
+    private $idTransaction;
 
     /**
      * Get id
@@ -408,16 +422,15 @@ class BookingPathwayCourse
         return $this->status;
     }
 
-
     /**
      * Set pathwayPriceCourse
      *
      * @param \Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceCourse
      * @return BookingPathwayCourse
      */
-    public function setPathwayPriceCourse(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceCourse = null)
+    public function setPathwayPriceCourse(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceCourse=null)
     {
-        $this->pathwayPriceCourse = $pathwayPriceCourse;
+        $this->pathwayPriceCourse=$pathwayPriceCourse;
 
         return $this;
     }
@@ -438,9 +451,9 @@ class BookingPathwayCourse
      * @param \Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceAccommodation
      * @return BookingPathwayCourse
      */
-    public function setPathwayPriceAccommodation(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceAccommodation = null)
+    public function setPathwayPriceAccommodation(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceAccommodation=null)
     {
-        $this->pathwayPriceAccommodation = $pathwayPriceAccommodation;
+        $this->pathwayPriceAccommodation=$pathwayPriceAccommodation;
 
         return $this;
     }
@@ -483,7 +496,7 @@ class BookingPathwayCourse
      */
     public function setBookingDate($bookingDate)
     {
-        $this->bookingDate = $bookingDate;
+        $this->bookingDate=$bookingDate;
 
         return $this;
     }
@@ -496,5 +509,52 @@ class BookingPathwayCourse
     public function getBookingDate()
     {
         return $this->bookingDate;
+    }
+
+
+    /**
+     * Set dateTrasaction
+     *
+     * @param \DateTime $dateTrasaction
+     * @return BookingPathwayCourse
+     */
+    public function setDateTrasaction($dateTrasaction)
+    {
+        $this->dateTrasaction = $dateTrasaction;
+
+        return $this;
+    }
+
+    /**
+     * Get dateTrasaction
+     *
+     * @return \DateTime 
+     */
+    public function getDateTrasaction()
+    {
+        return $this->dateTrasaction;
+    }
+
+    /**
+     * Set idTransaction
+     *
+     * @param string $idTransaction
+     * @return BookingPathwayCourse
+     */
+    public function setIdTransaction($idTransaction)
+    {
+        $this->idTransaction = $idTransaction;
+
+        return $this;
+    }
+
+    /**
+     * Get idTransaction
+     *
+     * @return string 
+     */
+    public function getIdTransaction()
+    {
+        return $this->idTransaction;
     }
 }

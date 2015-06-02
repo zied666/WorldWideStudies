@@ -68,6 +68,10 @@ delete_type_accommodation:
     path:     /delete_type_accomodation/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:deleteTypeAccomodation, }
 #********************************************************************************************************
+paypal:
+    path:     /paypal
+    defaults: { _controller: BackReferentielBundle:Referentiel:paypal}
+#********************************************************************************************************
 administrator:
     path:     /administrator/{id}/{password}
     defaults: { _controller: BackReferentielBundle:Referentiel:administrator,id:null,password:null }

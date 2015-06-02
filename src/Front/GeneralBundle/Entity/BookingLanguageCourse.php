@@ -92,7 +92,7 @@ class BookingLanguageCourse
     /**
      * @var string
      *
-     * @ORM\Column(name="total_accommodation", type="decimal", precision=11, scale=3)
+     * @ORM\Column(name="total_accommodation", type="decimal", precision=11, scale=3, nullable=true)
      */
     private $totalAccommodation;
 
@@ -108,7 +108,7 @@ class BookingLanguageCourse
     /**
      * @var string
      *
-     * @ORM\Column(name="total_extra", type="decimal", precision=11, scale=3)
+     * @ORM\Column(name="total_extra", type="decimal", precision=11, scale=3, nullable=true)
      */
     private $totalExtra;
 
@@ -125,6 +125,20 @@ class BookingLanguageCourse
      * @ORM\Column(name="bookingDate", type="datetime")
      */
     private $bookingDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateTrasaction", type="datetime", nullable=true)
+     */
+    private $dateTrasaction;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="idTransaction", type="string", length=255, nullable=true)
+     */
+    private $idTransaction;
 
     /**
      * Get id
@@ -498,5 +512,51 @@ class BookingLanguageCourse
     public function getExtras()
     {
         return $this->extras;
+    }
+
+    /**
+     * Set dateTrasaction
+     *
+     * @param \DateTime $dateTrasaction
+     * @return BookingLanguageCourse
+     */
+    public function setDateTrasaction($dateTrasaction)
+    {
+        $this->dateTrasaction = $dateTrasaction;
+
+        return $this;
+    }
+
+    /**
+     * Get dateTrasaction
+     *
+     * @return \DateTime 
+     */
+    public function getDateTrasaction()
+    {
+        return $this->dateTrasaction;
+    }
+
+    /**
+     * Set idTransaction
+     *
+     * @param string $idTransaction
+     * @return BookingLanguageCourse
+     */
+    public function setIdTransaction($idTransaction)
+    {
+        $this->idTransaction = $idTransaction;
+
+        return $this;
+    }
+
+    /**
+     * Get idTransaction
+     *
+     * @return string 
+     */
+    public function getIdTransaction()
+    {
+        return $this->idTransaction;
     }
 }

@@ -30,6 +30,8 @@ use Back\ReferentielBundle\Entity\Subject;
 use Back\ReferentielBundle\Form\SubjectType;
 use Back\ReferentielBundle\Entity\SubjectSchoolLocation;
 use Back\ReferentielBundle\Form\SubjectSchoolLocationType;
+use Back\ReferentielBundle\Entity\Paypal;
+use Back\ReferentielBundle\Form\PaypalType;
 
 class ReferentielController extends Controller
 {
@@ -703,4 +705,28 @@ class ReferentielController extends Controller
         return $this->redirect($this->generateUrl("subjectschool"));
     }
 
+    public function paypalAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $paypal=$em->getRepository('BackReferentielBundle:Paypal')->find(1);
+        if(!$paypal)
+            $paypal= new Paypal();
+        $form=$this->createForm(new PaypalType(), $paypal);
+        if($this->getRequest()->isMethod('POST'))
+        {
+            $form->submit($this->getRequest());
+            if($form->isValid())
+            {
+                $paypal=$form->getData();
+                $em->persist($paypal);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your paypal account has been updated successfully");
+                return $this->redirect($this->generateUrl("paypal"));
+            }
+        }
+        return $this->render("BackReferentielBundle::paypal.html.twig", array(
+                    'form'    =>$form->createView(),
+        ));
+    }
 }

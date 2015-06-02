@@ -198,6 +198,79 @@ class BookingController extends Controller
         ));
     }
 
+    public function paypalCourseAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $paypal=$em->getRepository("BackReferentielBundle:Paypal")->find(1);
+        $request=$this->getRequest();
+        $email_account=$paypal->getAccount();
+        $req='cmd=_notify-validate';
+
+        foreach($_POST as $key=> $value)
+        {
+            $value=urlencode(stripslashes($value));
+            $req .= "&$key=$value";
+        }
+
+        $header="POST /cgi-bin/webscr HTTP/1.0\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: ".strlen($req)."\r\n\r\n";
+        if($paypal->getTestMode())
+            $fp=fsockopen('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
+        else
+            $fp=fsockopen('ssl://www.paypal.com', 443, $errno, $errstr, 30);
+        $item_name=$_POST['item_name'];
+        $item_number=$_POST['item_number'];
+        $payment_status=$_POST['payment_status'];
+        $payment_amount=$_POST['mc_gross'];
+        $payment_currency=$_POST['mc_currency'];
+        $txn_id=$_POST['txn_id'];
+        $receiver_email=$_POST['receiver_email'];
+        $payer_email=$_POST['payer_email'];
+        parse_str($_POST['custom'], $custom);
+        $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
+        if(!$fp)
+        {
+            
+        }
+        else
+        {
+            fputs($fp, $header.$req);
+            while(!feof($fp))
+            {
+                $res=fgets($fp, 1024);
+                if(strcmp($res, "VERIFIED") == 0)
+                {
+                    if($payment_status == "Completed")
+                    {
+                        if($email_account == $receiver_email)
+                        {
+                            file_put_contents('log', print_r($_POST, true));
+                            if($payment_amount == $booking->getTotal())
+                            {
+                                $booking->setDateTrasaction(new \DateTime());
+                                $booking->setIdTransaction($_POST['txn_id']);
+                                $booking->setStatus(2);
+                                $em->persist($booking);
+                                $em->flush();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Statut de paiement: Echec
+                    }
+                    exit();
+                }
+                else if(strcmp($res, "INVALID") == 0)
+                {
+                    // Transaction invalide
+                }
+            }
+            fclose($fp);
+        }
+    }
+
     public function bookRedirectAccommodationAction(Accommodation $accommodation)
     {
         $session=$this->getRequest()->getSession();
@@ -255,6 +328,7 @@ class BookingController extends Controller
                     'accommodation'=>$accommodation,
         ));
     }
+
     public function thinkyouAccommodationAction()
     {
         $session=$this->getRequest()->getSession();
@@ -289,14 +363,16 @@ class BookingController extends Controller
         $bookingLanguageCourse->setStartingDateCourse(\DateTime::createFromFormat('Y-m-d', $booking['course']['startDate']));
         $bookingLanguageCourse->setTotalCourse($this->container->get('library')->convertCurrency($course->calculePrice($booking['course']['duration']), $school->getCurrency()->getCode()));
         //Accommodation 
+        $totalAccommodation=0;
         if(isset($booking['accommodation']['id']))
         {
             $room=$em->getRepository("BackSchoolBundle:Room")->find($booking['accommodation']['room']);
             $bookingLanguageCourse->setRoom($room);
             $bookingLanguageCourse->setWeekAccommodation($booking['accommodation']['duration']);
             $bookingLanguageCourse->setStartingDateAccommodation(\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']));
-            $bookingLanguageCourse->setTotalAccommodation($this->container->get('library')->convertCurrency($room->calculePrice($booking['accommodation']['duration']), $school->getCurrency()->getCode()));
+            $totalAccommodation=$this->container->get('library')->convertCurrency($room->calculePrice($booking['accommodation']['duration']), $school->getCurrency()->getCode());
         }
+        $bookingLanguageCourse->setTotalAccommodation($totalAccommodation);
         //Extras
         $totalExtra=0;
         foreach($booking['extras'] as $ext)
@@ -304,13 +380,17 @@ class BookingController extends Controller
             $extra=$em->getRepository("BackSchoolBundle:Extra")->find($ext);
             $bookingLanguageCourse->addExtra($extra);
             $totalExtra +=$this->container->get('booking')->getPriceExtra($ext);
-            $bookingLanguageCourse->setTotalExtra($this->container->get('library')->convertCurrency($totalExtra, $school->getCurrency()->getCode()));
         }
+        $bookingLanguageCourse->setTotalExtra($this->container->get('library')->convertCurrency($totalExtra, $school->getCurrency()->getCode()));
         $bookingLanguageCourse->setTotal($bookingLanguageCourse->getTotalCourse() + $bookingLanguageCourse->getTotalAccommodation() + $bookingLanguageCourse->getTotalExtra());
         $em->persist($bookingLanguageCourse->setStatus(1)->setBookingDate(new \DateTime()));
         $em->flush();
-        $session->getFlashBag()->add('success', "Your booking has been done successfully");
-        return $this->redirect($this->generateUrl('book_school_thinkyou'));
+//        return $this->redirect($this->generateUrl('book_school_thinkyou'));
+        $paypal=$em->getRepository('BackReferentielBundle:Paypal')->find(1);
+        return $this->render("FrontGeneralBundle:Booking\Schools:sendToPaypal.html.twig", array(
+                    'paypal' =>$paypal,
+                    'booking'=>$bookingLanguageCourse
+        ));
     }
 
     public function validationPathwayCourseAction()
@@ -335,6 +415,7 @@ class BookingController extends Controller
         $bookingPahwayCourse->setStartingDateCourse(\DateTime::createFromFormat('Y-m-d', $booking['course']['startDate']));
         $bookingPahwayCourse->setTotalCourse($this->container->get('library')->convertCurrency($pathwayPrice->getPrice(), $school->getCurrency()->getCode()));
         //Accommodation 
+        $totalAccommodation=0;
         if(isset($booking['accommodation']['id']))
         {
             $room=$em->getRepository("BackSchoolBundle:Room")->find($booking['accommodation']['room']);
@@ -342,8 +423,9 @@ class BookingController extends Controller
             $bookingPahwayCourse->setRoom($room);
             $bookingPahwayCourse->setPathwayPriceAccommodation($pathwayPrice);
             $bookingPahwayCourse->setStartingDateAccommodation(\DateTime::createFromFormat('Y-m-d', $booking['accommodation']['startDate']));
-            $bookingPahwayCourse->setTotalAccommodation($this->container->get('library')->convertCurrency($pathwayPrice->getPrice(), $school->getCurrency()->getCode()));
+            $totalAccommodation=$this->container->get('library')->convertCurrency($pathwayPrice->getPrice(), $school->getCurrency()->getCode());
         }
+        $bookingPahwayCourse->setTotalAccommodation();
         //Extras
         $totalExtra=0;
         foreach($booking['extras'] as $ext)
@@ -351,12 +433,12 @@ class BookingController extends Controller
             $extra=$em->getRepository("BackSchoolBundle:Extra")->find($ext);
             $bookingPahwayCourse->addExtra($extra);
             $totalExtra +=$this->container->get('booking')->getPriceExtra($ext);
-            $bookingPahwayCourse->setTotalExtra($this->container->get('library')->convertCurrency($totalExtra, $school->getCurrency()->getCode()));
         }
+        $bookingPahwayCourse->setTotalExtra($this->container->get('library')->convertCurrency($totalExtra, $school->getCurrency()->getCode()));
         $bookingPahwayCourse->setTotal($bookingPahwayCourse->getTotalCourse() + $bookingPahwayCourse->getTotalAccommodation() + $bookingPahwayCourse->getTotalExtra());
         $em->persist($bookingPahwayCourse->setStatus(1)->setBookingDate(new \DateTime()));
         $em->flush();
-        $session->getFlashBag()->add('success', "Your booking has been done successfully");
+//        $session->getFlashBag()->add('success', "Your booking has been done successfully");
         return $this->redirect($this->generateUrl('book_school_thinkyou'));
     }
 
@@ -370,7 +452,7 @@ class BookingController extends Controller
         $curr=$session->get("currency");
         $currency=$em->getRepository("BackReferentielBundle:Currency")->findOneBy(array( 'code'=>$curr['code'] ));
         $booking=$session->get("booking");
-        $bookingAccommodation = new BookingAccommodation();
+        $bookingAccommodation=new BookingAccommodation();
         $accommodation=$em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
         $room=$em->getRepository("BackAccommodationBundle:Room")->find($booking['room']);
         $price=$em->getRepository("BackAccommodationBundle:Price")->find($booking['price']);
@@ -380,8 +462,9 @@ class BookingController extends Controller
         $bookingAccommodation->setPrice($price);
         $bookingAccommodation->setStartingDate(\DateTime::createFromFormat('Y-m-d', $booking['startDate']));
         $bookingAccommodation->setTotal($this->container->get('library')->convertCurrency($price->getPrice(), $accommodation->getCurrency()->getCode()));
-        $em->persist($bookingAccommodation->setStatus(1)->setBookingDate(new \DateTime()));
+//        $em->persist($bookingAccommodation->setStatus(1)->setBookingDate(new \DateTime()));
         $em->flush();
         return $this->redirect($this->generateUrl('book_accommodation_thinkyou'));
     }
+
 }

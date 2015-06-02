@@ -76,6 +76,20 @@ class BookingAccommodation
     private $bookingDate;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateTrasaction", type="datetime", nullable=true)
+     */
+    private $dateTrasaction;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="idTransaction", type="string", length=255, nullable=true)
+     */
+    private $idTransaction;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -246,7 +260,6 @@ class BookingAccommodation
         return $this->price;
     }
 
-
     /**
      * Set bookingDate
      *
@@ -255,7 +268,7 @@ class BookingAccommodation
      */
     public function setBookingDate($bookingDate)
     {
-        $this->bookingDate = $bookingDate;
+        $this->bookingDate=$bookingDate;
 
         return $this;
     }
@@ -268,5 +281,52 @@ class BookingAccommodation
     public function getBookingDate()
     {
         return $this->bookingDate;
+    }
+
+
+    /**
+     * Set dateTrasaction
+     *
+     * @param \DateTime $dateTrasaction
+     * @return BookingAccommodation
+     */
+    public function setDateTrasaction($dateTrasaction)
+    {
+        $this->dateTrasaction = $dateTrasaction;
+
+        return $this;
+    }
+
+    /**
+     * Get dateTrasaction
+     *
+     * @return \DateTime 
+     */
+    public function getDateTrasaction()
+    {
+        return $this->dateTrasaction;
+    }
+
+    /**
+     * Set idTransaction
+     *
+     * @param string $idTransaction
+     * @return BookingAccommodation
+     */
+    public function setIdTransaction($idTransaction)
+    {
+        $this->idTransaction = $idTransaction;
+
+        return $this;
+    }
+
+    /**
+     * Get idTransaction
+     *
+     * @return string 
+     */
+    public function getIdTransaction()
+    {
+        return $this->idTransaction;
     }
 }

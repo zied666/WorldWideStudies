@@ -120,9 +120,23 @@ class BookingPathwayCourse
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="bookingDate", type="date")
+     * @ORM\Column(name="bookingDate", type="datetime")
      */
     private $bookingDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateTrasaction", type="datetime", nullable=true)
+     */
+    private $dateTrasaction;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="idTransaction", type="string", length=255, nullable=true)
+     */
+    private $idTransaction;
 
     /**
      * Get id
@@ -408,16 +422,15 @@ class BookingPathwayCourse
         return $this->status;
     }
 
-
     /**
      * Set pathwayPriceCourse
      *
      * @param \Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceCourse
      * @return BookingPathwayCourse
      */
-    public function setPathwayPriceCourse(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceCourse = null)
+    public function setPathwayPriceCourse(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceCourse=null)
     {
-        $this->pathwayPriceCourse = $pathwayPriceCourse;
+        $this->pathwayPriceCourse=$pathwayPriceCourse;
 
         return $this;
     }
@@ -438,9 +451,9 @@ class BookingPathwayCourse
      * @param \Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceAccommodation
      * @return BookingPathwayCourse
      */
-    public function setPathwayPriceAccommodation(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceAccommodation = null)
+    public function setPathwayPriceAccommodation(\Back\SchoolBundle\Entity\PathwayPrice $pathwayPriceAccommodation=null)
     {
-        $this->pathwayPriceAccommodation = $pathwayPriceAccommodation;
+        $this->pathwayPriceAccommodation=$pathwayPriceAccommodation;
 
         return $this;
     }
@@ -474,4 +487,28 @@ class BookingPathwayCourse
     {
         return $this->extras;
     }
+
+    /**
+     * Set bookingDate
+     *
+     * @param \DateTime $bookingDate
+     * @return BookingPathwayCourse
+     */
+    public function setBookingDate($bookingDate)
+    {
+        $this->bookingDate=$bookingDate;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingDate
+     *
+     * @return \DateTime 
+     */
+    public function getBookingDate()
+    {
+        return $this->bookingDate;
+    }
+
 }

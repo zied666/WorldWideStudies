@@ -1,0 +1,19 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Paypal{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                <div class="row">
+                    {{ formulaire.select2("col-md-3","Account",form.account,true) }}
+                    {{ formulaire.input("col-md-3","",form.testMode,false) }}
+                </div>
+                {{ macro.enregistrer }}
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

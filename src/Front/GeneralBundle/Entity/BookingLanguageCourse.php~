@@ -122,9 +122,23 @@ class BookingLanguageCourse
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="bookingDate", type="date")
+     * @ORM\Column(name="bookingDate", type="datetime")
      */
     private $bookingDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateTrasaction", type="datetime", nullable=true)
+     */
+    private $dateTrasaction;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="idTransaction", type="string", length=255, nullable=true)
+     */
+    private $idTransaction;
 
     /**
      * Get id
@@ -456,4 +470,47 @@ class BookingLanguageCourse
         return $this->status;
     }
 
+
+    /**
+     * Set bookingDate
+     *
+     * @param \DateTime $bookingDate
+     * @return BookingLanguageCourse
+     */
+    public function setBookingDate($bookingDate)
+    {
+        $this->bookingDate = $bookingDate;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingDate
+     *
+     * @return \DateTime 
+     */
+    public function getBookingDate()
+    {
+        return $this->bookingDate;
+    }
+
+    /**
+     * Remove extras
+     *
+     * @param \Back\SchoolBundle\Entity\Extra $extras
+     */
+    public function removeExtra(\Back\SchoolBundle\Entity\Extra $extras)
+    {
+        $this->extras->removeElement($extras);
+    }
+
+    /**
+     * Get extras
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExtras()
+    {
+        return $this->extras;
+    }
 }

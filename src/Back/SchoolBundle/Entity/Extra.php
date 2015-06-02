@@ -276,4 +276,27 @@ class Extra
             $this->id = null ;
         }
     }
+
+    /**
+     * Set bookingLanguageCourse
+     *
+     * @param \Front\GeneralBundle\Entity\BookingLanguageCourse $bookingLanguageCourse
+     * @return Extra
+     */
+    public function setBookingLanguageCourse(\Front\GeneralBundle\Entity\BookingLanguageCourse $bookingLanguageCourse = null)
+    {
+        $this->bookingLanguageCourse = $bookingLanguageCourse;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingLanguageCourse
+     *
+     * @return \Front\GeneralBundle\Entity\BookingLanguageCourse 
+     */
+    public function getBookingLanguageCourse()
+    {
+        return $this->bookingLanguageCourse;
+    }
 }
