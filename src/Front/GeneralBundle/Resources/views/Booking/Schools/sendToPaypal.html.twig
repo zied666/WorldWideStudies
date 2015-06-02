@@ -21,7 +21,9 @@
     <input name="cancel_return" type="hidden" value="{{ url('book_school_thinkyou') }}" />
     <input name="notify_url" type="hidden" value="{{ url('book_school_paypal') }}" />
     <input name="rm"type="hidden"  value="2" />
+    <input type="hidden" name="page_style" value="paypal" />
     <input name="cmd" type="hidden" value="_xclick" />
+    <input type="hidden" name="charset" value="utf-8" />
     <input name="business" type="hidden" value="{{ paypal.account }}" />
     <input name="item_name" type="hidden" value="{{ namebooking }}" />
     <input name="no_note" type="hidden" value="1" />
