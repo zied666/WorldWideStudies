@@ -232,10 +232,11 @@ class Course
 
     public function __toString()
     {
-        if($this->schoolLocation->getType() == 1)
-            return $this->name;
-        else
-            return $this->subject->getName();
+        return $this->name;
+//        if($this->schoolLocation->getType() == 1)
+//            return $this->name;
+//        else
+//            return $this->subject->getName();
     }
 
     /**

@@ -11,8 +11,8 @@
                         <form action="{{ path('list_courses',{'id':school.id}) }}" {{ form_enctype(form) }}  method="post" role="form" id="form">
                             {{ form_widget(form._token) }}
                             <div class="row">
+                                {{ formulaire.input("col-md-3","Name",form.name,true) }}
                                 {% if school.type == 1 %}
-                                    {{ formulaire.input("col-md-3","Name",form.name,true) }}
                                     {{ formulaire.select2("col-md-3","Language course",form.language,true) }}
                                 {% endif %}
                                 {% if school.type == 2 %}
@@ -32,8 +32,8 @@
                         <table class="table table-hover" id="sample-table-1">
                             <thead>
                                 <tr>
-                                    {% if school.type == 1 %}
-                                        <th class="center">Name</th>
+                                    <th class="center">Name</th>
+                                        {% if school.type == 1 %}
                                         <th class="center">Language course</th>
                                         {% else %}
                                         <th class="center">Subject</th>
@@ -48,8 +48,8 @@
                             <tbody>
                                 {% for cours in school.courses %}
                                     <tr>
+                                        <td class="center">{{ cours.name }}</td>
                                         {% if school.type == 1 %}
-                                            <td class="center">{{ cours.name }}</td>
                                             <td class="center">{{ cours.language }}</td>
                                         {% else %}
                                             <td class="center">{{ cours.subject }}</td>

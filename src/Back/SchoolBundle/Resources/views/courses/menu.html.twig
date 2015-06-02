@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs">
     <li {% if app.request.get('_route')=='edit_courses' %}class="active"{% endif %}>
         <a href="{{ path('edit_courses',{'id':school.id,'course':course.id}) }}">
-            {{ course.name }} {{ course.subject }}
+            {{ course.name }}
         </a>
     </li>
     <li {% if app.request.get('_route')=='startdate_courses' %}class="active"{% endif %}>
