@@ -258,13 +258,17 @@ class BookingController extends Controller
                     }
                     else
                     {
-                        // Statut de paiement: Echec
+                        $booking->setStatus(9);
+                        $em->persist($booking);
+                        $em->flush();
                     }
                     exit();
                 }
                 else if(strcmp($res, "INVALID") == 0)
                 {
-                    // Transaction invalide
+                    $booking->setStatus(9);
+                    $em->persist($booking);
+                    $em->flush();
                 }
             }
             fclose($fp);
