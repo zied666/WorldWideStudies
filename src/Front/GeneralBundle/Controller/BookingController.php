@@ -205,6 +205,7 @@ class BookingController extends Controller
         $raw_post_data=file_get_contents('php://input');
         $raw_post_array=explode('&', $raw_post_data);
         $myPost=array();
+        $logger=$this->get('logger');
         foreach($raw_post_array as $keyval)
         {
             $keyval=explode('=', $keyval);
@@ -215,6 +216,7 @@ class BookingController extends Controller
         if(function_exists('get_magic_quotes_gpc'))
         {
             $get_magic_quotes_exists=true;
+            $logger->info('PAYPAL - get_magic_quotes_gpc');
         }
         foreach($myPost as $key=> $value)
         {
@@ -233,10 +235,11 @@ class BookingController extends Controller
         else
             $paypal_url="https://www.paypal.com/cgi-bin/webscr";
 
-
+        
         $ch=curl_init($paypal_url);
         if($ch == FALSE)
         {
+            $logger->error('PAYPAL - ch == false');
             return FALSE;
         }
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
@@ -253,11 +256,13 @@ class BookingController extends Controller
         $res=curl_exec($ch);
         if(curl_errno($ch) != 0) // cURL error
         {
+            $logger->error('PAYPAL - curl_errno($ch) != 0');
             curl_close($ch);
             //exit;
         }
         else
         {
+            $logger->error('PAYPAL -  curl_close($ch');
             curl_close($ch);
         }
 
@@ -265,6 +270,7 @@ class BookingController extends Controller
         $res=trim(end($tokens));
         if(strcmp($res, "VERIFIED") == 0)
         {
+            $logger->info('PAYPAL - VERIFIED');
             $item_name=$_POST['item_name'];
             $item_number=$_POST['item_number'];
             $payment_status=$_POST['payment_status'];
@@ -277,36 +283,36 @@ class BookingController extends Controller
             parse_str($_POST['custom'], $custom);
 
             $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
-            // Check payment status
             if($payment_status != 'Completed')
             {
                 $errors[]="Payment not completed";
                 $etat=2;
             }
-            // Check seller e-mail
             if($receiver_email != $paypal->getAccount())
             {
                 $errors[]="Incorrect seller e-mail";
-                $etat=2;
+                $logger->error('PAYPAL - Incorrect seller e-mail');
             }
-            // Compare the amount received on PayPal with the price you charged for the product or service
             if($payment_amount != $booking->getTotal())
             {
                 $errors[]="Incorrect product price";
+                $logger->error('PAYPAL - Incorrect product price');
                 $etat=2;
             }
-            // Check the currency code
             if($payment_currency != $booking->getCurrency()->getCode())
             {
                 $errors[]="Incorrect currency code";
+                $logger->error('PAYPAL - Incorrect currency code');
                 $etat=2;
             }
             if(count($errors) > 0)
             {
                 $message="IPN failed fraud checks";
+                $logger->error('PAYPAL - IPN failed fraud checks');
             }
             else
             {
+                $logger->info('PAYPAL - gooooooooooood');
                 $booking->setDateTrasaction(new \DateTime());
                 $booking->setIdTransaction($_POST['txn_id']);
                 $booking->setStatus(2);
@@ -316,6 +322,7 @@ class BookingController extends Controller
         }
         else if(strcmp($res, "INVALID") == 0)
         {
+                $logger->error('PAYPAL - Invalid');
             
         }
     }
