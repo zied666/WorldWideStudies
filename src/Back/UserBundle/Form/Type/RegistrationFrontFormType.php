@@ -11,7 +11,7 @@ class RegistrationFrontFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('firstName', 'text', array( 'required'=>false ));
-        $builder->add('LastName', 'text', array( 'required'=>false ));
+        $builder->add('lastName', 'text', array( 'required'=>false ));
         $builder->add('phone', 'text', array( 'required'=>false ));
         $builder->add('address', 'text', array( 'required'=>false ));
     }
