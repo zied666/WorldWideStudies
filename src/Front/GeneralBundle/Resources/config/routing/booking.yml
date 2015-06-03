@@ -42,10 +42,6 @@ book_validation_pathway_course:
     path:     /schools/book_validation_pathway_course
     defaults: { _controller: FrontGeneralBundle:Booking:validationPathwayCourse}
 
-book_school_paypal:
-    path:     /schools/paypal
-    defaults: { _controller: FrontGeneralBundle:Booking:paypalCourse}
-
 book_accommodation_redirect:
     path:     /accommodation/book_redirect/{id}
     defaults: { _controller: FrontGeneralBundle:Booking:bookRedirectAccommodation}

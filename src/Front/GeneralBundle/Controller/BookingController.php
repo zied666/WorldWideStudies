@@ -201,6 +201,13 @@ class BookingController extends Controller
     public function paypalCourseAction()
     {
         $em=$this->getDoctrine()->getManager();
+        $booking=$em->getRepository("FrontGeneralBundle:BookingLanguageCourse")->find(31);
+        $em->persist($booking->setStatus(30));
+        $em->flush();
+
+        exit();
+
+        $em=$this->getDoctrine()->getManager();
         $paypal=$em->getRepository("BackReferentielBundle:Paypal")->find(1);
         $request=$this->getRequest();
         $email_account=$paypal->getAccount();

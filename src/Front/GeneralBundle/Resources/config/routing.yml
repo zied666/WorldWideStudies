@@ -17,6 +17,10 @@ UniversityCourses:
 AccommodationFront:
     resource: "@FrontGeneralBundle/Resources/config/routing/accommodation.yml"
     prefix:   /accommodation/
+    
+book_school_paypal:
+    path:     /paypal_ipn
+    defaults: { _controller: FrontGeneralBundle:Booking:paypalCourse}
 
 accueil:
     path:     /
