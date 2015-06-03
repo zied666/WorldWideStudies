@@ -213,6 +213,10 @@ class BookingController extends Controller
         }
 
         $header="POST /cgi-bin/webscr HTTP/1.0\r\n";
+        if($paypal->getTestMode())
+            $header .= "Host: www.sandbox.paypal.com\r\n";
+        else
+            $header .= "Host: www.paypal.com\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
         $header .= "Content-Length: ".strlen($req)."\r\n\r\n";
         if($paypal->getTestMode())
@@ -228,6 +232,7 @@ class BookingController extends Controller
         $receiver_email=$_POST['receiver_email'];
         $payer_email=$_POST['payer_email'];
         parse_str($_POST['custom'], $custom);
+        $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
         if(!$fp)
         {
             
@@ -240,12 +245,11 @@ class BookingController extends Controller
                 $res=fgets($fp, 1024);
                 if(strcmp($res, "VERIFIED") == 0)
                 {
-                    if($payment_status == "Completed")
+                    if($payment_status == "Completed" || true)
                     {
                         if($email_account == $receiver_email)
                         {
-                            //file_put_contents('log', print_r($_POST, true));
-                            $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
+                            file_put_contents('log', print_r($payment_status, true));
                             if($payment_amount == $booking->getTotal())
                             {
                                 $booking->setDateTrasaction(new \DateTime());
