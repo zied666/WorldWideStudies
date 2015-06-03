@@ -232,6 +232,7 @@ class BookingController extends Controller
         $receiver_email=$_POST['receiver_email'];
         $payer_email=$_POST['payer_email'];
         parse_str($_POST['custom'], $custom);
+        file_put_contents('log',print_r($_POST,true));
         $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
         if(!$fp)
         {
@@ -396,7 +397,7 @@ class BookingController extends Controller
 //        return $this->redirect($this->generateUrl('book_school_thinkyou'));
         $paypal=$em->getRepository('BackReferentielBundle:Paypal')->find(1);
         return $this->render("FrontGeneralBundle:Booking\Schools:sendToPaypal.html.twig", array(
-                    'entity' =>'BookingPathwayCourse',
+                    'entity' =>'BookingLanguageCourse',
                     'paypal' =>$paypal,
                     'booking'=>$bookingLanguageCourse
         ));
