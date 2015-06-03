@@ -232,7 +232,7 @@ class Course
 
     public function __toString()
     {
-        return $this->name;
+        return $this->name.'.';
 //        if($this->schoolLocation->getType() == 1)
 //            return $this->name;
 //        else
