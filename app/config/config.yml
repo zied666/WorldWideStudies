@@ -86,6 +86,14 @@ knp_paginator:
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig
         
 fos_user:
+    registration:
+        confirmation:
+            enabled:    true
+        form:
+            type: front_user_registration
+    from_email:
+        address:        zied.kharraz@gmail.com
+        sender_name:    World wide studies           
     db_driver: orm 
     firewall_name: main
     user_class: Back\UserBundle\Entity\User    

@@ -68,4 +68,27 @@ class Paypal
     {
         return $this->account;
     }
+
+    /**
+     * Set testMode
+     *
+     * @param boolean $testMode
+     * @return Paypal
+     */
+    public function setTestMode($testMode)
+    {
+        $this->testMode = $testMode;
+
+        return $this;
+    }
+
+    /**
+     * Get testMode
+     *
+     * @return boolean 
+     */
+    public function getTestMode()
+    {
+        return $this->testMode;
+    }
 }
