@@ -90,6 +90,13 @@ class BookingAccommodation
     private $idTransaction;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="data_paypal", type="array", nullable=true)
+     */
+    private $paypalData;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -328,5 +335,28 @@ class BookingAccommodation
     public function getIdTransaction()
     {
         return $this->idTransaction;
+    }
+
+    /**
+     * Set paypalData
+     *
+     * @param array $paypalData
+     * @return BookingAccommodation
+     */
+    public function setPaypalData($paypalData)
+    {
+        $this->paypalData = $paypalData;
+
+        return $this;
+    }
+
+    /**
+     * Get paypalData
+     *
+     * @return array 
+     */
+    public function getPaypalData()
+    {
+        return $this->paypalData;
     }
 }

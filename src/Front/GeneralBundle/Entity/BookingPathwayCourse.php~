@@ -139,6 +139,13 @@ class BookingPathwayCourse
     private $idTransaction;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="data_paypal", type="array")
+     */
+    private $paypalData;
+
+    /**
      * Get id
      *
      * @return integer 

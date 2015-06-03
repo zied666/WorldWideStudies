@@ -143,7 +143,7 @@ class BookingLanguageCourse
     /**
      * @var array
      *
-     * @ORM\Column(name="data", type="array")
+     * @ORM\Column(name="data_paypal", type="array")
      */
     private $paypalData;
 
@@ -566,4 +566,27 @@ class BookingLanguageCourse
         return $this->idTransaction;
     }
 
+
+    /**
+     * Set paypalData
+     *
+     * @param array $paypalData
+     * @return BookingLanguageCourse
+     */
+    public function setPaypalData($paypalData)
+    {
+        $this->paypalData = $paypalData;
+
+        return $this;
+    }
+
+    /**
+     * Get paypalData
+     *
+     * @return array 
+     */
+    public function getPaypalData()
+    {
+        return $this->paypalData;
+    }
 }

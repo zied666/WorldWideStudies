@@ -143,7 +143,7 @@ class BookingLanguageCourse
     /**
      * @var array
      *
-     * @ORM\Column(name="data", type="array")
+     * @ORM\Column(name="data_paypal", type="array", nullable=true)
      */
     private $paypalData;
 

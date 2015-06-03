@@ -1,24 +1,16 @@
-{% set namebooking='Booking course :'~ booking.course %}
-{% if booking.room is not null %}
-    {% set namebooking=namebooking~' & Booking ROOM :' ~booking.room %}
-{% endif %}
-{% for extra in booking.extras %}
-    {% set namebooking=namebooking~' & Extra '~loop.index~' :'~ extra %}
-{% endfor %}
+{% set namebooking=' & Booking ROOM :' ~booking.room %}
 
 <center>
     <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/04/original.jpg" ><br>
     <img src="https://www.mountainchalets.com/layout/progress-bar.gif" >
 </center>
-
-
 <form action="{% if paypal.testMode %}https://www.sandbox.paypal.com/cgi-bin/webscr{% else %}https://www.paypal.com/cgi-bin/webscr{% endif %}" method="post" name="paypalForms">
-    <input name="amount" type="hidden" value="{{ booking.total }}" /> 
+    <input name="amount" type="hidden" value="{{ booking.getTotal }}" /> 
     <input name="currency_code" type="hidden" value="{{ booking.currency.code }}" />
     <input name="shipping" type="hidden" value="0.00" />
     <input name="tax" type="hidden" value="0.00" />
-    <input name="return" type="hidden" value="{{ url('book_school_thinkyou') }}" />
-    <input name="cancel_return" type="hidden" value="{{ url('book_school_thinkyou') }}" />
+    <input name="return" type="hidden" value="{{ url('book_accommodation_thinkyou') }}" />
+    <input name="cancel_return" type="hidden" value="{{ url('book_accommodation_thinkyou') }}" />
     <input name="notify_url" type="hidden" value="{{ url('book_school_paypal') }}" />
     <input name="rm"type="hidden"  value="2" />
     <input type="hidden" name="page_style" value="paypal" />
@@ -29,9 +21,9 @@
     <input name="no_note" type="hidden" value="1" />
     <input name="lc" type="hidden" value="FR" />
     <input name="bn" type="hidden" value="PP-BuyNowBF" />
-    <input name="custom" type="hidden" value="id={{ booking.id }}&entity={{ entity }}" />
+    <input name="custom" type="hidden" value="id={{ booking.id }}&entity=BookingAccommodation" />
 </form>
 <script>
-{#    document.paypalForms.submit();#}
+    document.paypalForms.submit();
 </script>
 
