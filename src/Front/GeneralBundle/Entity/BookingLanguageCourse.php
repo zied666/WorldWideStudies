@@ -141,6 +141,13 @@ class BookingLanguageCourse
     private $idTransaction;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="data", type="array")
+     */
+    private $paypalData;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -470,7 +477,6 @@ class BookingLanguageCourse
         return $this->status;
     }
 
-
     /**
      * Set bookingDate
      *
@@ -479,7 +485,7 @@ class BookingLanguageCourse
      */
     public function setBookingDate($bookingDate)
     {
-        $this->bookingDate = $bookingDate;
+        $this->bookingDate=$bookingDate;
 
         return $this;
     }
@@ -522,7 +528,7 @@ class BookingLanguageCourse
      */
     public function setDateTrasaction($dateTrasaction)
     {
-        $this->dateTrasaction = $dateTrasaction;
+        $this->dateTrasaction=$dateTrasaction;
 
         return $this;
     }
@@ -545,7 +551,7 @@ class BookingLanguageCourse
      */
     public function setIdTransaction($idTransaction)
     {
-        $this->idTransaction = $idTransaction;
+        $this->idTransaction=$idTransaction;
 
         return $this;
     }
@@ -558,5 +564,29 @@ class BookingLanguageCourse
     public function getIdTransaction()
     {
         return $this->idTransaction;
+    }
+
+
+    /**
+     * Set paypalData
+     *
+     * @param array $paypalData
+     * @return BookingLanguageCourse
+     */
+    public function setPaypalData($paypalData)
+    {
+        $this->paypalData = $paypalData;
+
+        return $this;
+    }
+
+    /**
+     * Get paypalData
+     *
+     * @return array 
+     */
+    public function getPaypalData()
+    {
+        return $this->paypalData;
     }
 }

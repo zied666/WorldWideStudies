@@ -255,6 +255,7 @@ class BookingController extends Controller
                                 $booking->setDateTrasaction(new \DateTime());
                                 $booking->setIdTransaction($_POST['txn_id']);
                                 $booking->setStatus(2);
+                                $booking->setPaypalData($_POST);
                                 $em->persist($booking);
                                 $em->flush();
                             }

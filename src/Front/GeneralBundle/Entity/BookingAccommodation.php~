@@ -283,4 +283,50 @@ class BookingAccommodation
         return $this->bookingDate;
     }
 
+
+    /**
+     * Set dateTrasaction
+     *
+     * @param \DateTime $dateTrasaction
+     * @return BookingAccommodation
+     */
+    public function setDateTrasaction($dateTrasaction)
+    {
+        $this->dateTrasaction = $dateTrasaction;
+
+        return $this;
+    }
+
+    /**
+     * Get dateTrasaction
+     *
+     * @return \DateTime 
+     */
+    public function getDateTrasaction()
+    {
+        return $this->dateTrasaction;
+    }
+
+    /**
+     * Set idTransaction
+     *
+     * @param string $idTransaction
+     * @return BookingAccommodation
+     */
+    public function setIdTransaction($idTransaction)
+    {
+        $this->idTransaction = $idTransaction;
+
+        return $this;
+    }
+
+    /**
+     * Get idTransaction
+     *
+     * @return string 
+     */
+    public function getIdTransaction()
+    {
+        return $this->idTransaction;
+    }
 }
