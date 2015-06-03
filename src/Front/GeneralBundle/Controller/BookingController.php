@@ -233,7 +233,7 @@ class BookingController extends Controller
         $payer_email=$_POST['payer_email'];
         parse_str($_POST['custom'], $custom);
         $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
-        file_put_contents('log', print_r($payment_status, true));
+        file_put_contents('log', print_r($_POST, true));
         if(!$fp)
         {
             
@@ -246,11 +246,11 @@ class BookingController extends Controller
                 $res=fgets($fp, 1024);
                 if(strcmp($res, "VERIFIED") == 0)
                 {
-                    if($payment_status == "Completed" || true)
+                    if($payment_status == "Completed" || ( $paypal->getTestMode() && $payment_status=='Pending'))
                     {
                         if($email_account == $receiver_email)
                         {
-                            if($payment_amount == $booking->getTotal())
+                            if($payment_amount == $booking->getTotal() && $payment_currency==$booking->getCurrency()->getCode())
                             {
                                 $booking->setDateTrasaction(new \DateTime());
                                 $booking->setIdTransaction($_POST['txn_id']);
