@@ -255,6 +255,7 @@ class BookingLanguageCourse
     public function __construct()
     {
         $this->extras=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->paypalData=array();
     }
 
     /**
@@ -588,5 +589,13 @@ class BookingLanguageCourse
     public function getPaypalData()
     {
         return $this->paypalData;
+    }
+    
+    public function showStatus()
+    {
+        if($this->status==1)
+            return 'Unpaid';
+        if($this->status==2)
+            return 'Paid';
     }
 }

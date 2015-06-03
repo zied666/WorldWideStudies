@@ -15,6 +15,25 @@
                 </div>
             </a>
         </li>
+        <li {% if app.request.getPathInfo|split('admin/booking')|length > 1 %}class="active open" {% endif %}>
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-layers-alt"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> Booking </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li {% if app.request.get('_route')=='back_list_language_course' %}class="active"{% endif %}>
+                    <a href="{{ path('back_list_language_course') }}">
+                        <span class="title">Language courses</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
         {% if is_granted('ROLE_ADMIN_FRONTOFFICE')  %}
             <li {% if app.request.getPathInfo|split('admin/frontoffice')|length > 1 %}class="active open" {% endif %}>
                 <a href="javascript:void(0)">
@@ -207,6 +226,11 @@
                     <li {% if app.request.get('_route')=='school' %}class="active"{% endif %}>
                         <a href="{{ path('school') }}">
                             <span class="title">Schools</span>
+                        </a>
+                    </li>
+                    <li {% if app.request.get('_route')=='status' %}class="active"{% endif %}>
+                        <a href="{{ path('status') }}">
+                            <span class="title">Status</span>
                         </a>
                     </li>
                     {% if is_granted('ROLE_SUPER_ADMIN') %}

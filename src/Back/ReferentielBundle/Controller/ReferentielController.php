@@ -32,6 +32,8 @@ use Back\ReferentielBundle\Entity\SubjectSchoolLocation;
 use Back\ReferentielBundle\Form\SubjectSchoolLocationType;
 use Back\ReferentielBundle\Entity\Paypal;
 use Back\ReferentielBundle\Form\PaypalType;
+use Back\ReferentielBundle\Entity\Status;
+use Back\ReferentielBundle\Form\StatusType;
 
 class ReferentielController extends Controller
 {
@@ -426,7 +428,7 @@ class ReferentielController extends Controller
         $form->add('roles', 'choice', array( 'choices' =>
             array(
                 'ROLE_SUPER_ADMIN'        =>'SUPER ADMIN',
-                'ROLE_ADMIN_FRONTOFFICE'        =>'FRONT OFFICE',
+                'ROLE_ADMIN_FRONTOFFICE'  =>'FRONT OFFICE',
                 'ROLE_ADMIN_CONFIG'       =>'CONFIGURATION',
                 'ROLE_ADMIN_UNIVERSITY'   =>'UNIVERSITY',
                 'ROLE_ADMIN_ACCOMMODATION'=>'ACCOMMODATION',
@@ -711,7 +713,7 @@ class ReferentielController extends Controller
         $session=$this->getRequest()->getSession();
         $paypal=$em->getRepository('BackReferentielBundle:Paypal')->find(1);
         if(!$paypal)
-            $paypal= new Paypal();
+            $paypal=new Paypal();
         $form=$this->createForm(new PaypalType(), $paypal);
         if($this->getRequest()->isMethod('POST'))
         {
@@ -726,7 +728,54 @@ class ReferentielController extends Controller
             }
         }
         return $this->render("BackReferentielBundle::paypal.html.twig", array(
-                    'form'    =>$form->createView(),
+                    'form'=>$form->createView(),
         ));
     }
+
+    public function statusAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(is_null($id))
+            $statu=new Status();
+        else
+            $statu=$em->getRepository("BackReferentielBundle:Status")->find($id);
+        $status=$em->getRepository("BackReferentielBundle:Status")->findAll();
+        $form=$this->createForm(new StatusType(), $statu);
+        $request=$this->getRequest();
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $statu=$form->getData();
+                $em->persist($statu);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your status has been updated successfully");
+                return $this->redirect($this->generateUrl("status"));
+            }
+        }
+        return $this->render("BackReferentielBundle::status.html.twig", array(
+                    'form'  =>$form->createView(),
+                    'status'=>$status,
+        ));
+    }
+
+    public function deleteStatusAction(Status $status)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($status);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your status has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This status is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("status"));
+    }
+
 }

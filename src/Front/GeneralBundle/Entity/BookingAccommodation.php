@@ -97,6 +97,14 @@ class BookingAccommodation
     private $paypalData;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->paypalData=array();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -290,7 +298,6 @@ class BookingAccommodation
         return $this->bookingDate;
     }
 
-
     /**
      * Set dateTrasaction
      *
@@ -299,7 +306,7 @@ class BookingAccommodation
      */
     public function setDateTrasaction($dateTrasaction)
     {
-        $this->dateTrasaction = $dateTrasaction;
+        $this->dateTrasaction=$dateTrasaction;
 
         return $this;
     }
@@ -322,7 +329,7 @@ class BookingAccommodation
      */
     public function setIdTransaction($idTransaction)
     {
-        $this->idTransaction = $idTransaction;
+        $this->idTransaction=$idTransaction;
 
         return $this;
     }
@@ -345,7 +352,7 @@ class BookingAccommodation
      */
     public function setPaypalData($paypalData)
     {
-        $this->paypalData = $paypalData;
+        $this->paypalData=$paypalData;
 
         return $this;
     }
@@ -359,4 +366,13 @@ class BookingAccommodation
     {
         return $this->paypalData;
     }
+
+    public function showStatus()
+    {
+        if($this->status == 1)
+            return 'Unpaid';
+        if($this->status == 2)
+            return 'Paid';
+    }
+
 }

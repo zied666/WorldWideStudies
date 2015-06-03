@@ -19,7 +19,7 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(type="string", length=255,nullable=true)
      *
@@ -33,7 +33,7 @@ class User extends BaseUser
      * )
      */
     protected $firstName;
-    
+
     /**
      * @ORM\Column(type="string", length=255,nullable=true)
      *
@@ -47,7 +47,7 @@ class User extends BaseUser
      * )
      */
     protected $lastName;
-    
+
     /**
      * @ORM\Column(type="string", length=255,nullable=true)
      *
@@ -61,7 +61,7 @@ class User extends BaseUser
      * )
      */
     protected $phone;
-    
+
     /**
      * @ORM\Column(type="string", length=255,nullable=true)
      *
@@ -97,7 +97,6 @@ class User extends BaseUser
         return $this->id;
     }
 
-
     /**
      * Add bookingsLanguageCourses
      *
@@ -106,7 +105,7 @@ class User extends BaseUser
      */
     public function addBookingsLanguageCourse(\Front\GeneralBundle\Entity\BookingLanguageCourse $bookingsLanguageCourses)
     {
-        $this->bookingsLanguageCourses[] = $bookingsLanguageCourses;
+        $this->bookingsLanguageCourses[]=$bookingsLanguageCourses;
 
         return $this;
     }
@@ -139,7 +138,7 @@ class User extends BaseUser
      */
     public function setFirstName($firstName)
     {
-        $this->firstName = $firstName;
+        $this->firstName=$firstName;
 
         return $this;
     }
@@ -162,7 +161,7 @@ class User extends BaseUser
      */
     public function setLastName($lastName)
     {
-        $this->lastName = $lastName;
+        $this->lastName=$lastName;
 
         return $this;
     }
@@ -185,7 +184,7 @@ class User extends BaseUser
      */
     public function setPhone($phone)
     {
-        $this->phone = $phone;
+        $this->phone=$phone;
 
         return $this;
     }
@@ -208,7 +207,7 @@ class User extends BaseUser
      */
     public function setAddress($address)
     {
-        $this->address = $address;
+        $this->address=$address;
 
         return $this;
     }
@@ -222,4 +221,13 @@ class User extends BaseUser
     {
         return $this->address;
     }
+
+    public function __toString()
+    {
+        if(is_null($this->firstName) && is_null($this->lastName))
+            return parent::__toString();
+        else
+            return $this->firstName.' '.$this->lastName;
+    }
+
 }

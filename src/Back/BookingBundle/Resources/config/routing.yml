@@ -1,0 +1,11 @@
+BackBookingLanguageCourse:
+    resource: "@BackBookingBundle/Resources/config/routing/langage_course.yml"
+    prefix:   /LanguageCourse
+    
+BackBookingPathwayCourse:
+    resource: "@BackBookingBundle/Resources/config/routing/pathway_course.yml"
+    prefix:   /PathwayCourse
+    
+BackBookingAccommodation:
+    resource: "@BackBookingBundle/Resources/config/routing/accommodation.yml"
+    prefix:   /Accommodation
