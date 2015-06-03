@@ -201,13 +201,6 @@ class BookingController extends Controller
     public function paypalCourseAction()
     {
         $em=$this->getDoctrine()->getManager();
-        $booking=$em->getRepository("FrontGeneralBundle:BookingLanguageCourse")->find(31);
-        $em->persist($booking->setStatus(30));
-        $em->flush();
-
-        exit();
-
-        $em=$this->getDoctrine()->getManager();
         $paypal=$em->getRepository("BackReferentielBundle:Paypal")->find(1);
         $request=$this->getRequest();
         $email_account=$paypal->getAccount();
@@ -240,6 +233,7 @@ class BookingController extends Controller
         $payer_email=$_POST['payer_email'];
         parse_str($_POST['custom'], $custom);
         $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
+        file_put_contents('log', print_r($payment_status, true));
         if(!$fp)
         {
             
@@ -256,7 +250,6 @@ class BookingController extends Controller
                     {
                         if($email_account == $receiver_email)
                         {
-                            file_put_contents('log', print_r($payment_status, true));
                             if($payment_amount == $booking->getTotal())
                             {
                                 $booking->setDateTrasaction(new \DateTime());
@@ -267,22 +260,19 @@ class BookingController extends Controller
                             }
                             else
                             {
-                                $em->persist($booking->setStatus(9));
-                                $em->flush();
+                                
                             }
                         }
                     }
                     else
                     {
-                        $em->persist($booking->setStatus(9));
-                        $em->flush();
+                        
                     }
                     exit();
                 }
                 else if(strcmp($res, "INVALID") == 0)
                 {
-                    $em->persist($booking->setStatus(9));
-                    $em->flush();
+                    
                 }
             }
             fclose($fp);
