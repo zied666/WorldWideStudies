@@ -13,6 +13,7 @@
                             <th>Client</th>
                             <th>Course</th>
                             <th>Accommodation</th>
+                            <th>Extras</th>
                             <th>Total</th>
                             <th>Payment Status</th>
                             <th>Action</th>
@@ -24,10 +25,21 @@
                                 <td>{{ booking.id }}</td>
                                 <td>{{ booking.bookingDate|date('d/m/Y') }}</td>
                                 <td>{{ booking.client}}</td>
-                                <td><a  data-toggle="modal" data-target=".bs-example-modal-lg">{{ booking.course }}</a></td>
-                                <td>{{ booking.room }}</td>
+                                <td><a data-id="{{ booking.id }}" class="course" data-toggle="modal" data-target=".bs-example-modal-lg">{{ booking.course }}</a></td>
+                                <td>
+                                    {% if booking.room is not null %}
+                                        <a data-id="{{ booking.id }}" class="accommodation" data-toggle="modal" data-target=".bs-example-modal-lg">{{ booking.room }}</a>
+                                    {% endif %}
+                                </td>
+                                <td><a data-id="{{ booking.id }}" class="extras" data-toggle="modal" data-target=".bs-example-modal-lg">{{ booking.extras|length }}</a></td>
                                 <td>{{ booking.total }} {{ booking.currency.code }}</td>
-                                <td>{{ booking.showStatus }}</td>
+                                <td>
+                                    {% if booking.status==2 %}
+                                        <a data-toggle="modal" data-id="{{ booking.id }}" class="paypal" data-target=".bs-example-modal-lg">{{ booking.showStatus }}</a>
+                                    {% else %}
+                                        {{ booking.showStatus }}
+                                    {% endif %}
+                                </td>
                                 <td class="center">
 
                                 </td>
@@ -48,21 +60,97 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title center" id="myModalLabel"></h4>
                 </div>
                 <div class="modal-body">
-                    Modal Content
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-o" data-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary">
-                        Save changes
-                    </button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table  table-full-width" id="sample_1">
+                                <tbody id="tbodyTable">
+                                    <tr>
+                                        <td>ssssssssss</td>
+                                        <td>ssssssssss</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $('.paypal').click(function () {
+                var id = $(this).data('id');
+                $('#myModalLabel').html('Loading ...');
+                $('#tbodyTable').html('');
+                $.ajax({
+                    url: '{{ path('back_ajax_get_paypal_information') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#myModalLabel').html(json['title']);
+                        $.each(json['data'], function (index, value) {
+                            $('#tbodyTable').append('<tr><td>' + index + '</td><td>' + value + '</td></tr>');
+                        });
+                    }
+                });
+            })
+            $('.course').click(function () {
+                var id = $(this).data('id');
+                $('#myModalLabel').html('Loading ...');
+                $('#tbodyTable').html('');
+                $.ajax({
+                    url: '{{ path('back_ajax_get_course_information') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#myModalLabel').html(json['title']);
+                        $.each(json['data'], function (index, value) {
+                            $('#tbodyTable').append('<tr><td>' + index + '</td><td>' + value + '</td></tr>');
+                        });
+                    }
+                });
+            })
+            $('.accommodation').click(function () {
+                var id = $(this).data('id');
+                $('#myModalLabel').html('Loading ...');
+                $('#tbodyTable').html('');
+                $.ajax({
+                    url: '{{ path('back_ajax_get_accommodation_information') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#myModalLabel').html(json['title']);
+                        $.each(json['data'], function (index, value) {
+                            $('#tbodyTable').append('<tr><td>' + index + '</td><td>' + value + '</td></tr>');
+                        });
+                    }
+                });
+            })
+            $('.extras').click(function () {
+                var id = $(this).data('id');
+                $('#myModalLabel').html('Loading ...');
+                $('#tbodyTable').html('');
+                $.ajax({
+                    url: '{{ path('back_ajax_get_extras_information') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#myModalLabel').html(json['title']);
+                        $.each(json['data'], function (index, value) {
+                            $('#tbodyTable').append('<tr><td>' + index + '</td><td>' + value + '</td></tr>');
+                        });
+                    }
+                });
+            })
+        })
+    </script>
 {% endblock %}

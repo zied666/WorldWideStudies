@@ -1,3 +1,19 @@
 back_list_language_course:
     path:     /list
     defaults: { _controller: BackBookingBundle:LanguageCourse:list }
+
+back_ajax_get_paypal_information:
+    path:     /ajaxpaypal
+    defaults: { _controller: BackBookingBundle:LanguageCourse:ajaxPaypal }
+    
+back_ajax_get_course_information:
+    path:     /ajaxcourse
+    defaults: { _controller: BackBookingBundle:LanguageCourse:ajaxCourse }
+    
+back_ajax_get_accommodation_information:
+    path:     /ajaxaccommodation
+    defaults: { _controller: BackBookingBundle:LanguageCourse:ajaxAccommodation }
+    
+back_ajax_get_extras_information:
+    path:     /ajaxExtras
+    defaults: { _controller: BackBookingBundle:LanguageCourse:ajaxExtras }
