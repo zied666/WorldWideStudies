@@ -161,4 +161,9 @@ class Price
     {
         return $this->room;
     }
+    
+    public function __toString()
+    {
+        return $this->startDate->format('d/m/Y').' to '.$this->endDate->format('d/m/Y');
+    }
 }

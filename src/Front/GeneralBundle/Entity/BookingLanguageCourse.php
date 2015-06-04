@@ -148,6 +148,11 @@ class BookingLanguageCourse
     private $paypalData;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\BookingBundle\Entity\Status", mappedBy="bookingLanguageCourse")
+     */
+    protected $otherStatus;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -567,7 +572,6 @@ class BookingLanguageCourse
         return $this->idTransaction;
     }
 
-
     /**
      * Set paypalData
      *
@@ -576,7 +580,7 @@ class BookingLanguageCourse
      */
     public function setPaypalData($paypalData)
     {
-        $this->paypalData = $paypalData;
+        $this->paypalData=$paypalData;
 
         return $this;
     }
@@ -590,12 +594,60 @@ class BookingLanguageCourse
     {
         return $this->paypalData;
     }
-    
+
     public function showStatus()
     {
-        if($this->status==1)
+        if($this->status == 1)
             return 'Unpaid';
-        if($this->status==2)
+        if($this->status == 2)
             return 'Paid';
     }
+
+    /**
+     * Add otherStatus
+     *
+     * @param \Back\BookingBundle\Entity\Status $otherStatus
+     * @return BookingLanguageCourse
+     */
+    public function addOtherStatus(\Back\BookingBundle\Entity\Status $otherStatus)
+    {
+        $this->otherStatus[]=$otherStatus;
+
+        return $this;
+    }
+
+    /**
+     * Remove otherStatus
+     *
+     * @param \Back\BookingBundle\Entity\Status $otherStatus
+     */
+    public function removeOtherStatus(\Back\BookingBundle\Entity\Status $otherStatus)
+    {
+        $this->otherStatus->removeElement($otherStatus);
+    }
+
+    /**
+     * Get otherStatus
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOtherStatus()
+    {
+        return $this->otherStatus;
+    }
+
+    public function __toString()
+    {
+        return $this->id.'.';
+    }
+    
+    public function showLastStatus()
+    {
+        if(count($this->otherStatus)!=0)
+        {
+            return $this->otherStatus->last()->getStatus().' ('.$this->otherStatus->last()->getUser().')';
+        }
+        return '';
+    }
+
 }

@@ -9,3 +9,11 @@ BackBookingPathwayCourse:
 BackBookingAccommodation:
     resource: "@BackBookingBundle/Resources/config/routing/accommodation.yml"
     prefix:   /Accommodation
+
+back_ajax_get_client_information:
+    path:     /ajaxClient
+    defaults: { _controller: BackBookingBundle:Default:ajaxClient }
+
+back_ajax_get_status_information:
+    path:     /ajaxStatus
+    defaults: { _controller: BackBookingBundle:Default:ajaxStatus }

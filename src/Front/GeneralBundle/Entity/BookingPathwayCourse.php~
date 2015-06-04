@@ -141,7 +141,7 @@ class BookingPathwayCourse
     /**
      * @var array
      *
-     * @ORM\Column(name="data_paypal", type="array")
+     * @ORM\Column(name="data_paypal", type="array", nullable=true)
      */
     private $paypalData;
 
@@ -207,6 +207,7 @@ class BookingPathwayCourse
     public function __construct()
     {
         $this->extras=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->paypalData=array();
     }
 
     /**
@@ -563,5 +564,36 @@ class BookingPathwayCourse
     public function getIdTransaction()
     {
         return $this->idTransaction;
+    }
+
+    /**
+     * Set paypalData
+     *
+     * @param array $paypalData
+     * @return BookingPathwayCourse
+     */
+    public function setPaypalData($paypalData)
+    {
+        $this->paypalData = $paypalData;
+
+        return $this;
+    }
+
+    /**
+     * Get paypalData
+     *
+     * @return array 
+     */
+    public function getPaypalData()
+    {
+        return $this->paypalData;
+    }
+    
+    public function showStatus()
+    {
+        if($this->status==1)
+            return 'Unpaid';
+        if($this->status==2)
+            return 'Paid';
     }
 }

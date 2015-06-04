@@ -16,6 +16,7 @@
                             <th>Duration</th>
                             <th>Total</th>
                             <th>Payment Status</th>
+                            <th>Last status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -23,8 +24,8 @@
                         {% for booking in bookings %}
                             <tr>
                                 <td>{{ booking.id }}</td>
-                                <td>{{ booking.bookingDate|date('d/m/Y') }}</td>
-                                <td>{{ booking.client}}</td>
+                                <td>{{ booking.bookingDate|date('d F Y H:i') }}</td>
+                                <td><a data-id="{{ booking.client.id }}" class="client" data-toggle="modal" data-target=".bs-example-modal-lg">{{ booking.client}}</a></td>
                                 <td>{{ booking.room.accommodation}}</td>
                                 <td>{{ booking.room}}</td>
                                 <td>{{ booking.price}}</td>
@@ -36,8 +37,10 @@
                                         {{ booking.showStatus }}
                                     {% endif %}
                                 </td>
+                                <td>{{ booking.showLastStatus()}}</td>
                                 <td class="center">
-
+                                    <a data-id="{{ booking.id }}" data-toggle="modal" data-target=".Modal-add-Stats" class="btn btn-transparent btn-xs add-new-status"><i class="fa fa-plus"></i></a>
+                                    <a data-id="{{ booking.id }}" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-transparent btn-xs showStatus"><i class="fa fa-server"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -75,10 +78,47 @@
             </div>
         </div>
     </div>
+    <div class="modal fade Modal-add-Stats"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title center">Add status</h4>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        {{ formulaire.select2("col-md-6","Status",form.status,true) }}
+                    </div>
+                    <div class="row">
+                        {{ formulaire.input("col-md-12","Observation",form.observation,true) }}
+                    </div>
+                    <div class="no-display">
+                        {{ formulaire.input("col-md-2","",form.bookingAccommodation,true) }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-o" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Save changes
+                        </button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>                
 {% endblock %}
 {% block jquery %}
     <script>
         $(document).ready(function () {
+            $('.add-new-status').click(function () {
+                var id = $(this).data('id');
+                $('#back_bookingbundle_status_bookingAccommodation').val(id);
+            })
             $('.paypal').click(function () {
                 var id = $(this).data('id');
                 $('#myModalLabel').html('Loading ...');
@@ -92,6 +132,41 @@
                         $('#myModalLabel').html(json['title']);
                         $.each(json['data'], function (index, value) {
                             $('#tbodyTable').append('<tr><td>' + index + '</td><td>' + value + '</td></tr>');
+                        });
+                    }
+                });
+            })
+            $('.client').click(function () {
+                var id = $(this).data('id');
+                $('#myModalLabel').html('Loading ...');
+                $('#tbodyTable').html('');
+                $.ajax({
+                    url: '{{ path('back_ajax_get_client_information') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#myModalLabel').html(json['title']);
+                        $.each(json['data'], function (index, value) {
+                            $('#tbodyTable').append('<tr><td>' + index + '</td><td>' + value + '</td></tr>');
+                        });
+                    }
+                });
+            })
+            $('.showStatus').click(function () {
+                var id = $(this).data('id');
+                $('#myModalLabel').html('Loading ...');
+                $('#tbodyTable').html('');
+                $.ajax({
+                    url: '{{ path('back_ajax_get_status_information') }}',
+                    data: {'id': id, 'type': 2},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#myModalLabel').html(json['title']);
+                        $('#tbodyTable').append('<tr><th>Date</th><th>Status</th><th>Observation</th><th>User</th></tr>');
+                        $.each(json['data'], function (index, value) {
+                            $('#tbodyTable').append('<tr><td>' + value['date'] + '</td><td>' + value['status'] + '</td><td>' + value['observation'] + '</td><td>' + value['user'] + '</td></tr>');
                         });
                     }
                 });

@@ -92,9 +92,22 @@ class BookingAccommodation
     /**
      * @var array
      *
-     * @ORM\Column(name="data_paypal", type="array")
+     * @ORM\Column(name="data_paypal", type="array", nullable=true)
      */
     private $paypalData;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Back\BookingBundle\Entity\Status", mappedBy="bookingAccommodation")
+     */
+    protected $otherStatus;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->paypalData=array();
+    }
 
     /**
      * Get id
@@ -290,7 +303,6 @@ class BookingAccommodation
         return $this->bookingDate;
     }
 
-
     /**
      * Set dateTrasaction
      *
@@ -299,7 +311,7 @@ class BookingAccommodation
      */
     public function setDateTrasaction($dateTrasaction)
     {
-        $this->dateTrasaction = $dateTrasaction;
+        $this->dateTrasaction=$dateTrasaction;
 
         return $this;
     }
@@ -322,7 +334,7 @@ class BookingAccommodation
      */
     public function setIdTransaction($idTransaction)
     {
-        $this->idTransaction = $idTransaction;
+        $this->idTransaction=$idTransaction;
 
         return $this;
     }
@@ -336,4 +348,36 @@ class BookingAccommodation
     {
         return $this->idTransaction;
     }
+
+    /**
+     * Set paypalData
+     *
+     * @param array $paypalData
+     * @return BookingAccommodation
+     */
+    public function setPaypalData($paypalData)
+    {
+        $this->paypalData=$paypalData;
+
+        return $this;
+    }
+
+    /**
+     * Get paypalData
+     *
+     * @return array 
+     */
+    public function getPaypalData()
+    {
+        return $this->paypalData;
+    }
+
+    public function showStatus()
+    {
+        if($this->status == 1)
+            return 'Unpaid';
+        if($this->status == 2)
+            return 'Paid';
+    }
+
 }

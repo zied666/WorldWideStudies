@@ -97,6 +97,11 @@ class BookingAccommodation
     private $paypalData;
 
     /**
+     * @ORM\OneToMany(targetEntity="Back\BookingBundle\Entity\Status", mappedBy="bookingAccommodation")
+     */
+    protected $otherStatus;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -373,6 +378,53 @@ class BookingAccommodation
             return 'Unpaid';
         if($this->status == 2)
             return 'Paid';
+    }
+
+    /**
+     * Add otherStatus
+     *
+     * @param \Back\BookingBundle\Entity\Status $otherStatus
+     * @return BookingAccommodation
+     */
+    public function addOtherStatus(\Back\BookingBundle\Entity\Status $otherStatus)
+    {
+        $this->otherStatus[]=$otherStatus;
+
+        return $this;
+    }
+
+    /**
+     * Remove otherStatus
+     *
+     * @param \Back\BookingBundle\Entity\Status $otherStatus
+     */
+    public function removeOtherStatus(\Back\BookingBundle\Entity\Status $otherStatus)
+    {
+        $this->otherStatus->removeElement($otherStatus);
+    }
+
+    /**
+     * Get otherStatus
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOtherStatus()
+    {
+        return $this->otherStatus;
+    }
+
+    public function __toString()
+    {
+        return $this->id.'.';
+    }
+    
+    public function showLastStatus()
+    {
+        if(count($this->otherStatus)!=0)
+        {
+            return $this->otherStatus->last()->getStatus().' ('.$this->otherStatus->last()->getUser().')';
+        }
+        return '';
     }
 
 }

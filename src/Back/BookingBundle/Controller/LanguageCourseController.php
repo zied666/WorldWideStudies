@@ -5,6 +5,8 @@ namespace Back\BookingBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Back\BookingBundle\Entity\Status;
+use Back\BookingBundle\Form\StatusType;
 
 class LanguageCourseController extends Controller
 {
@@ -13,12 +15,25 @@ class LanguageCourseController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
+        $user=$this->get('security.context')->getToken()->getUser();
         $request=$this->getRequest();
+        $status=new Status();
+        $form=$this->createForm(new StatusType(), $status)->remove('bookingAccommodation');
+        if($request->isMethod('post'))
+        {
+            $form->submit($request);
+            $status=$form->getData();
+            $em->persist($status->setDate(new \DateTime())->setUser($user));
+            $em->flush();
+            $session->getFlashBag()->add('success', "Your status has been added successfully");
+            return $this->redirect($this->generateUrl("back_list_language_course"));
+        }
         $query=$em->getRepository("FrontGeneralBundle:BookingLanguageCourse")->findBy(array(), array( 'id'=>'desc' ));
         $paginator=$this->get('knp_paginator');
         $bookings=$paginator->paginate($query, $request->query->get('page', 1), 20);
         return $this->render('BackBookingBundle:LanguageCourse:list.html.twig', array(
-                    'bookings'=>$bookings
+                    'bookings'=>$bookings,
+                    'form'    =>$form->createView()
         ));
     }
 
@@ -98,7 +113,7 @@ class LanguageCourseController extends Controller
             $i++;
             $tab['data']['Extra : '.$i]=$extra->getName();
         }
-       
+
         $response->setData($tab);
         return $response;
     }
