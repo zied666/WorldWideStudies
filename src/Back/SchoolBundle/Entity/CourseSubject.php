@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CourseSubject
 {
+
     /**
      * @var integer
      *
@@ -32,14 +33,13 @@ class CourseSubject
      * @ORM\OneToMany(targetEntity="Description", mappedBy="courseSubject")
      */
     protected $descriptions;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Course", inversedBy="courseSubjects")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $course;
-    
-    
+
     /**
      * Get id
      *
@@ -58,7 +58,7 @@ class CourseSubject
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name=$name;
 
         return $this;
     }
@@ -72,17 +72,18 @@ class CourseSubject
     {
         return $this->name;
     }
-    
+
     public function __toString()
     {
         return $this->name;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->descriptions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->descriptions=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -93,7 +94,7 @@ class CourseSubject
      */
     public function addDescription(\Back\SchoolBundle\Entity\Description $descriptions)
     {
-        $this->descriptions[] = $descriptions;
+        $this->descriptions[]=$descriptions;
 
         return $this;
     }
@@ -124,9 +125,9 @@ class CourseSubject
      * @param \Back\SchoolBundle\Entity\Course $course
      * @return CourseSubject
      */
-    public function setCourse(\Back\SchoolBundle\Entity\Course $course = null)
+    public function setCourse(\Back\SchoolBundle\Entity\Course $course=null)
     {
-        $this->course = $course;
+        $this->course=$course;
 
         return $this;
     }
@@ -140,4 +141,13 @@ class CourseSubject
     {
         return $this->course;
     }
+
+    public function __clone()
+    {
+        if($this->id)
+        {
+            $this->id=null;
+        }
+    }
+
 }

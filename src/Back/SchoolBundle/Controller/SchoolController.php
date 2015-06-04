@@ -37,6 +37,16 @@ class SchoolController extends Controller
                 $newEnt=clone $ent;
                 $em->persist($newEnt->setCourse($newCourse));
             }
+            foreach($entity->getCourseSubjects() as $ent)
+            {
+                $newCourseSubject=clone $ent;
+                $em->persist($newCourseSubject->setCourse($newCourse));
+                foreach($ent->getDescriptions() as $entt)
+                {
+                    $newEnt=clone $entt;
+                    $em->persist($newEnt->setCourseSubject($newCourseSubject));
+                }
+            }
         }
         foreach($schoolLocation->getPhotos() as $entity)
         {
