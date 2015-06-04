@@ -1,2 +1,7 @@
-## YAML Template.
----
+bouking_list_accommodation:
+    path:     /list
+    defaults: { _controller: BackBookingBundle:Accommodation:list }
+
+back_ajax_get_paypal_information_accommodation:
+    path:     /ajaxpaypal
+    defaults: { _controller: BackBookingBundle:Accommodation:ajaxPaypal }

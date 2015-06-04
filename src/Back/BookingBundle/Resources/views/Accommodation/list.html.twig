@@ -1,0 +1,101 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}List of accommodation booking{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
+                <table class="table table-striped table-bordered table-hover table-full-width" id="">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Booking Date</th>
+                            <th>Client</th>
+                            <th>Accommodation</th>
+                            <th>Room</th>
+                            <th>Duration</th>
+                            <th>Total</th>
+                            <th>Payment Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                            <tr>
+                                <td>{{ booking.id }}</td>
+                                <td>{{ booking.bookingDate|date('d/m/Y') }}</td>
+                                <td>{{ booking.client}}</td>
+                                <td>{{ booking.room.accommodation}}</td>
+                                <td>{{ booking.room}}</td>
+                                <td>{{ booking.price}}</td>
+                                <td>{{ booking.total}} {{ booking.currency.code}}</td>
+                                <td>
+                                    {% if booking.status==2 %}
+                                        <a data-toggle="modal" data-id="{{ booking.id }}" class="paypal" data-target=".bs-example-modal-lg">{{ booking.showStatus }}</a>
+                                    {% else %}
+                                        {{ booking.showStatus }}
+                                    {% endif %}
+                                </td>
+                                <td class="center">
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(bookings) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title center" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table  table-full-width" id="sample_1">
+                                <tbody id="tbodyTable">
+                                    <tr>
+                                        <td>ssssssssss</td>
+                                        <td>ssssssssss</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $('.paypal').click(function () {
+                var id = $(this).data('id');
+                $('#myModalLabel').html('Loading ...');
+                $('#tbodyTable').html('');
+                $.ajax({
+                    url: '{{ path('back_ajax_get_paypal_information_accommodation') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#myModalLabel').html(json['title']);
+                        $.each(json['data'], function (index, value) {
+                            $('#tbodyTable').append('<tr><td>' + index + '</td><td>' + value + '</td></tr>');
+                        });
+                    }
+                });
+            })
+        })
+    </script>
+{% endblock %}

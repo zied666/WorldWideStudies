@@ -16,7 +16,7 @@ class LanguageCourseController extends Controller
         $request=$this->getRequest();
         $query=$em->getRepository("FrontGeneralBundle:BookingLanguageCourse")->findBy(array(), array( 'id'=>'desc' ));
         $paginator=$this->get('knp_paginator');
-        $bookings=$paginator->paginate($query, $request->query->get('page', 1), 10);
+        $bookings=$paginator->paginate($query, $request->query->get('page', 1), 20);
         return $this->render('BackBookingBundle:LanguageCourse:list.html.twig', array(
                     'bookings'=>$bookings
         ));
