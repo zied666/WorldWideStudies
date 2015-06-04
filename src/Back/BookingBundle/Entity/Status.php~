@@ -32,7 +32,7 @@ class Status
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
@@ -163,4 +163,50 @@ class Status
         return $this->user;
     }
 
+
+    /**
+     * Set bookingLanguageCourse
+     *
+     * @param \Front\GeneralBundle\Entity\BookingLanguageCourse $bookingLanguageCourse
+     * @return Status
+     */
+    public function setBookingLanguageCourse(\Front\GeneralBundle\Entity\BookingLanguageCourse $bookingLanguageCourse = null)
+    {
+        $this->bookingLanguageCourse = $bookingLanguageCourse;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingLanguageCourse
+     *
+     * @return \Front\GeneralBundle\Entity\BookingLanguageCourse 
+     */
+    public function getBookingLanguageCourse()
+    {
+        return $this->bookingLanguageCourse;
+    }
+
+    /**
+     * Set bookingAccommodation
+     *
+     * @param \Front\GeneralBundle\Entity\BookingAccommodation $bookingAccommodation
+     * @return Status
+     */
+    public function setBookingAccommodation(\Front\GeneralBundle\Entity\BookingAccommodation $bookingAccommodation = null)
+    {
+        $this->bookingAccommodation = $bookingAccommodation;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingAccommodation
+     *
+     * @return \Front\GeneralBundle\Entity\BookingAccommodation 
+     */
+    public function getBookingAccommodation()
+    {
+        return $this->bookingAccommodation;
+    }
 }

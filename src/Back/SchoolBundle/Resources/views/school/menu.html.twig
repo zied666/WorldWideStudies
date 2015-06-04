@@ -9,7 +9,7 @@
             Photo Gallery ({{ school.photos|length }})
         </a>
     </li>
-    <li {% if app.request.get('_route')in ['list_courses','edit_courses','startdate_courses','price_courses','pathway_price_courses'] %}class="active"{% endif %}>
+    <li {% if app.request.get('_route')in ['list_courses','edit_courses','startdate_courses','price_courses','pathway_price_courses','course_subject','course_subject_description'] %}class="active"{% endif %}>
         <a href="{{ path('list_courses',{'id':school.id}) }}">
             Courses ({{ school.courses|length }})
         </a>

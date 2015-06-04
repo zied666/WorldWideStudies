@@ -4,6 +4,7 @@ namespace Back\SchoolBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Doctrine\ORM\EntityRepository;
 use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Entity\Course;
 use Back\SchoolBundle\Form\CourseType;
@@ -15,6 +16,10 @@ use Back\SchoolBundle\Form\GenerateDatesType;
 use Symfony\Component\HttpFoundation\Response;
 use Back\SchoolBundle\Entity\PathwayPrice;
 use Back\SchoolBundle\Form\PathwayPriceType;
+use Back\SchoolBundle\Entity\CourseSubject;
+use Back\SchoolBundle\Form\CourseSubjectType;
+use Back\SchoolBundle\Entity\Description;
+use Back\SchoolBundle\Form\DescriptionType;
 
 class CoursesController extends Controller
 {
@@ -353,7 +358,7 @@ class CoursesController extends Controller
                     'course'=>$course,
         ));
     }
-    
+
     public function deletePathwayPriceAction(PathwayPrice $price)
     {
         $em=$this->getDoctrine()->getManager();
@@ -371,6 +376,117 @@ class CoursesController extends Controller
         return $this->redirect($this->generateUrl("pathway_price_courses", array(
                             'id'    =>$price->getCourse()->getSchoolLocation()->getId(),
                             'course'=>$price->getCourse()->getId()
+        )));
+    }
+
+    public function courseSubjectAction(Course $course, $id2)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(is_null($id2))
+            $courseSubject=new CourseSubject();
+        else
+            $courseSubject=$em->getRepository("BackSchoolBundle:CourseSubject")->find($id2);
+        $form=$this->createForm(new CourseSubjectType(), $courseSubject);
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $courseSubject=$form->getData();
+                $em->persist($courseSubject->setCourse($course));
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your course subject has been added successfully");
+                return $this->redirect($this->generateUrl("course_subject", array(
+                                    'id' =>$course->getId(),
+                                    'id2'=>$id2,
+                )));
+            }
+        }
+        return $this->render("BackSchoolBundle:courses:course_subject.html.twig", array(
+                    'form'  =>$form->createView(),
+                    'school'=>$course->getSchoolLocation(),
+                    'course'=>$course,
+        ));
+    }
+
+    public function deleteCourseSubjectAction(CourseSubject $courseSubject)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($courseSubject);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your course Subject has been removed successfully");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This Course subject is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("course_subject", array(
+                            'id'=>$courseSubject->getCourse()->getId(),
+        )));
+    }
+
+    public function descriptionAction(Course $course, $id2)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(is_null($id2))
+            $description=new Description();
+        else
+            $description=$em->getRepository("BackSchoolBundle:Description")->find($id2);
+        $form=$this->createForm(new DescriptionType(), $description)
+                ->add('courseSubject', "entity", array(
+                            'class'=>'BackSchoolBundle:CourseSubject',
+                            'query_builder'=>function(EntityRepository $er) use ($course){
+                            return $er->createQueryBuilder('c')
+                                    ->where('c.course = :id')
+                                    ->setParameter('id', $course->getId());
+                            
+            }
+        ));
+        $request=$this->getRequest();
+        if($request->isMethod("POST"))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $description=$form->getData();
+                $em->persist($description);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your description has been added successfully");
+                return $this->redirect($this->generateUrl("course_subject_description", array(
+                                    'id' =>$course->getId(),
+                                    'id2'=>$id2,
+                )));
+            }
+        }
+        return $this->render("BackSchoolBundle:courses:description.html.twig", array(
+                    'form'  =>$form->createView(),
+                    'school'=>$course->getSchoolLocation(),
+                    'course'=>$course,
+        ));
+    }
+
+    public function deleteDescriptionAction(Description $description)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($description);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your course Subject has been removed successfully");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This description is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("course_subject_description", array(
+                            'id'=>$courseSubject->getCourse()->getId(),
         )));
     }
 

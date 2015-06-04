@@ -76,6 +76,11 @@ class Course
      * @ORM\Column(name="description", type="text",nullable=true)
      */
     private $description;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="CourseSubject", mappedBy="course")
+     */
+    protected $courseSubjects;
 
     /**
      * Get id

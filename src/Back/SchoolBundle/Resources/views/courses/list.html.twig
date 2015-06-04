@@ -35,13 +35,14 @@
                                     <th class="center">Name</th>
                                         {% if school.type == 1 %}
                                         <th class="center">Language course</th>
+                                        <th class="center">Start Dates</th>
+                                        <th class="center">Prices</th>
                                         {% else %}
                                         <th class="center">Subject</th>
                                         <th class="center">Pathways programs</th>
                                         <th class="center">Language course</th>
+                                        <th class="center">Course Subject</th>
                                         {% endif %}
-                                    <th class="center">Start Dates</th>
-                                    <th class="center">Prices</th>
                                     <th class="center">Action</th>
                                 </tr>
                             </thead>
@@ -51,13 +52,14 @@
                                         <td class="center">{{ cours.name }}</td>
                                         {% if school.type == 1 %}
                                             <td class="center">{{ cours.language }}</td>
+                                            <td class="center">{{ cours.startDates|length }}</td>
+                                            <td class="center">{{ cours.prices|length }}</td>
                                         {% else %}
                                             <td class="center">{{ cours.subject }}</td>
                                             <td class="center">{{ cours.program }}</td>
                                             <td class="center">{{ cours.language }}</td>
+                                            <td class="center">{{ cours.courseSubjects|length }}</td>
                                         {% endif %}
-                                        <td class="center">{{ cours.startDates|length }}</td>
-                                        <td class="center">{{ cours.prices|length }}</td>
                                         <td class="center">
                                             {{ macro.fiche(path('edit_courses',{'id':school.id,'course':cours.id})) }}
                                             {{ macro.delete(path('delete_courses',{'id':cours.id})) }}

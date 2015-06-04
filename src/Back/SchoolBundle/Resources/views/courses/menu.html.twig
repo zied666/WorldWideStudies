@@ -4,22 +4,35 @@
             {{ course.name }}
         </a>
     </li>
-    <li {% if app.request.get('_route')=='startdate_courses' %}class="active"{% endif %}>
-        <a href="{{ path('startdate_courses',{'id':school.id,'course':course.id}) }}">
-            Start dates ({{ course.startDates|length }})
-        </a>
-    </li>
-    {% if school.type==1  %}
-        <li {% if app.request.get('_route')=='price_courses' %}class="active"{% endif %}>
-            <a href="{{ path('price_courses',{'id':school.id,'course':course.id}) }}">
-                Price ({{ course.prices|length }})
+    {% if school.type==1 %}
+        <li {% if app.request.get('_route')=='startdate_courses' %}class="active"{% endif %}>
+            <a href="{{ path('startdate_courses',{'id':school.id,'course':course.id}) }}">
+                Start dates ({{ course.startDates|length }})
             </a>
         </li>
+        {% if school.type==1  %}
+            <li {% if app.request.get('_route')=='price_courses' %}class="active"{% endif %}>
+                <a href="{{ path('price_courses',{'id':school.id,'course':course.id}) }}">
+                    Price ({{ course.prices|length }})
+                </a>
+            </li>
+        {% else %}
+            <li {% if app.request.get('_route')=='pathway_price_courses' %}class="active"{% endif %}>
+                <a href="{{ path('pathway_price_courses',{'id':school.id,'course':course.id}) }}">
+                    Price ({{ course.pathwayPrices|length }})
+                </a>
+            </li>
+        {% endif %}
     {% else %}
-        <li {% if app.request.get('_route')=='pathway_price_courses' %}class="active"{% endif %}>
-            <a href="{{ path('pathway_price_courses',{'id':school.id,'course':course.id}) }}">
-                Price ({{ course.pathwayPrices|length }})
-            </a>
-        </li>
+            <li {% if app.request.get('_route')=='course_subject' %}class="active"{% endif %}>
+                <a href="{{ path('course_subject',{'id':course.id}) }}">
+                    Course Subjects ({{ course.courseSubjects|length }})
+                </a>
+            </li>
+            <li {% if app.request.get('_route')=='course_subject_description' %}class="active"{% endif %}>
+                <a href="{{ path('course_subject_description',{'id':course.id}) }}">
+                    Descriptions
+                </a>
+            </li>
     {% endif %}
 </ul>
