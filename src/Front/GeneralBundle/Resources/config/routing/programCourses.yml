@@ -10,3 +10,8 @@ front_program_courses_details:
     path:     /school/{id}
     defaults: { _controller: FrontGeneralBundle:ProgramCourses:school}
           
+          
+front_program_courses_course:
+    path:     /course/{id}
+    defaults: { _controller: FrontGeneralBundle:ProgramCourses:course}
+          

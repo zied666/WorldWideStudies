@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Entity\SchoolLocationRepository;
-
+use Back\SchoolBundle\Entity\Course;
 class ProgramCoursesController extends Controller
 {
 
@@ -94,4 +94,12 @@ class ProgramCoursesController extends Controller
         ));
     }
 
+    public function courseAction(Course $course)
+    {
+        $em=$this->getDoctrine()->getManager();
+        return $this->render('FrontGeneralBundle:ProgramCourses:course.html.twig', array(
+                    'course'  =>$course,
+                    'school'  =>$course->getSchoolLocation(),
+        ));
+    }
 }

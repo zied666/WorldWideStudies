@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-12">
                         <h5 class="over-title margin-bottom-15">Course Subject <span class="text-bold">list</span></h5>
-                        <table class="table table-hover" id="sample-table-1">
+                        <table class="table " id="sample-table-1">
                             <thead>
                                 <tr>
                                     <th class="center">Course subject</th>
@@ -39,18 +39,57 @@
                                             {% endif %}
                                             <td class="center">{{ description.title }}</td>
                                             <td class="center">
-                                                {{ macro.fiche(path('course_subject_description',{'id':course.id,'id2':description.id})) }}
-                                                {{ macro.delete(path('delete_course_subject_description',{'id':description.id})) }}
+                                                <a data-id="{{ description.id }}" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-transparent btn-xs show-description"><i class="fa fa-eye"></i></a>
+                                                    {{ macro.fiche(path('course_subject_description',{'id':course.id,'id2':description.id})) }}
+                                                    {{ macro.delete(path('delete_course_subject_description',{'id':description.id})) }}
                                             </td>
                                         </tr>
                                     {% endfor %}
                                 {% endfor %}
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal fade bs-example-modal-lg"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title center" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12" id="myDescription">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block jquery %}
+    <script>
+        $(document).ready(function () {
+            $('.show-description').click(function () {
+                var id = $(this).data('id');
+                $('#myModalLabel').html('Loading ...');
+                $('#myDescription').html('');
+                $.ajax({
+                    url: '{{ path('ajax_show_description_course_subjects') }}',
+                    data: {'id': id},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        $('#myModalLabel').html(json['title']);
+                        $('#myDescription').html(json['description']);
+                    }
+                });
+            })
+        })
+    </script>
 {% endblock %}

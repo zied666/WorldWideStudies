@@ -65,18 +65,19 @@
                                 </div>
                                 <hr>
                                 <div class="long-description">
+                                    <h2>{{ school|title }}</h2>
                                     {{ school.longDescription|raw }}
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="School-Courses">
                                 <h2>Available languages courses</h2>
-                                <div class="toggle-container">
+                                <div class="toggle-container box" id="accordion1">
                                     {% for course in school.courses %}
                                         <div class="panel style1 arrow-right">
                                             <h2 class="panel-title">
-                                                <a class="collapsed" href="#course{{ loop.index }}" data-toggle="collapse">{{ course|title }}</a>
+                                                <a class="collapsed" href="#course{{ loop.index }}" data-parent="#accordion1" data-toggle="collapse">{{ course|title }}</a>
                                             </h2>
-                                            <div class="panel-collapse collapse" id="course{{ loop.index }}">
+                                            <div class="panel-collapse collapse {% if loop.index==1 %}in{% endif %}" id="course{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <p>{{ course.description }}</p>
                                                     <dl class="term-description">
@@ -91,13 +92,13 @@
                             </div>
                             <div class="tab-pane fade" id="School-accommodation">
                                 <h2>Available Accommodations</h2>
-                                <div class="toggle-container">
+                                <div class="toggle-container" id="accordion2">
                                     {% for accommodation in school.accommodations %}
                                         <div class="panel style1 arrow-right">
                                             <h2 class="panel-title">
-                                                <a class="collapsed" href="#accommodation{{ loop.index }}" data-toggle="collapse">{{ accommodation|title }}</a>
+                                                <a class="collapsed" href="#accommodation{{ loop.index }}"  data-parent="#accordion2" data-toggle="collapse">{{ accommodation|title }}</a>
                                             </h2>
-                                            <div class="panel-collapse collapse" id="accommodation{{ loop.index }}">
+                                            <div class="panel-collapse collapse {% if loop.index==1 %}in{% endif %}" id="accommodation{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <p>{{ accommodation.description }}</p>
                                                     <dl class="term-description">
@@ -123,13 +124,13 @@
                             </div>
                             <div class="tab-pane fade" id="School-extras">
                                 <h2>Available Extras</h2>
-                                <div class="toggle-container">
+                                <div class="toggle-container" id="accordion3">
                                     {% for extra in school.extras %}
                                         <div class="panel style1 arrow-right">
                                             <h2 class="panel-title">
-                                                <a class="collapsed" href="#extra{{ loop.index }}" data-toggle="collapse">{{ extra|title }}</a>
+                                                <a class="collapsed" href="#extra{{ loop.index }}"   data-parent="#accordion3" data-toggle="collapse">{{ extra|title }}</a>
                                             </h2>
-                                            <div class="panel-collapse collapse" id="extra{{ loop.index }}">
+                                            <div class="panel-collapse collapse {% if loop.index==1 %}in{% endif %}" id="extra{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <dl class="term-description">
                                                         <dt>Name:</dt><dd>{{ extra|title }}</dd>

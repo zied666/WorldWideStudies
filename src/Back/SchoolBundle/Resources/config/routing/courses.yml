@@ -57,3 +57,7 @@ course_subject_description:
 delete_course_subject_description:
     path:     /delete_course_subject_description/{id}
     defaults: { _controller: BackSchoolBundle:Courses:deleteDescription }
+    
+ajax_show_description_course_subjects:
+    path:     /ajax_show_description_course_subjects
+    defaults: { _controller: BackSchoolBundle:Courses:ajaxDescription }

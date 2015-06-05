@@ -4,6 +4,7 @@ namespace Back\SchoolBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityRepository;
 use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Entity\Course;
@@ -440,12 +441,11 @@ class CoursesController extends Controller
             $description=$em->getRepository("BackSchoolBundle:Description")->find($id2);
         $form=$this->createForm(new DescriptionType(), $description)
                 ->add('courseSubject', "entity", array(
-                            'class'=>'BackSchoolBundle:CourseSubject',
-                            'query_builder'=>function(EntityRepository $er) use ($course){
-                            return $er->createQueryBuilder('c')
-                                    ->where('c.course = :id')
-                                    ->setParameter('id', $course->getId());
-                            
+            'class'        =>'BackSchoolBundle:CourseSubject',
+            'query_builder'=>function(EntityRepository $er) use ($course){
+                return $er->createQueryBuilder('c')
+                        ->where('c.course = :id')
+                        ->setParameter('id', $course->getId());
             }
         ));
         $request=$this->getRequest();
@@ -488,6 +488,21 @@ class CoursesController extends Controller
         return $this->redirect($this->generateUrl("course_subject_description", array(
                             'id'=>$courseSubject->getCourse()->getId(),
         )));
+    }
+
+    public function ajaxDescriptionAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $request=$this->getRequest();
+        $id=$request->get("id");
+        $tab=array();
+        $response=new JsonResponse();
+        $description=new Description();
+        $description=$em->getRepository("BackSchoolBundle:Description")->find($request->get('id'));
+        $tab['title']=$description->getTitle();
+        $tab['description']=$description->getDescription();
+        $response->setData($tab);
+        return $response;
     }
 
 }
