@@ -77,7 +77,7 @@
                                             <h2 class="panel-title">
                                                 <a class="collapsed"   data-parent="#CoursePathway" href="#course{{ loop.index }}" data-toggle="collapse">{{ course.name|title }}</a>
                                             </h2>
-                                            <div class="panel-collapse collapse {% if loop.index==1 %}in{% endif %}" id="course{{ loop.index }}">
+                                            <div class="panel-collapse collapse" id="course{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <p>{{ course.description }}</p>
                                                     <div class="panel-content">
@@ -107,7 +107,7 @@
                                             <h2 class="panel-title">
                                                 <a class="collapsed" data-parent="#accopathway" href="#accommodation{{ loop.index }}" data-toggle="collapse">{{ accommodation|title }}</a>
                                             </h2>
-                                            <div class="panel-collapse collapse {% if loop.index==1 %}in{% endif %}" id="accommodation{{ loop.index }}">
+                                            <div class="panel-collapse collapse" id="accommodation{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <p>{{ accommodation.description }}</p>
                                                     <dl class="term-description">
@@ -139,7 +139,7 @@
                                             <h2 class="panel-title">
                                                 <a class="collapsed"  data-parent="#extrapathway" href="#extra{{ loop.index }}" data-toggle="collapse">{{ extra }}</a>
                                             </h2>
-                                            <div class="panel-collapse collapse {% if loop.index==1 %}in{% endif %}" id="extra{{ loop.index }}">
+                                            <div class="panel-collapse collapse" id="extra{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <dl class="term-description">
                                                         <dt>Name:</dt><dd>{{ extra }}</dd>

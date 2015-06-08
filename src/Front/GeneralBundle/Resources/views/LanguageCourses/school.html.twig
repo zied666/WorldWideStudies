@@ -77,7 +77,7 @@
                                             <h2 class="panel-title">
                                                 <a class="collapsed" href="#course{{ loop.index }}" data-parent="#accordion1" data-toggle="collapse">{{ course|title }}</a>
                                             </h2>
-                                            <div class="panel-collapse collapse {% if loop.index==1 %}in{% endif %}" id="course{{ loop.index }}">
+                                            <div class="panel-collapse collapse" id="course{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <p>{{ course.description }}</p>
                                                     <dl class="term-description">
@@ -98,7 +98,7 @@
                                             <h2 class="panel-title">
                                                 <a class="collapsed" href="#accommodation{{ loop.index }}"  data-parent="#accordion2" data-toggle="collapse">{{ accommodation|title }}</a>
                                             </h2>
-                                            <div class="panel-collapse collapse {% if loop.index==1 %}in{% endif %}" id="accommodation{{ loop.index }}">
+                                            <div class="panel-collapse collapse" id="accommodation{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <p>{{ accommodation.description }}</p>
                                                     <dl class="term-description">
@@ -130,7 +130,7 @@
                                             <h2 class="panel-title">
                                                 <a class="collapsed" href="#extra{{ loop.index }}"   data-parent="#accordion3" data-toggle="collapse">{{ extra|title }}</a>
                                             </h2>
-                                            <div class="panel-collapse collapse {% if loop.index==1 %}in{% endif %}" id="extra{{ loop.index }}">
+                                            <div class="panel-collapse collapse" id="extra{{ loop.index }}">
                                                 <div class="panel-content">
                                                     <dl class="term-description">
                                                         <dt>Name:</dt><dd>{{ extra|title }}</dd>
