@@ -244,6 +244,11 @@
                                 <span class="title">Paypal</span>
                             </a>
                         </li>
+                        <li {% if app.request.get('_route')=='list_user' %}class="active"{% endif %}>
+                            <a href="{{ path('list_user') }}">
+                                <span class="title">Users</span>
+                            </a>
+                        </li>
                         <li {% if app.request.get('_route')=='administrator' %}class="active"{% endif %}>
                             <a href="{{ path('administrator') }}">
                                 <span class="title">Administrators</span>

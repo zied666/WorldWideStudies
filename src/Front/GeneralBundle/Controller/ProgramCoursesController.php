@@ -21,7 +21,7 @@ class ProgramCoursesController extends Controller
         $cities=$em->getRepository("BackReferentielBundle:City")->findBy(array( 'country'=>$em->getRepository("BackReferentielBundle:Country")->find($country) ), array( "libelle"=>"asc" ));
         $query=$em->getRepository("BackSchoolBundle:SchoolLocation")->getProgramSchool($program,$language,$subject, $country, $city, $stars, $keyword, $sort, $desc);
         $paginator=$this->get('knp_paginator');
-        $schools=$paginator->paginate($query, $page, 20);
+        $schools=$paginator->paginate($query, $page, 10);
         return $this->render('FrontGeneralBundle:ProgramCourses:list.html.twig', array(
                     'schools'  =>$schools,
                     'count'    =>count($query),

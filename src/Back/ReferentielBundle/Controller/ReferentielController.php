@@ -778,4 +778,37 @@ class ReferentielController extends Controller
         return $this->redirect($this->generateUrl("status"));
     }
 
+    public function listUserAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $query=$this->getDoctrine()->getManager()->createQueryBuilder();
+        $query->select('u')
+                ->from('BackUserBundle:User', 'u')
+                ->where('u.roles not LIKE :role')
+                ->andWhere('u.roles not LIKE :role1')
+                ->setParameter('role', '%ROLE_ADMIN%')
+                ->setParameter('role1', '%ROLE_SUPER_ADMIN%')
+                ->orderBy("u.id",'desc');
+        $query->getQuery()->getResult();
+        $paginator=$this->get('knp_paginator');
+        $users=$paginator->paginate($query, $this->getRequest()->query->get('page', 1), 20);
+        return $this->render("BackReferentielBundle::users.html.twig", array(
+                    'users'=>$users,
+        ));
+    }
+
+    public function enableUser2Action(User $user)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if($user->isEnabled())
+            $user->setEnabled(FALSE);
+        else
+            $user->setEnabled(TRUE);
+        $em->persist($user);
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your user has been updated successfully");
+        return $this->redirect($this->generateUrl("list_user"));
+    }
 }

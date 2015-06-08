@@ -1,0 +1,52 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}list of Users{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">list of Users ({{ users.getTotalItemCount }})</span></h5>
+                <table class="table table-striped table-bordered table-hover table-full-width">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Last login</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.firstName }}</td>
+                                <td>{{ user.lastName }}</td>
+                                <td>{{ user.phone }}</td>
+                                <td>{{ user.address }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.lastLogin|date('d F Y, H:i') }}</td>
+                                <td class="center">
+                                    {% if user.enabled %}
+                                        <a href="{{ path('enabled_user2',{'id':user.id}) }}" ><span class="label label-sm label-success">Enabled</span></a>
+                                    {% else %}
+                                        <a href="{{ path('enabled_user2',{'id':user.id}) }}"><span class="label label-sm label-danger">Disabled</span></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(users) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -21,7 +21,7 @@ class UniversityController extends Controller
         $cities=$em->getRepository("BackReferentielBundle:City")->findBy(array( 'country'=>$em->getRepository("BackReferentielBundle:Country")->find($country) ), array( "libelle"=>"asc" ));
         $query=$em->getRepository("BackUniversityBundle:CourseTitle")->getCourses($level, $qualification, $subject, $studymode, $country, $city, $sort, $desc, $keyword);
         $paginator=$this->get('knp_paginator');
-        $courses=$paginator->paginate($query, $page, 20);
+        $courses=$paginator->paginate($query, $page, 10);
         return $this->render('FrontGeneralBundle:Universities:list.html.twig', array(
                     'courses'       =>$courses,
                     'count'         =>count($query),

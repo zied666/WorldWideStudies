@@ -103,5 +103,12 @@ program:
 
 delete_program:
     path:     /delete_program/{id}
-    defaults: { _controller: BackReferentielBundle:Referentiel:deleteProgram }  
+    defaults: { _controller: BackReferentielBundle:Referentiel:deleteProgram }
+#********************************************************************************************************
+list_user:
+    path:     /users
+    defaults: { _controller: BackReferentielBundle:Referentiel:listUser }    
+enabled_user2:
+    path:     /enableUser2/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:enableUser2 }    
     

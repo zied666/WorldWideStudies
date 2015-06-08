@@ -17,7 +17,7 @@ class AccomodationController extends Controller
         $cities=$em->getRepository("BackReferentielBundle:City")->findBy(array( 'country'=>$em->getRepository("BackReferentielBundle:Country")->find($country) ), array( "libelle"=>"asc" ));
         $query=$em->getRepository("BackAccommodationBundle:Accommodation")->getAccommodations($type, $country, $city, $sort, $desc, $keyword);
         $paginator=$this->get('knp_paginator');
-        $accommodations=$paginator->paginate($query, $page, 20);
+        $accommodations=$paginator->paginate($query, $page, 10);
         return $this->render('FrontGeneralBundle:Accommodations:list.html.twig', array(
                     'accommodations'=>$accommodations,
                     'count'         =>count($query),
