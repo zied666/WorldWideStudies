@@ -23,8 +23,9 @@
                                     <div class="col-md-3"><label>Starting Date</label></div>
                                     <div class="col-md-2"><label>Price</label></div>
                                 </div>
-
+                                {% set verif = false %}
                                 {% for course in school.courses if (course.getMaxWeek!=0 or course.pathwayPrices|length>0) and course.startDates|length>0  %}
+                                    {% set verif==true %}
                                     <hr style="border-color:burlywood;  margin-top: 0px;">
                                     <div class="form-group row">
                                         <div class="col-md-5">
@@ -74,12 +75,26 @@
                                         </div>
                                     </div>
                                 {% endfor %}
+                                {% if verif==false %}
+                                    <div class="block">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="alert alert-notice">
+                                                    No course available
+                                                    <span class="close"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-6 col-md-5">
-                                    <button type="submit" class="full-width btn-large">Next step 2</button>
+                            {% if verif==true %}
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-5">
+                                        <button type="submit" class="full-width btn-large">Next step 2</button>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </form>
                     </div>
                 </div>
