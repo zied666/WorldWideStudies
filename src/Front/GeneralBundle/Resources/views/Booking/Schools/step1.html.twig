@@ -25,7 +25,7 @@
                                 </div>
                                 {% set verif = false %}
                                 {% for course in school.courses if (course.getMaxWeek!=0 or course.pathwayPrices|length>0) and course.startDates|length>0  %}
-                                    {% set verif==true %}
+                                    {% set verif=true %}
                                     <hr style="border-color:burlywood;  margin-top: 0px;">
                                     <div class="form-group row">
                                         <div class="col-md-5">
