@@ -51,13 +51,16 @@ class Status
 
     /**
      * @ORM\ManyToOne(targetEntity="Front\GeneralBundle\Entity\BookingLanguageCourse", inversedBy="otherStatus")
-     * @Assert\NotNull()
      */
     protected $bookingLanguageCourse;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Front\GeneralBundle\Entity\FormStep1", inversedBy="otherStatus")
+     */
+    protected $formStep1;
 
     /**
      * @ORM\ManyToOne(targetEntity="Front\GeneralBundle\Entity\BookingAccommodation", inversedBy="otherStatus")
-     * @Assert\NotNull()
      */
     protected $bookingAccommodation;
 
@@ -208,5 +211,28 @@ class Status
     public function getBookingAccommodation()
     {
         return $this->bookingAccommodation;
+    }
+
+    /**
+     * Set formStep1
+     *
+     * @param \Front\GeneralBundle\Entity\FormStep1 $formStep1
+     * @return Status
+     */
+    public function setFormStep1(\Front\GeneralBundle\Entity\FormStep1 $formStep1 = null)
+    {
+        $this->formStep1 = $formStep1;
+
+        return $this;
+    }
+
+    /**
+     * Get formStep1
+     *
+     * @return \Front\GeneralBundle\Entity\FormStep1 
+     */
+    public function getFormStep1()
+    {
+        return $this->formStep1;
     }
 }

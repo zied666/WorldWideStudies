@@ -135,7 +135,7 @@ class FormStep2
     /**
      * @ORM\OneToOne(targetEntity="FormStep3", inversedBy="formStep2")
      * @ORM\JoinColumn(onDelete="CASCADE")
-     **/
+     * */
     private $formStep3;
 
     /**
@@ -493,16 +493,15 @@ class FormStep2
         return $this->testDate;
     }
 
-
     /**
      * Set formStep1
      *
      * @param \Front\GeneralBundle\Entity\FormStep1 $formStep1
      * @return FormStep2
      */
-    public function setFormStep1(\Front\GeneralBundle\Entity\FormStep1 $formStep1 = null)
+    public function setFormStep1(\Front\GeneralBundle\Entity\FormStep1 $formStep1=null)
     {
-        $this->formStep1 = $formStep1;
+        $this->formStep1=$formStep1;
 
         return $this;
     }
@@ -516,4 +515,28 @@ class FormStep2
     {
         return $this->formStep1;
     }
+
+    /**
+     * Set formStep3
+     *
+     * @param \Front\GeneralBundle\Entity\FormStep3 $formStep3
+     * @return FormStep2
+     */
+    public function setFormStep3(\Front\GeneralBundle\Entity\FormStep3 $formStep3=null)
+    {
+        $this->formStep3=$formStep3;
+
+        return $this;
+    }
+
+    /**
+     * Get formStep3
+     *
+     * @return \Front\GeneralBundle\Entity\FormStep3 
+     */
+    public function getFormStep3()
+    {
+        return $this->formStep3;
+    }
+
 }

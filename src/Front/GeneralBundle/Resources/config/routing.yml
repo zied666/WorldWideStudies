@@ -6,6 +6,10 @@ FrontBooking:
     resource: "@FrontGeneralBundle/Resources/config/routing/booking.yml"
     prefix:   /book/
 
+FrontBookingProgramPathway:
+    resource: "@FrontGeneralBundle/Resources/config/routing/bookingProgramPathway.yml"
+    prefix:   /ProgramPathwayBooking/
+
 SchoolRoutingPathway:
     resource: "@FrontGeneralBundle/Resources/config/routing/programCourses.yml"
     prefix:   /PathwayCourses/

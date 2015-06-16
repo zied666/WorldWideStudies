@@ -413,4 +413,37 @@ class Course
         }
     }
 
+
+    /**
+     * Add courseSubjects
+     *
+     * @param \Back\SchoolBundle\Entity\CourseSubject $courseSubjects
+     * @return Course
+     */
+    public function addCourseSubject(\Back\SchoolBundle\Entity\CourseSubject $courseSubjects)
+    {
+        $this->courseSubjects[] = $courseSubjects;
+
+        return $this;
+    }
+
+    /**
+     * Remove courseSubjects
+     *
+     * @param \Back\SchoolBundle\Entity\CourseSubject $courseSubjects
+     */
+    public function removeCourseSubject(\Back\SchoolBundle\Entity\CourseSubject $courseSubjects)
+    {
+        $this->courseSubjects->removeElement($courseSubjects);
+    }
+
+    /**
+     * Get courseSubjects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCourseSubjects()
+    {
+        return $this->courseSubjects;
+    }
 }

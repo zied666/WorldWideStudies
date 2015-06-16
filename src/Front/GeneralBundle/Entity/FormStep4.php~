@@ -32,7 +32,7 @@ class FormStep4
     /**
      * @var string
      *
-     * @ORM\Column(name="comments", type="text")
+     * @ORM\Column(name="comments", type="text",nullable=true)
      */
     private $comments;
 
@@ -155,6 +155,29 @@ class FormStep4
     public function getTerm2()
     {
         return $this->term2;
+    }
+
+    /**
+     * Set formStep3
+     *
+     * @param \Front\GeneralBundle\Entity\FormStep3 $formStep3
+     * @return FormStep4
+     */
+    public function setFormStep3(\Front\GeneralBundle\Entity\FormStep3 $formStep3=null)
+    {
+        $this->formStep3=$formStep3;
+
+        return $this;
+    }
+
+    /**
+     * Get formStep3
+     *
+     * @return \Front\GeneralBundle\Entity\FormStep3 
+     */
+    public function getFormStep3()
+    {
+        return $this->formStep3;
     }
 
 }

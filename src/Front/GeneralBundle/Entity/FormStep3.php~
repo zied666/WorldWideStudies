@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FormStep3
 {
+
     /**
      * @var integer
      *
@@ -85,9 +86,8 @@ class FormStep3
     /**
      * @ORM\OneToOne(targetEntity="FormStep4", inversedBy="formStep3")
      * @ORM\JoinColumn(onDelete="CASCADE")
-     **/
+     * */
     private $formStep4;
-
 
     /**
      * Get id
@@ -107,7 +107,7 @@ class FormStep3
      */
     public function setSourceFunding($sourceFunding)
     {
-        $this->sourceFunding = $sourceFunding;
+        $this->sourceFunding=$sourceFunding;
 
         return $this;
     }
@@ -130,7 +130,7 @@ class FormStep3
      */
     public function setAddressLine1($addressLine1)
     {
-        $this->addressLine1 = $addressLine1;
+        $this->addressLine1=$addressLine1;
 
         return $this;
     }
@@ -153,7 +153,7 @@ class FormStep3
      */
     public function setAddressLine2($addressLine2)
     {
-        $this->addressLine2 = $addressLine2;
+        $this->addressLine2=$addressLine2;
 
         return $this;
     }
@@ -176,7 +176,7 @@ class FormStep3
      */
     public function setCity($city)
     {
-        $this->city = $city;
+        $this->city=$city;
 
         return $this;
     }
@@ -199,7 +199,7 @@ class FormStep3
      */
     public function setRegion($region)
     {
-        $this->region = $region;
+        $this->region=$region;
 
         return $this;
     }
@@ -222,7 +222,7 @@ class FormStep3
      */
     public function setPostal($postal)
     {
-        $this->postal = $postal;
+        $this->postal=$postal;
 
         return $this;
     }
@@ -245,7 +245,7 @@ class FormStep3
      */
     public function setCountry($country)
     {
-        $this->country = $country;
+        $this->country=$country;
 
         return $this;
     }
@@ -268,7 +268,7 @@ class FormStep3
      */
     public function setCurrently($currently)
     {
-        $this->currently = $currently;
+        $this->currently=$currently;
 
         return $this;
     }
@@ -282,4 +282,51 @@ class FormStep3
     {
         return $this->currently;
     }
+
+    /**
+     * Set formStep2
+     *
+     * @param \Front\GeneralBundle\Entity\FormStep2 $formStep2
+     * @return FormStep3
+     */
+    public function setFormStep2(\Front\GeneralBundle\Entity\FormStep2 $formStep2=null)
+    {
+        $this->formStep2=$formStep2;
+
+        return $this;
+    }
+
+    /**
+     * Get formStep2
+     *
+     * @return \Front\GeneralBundle\Entity\FormStep2 
+     */
+    public function getFormStep2()
+    {
+        return $this->formStep2;
+    }
+
+    /**
+     * Set formStep4
+     *
+     * @param \Front\GeneralBundle\Entity\FormStep4 $formStep4
+     * @return FormStep3
+     */
+    public function setFormStep4(\Front\GeneralBundle\Entity\FormStep4 $formStep4=null)
+    {
+        $this->formStep4=$formStep4;
+
+        return $this;
+    }
+
+    /**
+     * Get formStep4
+     *
+     * @return \Front\GeneralBundle\Entity\FormStep4 
+     */
+    public function getFormStep4()
+    {
+        return $this->formStep4;
+    }
+
 }

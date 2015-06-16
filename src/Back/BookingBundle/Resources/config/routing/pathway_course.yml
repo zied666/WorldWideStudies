@@ -1,0 +1,7 @@
+back_list_pathway_course:
+    path:     /list
+    defaults: { _controller: BackBookingBundle:PathwayCourse:list }
+
+back_details_pathway_course:
+    path:     /details/{id}
+    defaults: { _controller: BackBookingBundle:PathwayCourse:details }

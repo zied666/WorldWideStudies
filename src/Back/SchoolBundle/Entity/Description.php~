@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Description
 {
+
     /**
      * @var integer
      *
@@ -34,13 +35,12 @@ class Description
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="CourseSubject", inversedBy="descriptions")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $courseSubject;
-
 
     /**
      * Get id
@@ -60,7 +60,7 @@ class Description
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->title=$title;
 
         return $this;
     }
@@ -83,7 +83,7 @@ class Description
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description=$description;
 
         return $this;
     }
@@ -104,9 +104,9 @@ class Description
      * @param \Back\SchoolBundle\Entity\CourseSubject $courseSubject
      * @return Description
      */
-    public function setCourseSubject(\Back\SchoolBundle\Entity\CourseSubject $courseSubject = null)
+    public function setCourseSubject(\Back\SchoolBundle\Entity\CourseSubject $courseSubject=null)
     {
-        $this->courseSubject = $courseSubject;
+        $this->courseSubject=$courseSubject;
 
         return $this;
     }
@@ -120,4 +120,13 @@ class Description
     {
         return $this->courseSubject;
     }
+
+    public function __clone()
+    {
+        if($this->id)
+        {
+            $this->id=null;
+        }
+    }
+
 }

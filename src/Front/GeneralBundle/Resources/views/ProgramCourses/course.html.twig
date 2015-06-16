@@ -61,7 +61,7 @@
                                 <h2 class="box-title">{{ school|title }}<small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space">{{ school.city.country|upper }}, {{ school.city }}</span></small></h2>
                             </div>
                             <div class="block">
-                                <a class="button btn-medium red full-width" style="margin-bottom: 5px;">Apply now</a>
+                                <a href="{{ path('front_program_pathway_step1') }}" class="button btn-medium red full-width" style="margin-bottom: 5px;">Apply now</a>
                                 <a href="{{ path('front_program_courses_details',{'id':school.id}) }}" class="button btn-medium dark-blue1 full-width" style="margin-bottom: 5px;">Return to school</a>
                             </div>
                         </article>

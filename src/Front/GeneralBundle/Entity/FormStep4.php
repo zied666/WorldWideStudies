@@ -32,7 +32,7 @@ class FormStep4
     /**
      * @var string
      *
-     * @ORM\Column(name="comments", type="text")
+     * @ORM\Column(name="comments", type="text",nullable=true)
      */
     private $comments;
 
@@ -180,4 +180,11 @@ class FormStep4
         return $this->formStep3;
     }
 
+    public function showSpecialNeeds()
+    {
+        if($this->specialNeeds)
+            return 'Yes';
+        else
+            return 'No';
+    }
 }

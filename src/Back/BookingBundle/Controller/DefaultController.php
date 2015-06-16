@@ -42,6 +42,8 @@ class DefaultController extends Controller
             $status=$em->getRepository("BackBookingBundle:Status")->findBy(array( 'bookingLanguageCourse'=>$em->getRepository("FrontGeneralBundle:BookingLanguageCourse")->find($id)),array('id'=>'desc'));
         if($type == 2)
             $status=$em->getRepository("BackBookingBundle:Status")->findBy(array( 'bookingAccommodation'=>$em->getRepository("FrontGeneralBundle:BookingAccommodation")->find($id) ),array('id'=>'desc'));
+        if($type == 3)
+            $status=$em->getRepository("BackBookingBundle:Status")->findBy(array( 'formStep1'=>$em->getRepository("FrontGeneralBundle:FormStep1")->find($id) ),array('id'=>'desc'));
         $tab['title']='list of status';
         foreach($status as $stat)
         {

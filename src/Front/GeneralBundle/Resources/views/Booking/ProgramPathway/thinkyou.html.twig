@@ -1,0 +1,34 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Think you{% endblock %}
+{% block body %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Think you</h2>
+            </div>
+        </div>
+    </div>
+
+    <section id="content" class="gray-area">
+        <div class="container">
+            <div class="row">
+                <div id="main" class="col-md-12">
+                    <div class="booking-information travelo-box">
+                        <h2>Booking Confirmation</h2>
+                        <hr />
+                        <div class="booking-confirmation clearfix">
+                            <i class="soap-icon-recommend icon circle"></i>
+                            <div class="message">
+                                <h4 class="main-message">Thank You. You just completed your payment.</h4>
+                                <h4 class="main-message"> Your Booking Order is Confirmed Now.</h4>
+                                {#                                <p>A confirmation email has been sent to your provided email address.</p>#}
+                            </div>
+                            {#                            <a href="#" class="button btn-small print-button uppercase">print Details</a>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

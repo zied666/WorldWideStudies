@@ -1,0 +1,124 @@
+{% extends ":Front:base.html.twig" %}
+{% block title %}Step 2{% endblock %}
+{% block body %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Step 2</h2>
+            </div>
+        </div>
+    </div>
+    <section id="content" class="gray-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-container style1">
+                        <ul class="tabs full-width">
+                            <li><a href="{{ path('front_program_pathway_step1') }}" >Step 1</a></li>
+                            <li class="active"><a href="javascript:void(0)" data-toggle="tab">Step 2</a></li>
+                            <li><p class="StepBlock">Step 3</p></li>
+                            <li><p class="StepBlock">Step 4</p></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active">
+                                {{ form_start(form) }}
+                                <div class="person-information">
+                                    <h2>Academic information</h2>
+                                    <div class="form-group row">
+                                        <h4>University or College</h4>
+                                        {{ formulaire.input("col-md-12","Do you have a university or college degree?* ",form.universityDegree,true) }}
+                                    </div>
+                                        <div class="form-group row {% if form.universityDegree.vars.data is null %} no-display{% endif %}" id="blockYesNo">
+                                        <div id="blockYes" class="{% if not form.universityDegree.vars.data  %} no-display{% endif %}">
+                                            {{ formulaire.input("col-md-3","Last qualification awarded*",form.lastQualification,true) }}
+                                            {{ formulaire.input("col-md-3","Graduation year*",form.graduationYear,true) }}
+                                        </div>
+                                        <div id="blockNo" class="{% if form.universityDegree.vars.data %} no-display{% endif %}">
+                                            {{ formulaire.input("col-md-3","Current year of study",form.currentYearStudy,true) }}
+                                            {{ formulaire.input("col-md-3","Expected Graduation year*",form.expectedGraduationYear,true) }}
+                                        </div>
+                                        {{ formulaire.input("col-md-3","School or institution name*",form.schoolName,true) }}
+                                        {{ formulaire.input("col-md-3","Country*",form.country,true) }}
+                                    </div>
+                                    <div class="form-group row">
+                                        <h4>Secondary school</h4>
+                                        {{ formulaire.input("col-md-3","Last qualification awarded*",form.lastQualificationS2,true) }}
+                                        {{ formulaire.input("col-md-3","Graduation year*",form.graduationYearS2,true) }}
+                                        {{ formulaire.input("col-md-3","School or institution name*",form.schoolNameS2,true) }}
+                                        {{ formulaire.input("col-md-3","Country*",form.countryS2,true) }}
+                                    </div> 
+                                    <div class="form-group row">
+                                        <h4>English proficiency</h4>
+                                        {{ formulaire.input("col-md-12","Have you taken a recognised English Language TEST?* ",form.englishTest,true) }}
+                                    </div> 
+                                    <div class="form-group row {% if not form.englishTest.vars.data  %} no-display{% endif %}" id="blockTest">
+                                        {{ formulaire.input("col-md-12","Please enter details of your most recent englist language test",form.test,true) }}
+                                        {{ formulaire.input("col-md-3","Score ",form.score,true) }}
+                                        {{ formulaire.input("col-md-3","Test Date",form.testDate,true) }}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 col-md-5">
+                                        <button type="submit" class="full-width btn-large">Step 3</button>
+                                    </div>
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                        </di
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .StepBlock
+        {
+            height: 30px;
+            line-height: 30px;
+            background: #f5f5f5;
+            padding: 0 18px;
+            color: #9e9e9e;
+            font-size: 0.9167em;
+            font-weight: bold;
+            text-align: center;
+            margin: 0px;
+            text-transform: uppercase;
+        }
+    </style>
+{% endblock %}
+{% block jquery %}
+    <script>
+        tjq(document).ready(function () {
+            tjq("#front_generalbundle_formstep2_englishTest_1").change(function () {
+                if (!tjq('#blockTest').hasClass('no-display'))
+                    tjq('#blockTest').addClass('no-display');
+            })
+            tjq("#front_generalbundle_formstep2_englishTest_0").change(function () {
+                if (tjq('#blockTest').hasClass('no-display'))
+                    tjq('#blockTest').removeClass('no-display');
+            })
+            tjq("#front_generalbundle_formstep2_universityDegree_0").change(function () {
+                if (tjq('#blockYesNo').hasClass('no-display'))
+                    tjq('#blockYesNo').removeClass('no-display');
+                if (tjq('#blockYes').hasClass('no-display'))
+                    tjq('#blockYes').removeClass('no-display');
+                if (!tjq('#blockNo').hasClass('no-display'))
+                    tjq('#blockNo').addClass('no-display');
+            })
+            tjq("#front_generalbundle_formstep2_universityDegree_1").change(function () {
+                if (tjq('#blockYesNo').hasClass('no-display'))
+                    tjq('#blockYesNo').removeClass('no-display');
+                if (tjq('#blockNo').hasClass('no-display'))
+                    tjq('#blockNo').removeClass('no-display');
+                if (!tjq('#blockYes').hasClass('no-display'))
+                    tjq('#blockYes').addClass('no-display');
+            })
+        })
+    </script>
+{% endblock %}

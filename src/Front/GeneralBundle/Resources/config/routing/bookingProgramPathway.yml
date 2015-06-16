@@ -1,0 +1,19 @@
+front_program_pathway_step1:
+    path:     /step1
+    defaults: { _controller: FrontGeneralBundle:FormProgramPathway:step1}
+    
+front_program_pathway_step2:
+    path:     /step2
+    defaults: { _controller: FrontGeneralBundle:FormProgramPathway:step2}
+    
+front_program_pathway_step3:
+    path:     /step3
+    defaults: { _controller: FrontGeneralBundle:FormProgramPathway:step3}
+    
+front_program_pathway_step4:
+    path:     /step4
+    defaults: { _controller: FrontGeneralBundle:FormProgramPathway:step4}
+    
+front_program_pathway_step_thikyou:
+    path:     /thinkyou
+    defaults: { _controller: FrontGeneralBundle:FormProgramPathway:thinkyou}

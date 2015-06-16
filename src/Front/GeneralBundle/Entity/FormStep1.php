@@ -3,6 +3,7 @@
 namespace Front\GeneralBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * FormStep1
@@ -24,14 +25,16 @@ class FormStep1
 
     /**
      * @var string
-     *
+     * @Assert\NotNull()
+     * 
      * @ORM\Column(name="firstName", type="string", length=255)
      */
     private $firstName;
 
     /**
      * @var string
-     *
+     * @Assert\NotNull()
+     * 
      * @ORM\Column(name="lastName", type="string", length=255)
      */
     private $lastName;
@@ -52,6 +55,7 @@ class FormStep1
 
     /**
      * @var string
+     * @Assert\NotNull()
      *
      * @ORM\Column(name="natianality", type="string", length=255)
      */
@@ -59,6 +63,16 @@ class FormStep1
 
     /**
      * @var string
+     * @Assert\NotNull()
+     * @Assert\Email()
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @var string
+     * @Assert\NotNull()
      *
      * @ORM\Column(name="primaryPhone", type="string", length=255)
      */
@@ -73,23 +87,26 @@ class FormStep1
 
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\Level")
+     * @Assert\NotNull()
      */
     protected $levelOfStudy;
 
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\Subject")
+     * @Assert\NotNull()
      */
     protected $subject;
 
     /**
      * @ORM\ManyToOne(targetEntity="Back\ReferentielBundle\Entity\PreferredIntake")
+     * @Assert\NotNull()
      */
     protected $preferredIntake;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="progressionUniversityDegree", type="string", length=255)
+     * @ORM\Column(name="progressionUniversityDegree", type="string", length=255,nullable=true)
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $progressionUniversityDegree;
@@ -99,6 +116,18 @@ class FormStep1
      * @ORM\JoinColumn(onDelete="CASCADE")
      * */
     private $formStep2;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Back\BookingBundle\Entity\Status", mappedBy="formStep1")
+     */
+    protected $otherStatus;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="bookingDate", type="datetime")
+     */
+    private $bookingDate;
 
     /**
      * Get id
@@ -386,4 +415,112 @@ class FormStep1
         return $this->formStep2;
     }
 
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return FormStep1
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->otherStatus = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add otherStatus
+     *
+     * @param \Back\BookingBundle\Entity\Status $otherStatus
+     * @return FormStep1
+     */
+    public function addOtherStatus(\Back\BookingBundle\Entity\Status $otherStatus)
+    {
+        $this->otherStatus[] = $otherStatus;
+
+        return $this;
+    }
+
+    /**
+     * Remove otherStatus
+     *
+     * @param \Back\BookingBundle\Entity\Status $otherStatus
+     */
+    public function removeOtherStatus(\Back\BookingBundle\Entity\Status $otherStatus)
+    {
+        $this->otherStatus->removeElement($otherStatus);
+    }
+
+    /**
+     * Get otherStatus
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOtherStatus()
+    {
+        return $this->otherStatus;
+    }
+
+    /**
+     * Set bookingDate
+     *
+     * @param \DateTime $bookingDate
+     * @return FormStep1
+     */
+    public function setBookingDate($bookingDate)
+    {
+        $this->bookingDate = $bookingDate;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingDate
+     *
+     * @return \DateTime 
+     */
+    public function getBookingDate()
+    {
+        return $this->bookingDate;
+    }
+    
+    public function __toString()
+    {
+        return $this->id.'.';
+    }
+    
+    public function showLastStatus()
+    {
+        if(count($this->otherStatus)!=0)
+        {
+            return $this->otherStatus->last()->getStatus().' ('.$this->otherStatus->last()->getUser().')';
+        }
+        return '';
+    }
+    
+    public function showGender()
+    {
+        if($this->gender==1)
+            return 'Male';
+        else
+            return 'Female';
+    }
 }

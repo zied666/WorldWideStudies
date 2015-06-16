@@ -538,5 +538,31 @@ class FormStep2
     {
         return $this->formStep3;
     }
+    
+    public function showUniversityDegree()
+    {
+        if($this->universityDegree)
+            return 'Yes';
+        else
+            return 'No';
+    }
+    
+    public function showEnglishTest()
+    {
+        if($this->englishTest)
+            return 'Yes';
+        else
+            return 'No';
+    }
+    
+    public function showTest()
+    {
+        if($this->test==1)
+            return 'IELTS';
+        if($this->test==2)
+            return 'TOEFL';
+        if($this->test==3)
+            return 'OTHER';
+    }
 
 }
