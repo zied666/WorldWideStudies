@@ -213,4 +213,18 @@ class DefaultController extends Controller
         )));
     }
 
+    public function cityAction(\Back\ReferentielBundle\Entity\City $city)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $languagesCourses=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array( 'type'=>1, 'city'=>$city ));
+        $pathwayCourses=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array( 'type'=>2, 'city'=>$city ));
+        $accommodations=$em->getRepository("BackAccommodationBundle:Accommodation")->findBy(array( 'city'=>$city ));
+        return $this->render('FrontGeneralBundle::city.html.twig', array(
+                    'city'            =>$city,
+                    'languagesCourses'=>$languagesCourses,
+                    'pathwayCourses'  =>$pathwayCourses,
+                    'accommodations'   =>$accommodations,
+        ));
+    }
+
 }

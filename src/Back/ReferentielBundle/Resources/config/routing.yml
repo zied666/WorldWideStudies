@@ -111,4 +111,11 @@ list_user:
 enabled_user2:
     path:     /enableUser2/{id}
     defaults: { _controller: BackReferentielBundle:Referentiel:enableUser2 }    
+#********************************************************************************************************
+preferred_intake:
+    path:     /preferred_intake/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:preferredIntake,id:null }
+delete_preferred_intake:
+    path:     /delete_preferred_intake/{id}
+    defaults: { _controller: BackReferentielBundle:Referentiel:deletePreferredIntake }
     

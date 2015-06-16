@@ -1,0 +1,40 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Preferred Intake{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                <div class="row">
+                    {{ formulaire.input("col-md-3","Preferred Intake",form.name,true) }}
+                </div>
+                {{ macro.enregistrer }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
+                <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
+                    <thead>
+                        <tr>
+                            <th  class="center">Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for preferredIntake in preferredIntakes %}
+                            <tr>
+                                <td class="center">{{ preferredIntake.name }}</td>
+                                <td class="center">
+                                    {{ macro.edit(path('preferred_intake',{'id':preferredIntake.id})) }}
+                                    {{ macro.delete(path('delete_preferred_intake',{'id':preferredIntake.id})) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

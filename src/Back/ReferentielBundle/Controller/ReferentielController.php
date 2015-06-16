@@ -34,6 +34,8 @@ use Back\ReferentielBundle\Entity\Paypal;
 use Back\ReferentielBundle\Form\PaypalType;
 use Back\ReferentielBundle\Entity\Status;
 use Back\ReferentielBundle\Form\StatusType;
+use Back\ReferentielBundle\Entity\PreferredIntake;
+use Back\ReferentielBundle\Form\PreferredIntakeType;
 
 class ReferentielController extends Controller
 {
@@ -789,7 +791,7 @@ class ReferentielController extends Controller
                 ->andWhere('u.roles not LIKE :role1')
                 ->setParameter('role', '%ROLE_ADMIN%')
                 ->setParameter('role1', '%ROLE_SUPER_ADMIN%')
-                ->orderBy("u.id",'desc');
+                ->orderBy("u.id", 'desc');
         $query->getQuery()->getResult();
         $paginator=$this->get('knp_paginator');
         $users=$paginator->paginate($query, $this->getRequest()->query->get('page', 1), 20);
@@ -811,4 +813,51 @@ class ReferentielController extends Controller
         $session->getFlashBag()->add('success', "Your user has been updated successfully");
         return $this->redirect($this->generateUrl("list_user"));
     }
+
+    public function preferredIntakeAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        if(is_null($id))
+            $preferredIntake=new PreferredIntake();
+        else
+            $preferredIntake=$em->getRepository("BackReferentielBundle:PreferredIntake")->find($id);
+        $preferredIntakes=$em->getRepository("BackReferentielBundle:PreferredIntake")->findAll();
+        $form=$this->createForm(new PreferredIntakeType(), $preferredIntake);
+        $request=$this->getRequest();
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $preferredIntake=$form->getData();
+                $em->persist($preferredIntake);
+                $em->flush();
+                $session->getFlashBag()->add('success', "Your Intake has been updated successfully");
+                return $this->redirect($this->generateUrl("preferred_intake"));
+            }
+        }
+        return $this->render("BackReferentielBundle::PreferredIntake.html.twig", array(
+                    'form'            =>$form->createView(),
+                    'preferredIntakes'=>$preferredIntakes,
+        ));
+    }
+
+    public function deletePreferredIntakeAction(PreferredIntake $preferredIntake)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        try
+        {
+            $em->remove($preferredIntake);
+            $em->flush();
+            $session->getFlashBag()->add('success', " Your Intake has been successfully removed ");
+        }
+        catch(\Exception $ex)
+        {
+            $session->getFlashBag()->add('danger', 'This Intake is used by another table ');
+        }
+        return $this->redirect($this->generateUrl("preferred_intake"));
+    }
+
 }
