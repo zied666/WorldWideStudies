@@ -27,7 +27,7 @@
             <link rel="stylesheet" type="text/css" href="{{ asset('front-assets/components/flexslider/flexslider.css') }}" media="screen" />
             <!-- Main Style -->
             <link id="main-style" rel="stylesheet" href="{{ asset('front-assets/css/style.css') }}">
-            
+
             <link id="main-style" rel="stylesheet" href="{{ asset('front-assets/css/togle.css') }}">
             <!-- Custom Styles -->
             <link rel="stylesheet" href="{{ asset('front-assets/css/custom.css') }}">
@@ -44,6 +44,16 @@
               <script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js') }}"></script>
               <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js') }}"></script>
             <![endif]-->
+            <style>
+                .currency{
+                    color: gray;
+                    font-size: 12px;
+                }
+                .prix{
+                    white-space: nowrap;
+                    margin: 0px;
+                }
+            </style>
         {% endblock %}
         {% if app.request.get('_route')=='root' or  app.request.get('_route')=='accueil'%}
             <style>

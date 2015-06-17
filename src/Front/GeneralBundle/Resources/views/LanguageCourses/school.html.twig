@@ -55,6 +55,11 @@
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="School-description">
                                 <div class="long-description">
+                                    <h2>{{ school|title }}</h2>
+                                    {{ school.longDescription|raw }}
+                                </div>
+                                <hr>
+                                <div class="long-description">
                                     <div class="clearfix">
                                         <img src="{{ school.school.image.getAssetPath | imagine_filter('minature_details') }}" alt="" width="74" height="74" />
                                         <h2 class="name">{{ school.school|title }}</h2>
@@ -62,11 +67,6 @@
                                     <p class="description">
                                         {{ school.school.description }}
                                     </p>
-                                </div>
-                                <hr>
-                                <div class="long-description">
-                                    <h2>{{ school|title }}</h2>
-                                    {{ school.longDescription|raw }}
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="School-Courses">
@@ -156,8 +156,9 @@
                         <div class="details">
                             <h2 class="box-title">{{ school|title }}<small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space">{{ school.city.country|upper }}, {{ school.city }}</span></small></h2>
                             <span class="price clearfix">
-                                <small class="pull-left">avg/week</small>
-                                <span class="pull-right">{{ convertCurrency(school.avgPrice,school.currency.code) }} </span>
+                                <small class="pull-left">AVG/WEEK</small>
+                                <p class="prix">{{ school.avgPrice ~' '~ school.currency.code }} </p>
+                                {% if app.session.get('currency').code!=school.currency.code %}<span class="currency">{{ convertCurrency(school.avgPrice,school.currency.code) }}</span>{% endif %}
                             </span>
                             <p class="description">{{ school.shortDescription }}</p>
                             <div class="intro table-wrapper full-width hidden-table-sms">
