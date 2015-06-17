@@ -2,7 +2,23 @@
 {% block body %}
     <section id="content" class="slideshow-bg">
         <div id="slideshow">
-            <div class="flexslider ABCD">
+            <div class="flexslider ABCD" style=" ">
+                <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 30px;">
+                    <span> It's time to</span>
+                    <ul style="width: 250px;">
+                        <li>live</li>
+                        <li>have fun</li>
+                        <li>relax</li>
+                        <li>meet</li>
+                        <li>being lost</li>
+                        <li>run away</li>
+                        <li>go</li>
+                        <li>explore</li>
+                        <li>find new friends</li>
+                        <li class="active">discover</li>
+                        <li>play</li>
+                    </ul>
+                </div>
                 <ul class="slides">
                     {% for slider in sliders %}
                         <li>
@@ -14,8 +30,8 @@
         </div>
         <div class="container">
             <div class="row">
-                <div id="main" class="col-sm-8 col-md-9" style="  padding-top: 30px;">
-                    <div class="tagline visible-lg" id="tagline"><span>It's time to</span>
+                <div id="main" class="col-sm-8 col-md-9" style="  padding-top: 110px;">
+                    {#<div class="tagline visible-lg" id="tagline"><span>It's time to</span>
                         <ul>
                             <li>live</li>
                             <li>have fun</li>
@@ -29,7 +45,7 @@
                             <li class="active">discover</li>
                             <li>play</li>
                         </ul>
-                    </div>
+                    </div>#}
                     <div class="search-box-wrapper style1" style="margin-top: 30px;">
                         <div class="search-box">
                             <ul class="search-tabs clearfix">
@@ -47,7 +63,7 @@
                                 </ul>
                             </div>
 
-                            <div class="search-tab-content">
+                            <div class="search-tab-content" style="  opacity: 0.95;">
                                 <div class="tab-pane fade  active in" id="hotels-tab">
                                     <form action="{{ path('front_language_courses_redirect') }}" method="post">
                                         <div class="title-container">
@@ -337,7 +353,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="sidebar col-sm-4 col-md-3" style="  z-index: 11;padding-top: 145px;">
+                <div class="sidebar col-sm-4 col-md-3" style="  z-index: 11;padding-top: 140px;">
                     <div class="travelo-box contact-box" style="padding: 0px;">
                         <div class="testimonial style3" style="margin-top: 0px; ">
                             <ul class="slides ">
@@ -359,7 +375,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="travelo-box contact-box" style="padding: 0px;">
+                    {#<div class="travelo-box contact-box" style="padding: 0px;">
                         <div class="testimonial style3" style="margin-top: 0px;   padding: 5px 50px 0px; ">
                             <ul class="slides ">
                                 <li>
@@ -382,8 +398,8 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                    {#                    <div class="fb-page" data-href="https://www.facebook.com/WorldwideStudiesTunisia" data-width="270px" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/WorldwideStudiesTunisia"><a href="https://www.facebook.com/WorldwideStudiesTunisia">Worldwide Studies</a></blockquote></div></div>                   #}
+                    </div>#}
+                    <div class="fb-page" data-href="https://www.facebook.com/WorldwideStudiesTunisia" data-width="270px" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/WorldwideStudiesTunisia"><a href="https://www.facebook.com/WorldwideStudiesTunisia">Worldwide Studies</a></blockquote></div></div>                   
                 </div>
             </div>
         </div>

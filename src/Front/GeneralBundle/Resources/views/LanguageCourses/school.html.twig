@@ -73,7 +73,7 @@
                                 <h2>Available languages courses</h2>
                                 <div class="toggle-container box" id="accordion1">
                                     {% for course in school.courses %}
-                                        <div class="panel style1 arrow-right">
+                                        <div class="panel style1">
                                             <h2 class="panel-title">
                                                 <a class="collapsed" href="#course{{ loop.index }}" data-parent="#accordion1" data-toggle="collapse">{{ course|title }}</a>
                                             </h2>
@@ -94,7 +94,7 @@
                                 <h2>Available Accommodations</h2>
                                 <div class="toggle-container" id="accordion2">
                                     {% for accommodation in school.accommodations %}
-                                        <div class="panel style1 arrow-right">
+                                        <div class="panel style1">
                                             <h2 class="panel-title">
                                                 <a class="collapsed" href="#accommodation{{ loop.index }}"  data-parent="#accordion2" data-toggle="collapse">{{ accommodation|title }}</a>
                                             </h2>
@@ -126,7 +126,7 @@
                                 <h2>Available Extras</h2>
                                 <div class="toggle-container" id="accordion3">
                                     {% for extra in school.extras %}
-                                        <div class="panel style1 arrow-right">
+                                        <div class="panel style1">
                                             <h2 class="panel-title">
                                                 <a class="collapsed" href="#extra{{ loop.index }}"   data-parent="#accordion3" data-toggle="collapse">{{ extra|title }}</a>
                                             </h2>

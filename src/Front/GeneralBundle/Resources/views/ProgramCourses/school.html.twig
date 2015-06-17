@@ -73,7 +73,7 @@
                                 <h2>Available languages courses</h2>
                                 <div class="toggle-container" id="CoursePathway">
                                     {% for course in school.courses %}
-                                        <div class="panel style1 arrow-right">
+                                        <div class="panel style1">
                                             <h2 class="panel-title">
                                                 <a class="collapsed"   data-parent="#CoursePathway" href="#course{{ loop.index }}" data-toggle="collapse">{{ course.name|title }}</a>
                                             </h2>
@@ -88,8 +88,8 @@
                                                             <dt>Language :</dt><dd>{{ course.language|title }}</dd>
                                                         </dl>
                                                         <div class="right" style="  float: right;">
-                                                            <a href="{{ path('front_program_courses_course',{'id':course.id}) }}" class="button btn-medium red">View Courses</a>
-                                                            <a href="{{ path('front_program_pathway_step1') }}" class="button btn-medium dull-blue">Apply now</a>
+                                                            <a href="{{ path('front_program_courses_course',{'id':course.id}) }}" class="button btn-medium  dull-blue">View Courses</a>
+                                                            <a href="{{ path('front_program_pathway_step1') }}" class="button btn-medium red">Apply now</a>
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
@@ -103,7 +103,7 @@
                                 <h2>Available Accommodations</h2>
                                 <div class="toggle-container" id="accopathway">
                                     {% for accommodation in school.accommodations %}
-                                        <div class="panel style1 arrow-right">
+                                        <div class="panel style1">
                                             <h2 class="panel-title">
                                                 <a class="collapsed" data-parent="#accopathway" href="#accommodation{{ loop.index }}" data-toggle="collapse">{{ accommodation|title }}</a>
                                             </h2>
@@ -135,7 +135,7 @@
                                 <h2>Available Extras</h2>
                                 <div class="toggle-container" id="extrapathway">
                                     {% for extra in school.extras %}
-                                        <div class="panel style1 arrow-right">
+                                        <div class="panel style1">
                                             <h2 class="panel-title">
                                                 <a class="collapsed"  data-parent="#extrapathway" href="#extra{{ loop.index }}" data-toggle="collapse">{{ extra }}</a>
                                             </h2>
