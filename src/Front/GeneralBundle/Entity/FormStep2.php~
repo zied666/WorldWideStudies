@@ -112,11 +112,18 @@ class FormStep2
      * @ORM\Column(name="test", type="integer",nullable=true)
      */
     private $test;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nameTest", type="string",nullable=true)
+     */
+    private $nameTest;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="score", type="integer",nullable=true)
+     * @ORM\Column(name="score", type="string",nullable=true)
      */
     private $score;
 
@@ -448,29 +455,6 @@ class FormStep2
     }
 
     /**
-     * Set score
-     *
-     * @param integer $score
-     * @return FormStep2
-     */
-    public function setScore($score)
-    {
-        $this->score=$score;
-
-        return $this;
-    }
-
-    /**
-     * Get score
-     *
-     * @return integer 
-     */
-    public function getScore()
-    {
-        return $this->score;
-    }
-
-    /**
      * Set testDate
      *
      * @param \DateTime $testDate
@@ -537,6 +521,32 @@ class FormStep2
     public function getFormStep3()
     {
         return $this->formStep3;
+    }
+    
+    public function showUniversityDegree()
+    {
+        if($this->universityDegree)
+            return 'Yes';
+        else
+            return 'No';
+    }
+    
+    public function showEnglishTest()
+    {
+        if($this->englishTest)
+            return 'Yes';
+        else
+            return 'No';
+    }
+    
+    public function showTest()
+    {
+        if($this->test==1)
+            return 'IELTS';
+        if($this->test==2)
+            return 'TOEFL';
+        if($this->test==3)
+            return 'OTHER';
     }
 
 }

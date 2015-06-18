@@ -74,9 +74,24 @@ class FormStep1
      * @var string
      * @Assert\NotNull()
      *
+     * @ORM\Column(name="codePrimaryPhone", type="string", length=255)
+     */
+    private $codePrimaryPhone;
+
+    /**
+     * @var string
+     * @Assert\NotNull()
+     *
      * @ORM\Column(name="primaryPhone", type="string", length=255)
      */
     private $primaryPhone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codeAlternativePhone", type="string", length=255 , nullable=true)
+     */
+    private $codeAlternativePhone;
 
     /**
      * @var string
@@ -522,5 +537,51 @@ class FormStep1
             return 'Male';
         else
             return 'Female';
+    }
+
+    /**
+     * Set codePrimaryPhone
+     *
+     * @param string $codePrimaryPhone
+     * @return FormStep1
+     */
+    public function setCodePrimaryPhone($codePrimaryPhone)
+    {
+        $this->codePrimaryPhone = $codePrimaryPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get codePrimaryPhone
+     *
+     * @return string 
+     */
+    public function getCodePrimaryPhone()
+    {
+        return $this->codePrimaryPhone;
+    }
+
+    /**
+     * Set codeAlternativePhone
+     *
+     * @param string $codeAlternativePhone
+     * @return FormStep1
+     */
+    public function setCodeAlternativePhone($codeAlternativePhone)
+    {
+        $this->codeAlternativePhone = $codeAlternativePhone;
+
+        return $this;
+    }
+
+    /**
+     * Get codeAlternativePhone
+     *
+     * @return string 
+     */
+    public function getCodeAlternativePhone()
+    {
+        return $this->codeAlternativePhone;
     }
 }

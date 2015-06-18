@@ -112,11 +112,18 @@ class FormStep2
      * @ORM\Column(name="test", type="integer",nullable=true)
      */
     private $test;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nameTest", type="string",nullable=true)
+     */
+    private $nameTest;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="score", type="integer",nullable=true)
+     * @ORM\Column(name="score", type="string",nullable=true)
      */
     private $score;
 
@@ -448,29 +455,6 @@ class FormStep2
     }
 
     /**
-     * Set score
-     *
-     * @param integer $score
-     * @return FormStep2
-     */
-    public function setScore($score)
-    {
-        $this->score=$score;
-
-        return $this;
-    }
-
-    /**
-     * Get score
-     *
-     * @return integer 
-     */
-    public function getScore()
-    {
-        return $this->score;
-    }
-
-    /**
      * Set testDate
      *
      * @param \DateTime $testDate
@@ -565,4 +549,50 @@ class FormStep2
             return 'OTHER';
     }
 
+
+    /**
+     * Set nameTest
+     *
+     * @param string $nameTest
+     * @return FormStep2
+     */
+    public function setNameTest($nameTest)
+    {
+        $this->nameTest = $nameTest;
+
+        return $this;
+    }
+
+    /**
+     * Get nameTest
+     *
+     * @return string 
+     */
+    public function getNameTest()
+    {
+        return $this->nameTest;
+    }
+
+    /**
+     * Set score
+     *
+     * @param string $score
+     * @return FormStep2
+     */
+    public function setScore($score)
+    {
+        $this->score = $score;
+
+        return $this;
+    }
+
+    /**
+     * Get score
+     *
+     * @return string 
+     */
+    public function getScore()
+    {
+        return $this->score;
+    }
 }

@@ -329,4 +329,23 @@ class FormStep3
         return $this->formStep4;
     }
 
+    public function showSourceFunding()
+    {
+        if($this->sourceFunding==1)
+            return 'I AM SELF-FUNDING OR FAMILY-FUNDED';
+        if($this->sourceFunding==2)
+            return 'I HAVE SPONSORSHIP FROM A GOVERNMENT, ORGANISATION OR INDIVIDUAL';
+        if($this->sourceFunding==3)
+            return 'I EXPECT TO GET A SCHOLARSHIP FROM ELSEWHERE';
+        if($this->sourceFunding==4)
+            return 'I HAVE NO FUNDING AND AM SEEKING A FULL SCHOLARSHIP';
+    }
+    
+    public function showCurrently()
+    {
+        if($this->currently)
+            return 'Yes';
+        else
+            return 'No';
+    }
 }

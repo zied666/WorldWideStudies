@@ -42,6 +42,7 @@ class FormStep2Type extends AbstractType
                     'expanded'=>TRUE,
                 ))
                 ->add('score')
+                ->add('nameTest')
                 ->add('testDate','birthday')
         ;
     }

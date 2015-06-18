@@ -27,29 +27,55 @@
                                 <div class="person-information">
                                     <h2>Personal Information</h2>
                                     <div class="form-group row">
-                                        {{ formulaire.input("col-md-3","First name(s)*",form.firstName,true) }}
-                                        {{ formulaire.input("col-md-3","Family name(s)*",form.lastName,true) }}
-                                        {{ formulaire.input("col-md-3","Gender*",form.gender,true) }}
+                                        {{ formulaire.input("col-md-3","First name(s)",form.firstName,true) }}
+                                        {{ formulaire.input("col-md-3","Family name(s)",form.lastName,true) }}
+                                        {{ formulaire.input("col-md-3","Gender",form.gender,true) }}
                                     </div>
                                     <div class="form-group row">
-                                        {{ formulaire.input("col-md-3","Your date of Birth*",form.birthDate,true) }}
-                                        {{ formulaire.input("col-md-3","Nationality*",form.natianality,true) }}
-                                        {{ formulaire.input("col-md-3","Email*",form.email,true) }}
+                                        {{ formulaire.input("col-md-3","Your date of Birth",form.birthDate,true) }}
+                                        {{ formulaire.input("col-md-3","Nationality",form.natianality,true) }}
+                                        {{ formulaire.input("col-md-3","Email",form.email,true) }}
                                     </div>
                                     <div class="form-group row">
-                                        {{ formulaire.input("col-md-3","Primary phone number*",form.primaryPhone,true) }}
-                                        {{ formulaire.input("col-md-3","Alternative phone number",form.alternativePhone,true) }}
+                                        <label class="control-label">
+                                            Primary phone number* <span class="symbol required"></span>
+                                        </label>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                {{ form_widget(form.codePrimaryPhone,{'attr':{'placeholder':'code'}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                {{ form_widget(form.primaryPhone,{'attr':{'placeholder':'Phone number'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="control-label">
+                                            ALTERNATIVE PHONE NUMBER
+                                        </label>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                {{ form_widget(form.codeAlternativePhone,{'attr':{'placeholder':'code'}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                {{ form_widget(form.alternativePhone,{'attr':{'placeholder':'Phone number'}}) }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="person-information">
                                     <h2>Course and degree</h2>
                                     <div class="form-group row">
-                                        {{ formulaire.input("col-md-4","Level of study*",form.levelOfStudy,true) }}
-                                        {{ formulaire.input("col-md-4","Subject of interest*",form.subject,true) }}
+                                        {{ formulaire.input("col-md-4","Level of study",form.levelOfStudy,true) }}
+                                        {{ formulaire.input("col-md-4","Subject of interest",form.subject,true) }}
                                     </div>
                                     <div class="form-group row">
-                                        {{ formulaire.input("col-md-4","Preferred intake*",form.preferredIntake,true) }}
-                                        {{ formulaire.input("col-md-4","Progression University degree",form.progressionUniversityDegree,true) }}
+                                        {{ formulaire.input("col-md-4","Preferred intake",form.preferredIntake,true) }}
+                                        {{ formulaire.input("col-md-4","Progression University degree",form.progressionUniversityDegree,false) }}
                                     </div>
                                 </div>
                                 <hr>

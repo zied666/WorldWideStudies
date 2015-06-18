@@ -74,9 +74,24 @@ class FormStep1
      * @var string
      * @Assert\NotNull()
      *
+     * @ORM\Column(name="codePrimaryPhone", type="string", length=255)
+     */
+    private $codePrimaryPhone;
+
+    /**
+     * @var string
+     * @Assert\NotNull()
+     *
      * @ORM\Column(name="primaryPhone", type="string", length=255)
      */
     private $primaryPhone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codeAlternativePhone", type="string", length=255 , nullable=true)
+     */
+    private $codeAlternativePhone;
 
     /**
      * @var string
@@ -477,5 +492,50 @@ class FormStep1
     public function getOtherStatus()
     {
         return $this->otherStatus;
+    }
+
+    /**
+     * Set bookingDate
+     *
+     * @param \DateTime $bookingDate
+     * @return FormStep1
+     */
+    public function setBookingDate($bookingDate)
+    {
+        $this->bookingDate = $bookingDate;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingDate
+     *
+     * @return \DateTime 
+     */
+    public function getBookingDate()
+    {
+        return $this->bookingDate;
+    }
+    
+    public function __toString()
+    {
+        return $this->id.'.';
+    }
+    
+    public function showLastStatus()
+    {
+        if(count($this->otherStatus)!=0)
+        {
+            return $this->otherStatus->last()->getStatus().' ('.$this->otherStatus->last()->getUser().')';
+        }
+        return '';
+    }
+    
+    public function showGender()
+    {
+        if($this->gender==1)
+            return 'Male';
+        else
+            return 'Female';
     }
 }

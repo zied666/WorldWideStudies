@@ -26,23 +26,23 @@
                                     <h2>Visa questions</h2>
                                     <p>These details are always required for visas and often by the university too.</p>
                                     <div class="form-group row">
-                                        {{ formulaire.input("col-md-12","Tick Your primary source of funding*",form.sourceFunding,true) }}
+                                        {{ formulaire.input("col-md-12","Tick Your primary source of funding",form.sourceFunding,true) }}
                                     </div>
                                 </div>
                                 <div class="person-information">
                                     <h2>Address</h2>
                                     <div class="form-group row">
-                                        {{ formulaire.input("col-md-6","Address line 1*",form.addressLine1,true) }}
-                                        {{ formulaire.input("col-md-6","Address line 2",form.addressLine2,true) }}
+                                        {{ formulaire.input("col-md-6","Address line 1",form.addressLine1,true) }}
+                                        {{ formulaire.input("col-md-6","Address line 2",form.addressLine2,false) }}
                                     </div> 
                                     <div class="form-group row">
-                                        {{ formulaire.input("col-md-3","City*",form.city,true) }}
-                                        {{ formulaire.input("col-md-3","State / Province / Region",form.region,true) }}
-                                        {{ formulaire.input("col-md-3","Postal / Zip code",form.postal,true) }}
-                                        {{ formulaire.input("col-md-3","Country*",form.country,true) }}
+                                        {{ formulaire.input("col-md-3","City",form.city,true) }}
+                                        {{ formulaire.input("col-md-3","State / Province / Region",form.region,false) }}
+                                        {{ formulaire.input("col-md-3","Postal / Zip code",form.postal,false) }}
+                                        {{ formulaire.input("col-md-3","Country",form.country,true) }}
                                     </div> 
                                     <div class="form-group row">
-                                        {{ formulaire.input("col-md-12","Do you currently live at this address?*",form.currently,true) }}
+                                        {{ formulaire.input("col-md-12","Do you currently live at this address?",form.currently,true) }}
                                     </div>
                                 </div>
                                 <hr>

@@ -8,11 +8,14 @@
                 <p><strong>First Name</strong> : {{ step1.firstName }}</p>
                 <p><strong>Last Name</strong> : {{ step1.lastName }}</p>
                 <p><strong>Gender</strong> : {{ step1.showGender }}</p>
-                <p><strong>Birthdat</strong> : {{ step1.birthDate|date('d/m/Y') }}</p>
+                <p><strong>Birthdat</strong> : {{ step1.birthDate|date('d F Y') }}</p>
                 <p><strong>Nationality</strong> : {{ step1.natianality }}</p>
+            </div>
+            <div class="col-md-3">
+                <h2>Phones & Email</h2>
                 <p><strong>EMAIL</strong> : {{ step1.email }}</p>
-                <p><strong>Primary Phone</strong> : {{ step1.primaryPhone }}</p>
-                <p><strong>Alternative Phone</strong> : {{ step1.alternativePhone }}</p>
+                <p><strong>Primary Phone</strong> : {{ step1.codePrimaryPhone }} {{ step1.primaryPhone }}</p>
+                <p><strong>Alternative Phone</strong> :{{ step1.codeAlternativePhone }} {{ step1.alternativePhone }}</p>
             </div>
             <div class="col-md-3">
                 <h2>Course and degree</h2>
@@ -48,8 +51,11 @@
                 <p><strong>Have you taken a recogniser english language test ?</strong> : {{ step2.showEnglishTest }}</p>
                 {% if step2.englishTest %}
                     <p><strong>Most recent english language test</strong> : {{ step2.showTest }}</p>
+                    {% if step2.test==3 %}
+                        <p><strong>Test Name</strong> : {{ step2.nameTest }}</p>
+                    {% endif %}
                     <p><strong>Score</strong> : {{ step2.score }}</p>
-                    <p><strong>Date</strong> : {{ step2.testDate|date('d/m/Y') }}</p>
+                    <p><strong>Date</strong> : {{ step2.testDate|date('d F Y') }}</p>
                 {% endif %}
             </div>
             <div class="col-md-12"><hr></div>
@@ -61,10 +67,15 @@
             <div class="col-md-3">
                 <h2>Address</h2>
                 <p><strong>Address line 1</strong> : {{ step3.addressLine1 }}</p>
-                <p><strong>Address line 2</strong> : {{ step3.addressLine2 }}</p>
-                <p><strong>City</strong> : {{ step3.city }}</p>
-                <p><strong>State / Province / Region</strong> : {{ step3.region }}</p>
-                <p><strong>Postal / Zip Code </strong> : {{ step3.postal }}</p>
+                {% if step3.addressLine2 is not null %}
+                    <p><strong>Address line 2</strong> : {{ step3.addressLine2 }}</p>
+                {% endif %}
+                {% if step3.city is not null %}
+                    <p><strong>City</strong> : {{ step3.city }}</p>
+                {% endif %}
+                {% if step3.region is not null %}
+                    <p><strong>State / Province / Region</strong> : {{ step3.region }}</p>
+                {% endif %}
                 <p><strong>Country </strong> : {{ step3.country }}</p>
             </div>
             <div class="col-md-3">

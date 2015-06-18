@@ -53,6 +53,11 @@
                     white-space: nowrap;
                     margin: 0px;
                 }
+                .symbol.required:before {
+                    content: "*";
+                    display: inline;
+                    color: #E6674A;
+                }
             </style>
         {% endblock %}
         {% if app.request.get('_route')=='root' or  app.request.get('_route')=='accueil'%}
