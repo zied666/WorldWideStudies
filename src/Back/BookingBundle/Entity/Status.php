@@ -235,4 +235,9 @@ class Status
     {
         return $this->formStep1;
     }
+    
+    public function __toString()
+    {
+        return $this->status.' ('.$this->getUser().') '.$this->date->format('d F Y h:i');
+    }
 }

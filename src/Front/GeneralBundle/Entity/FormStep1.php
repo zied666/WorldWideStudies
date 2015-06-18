@@ -134,6 +134,7 @@ class FormStep1
 
     /**
      * @ORM\OneToMany(targetEntity="Back\BookingBundle\Entity\Status", mappedBy="formStep1")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $otherStatus;
 

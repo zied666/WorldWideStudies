@@ -27,7 +27,7 @@
                 </div>
             </a>
             <ul class="sub-menu">
-                <li {% if app.request.get('_route')=='back_list_pathway_course' %}class="active"{% endif %}>
+                <li {% if app.request.get('_route')in ['back_list_pathway_course','back_details_pathway_course'] %}class="active"{% endif %}>
                     <a href="{{ path('back_list_pathway_course') }}">
                         <span class="title">Pathway courses</span>
                     </a>
