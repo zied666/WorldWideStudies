@@ -1458,21 +1458,21 @@ button.full-width, a.button.full-width {
 button {
     font-size: 0.9167em;
     font-weight: bold;
-    background: #98ce44;
+    background: #D10303;
     height: 34px;
     line-height: 34px; }
 button:hover {
-    background: #7fb231; }
+    background: #821302; }
 
 a.button {
     display: inline-block;
-    background: #d9d9d9;
+    background: #D10303;
     font-size: 0.8333em;
     line-height: 1.8333em;
     white-space: nowrap;
     text-align: center; }
 a.button:hover {
-    background: #98ce44; }
+    background: #821302; }
 a.button.btn-mini {
     padding-left: 10px;
     padding-right: 10px; }
@@ -1607,9 +1607,9 @@ button.btn-extra.yellow > span em, a.button.btn-extra.yellow > span em {
     right: 0;
     width: 30px;
     height: 100%;
-    background: url(../images/icon/icon-check.png) no-repeat center center #7db921; }
+    background: url(../images/icon/icon-check.png) no-repeat center center #D10303; }
 .icon-check:hover:after {
-    background-color: #98ce44; }
+    background-color: #821302; }
 
 .with-icon {
     position: relative;

@@ -10,7 +10,8 @@ security:
         ROLE_ADMIN_SCHOOL:       [ROLE_ADMIN]
         ROLE_ADMIN_CONFIG:       [ROLE_ADMIN]
         ROLE_ADMIN_FRONTOFFICE:       [ROLE_ADMIN]
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN,ROLE_ADMIN_FRONTOFFICE, ROLE_ADMIN_ACCOMMODATION,ROLE_ADMIN_SCHOOL,ROLE_ADMIN_UNIVERSITY,ROLE_ADMIN_CONFIG]
+        ROLE_ADMIN_BOOKING:       [ROLE_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN,ROLE_ADMIN_FRONTOFFICE, ROLE_ADMIN_ACCOMMODATION,ROLE_ADMIN_SCHOOL,ROLE_ADMIN_UNIVERSITY,ROLE_ADMIN_CONFIG,ROLE_ADMIN_BOOKING]
 
     providers:
         fos_userbundle:
@@ -36,6 +37,7 @@ security:
         - { path: ^/admin/ref/paypal, role: ROLE_SUPER_ADMIN }
         
         - { path: ^/admin/ref, role: ROLE_ADMIN_CONFIG }
+        - { path: ^/admin/booking, role: ROLE_ADMIN_BOOKING }
         
         - { path: ^/admin/accommodation, role: ROLE_ADMIN_ACCOMMODATION }
         - { path: ^/admin/university, role: ROLE_ADMIN_UNIVERSITY }

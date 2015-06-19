@@ -430,6 +430,7 @@ class ReferentielController extends Controller
         $form->add('roles', 'choice', array( 'choices' =>
             array(
                 'ROLE_SUPER_ADMIN'        =>'SUPER ADMIN',
+                'ROLE_ADMIN_BOOKING'      =>'BOOKING',
                 'ROLE_ADMIN_FRONTOFFICE'  =>'FRONT OFFICE',
                 'ROLE_ADMIN_CONFIG'       =>'CONFIGURATION',
                 'ROLE_ADMIN_UNIVERSITY'   =>'UNIVERSITY',

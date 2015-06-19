@@ -19,14 +19,15 @@
                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th class="center">Name</th>
+                            <th class="center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for studyMode in studyModes %}
                             <tr>
-                                <td>{{ studyMode.name }}</td>
-                                <td>
+                                <td class="center">{{ studyMode.name }}</td>
+                                <td class="center">
                                     {{ macro.edit(path('studyMode',{'id':studyMode.id})) }}
                                     {{ macro.delete(path('delete_studyMode',{'id':studyMode.id})) }}
                                 </td>

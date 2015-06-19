@@ -20,16 +20,17 @@
                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Level of study</th>
+                            <th class="center">Name</th>
+                            <th class="center">Level of study</th>
+                            <th class="center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for qualification in qualifications %}
                             <tr>
-                                <td>{{ qualification.name }}</td>
-                                <td>{{ qualification.level }}</td>
-                                <td>
+                                <td class="center">{{ qualification.name }}</td>
+                                <td class="center">{{ qualification.level }}</td>
+                                <td class="center">
                                     {{ macro.edit(path('qualification',{'id':qualification.id})) }}
                                     {{ macro.delete(path('delete_qualification',{'id':qualification.id})) }}
                                 </td>

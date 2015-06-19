@@ -19,14 +19,15 @@
                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th class="center">Name</th>
+                            <th class="center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for level in levels %}
                             <tr>
-                                <td>{{ level.name }}</td>
-                                <td>
+                                <td class="center">{{ level.name }}</td>
+                                <td class="center">
                                     {{ macro.edit(path('level',{'id':level.id})) }}
                                     {{ macro.delete(path('delete_level',{'id':level.id})) }}
                                 </td>
