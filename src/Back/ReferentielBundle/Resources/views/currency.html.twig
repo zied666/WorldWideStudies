@@ -12,6 +12,9 @@
                         {{ formulaire.input("col-md-1","Symbol",form.symbol,true) }}
                         {{ formulaire.input("col-md-3","Number of decimal points",form.scale,true) }}
                     </div>
+                    <div class="row">
+                        {{ formulaire.select2("col-md-8","Countries",form.countries,true) }}
+                    </div>
                     {{ macro.enregistrer }}
                 </form>
             </div>
@@ -26,6 +29,7 @@
                             <th>Code</th>
                             <th>Symbol</th>
                             <th>Number of decimal points</th>
+                            <th>Countries</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -36,6 +40,11 @@
                                 <td>{{ currency.code }}</td>
                                 <td>{{ currency.symbol }}</td>
                                 <td>{{ currency.scale }}</td>
+                                <td>
+                                    {% for country in currency.countries %}
+                                        {{ country }} {% if currency.countries|length != loop.index %},{% endif %}
+                                    {% endfor %}
+                                </td>
                                 <td>
                                     {{ macro.edit(path('currency',{'id':currency.id})) }}
                                     {{ macro.delete(path('delete_currency',{'id':currency.id})) }}

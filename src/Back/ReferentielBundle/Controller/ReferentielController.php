@@ -58,6 +58,8 @@ class ReferentielController extends Controller
             {
                 $currency=$form->getData();
                 $em->persist($currency);
+                foreach($currency->getCountries() as $country)
+                    $em->persist($country->setCurrency($currency));
                 $em->flush();
                 $session->getFlashBag()->add('success', "Your currency has been added successfully");
                 return $this->redirect($this->generateUrl("currency"));

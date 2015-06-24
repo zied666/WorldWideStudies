@@ -49,6 +49,11 @@ class Currency
      */
     private $scale;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Country", mappedBy="currency")
+     */
+    protected $countries;
+
 
     /**
      * Get id
@@ -155,5 +160,45 @@ class Currency
     public function getScale()
     {
         return $this->scale;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->countries = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add countries
+     *
+     * @param \Back\ReferentielBundle\Entity\Country $countries
+     * @return Currency
+     */
+    public function addCountry(\Back\ReferentielBundle\Entity\Country $countries)
+    {
+        $this->countries[] = $countries;
+
+        return $this;
+    }
+
+    /**
+     * Remove countries
+     *
+     * @param \Back\ReferentielBundle\Entity\Country $countries
+     */
+    public function removeCountry(\Back\ReferentielBundle\Entity\Country $countries)
+    {
+        $this->countries->removeElement($countries);
+    }
+
+    /**
+     * Get countries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCountries()
+    {
+        return $this->countries;
     }
 }

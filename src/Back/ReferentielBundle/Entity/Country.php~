@@ -40,6 +40,11 @@ class Country
      * @ORM\OneToMany(targetEntity="City", mappedBy="country")
      */
     protected $Citys;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="countries")
+     */
+    protected $currency;
 
     /**
      * Get id

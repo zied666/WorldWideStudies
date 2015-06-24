@@ -223,7 +223,7 @@ class DefaultController extends Controller
                     'city'            =>$city,
                     'languagesCourses'=>$languagesCourses,
                     'pathwayCourses'  =>$pathwayCourses,
-                    'accommodations'   =>$accommodations,
+                    'accommodations'  =>$accommodations,
         ));
     }
 

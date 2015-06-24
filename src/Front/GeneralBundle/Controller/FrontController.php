@@ -11,8 +11,17 @@ class FrontController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
+        $request=$this->getRequest();
         if(!$session->has('currency'))
-            $session->set('currency', array('code'=>'USD','scale'=>2));
+        {
+            $ip=$request->getClientIp();
+            $ipDetails=$this->ip_details($ip);
+            $country=$em->getRepository('BackReferentielBundle:Country')->findOneBy(array( 'code'=>$ipDetails->country ));
+            if($country && !is_null($country->getCurrency()))
+                $session->set('currency', array( 'code'=>$country->getCurrency()->getCode(), 'scale'=>$country->getCurrency()->getScale() ));
+            else
+                $session->set('currency', array( 'code'=>'USD', 'scale'=>2 ));
+        }
         $currencies=$em->getRepository("BackReferentielBundle:Currency")->findAll();
         $sess=$session->get('currency');
         return $this->render('FrontGeneralBundle:Front:currency.html.twig', array(
@@ -21,15 +30,22 @@ class FrontController extends Controller
         ));
     }
 
+    function ip_details($ip)
+    {
+        $json=file_get_contents("http://ipinfo.io/{$ip}");
+        $details=json_decode($json);
+        return $details;
+    }
+
     public function changeCurrencyAction($code)
     {
         $em=$this->getDoctrine()->getManager();
-        $currency=$em->getRepository('BackReferentielBundle:Currency')->findOneBy(array('code'=>$code));
+        $currency=$em->getRepository('BackReferentielBundle:Currency')->findOneBy(array( 'code'=>$code ));
         $session=$this->getRequest()->getSession();
-        $session->set('currency', array('code'=>$code,'scale'=>$currency->getScale()));
+        $session->set('currency', array( 'code'=>$code, 'scale'=>$currency->getScale() ));
         return $this->redirect($this->getRequest()->server->get('HTTP_REFERER'));
     }
-    
+
     public function changeLocaleAction($locale)
     {
         $session=$this->getRequest()->getSession();
@@ -82,4 +98,5 @@ class FrontController extends Controller
                     'homepage'=>$homePage,
         ));
     }
+
 }

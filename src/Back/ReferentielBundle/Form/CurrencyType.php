@@ -19,6 +19,7 @@ class CurrencyType extends AbstractType
             ->add('code')
             ->add('symbol')
             ->add('scale')
+            ->add('countries')
         ;
     }
     

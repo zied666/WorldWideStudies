@@ -212,4 +212,32 @@ class Status
     {
         return $this->bookingAccommodation;
     }
+
+    /**
+     * Set formStep1
+     *
+     * @param \Front\GeneralBundle\Entity\FormStep1 $formStep1
+     * @return Status
+     */
+    public function setFormStep1(\Front\GeneralBundle\Entity\FormStep1 $formStep1 = null)
+    {
+        $this->formStep1 = $formStep1;
+
+        return $this;
+    }
+
+    /**
+     * Get formStep1
+     *
+     * @return \Front\GeneralBundle\Entity\FormStep1 
+     */
+    public function getFormStep1()
+    {
+        return $this->formStep1;
+    }
+    
+    public function __toString()
+    {
+        return $this->status.' ('.$this->getUser().') '.$this->date->format('d F Y h:i');
+    }
 }

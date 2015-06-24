@@ -40,6 +40,11 @@ class Country
      * @ORM\OneToMany(targetEntity="City", mappedBy="country")
      */
     protected $Citys;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="countries")
+     */
+    protected $currency;
 
     /**
      * Get id
@@ -141,5 +146,28 @@ class Country
     public function getCitys()
     {
         return $this->Citys;
+    }
+
+    /**
+     * Set currency
+     *
+     * @param \Back\ReferentielBundle\Entity\Currency $currency
+     * @return Country
+     */
+    public function setCurrency(\Back\ReferentielBundle\Entity\Currency $currency = null)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return \Back\ReferentielBundle\Entity\Currency 
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 }

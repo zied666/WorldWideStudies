@@ -49,6 +49,11 @@ class Currency
      */
     private $scale;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Country", mappedBy="currency")
+     */
+    protected $countries;
+
 
     /**
      * Get id
