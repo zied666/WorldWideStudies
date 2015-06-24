@@ -572,6 +572,12 @@ tjq(window).load(function () {
         tjq("html,body").animate({scrollTop: 0}, 1000);
     });
 
+    // back to top courses
+    tjq(".back-to-courses").on("click", function (e) {
+        e.preventDefault();
+        tjq("html,body").animate({ scrollTop: tjq('#Courses').offset().top-50 }, 200 );
+    });
+
     // Mobile search
     if (tjq('#mobile-search-tabs').length > 0) {
         var mobile_search_tabs_slider = tjq('#mobile-search-tabs').bxSlider({

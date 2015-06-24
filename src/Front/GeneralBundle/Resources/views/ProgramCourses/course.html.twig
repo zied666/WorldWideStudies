@@ -25,7 +25,9 @@
                                     {% for courseSubject in course.courseSubjects %}
                                         <div class="panel style1">
                                             <h4 class="panel-title">
-                                                <a href="#tgg{{ courseSubject.id }}"  data-parent="#Courses" data-toggle="collapse">{{ courseSubject|title }}</a>
+                                                <a  class="back-to-courses animated" data-animation-type="bounce" href="#tgg{{ courseSubject.id }}"  data-parent="#Courses" data-toggle="collapse">
+                                                    {{ courseSubject|title }}
+                                                </a>
                                             </h4>
                                             <div class="panel-collapse collapse" id="tgg{{ courseSubject.id }}">
                                                 <div class="panel-content">
