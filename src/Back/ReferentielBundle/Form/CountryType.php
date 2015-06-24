@@ -17,6 +17,7 @@ class CountryType extends AbstractType
         $builder
             ->add('libelle')
             ->add('code')
+            ->add('currency')
         ;
     }
     

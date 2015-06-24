@@ -14,8 +14,7 @@ class FrontController extends Controller
         $request=$this->getRequest();
         if(!$session->has('currency'))
         {
-            $ip=$request->getClientIp();
-            $ipDetails=$this->ip_details($ip);
+            $ipDetails=$this->ip_details($request->getClientIp());
             $country=$em->getRepository('BackReferentielBundle:Country')->findOneBy(array( 'code'=>$ipDetails->country ));
             if($country && !is_null($country->getCurrency()))
                 $session->set('currency', array( 'code'=>$country->getCurrency()->getCode(), 'scale'=>$country->getCurrency()->getScale() ));
@@ -33,8 +32,7 @@ class FrontController extends Controller
     function ip_details($ip)
     {
         $json=file_get_contents("http://ipinfo.io/{$ip}");
-        $details=json_decode($json);
-        return $details;
+        return json_decode($json);
     }
 
     public function changeCurrencyAction($code)

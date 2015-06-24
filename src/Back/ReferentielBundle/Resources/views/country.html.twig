@@ -9,6 +9,7 @@
                     <div class="row">
                         {{ formulaire.input("col-md-3","Code",form.code,true) }}
                         {{ formulaire.input("col-md-3","Name",form.libelle,true) }}
+                        {{ formulaire.select2("col-md-3","Currency",form.currency,true) }}
                     </div>
                     {{ macro.enregistrer }}
                 </form>
@@ -22,6 +23,7 @@
                         <tr>
                             <th>Code</th>
                             <th>Name</th>
+                            <th>Currency</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -30,6 +32,7 @@
                             <tr>
                                 <td>{{ country.code }}</td>
                                 <td>{{ country.libelle }}</td>
+                                <td>{{ country.currency }}</td>
                                 <td>
                                     {{ macro.edit(path('country',{'id':country.id})) }}
                                     {{ macro.delete(path('delete_country',{'id':country.id})) }}
