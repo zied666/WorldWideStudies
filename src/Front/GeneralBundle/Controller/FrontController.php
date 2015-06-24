@@ -13,7 +13,7 @@ class FrontController extends Controller
         $session=$this->getRequest()->getSession();
         if(!$session->has('currency'))
         {
-            $ipDetails=$this->ip_details($_SERVER['SERVER_ADDR']);
+            $ipDetails=$this->ip_details($_SERVER['REMOTE_ADDR']);
             if(isset($ipDetails->country))
                 $code=$ipDetails->country;
             else
