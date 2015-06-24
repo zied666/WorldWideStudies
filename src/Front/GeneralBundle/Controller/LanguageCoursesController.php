@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Entity\SchoolLocationRepository;
+use Front\GeneralBundle\Form\ReviewType;
+use Front\GeneralBundle\Entity\Review;
 
 class LanguageCoursesController extends Controller
 {
@@ -71,10 +73,30 @@ class LanguageCoursesController extends Controller
     public function schoolAction(SchoolLocation $school)
     {
         $em=$this->getDoctrine()->getManager();
-        $schools=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array('city'=>$school->getCity(),'type'=>1,'enabled'=>1), array(), 5);
+        $schools=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array( 'city'=>$school->getCity(), 'type'=>1, 'enabled'=>1 ), array(), 5);
+        $review=new Review();
+        $reviews=$em->getRepository('FrontGeneralBundle:Review')->findBy(array( 'schoolLocation'=>$schools, 'validated'=>TRUE ), array( 'id'=>'desc' ));
+        $form=$this->createForm(new ReviewType(), $review);
+        $request=$this->getRequest();
+        $session=$this->getRequest()->getSession();
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $review=$form->getData();
+                $em->persist($review->setValidated(false)->setReviewDate(new \DateTime())->setSchoolLocation($school));
+                $em->flush();
+                $session->getFlashBag()->add('alert-success', "Your review has been added successfully");
+                return $this->redirect($this->generateUrl('front_language_courses_details', array( 'id'=>$school->getId() )));
+            }
+        }
         return $this->render('FrontGeneralBundle:LanguageCourses:school.html.twig', array(
-                    'schools'  =>$schools,
-                    'school'  =>$school,
+                    'schools'=>$schools,
+                    'school' =>$school,
+                    'reviews'=>$reviews,
+                    'form'   =>$form->createView(),
         ));
     }
+
 }

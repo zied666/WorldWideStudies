@@ -549,4 +549,50 @@ class FormStep2
             return 'OTHER';
     }
 
+
+    /**
+     * Set nameTest
+     *
+     * @param string $nameTest
+     * @return FormStep2
+     */
+    public function setNameTest($nameTest)
+    {
+        $this->nameTest = $nameTest;
+
+        return $this;
+    }
+
+    /**
+     * Get nameTest
+     *
+     * @return string 
+     */
+    public function getNameTest()
+    {
+        return $this->nameTest;
+    }
+
+    /**
+     * Set score
+     *
+     * @param string $score
+     * @return FormStep2
+     */
+    public function setScore($score)
+    {
+        $this->score = $score;
+
+        return $this;
+    }
+
+    /**
+     * Get score
+     *
+     * @return string 
+     */
+    public function getScore()
+    {
+        return $this->score;
+    }
 }

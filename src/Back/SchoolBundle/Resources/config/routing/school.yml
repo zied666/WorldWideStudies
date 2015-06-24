@@ -42,3 +42,16 @@ gallery_school:
 delete_photo:
     path:     /deletePhoto/{id}
     defaults: { _controller: BackSchoolBundle:School:deletePhoto}   
+    
+back_list_reviews:
+    path:     /reviews
+    defaults: { _controller: BackSchoolBundle:School:reviews}   
+    
+back_validate_review:
+    path:     /back_validate_review/{id}
+    defaults: { _controller: BackSchoolBundle:School:validateReview}   
+    
+back_deleted_review:
+    path:     /back_deleted_review/{id}
+    defaults: { _controller: BackSchoolBundle:School:deleteReview}   
+    

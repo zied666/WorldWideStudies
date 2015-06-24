@@ -102,6 +102,11 @@ class Accommodation
     private $avgPrice;
 
     /**
+     * @ORM\OneToMany(targetEntity="Front\GeneralBundle\Entity\Review", mappedBy="accommodation")
+     */
+    protected $allReviews;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -444,4 +449,37 @@ class Accommodation
             return $this->avgPrice;
     }
 
+
+    /**
+     * Add allReviews
+     *
+     * @param \Front\GeneralBundle\Entity\Review $allReviews
+     * @return Accommodation
+     */
+    public function addAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
+    {
+        $this->allReviews[] = $allReviews;
+
+        return $this;
+    }
+
+    /**
+     * Remove allReviews
+     *
+     * @param \Front\GeneralBundle\Entity\Review $allReviews
+     */
+    public function removeAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
+    {
+        $this->allReviews->removeElement($allReviews);
+    }
+
+    /**
+     * Get allReviews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAllReviews()
+    {
+        return $this->allReviews;
+    }
 }

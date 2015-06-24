@@ -1,0 +1,42 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}Reviews{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="over-title margin-bottom-15"><span class="text-bold">List</span></h5>
+                <table class="table table-striped table-bordered table-hover table-full-width" id="">
+                    <thead>
+                        <tr>
+                            <th>date</th>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Text</th>
+                            <th>Note</th>
+                            <th>School</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for review in reviews %}
+                            <tr>
+                                <td>{{ review.reviewDate|date('d F Y') }}</td>
+                                <td>{{ review.name }}</td>
+                                <td>{{ review.title }}</td>
+                                <td>{{ review.text }}</td>
+                                <td>{{ review.note }}/5</td>
+                                <td>{{ review.schoolLocation }}</td>
+                                <td class="center">
+                                    {{ macro.validate(path('back_validate_review',{'id':review.id})) }}
+                                    {{ macro.delete(path('back_deleted_review',{'id':review.id})) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -98,6 +98,7 @@ class BookingAccommodation
 
     /**
      * @ORM\OneToMany(targetEntity="Back\BookingBundle\Entity\Status", mappedBy="bookingAccommodation")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $otherStatus;
 

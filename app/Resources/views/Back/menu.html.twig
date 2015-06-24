@@ -157,6 +157,11 @@
                             <span class="title">Pathway Schools</span>
                         </a>
                     </li>
+                    <li {% if app.request.get('_route')=='back_list_reviews' %}class="active"{% endif %}>
+                        <a href="{{ path('back_list_reviews') }}">
+                            <span class="title">Reviews</span>
+                        </a>
+                    </li>
                     <li {% if app.request.get('_route')=='add_school' %}class="active"{% endif %}>
                         <a href="{{ path('add_school') }}">
                             <span class="title">New School Location</span>

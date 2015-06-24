@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Back\SchoolBundle\Entity\SchoolLocation;
 use Back\SchoolBundle\Entity\SchoolLocationRepository;
 use Back\SchoolBundle\Entity\Course;
+use Front\GeneralBundle\Form\ReviewType;
+use Front\GeneralBundle\Entity\Review;
+
 class ProgramCoursesController extends Controller
 {
 
@@ -19,7 +22,7 @@ class ProgramCoursesController extends Controller
         $subjects=$em->getRepository("BackReferentielBundle:SubjectSchoolLocation")->findBy(array(), array( "name"=>"asc" ));
         $countries=$em->getRepository("BackReferentielBundle:Country")->findBy(array(), array( "libelle"=>"asc" ));
         $cities=$em->getRepository("BackReferentielBundle:City")->findBy(array( 'country'=>$em->getRepository("BackReferentielBundle:Country")->find($country) ), array( "libelle"=>"asc" ));
-        $query=$em->getRepository("BackSchoolBundle:SchoolLocation")->getProgramSchool($program,$language,$subject, $country, $city, $stars, $keyword, $sort, $desc);
+        $query=$em->getRepository("BackSchoolBundle:SchoolLocation")->getProgramSchool($program, $language, $subject, $country, $city, $stars, $keyword, $sort, $desc);
         $paginator=$this->get('knp_paginator');
         $schools=$paginator->paginate($query, $page, 10);
         return $this->render('FrontGeneralBundle:ProgramCourses:list.html.twig', array(
@@ -36,13 +39,13 @@ class ProgramCoursesController extends Controller
                     'desc'     =>$desc,
                     'programs' =>$programs,
                     'languages'=>$languages,
-                    'subjects'  =>$subjects,
+                    'subjects' =>$subjects,
                     'countries'=>$countries,
                     'cities'   =>$cities,
         ));
     }
 
-    public function filtreAction($page, $program, $language,$subject, $country, $city, $stars, $keyword, $sort, $desc)
+    public function filtreAction($page, $program, $language, $subject, $country, $city, $stars, $keyword, $sort, $desc)
     {
         $request=$this->getRequest();
         if($request->get('programSearch') != null)
@@ -83,14 +86,33 @@ class ProgramCoursesController extends Controller
                             'desc'    =>$desc,
         )));
     }
-    
+
     public function schoolAction(SchoolLocation $school)
     {
         $em=$this->getDoctrine()->getManager();
-        $schools=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array('city'=>$school->getCity(),'type'=>2,'enabled'=>1), array(), 5);
+        $schools=$em->getRepository("BackSchoolBundle:SchoolLocation")->findBy(array( 'city'=>$school->getCity(), 'type'=>2, 'enabled'=>1 ), array(), 5);
+        $review=new Review();
+        $reviews=$em->getRepository('FrontGeneralBundle:Review')->findBy(array( 'schoolLocation'=>$schools, 'validated'=>TRUE ), array( 'id'=>'desc' ));
+        $form=$this->createForm(new ReviewType(), $review);
+        $request=$this->getRequest();
+        $session=$this->getRequest()->getSession();
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $review=$form->getData();
+                $em->persist($review->setValidated(false)->setReviewDate(new \DateTime())->setSchoolLocation($school));
+                $em->flush();
+                $session->getFlashBag()->add('alert-success', "Your review has been added successfully");
+                return $this->redirect($this->generateUrl('front_program_courses_details', array( 'id'=>$school->getId() )));
+            }
+        }
         return $this->render('FrontGeneralBundle:ProgramCourses:school.html.twig', array(
-                    'schools'  =>$schools,
-                    'school'  =>$school,
+                    'schools'=>$schools,
+                    'school' =>$school,
+                    'reviews'=>$reviews,
+                    'form'   =>$form->createView(),
         ));
     }
 
@@ -98,8 +120,9 @@ class ProgramCoursesController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         return $this->render('FrontGeneralBundle:ProgramCourses:course.html.twig', array(
-                    'course'  =>$course,
-                    'school'  =>$course->getSchoolLocation(),
+                    'course'=>$course,
+                    'school'=>$course->getSchoolLocation(),
         ));
     }
+
 }

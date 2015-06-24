@@ -150,6 +150,11 @@ class SchoolLocation
     private $avgPrice;
 
     /**
+     * @ORM\OneToMany(targetEntity="Front\GeneralBundle\Entity\Review", mappedBy="schoolLocation")
+     */
+    protected $allReviews;
+
+    /**
      * Get id
      *
      * @return integer 

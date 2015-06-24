@@ -22,7 +22,7 @@ class CourseTitle
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="Back\ReferentielBundle\Entity\Media", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=true)
@@ -42,7 +42,7 @@ class CourseTitle
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-    
+
     /**
      * @var string
      * @Assert\Url()
@@ -102,6 +102,11 @@ class CourseTitle
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $university;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Front\GeneralBundle\Entity\Review", mappedBy="courseTitle")
+     */
+    protected $allReviews;
 
     /**
      * Get id
@@ -338,16 +343,15 @@ class CourseTitle
         return $this->level;
     }
 
-
     /**
      * Set university
      *
      * @param \Back\UniversityBundle\Entity\University $university
      * @return CourseTitle
      */
-    public function setUniversity(\Back\UniversityBundle\Entity\University $university = null)
+    public function setUniversity(\Back\UniversityBundle\Entity\University $university=null)
     {
-        $this->university = $university;
+        $this->university=$university;
 
         return $this;
     }
@@ -370,7 +374,7 @@ class CourseTitle
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name=$name;
 
         return $this;
     }
@@ -393,7 +397,7 @@ class CourseTitle
      */
     public function setLink($link)
     {
-        $this->link = $link;
+        $this->link=$link;
 
         return $this;
     }
@@ -414,9 +418,9 @@ class CourseTitle
      * @param \Back\ReferentielBundle\Entity\Media $image
      * @return CourseTitle
      */
-    public function setImage(\Back\ReferentielBundle\Entity\Media $image = null)
+    public function setImage(\Back\ReferentielBundle\Entity\Media $image=null)
     {
-        $this->image = $image;
+        $this->image=$image;
 
         return $this;
     }
@@ -430,9 +434,10 @@ class CourseTitle
     {
         return $this->image;
     }
-    
+
     public function __toString()
     {
         return $this->name;
     }
+
 }

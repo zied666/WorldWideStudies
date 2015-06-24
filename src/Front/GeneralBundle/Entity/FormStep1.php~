@@ -134,6 +134,7 @@ class FormStep1
 
     /**
      * @ORM\OneToMany(targetEntity="Back\BookingBundle\Entity\Status", mappedBy="formStep1")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $otherStatus;
 
@@ -537,5 +538,51 @@ class FormStep1
             return 'Male';
         else
             return 'Female';
+    }
+
+    /**
+     * Set codePrimaryPhone
+     *
+     * @param string $codePrimaryPhone
+     * @return FormStep1
+     */
+    public function setCodePrimaryPhone($codePrimaryPhone)
+    {
+        $this->codePrimaryPhone = $codePrimaryPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get codePrimaryPhone
+     *
+     * @return string 
+     */
+    public function getCodePrimaryPhone()
+    {
+        return $this->codePrimaryPhone;
+    }
+
+    /**
+     * Set codeAlternativePhone
+     *
+     * @param string $codeAlternativePhone
+     * @return FormStep1
+     */
+    public function setCodeAlternativePhone($codeAlternativePhone)
+    {
+        $this->codeAlternativePhone = $codeAlternativePhone;
+
+        return $this;
+    }
+
+    /**
+     * Get codeAlternativePhone
+     *
+     * @return string 
+     */
+    public function getCodeAlternativePhone()
+    {
+        return $this->codeAlternativePhone;
     }
 }

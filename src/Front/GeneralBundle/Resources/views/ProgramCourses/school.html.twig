@@ -40,6 +40,7 @@
                         </div>
                     {% endif %}
                     <div id="hotel-features" class="tab-container">
+                        {% include ':Front:notification.html.twig' %}
                         <ul class="tabs">
                             <li class="active"><a href="#School-description" data-toggle="tab">Description</a></li>
                                 {% if school.courses|length!=0 %}
@@ -51,6 +52,10 @@
                                 {% if school.extras|length!=0 %}
                                 <li><a href="#School-extras" data-toggle="tab">Extras</a></li>
                                 {% endif %}
+                                {% if reviews|length>0 %}
+                                <li><a href="#hotel-reviews" data-toggle="tab">Reviews</a></li>
+                                {% endif %}
+                            <li><a href="#hotel-write-review" data-toggle="tab">Write a review</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="School-description">
@@ -153,6 +158,59 @@
                                         </div>
                                     {% endfor %}
                                 </div>
+                            </div>
+                            {% if reviews|length>0 %}
+                                <div class="tab-pane fade" id="hotel-reviews">
+                                    <div class="intro table-wrapper full-width hidden-table-sms">
+                                        <div class="rating table-cell col-sm-4">
+                                            <span class="score">{{ school.note }}/5</span>
+                                            <div class="five-stars-container"><div class="five-stars" style="width: {{ stars }}%;"></div></div>
+                                        </div>
+                                    </div>
+                                    <div class="guest-reviews">
+                                        <h2>Guest Reviews</h2>
+                                        {% for review in reviews %}
+                                            <div class="guest-review table-wrapper">
+                                                <div class="col-xs-3 col-md-2 author table-cell">
+                                                    <a href="#"><img src="http://movingmountains.biz//wp-content/uploads/2012/02/Person-Avatar.png" alt="" width="270" height="263" /></a>
+                                                    <p class="name">{{ review.name }}</p>
+                                                    <p class="date">{{ review.reviewDate|date('d F Y') }}</p>
+                                                </div>
+                                                <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                    <div class="comment-header clearfix">
+                                                        <h4 class="comment-title">{{ review.title }}</h4>
+                                                        <div class="review-score">
+                                                            <div class="five-stars-container"><div class="five-stars" style="width: {{ review.note/5*100 }}%;"></div></div>
+                                                            <span class="score">{{ review.note }}/5</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <p style="min-width: 660px;">{{ review.text }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="tab-pane fade" id="hotel-write-review">
+                                {{ form_start(form) }}
+                                <div class="form-group row">
+                                    {{ formulaire.input("col-md-4","Name",form.name,true) }}
+                                </div> 
+                                <div class="form-group row">
+                                    {{ formulaire.input("col-md-4","Title of your review",form.title,true) }}
+                                </div> 
+                                <div class="form-group row">
+                                    {{ formulaire.input("col-md-8","Your review",form.text,true) }}
+                                </div> 
+                                <div class="form-group row">
+                                    {{ formulaire.input("col-md-8","note",form.note,true) }}
+                                </div> 
+                                <div class="form-group col-md-5 no-float no-padding no-margin">
+                                    <button type="submit" class="btn-large full-width">SUBMIT REVIEW</button>
+                                </div>
+                                {{ form_end(form) }}
                             </div>
                         </div>
 
