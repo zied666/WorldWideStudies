@@ -11,11 +11,14 @@ class FrontController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
-        $request=$this->getRequest();
         if(!$session->has('currency'))
         {
-            $ipDetails=$this->ip_details($request->getClientIp());
-            $country=$em->getRepository('BackReferentielBundle:Country')->findOneBy(array( 'code'=>$ipDetails->country ));
+            $ipDetails=$this->ip_details($_SERVER['SERVER_ADDR']);
+            if(isset($ipDetails->country))
+                $code=$ipDetails->country;
+            else
+                $code='TN';
+            $country=$em->getRepository('BackReferentielBundle:Country')->findOneBy(array( 'code'=>$code ));
             if($country && !is_null($country->getCurrency()))
                 $session->set('currency', array( 'code'=>$country->getCurrency()->getCode(), 'scale'=>$country->getCurrency()->getScale() ));
             else
