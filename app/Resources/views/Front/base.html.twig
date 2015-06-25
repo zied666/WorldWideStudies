@@ -58,6 +58,11 @@
                     display: inline;
                     color: #E6674A;
                 }
+                .BackgroundBlock{
+                    background: url("{{ asset('front-assets/images/background.jpg') }}") no-repeat center center !important;
+                    min-height: 880px !important;
+                    background-size: 2080px 1362px !important;
+                }
             </style>
         {% endblock %}
         {% if app.request.get('_route')=='root' or  app.request.get('_route')=='accueil'%}
