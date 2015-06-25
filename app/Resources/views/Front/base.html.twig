@@ -63,6 +63,36 @@
                     min-height: 880px !important;
                     background-size: 2080px 1362px !important;
                 }
+                #footer{
+                    background: #613082;
+                    color: white;
+                }
+                #footer h2 {
+                    margin-bottom: 20px;
+                    color: white;
+                    border-bottom: 1px solid white;
+                }
+                #footer .contact-phone {
+                    color: white;
+                    border-bottom: 1px solid white;
+                }
+                #footer .gray-area {
+                    background: #613082;
+                }
+                #footer .bottom #back-to-top i {
+                    border-color: white;
+                    font-weight: bold;
+                    overflow: hidden;
+                }
+                #footer .bottom #back-to-top {
+                    margin-top: 20px;
+                    display: block;
+                    font-size: 16px;
+                    color: white;
+                }
+                ul.triangle li.active, ul.triangle li.active:before, ul.triangle.hover li:hover, ul.triangle.hover li:hover .box-title, ul.triangle.hover li:hover:before {
+                    color: red;
+                }
             </style>
         {% endblock %}
         {% if app.request.get('_route')=='root' or  app.request.get('_route')=='accueil'%}

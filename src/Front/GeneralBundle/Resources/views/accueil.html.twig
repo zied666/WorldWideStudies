@@ -1,6 +1,6 @@
 {% extends ":Front:base.html.twig" %}
 {% block body %}
-    <section id="content" class="slideshow-bg">
+    {#<section id="content" class="slideshow-bg">
         <div id="slideshow">
             <div class="flexslider ABCD" style=" ">
                 <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 30px;border-radius: 0 50px 50px 0;">
@@ -28,9 +28,38 @@
                 </ul>
             </div>
         </div>
-        <div class="container">
+    </section>#}
+    <section id="content" class="BackgroundBlock">
+        {#<div id="slideshow">
+            <div class="flexslider ABCD" style=" ">
+                <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 30px;border-radius: 0 50px 50px 0;">
+                    <span> It's time to</span>
+                    <ul style="width: 250px;">
+                        <li>live</li>
+                        <li>have fun</li>
+                        <li>relax</li>
+                        <li>meet</li>
+                        <li>being lost</li>
+                        <li>run away</li>
+                        <li>go</li>
+                        <li>explore</li>
+                        <li>find new friends</li>
+                        <li class="active">discover</li>
+                        <li>play</li>
+                    </ul>
+                </div>
+                <ul class="slides">
+                    {% for slider in sliders %}
+                        <li>
+                            <div class="slidebg" style="background-image: url('{{ slider.image.getAssetPath | imagine_filter('slider') }}');"></div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>#}
+        <div class="container" class="">
             <div class="row">
-                <div id="main" class="col-sm-8 col-md-9" style="  padding-top: 110px;">
+                <div id="main" class="col-sm-10 col-md-10" style="  padding-top: 110px;">
                     {#<div class="tagline visible-lg" id="tagline"><span>It's time to</span>
                         <ul>
                             <li>live</li>
@@ -48,11 +77,11 @@
                     </div>#}
                     <div class="search-box-wrapper style1" style="margin-top: 30px;">
                         <div class="search-box">
-                            <ul class="search-tabs clearfix">
-                                <li class="active"><a href="#hotels-tab" data-toggle="tab"><i class="soap-icon-conference"></i>{{ homepage.title1 }}</a></li>
-                                <li><a href="#flights-tab" data-toggle="tab"><i class="soap-icon-businessbag"></i>{{ homepage.title2 }}</a></li>
-                                <li><a href="#flight-and-hotel-tab" data-toggle="tab"><i class="soap-icon-hotel-1"></i>{{ homepage.title3 }}</a></li>
-                                <li><a href="#cars-tab" data-toggle="tab"><i class="soap-icon-carryon"></i>{{ homepage.title4 }}</a></li>
+                            <ul class="search-tabs clearfix" >
+                                <li class="active"><a href="#hotels-tab" data-toggle="tab"><img class="PhotoRigth" src="{{ asset('front-assets/images/languagecourses.png') }}" />{{ homepage.title1 }}</a></li>
+                                <li><a href="#flights-tab" data-toggle="tab"><img class="PhotoRigth" src="{{ asset('front-assets/images/pathway.png') }}" />{{ homepage.title2 }}</a></li>
+                                <li><a href="#flight-and-hotel-tab" data-toggle="tab"><img class="PhotoRigth" src="{{ asset('front-assets/images/university.png') }}" />{{ homepage.title3 }}</a></li>
+                                <li><a href="#cars-tab" data-toggle="tab"><img class="PhotoRigth"src="{{ asset('front-assets/images/accommodation.png') }}" />{{ homepage.title4 }}</a></li>
                             </ul>
                             <div class="visible-mobile">
                                 <ul id="mobile-search-tabs" class="search-tabs clearfix">
@@ -66,17 +95,17 @@
                             <div class="search-tab-content" style="  opacity: 0.95;">
                                 <div class="tab-pane fade  active in" id="hotels-tab">
                                     <form action="{{ path('front_language_courses_redirect') }}" method="post">
-                                        <div class="title-container">
+                                        <div class="title-container" style="  background: rgba(218,73,42,1);">
                                             <h2 class="search-title">{{ homepage.title1 }}</h2>
                                             <p>{{ homepage.description1 }}</p>
-                                            <i class="soap-icon-conference"></i>
+                                            <i class=""><img class="PhotoTop" src="{{ asset('front-assets/images/languagecourses.png') }}" /></i>
                                         </div>
                                         <div class="search-content">
                                             <h5 class="title"></h5>
                                             <div class="row">
                                                 <div class="col-xs-12">
                                                     <label>Select a language</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" name="language">
                                                             <option value="">All languages</option>
                                                             {% for language in languages %}
@@ -91,7 +120,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <label>Country</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" id="CountrySelect1" name="country">
                                                             <option value="">All countries</option>
                                                             {% for country in countries %}
@@ -102,7 +131,7 @@
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <label>City</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" id="CitySelect1" name="city">
                                                             <option value="">All cities</option>
                                                         </select>
@@ -117,7 +146,7 @@
                                                 </div>
                                             </div>
                                             <hr>
-                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
+                                            <button style="background: #833685" type="submit" class="full-width uppercase">Proceed To Result</button>
                                         </div>
                                     </form>
                                 </div>
@@ -126,14 +155,14 @@
                                         <div class="title-container">
                                             <h2 class="search-title">{{ homepage.title2 }}</h2>
                                             <p>{{ homepage.description2 }}</p>
-                                            <i class="soap-icon-businessbag"></i>
+                                            <i class=""><img class="" src="{{ asset('front-assets/images/pathway.png') }}" /></i>
                                         </div>
                                         <div class="search-content">
                                             <h5 class="title"></h5>
                                             <div class="row">
                                                 <div class="col-xs-4">
                                                     <label>Select a Pathway programs</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" name="program">
                                                             <option value="">All programs</option>
                                                             {% for programs in programs %}
@@ -144,7 +173,7 @@
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <label>Language</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" name="language">
                                                             <option value="">All languages</option>
                                                             {% for language in languages %}
@@ -155,7 +184,7 @@
                                                 </div>
                                                 <div class="col-xs-4">
                                                     <label>Subject</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" name="subject">
                                                             <option value="">All subjects</option>
                                                             {% for subject in subjectsSchool %}
@@ -170,7 +199,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <label>Country</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" id="CountrySelect2" name="country">
                                                             <option value="">All countries</option>
                                                             {% for country in countries %}
@@ -181,7 +210,7 @@
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <label>City</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" id="CitySelect2" name="city">
                                                             <option value="">All cities</option>
                                                         </select>
@@ -196,7 +225,7 @@
                                                 </div>
                                             </div>
                                             <hr>
-                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
+                                            <button style="background: #833685" type="submit" class="full-width uppercase">Proceed To Result</button>
                                         </div>
                                     </form>
                                 </div>
@@ -205,13 +234,13 @@
                                         <div class="title-container">
                                             <h2 class="search-title">{{ homepage.title3 }}</h2>
                                             <p>{{ homepage.description3 }}</p>
-                                            <i class="soap-icon-hotel-1"></i>
+                                            <i class=""><img class="" src="{{ asset('front-assets/images/university.png') }}" /></i>
                                         </div>
                                         <div class="search-content">
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <label>Select a level of study</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" name="level" id="levelOfStudy">
                                                             <option value="">All levels</option>
                                                             {% for level in levels %}
@@ -222,7 +251,7 @@
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <label>Qualification</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" name="qualification" id="qualification">
                                                             <option value="">All qualifications</option>
                                                             {% for qualification in qualifications %}
@@ -236,7 +265,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <label>Subject</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" name="subject">
                                                             <option value="">All subjects</option>
                                                             {% for subject in subjects %}
@@ -247,7 +276,7 @@
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <label>Study Mode</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" name="studymode">
                                                             <option value="">all modes</option>
                                                             {% for studyMode in studyModes %}
@@ -262,7 +291,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <label>Country</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" id="CountrySelect3" name="country">
                                                             <option value="">All countries</option>
                                                             {% for country in countries %}
@@ -273,7 +302,7 @@
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <label>City</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" id="CitySelect3" name="city">
                                                             <option value="">All cities</option>
                                                         </select>
@@ -288,7 +317,7 @@
                                                 </div>
                                             </div>
                                             <hr>
-                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
+                                            <button style="background: #833685" type="submit" class="full-width uppercase">Proceed To Result</button>
                                         </div>
                                     </form>
                                 </div>
@@ -297,14 +326,14 @@
                                         <div class="title-container">
                                             <h2 class="search-title">{{ homepage.title4 }}</h2>
                                             <p>{{ homepage.description4 }}</p>
-                                            <i class="soap-icon-carryon"></i>
+                                            <i class=""><img class="" src="{{ asset('front-assets/images/accommodation.png') }}" /></i>
                                         </div>
                                         <div class="search-content">
                                             <h5 class="title"></h5>
                                             <div class="row">
                                                 <div class="col-xs-12">
                                                     <label>Select type accommodation</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" name="type">
                                                             <option value="">All types</option>
                                                             {% for typeAccommodation in typeAccommodations %}
@@ -319,7 +348,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <label>Country</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" id="CountrySelect4" name="country">
                                                             <option value="">All countries</option>
                                                             {% for country in countries %}
@@ -330,7 +359,7 @@
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <label>City</label>
-                                                    <div class="selector">
+                                                    <div>
                                                         <select class="full-width" id="CitySelect4" name="city">
                                                             <option value="">All cities</option>
                                                         </select>
@@ -345,7 +374,7 @@
                                                 </div>
                                             </div>
                                             <hr>
-                                            <button type="submit" class="full-width uppercase">Proceed To Result</button>
+                                            <button style="background: #833685" type="submit" class="full-width uppercase">Proceed To Result</button>
                                         </div>
                                     </form>
                                 </div>
@@ -353,74 +382,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="sidebar col-sm-4 col-md-3" style="  z-index: 11;padding-top: 140px;">
-                    <div class="travelo-box contact-box" style="padding: 0px;">
-                        <div class="testimonial style3" style="margin-top: 0px; ">
-                            <ul class="slides ">
-                                {% set num=80 %}
-                                {% for testimonial in testimonials %}
-                                    <li>
-                                        <div class="author"><a href="#"><img src="{{ testimonial.image.getAssetPath | imagine_filter('testimonial') }}" alt="" width="74" height="74" /></a></div>
-                                        <h2 class="name">{{ testimonial.name|title }} - {% if testimonial.city.country is defined %}{{ testimonial.city.country|title }}{% endif %}</h2>
-                                        <blockquote style="padding:0px;text-indent: 0px;" class="">
-                                            {% if  testimonial.description|length >num %}
-                                                {{ testimonial.description|slice(0, num) }}...
-                                            {% else %}
-                                                {{ testimonial.description }}
-                                            {% endif %}
-                                        </blockquote>
-                                        <h4>{{ testimonial.school|title }}</h4> 
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    {#<div class="travelo-box contact-box" style="padding: 0px;">
-                        <div class="testimonial style3" style="margin-top: 0px;   padding: 5px 50px 0px; ">
-                            <ul class="slides ">
-                                <li>
-                                    <div id="cont_6d200cf88626f7a36f5d816d0344389e">
-                                        <span id="h_6d200cf88626f7a36f5d816d0344389e"><a href="http://www.tameteo.com/meteo_Paris-Europe-France-Paris-LFPB-1-26048.html" target="_blank" style="color:#808080; font-family:Times New Roman; font-size:14px;">Paris</a></span>
-                                        <script type="text/javascript" async src="https://www.tameteo.com/wid_loader/6d200cf88626f7a36f5d816d0344389e"></script>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div id="cont_c4a30d39c5fd9f03ba44a41c61ff10a3">
-                                        <span id="h_c4a30d39c5fd9f03ba44a41c61ff10a3"><a href="http://www.tameteo.com/meteo_Londres-Europe-Royaume+Uni-Londres--1-34032.html" target="_blank" style="color:#808080; font-family:Times New Roman; font-size:14px;">London</a></span>
-                                        <script type="text/javascript" async src="https://www.tameteo.com/wid_loader/c4a30d39c5fd9f03ba44a41c61ff10a3"></script>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div id="cont_8dfdf73c726f766f69f5055c2b6839c8">
-                                        <span id="h_8dfdf73c726f766f69f5055c2b6839c8"><a href="http://www.tameteo.com/meteo_Londres-Europe-Royaume+Uni-Londres--1-34032.html" target="_blank" style="color:#808080; font-family:Times New Roman; font-size:14px;">New York</a></span>
-                                        <script type="text/javascript" async src="https://www.tameteo.com/wid_loader/8dfdf73c726f766f69f5055c2b6839c8"></script>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>#}
-                    <div class="fb-page" data-href="https://www.facebook.com/WorldwideStudiesTunisia" data-width="270px" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/WorldwideStudiesTunisia"><a href="https://www.facebook.com/WorldwideStudiesTunisia">Worldwide Studies</a></blockquote></div></div>                   
-                </div>
             </div>
         </div>
     </section>
     <section id="content">
         <div class="section container">
-            <h2>Popular Schools</h2>
+            <h2  style="  text-align: center;color: #009fdb;font-size: 40px;">Popular Schools</h2>
             <div class="flexslider image-carousel style2 row-2" data-animation="slide" data-item-width="270" data-item-margin="30">
                 <ul class="slides image-box style11">
                     {% for school in schools %}
                         <li>
-                            <article class="box">
+                            <article class="box" style="background: none">
                                 <figure class="animated" data-animation-type="fadeInDown" data-animation-delay="0">
-                                    <img style="width: 270px;height: 160px" src="{{ school.image.getAssetPath | imagine_filter('list') }}" alt="">
+                                    <img style="width: 270px;height: 222px" src="{{ school.image.getAssetPath | imagine_filter('list') }}" alt="">
                                 </figure>
                                 <div class="details">
                                     <span class="price">
                                         <small>avg/WEEK</small>
                                         {{ school.avgPrice }} {{ school.currency.code }}
                                     </span>
-                                    <h4 class="box-title" style="min-height: 80px;">
+                                    <h4 class="box-title" style="min-height: 80px;  color: #89579a;">
                                         {{ school.school|title }}
                                         <small style="color:red">
                                             {{ school|title }} 
@@ -430,15 +411,15 @@
                                             {{ school.city.country.code|upper }}, {{ school.city }}
                                         </small>
                                     </h4>
-                                    <div class="feedback">
+                                    <div class="feedback" style="float: right">
                                         <div class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{ (school.stars/5) *100 }}%;"></span></div>
-                                        <span class="review">{{ school.reviews }} reviews</span>
+                                            {#                                        <span class="review">{{ school.reviews }} reviews</span>#}
                                     </div>
                                     <div>
                                         {% if school.type==1 %}
-                                            <a href="{{ path('front_language_courses_details',{'id':school.id}) }}" class="button btn-small full-width">SELECT</a>
+                                            <a style="background: #009fdb;" href="{{ path('front_language_courses_details',{'id':school.id}) }}" class="button btn-small full-width">SELECT</a>
                                         {% else %}
-                                            <a href="{{ path('front_program_courses_details',{'id':school.id}) }}" class="button btn-small full-width">SELECT</a>
+                                            <a style="background: #009fdb;" href="{{ path('front_program_courses_details',{'id':school.id}) }}" class="button btn-small full-width">SELECT</a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -448,7 +429,7 @@
                 </ul>
             </div>
         </div>
-        <div style="background: url('{{  asset(homepage.photo.getAssetPath)}}');background-position: 50% 58px;" class="global-map-area section parallax" data-stellar-background-ratio="0.5">
+        {#<div style="background: url('{{  asset(homepage.photo.getAssetPath)}}');background-position: 50% 58px;" class="global-map-area section parallax" data-stellar-background-ratio="0.5">
             <div class="container description text-center">
                 <h1>How World wide Studies Works?</h1>
                 <br>
@@ -492,10 +473,13 @@
                     </div>
                 </div>
             </div>
+        </div>#}
+        <div>
+            <img src="{{  asset(homepage.photo.getAssetPath)}}"/>
         </div>
         <div class="container">
             <div class="section">
-                <h2>Featured Destinations</h2>
+                <h2 style="  text-align: center;color: #94be3d;font-size: 40px;">Featured Destinations</h2>
                 <div class="flexslider image-carousel style2 row-2" data-animation="slide" data-item-width="370" data-item-margin="30">
                     <ul class="slides image-box style11">
                         {% for city in cities %}
@@ -534,8 +518,7 @@
             directionNav: false,
             slideshow: true,
             slideshowSpeed: 5000
-        });
-    </script>
+        });</script>
     <script type="text/javascript">
         tjq(document).ready(function () {
             tjq("#price-range").slider({
@@ -550,7 +533,6 @@
             });
             tjq(".min-price-label").html("$" + tjq("#price-range").slider("values", 0));
             tjq(".max-price-label").html("$" + tjq("#price-range").slider("values", 1));
-
             tjq("#rating").slider({
                 range: "min",
                 value: 40,
@@ -560,8 +542,7 @@
 
                 }
             });
-        });
-    </script>
+        });</script>
     <script>
         var tid = setInterval(tagline_vertical_slide, 2500);
         function tagline_vertical_slide() {
@@ -570,7 +551,6 @@
             setTimeout(function () {
                 curr.removeClass("vs-out");
             }, 500);
-
             var nextTag = curr.next('li');
             if (!nextTag.length) {
                 nextTag = tjq("#tagline ul li").first();
@@ -686,4 +666,56 @@
             })
         })
     </script>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        ul.search-tabs li.active > a {
+            border-right-color: #fff;
+            filter: alpha(opacity=100);
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+            -moz-opacity: 1;
+            -khtml-opacity: 1;
+            opacity: 1;
+            color: white;
+            background: #27abd8;
+        }
+        .search-box-wrapper.style1 .search-box > ul.search-tabs li.active > a > i {
+            color: #FFFFFF;
+        }
+        .search-box-wrapper.style1 .search-box > ul.search-tabs li > a > i {
+            color: #FFFFFF;
+        }
+        ul.search-tabs li a {
+            display: block;
+            padding: 0 30px;
+            background: black;
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            filter: alpha(opacity=40);
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+            -moz-opacity: 0.4;
+            -khtml-opacity: 0.4;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .search-box-wrapper.style1 .search-tab-content .title-container {
+            padding: 15px 40px 0 25px;
+            height: 80px;
+            position: relative;
+            background: rgba(218,73,42,1);
+        }
+        .PhotoRigth{
+            width: 25px;
+            height: 25px;
+            margin-right: 15px;
+            margin-left: -25px;
+        }
+        .PhotoTop{
+            width: 60px;
+            height: 50px;
+        }
+    </style>
 {% endblock %}
