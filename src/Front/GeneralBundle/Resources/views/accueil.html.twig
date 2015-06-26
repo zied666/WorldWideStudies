@@ -1,9 +1,9 @@
 {% extends ":Front:base.html.twig" %}
 {% block body %}
-    {#<section id="content" class="slideshow-bg">
+    <section id="content" class="slideshow-bg">
         <div id="slideshow">
             <div class="flexslider ABCD" style=" ">
-                <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 30px;border-radius: 0 50px 50px 0;">
+                <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 500px;">
                     <span> It's time to</span>
                     <ul style="width: 250px;">
                         <li>live</li>
@@ -28,7 +28,54 @@
                 </ul>
             </div>
         </div>
-    </section>#}
+    </section>
+    <section id="content" class="gray-area" style="  min-height: inherit;">
+        <div style="background: #97bd29;padding-top: inherit;  padding-bottom: 20px;"  class="global-map-area section parallax" data-stellar-background-ratio="0.5">
+            {#            <div class="container">#}
+            <div class="testimonial style3" style="border: none;text-align: inherit;margin-top: inherit;padding: 30px 0 0;">
+                <ul class="slides ">
+                    {% set num=80 %}
+                    {% for testimonial in testimonials %}
+                        <li>
+                            {#                                <div class="author"><a href="#"><img src="{{ testimonial.image.getAssetPath | imagine_filter('testimonial') }}" alt="" width="74" height="74" /></a></div>#}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <blockquote class="description">
+                                        {% if  testimonial.description|length >num %}
+                                            {{ testimonial.description|slice(0, num) }}...
+                                        {% else %}
+                                            {{ testimonial.description }}
+                                        {% endif %}
+                                    </blockquote>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="author" style="  position: initial;margin-left: 0px;">
+                                        <a href="#"><img src="{{ testimonial.image.getAssetPath | imagine_filter('testimonial') }}" alt="" width="74" height="74" /></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" style="padding-top: 27px;">
+                                    <h1 style="color: white;">{{ testimonial.name }} - {{ testimonial.school }}</h1>
+                                    <h1 style="color: white;">
+                                        {% if testimonial.city.country is defined %}
+                                            {{ testimonial.city }}, {{ testimonial.city.country|upper }}
+                                        {% endif %}
+                                    </h1>
+                                </div>
+                            </div>
+                            {#<h2>{{ testimonial.name }} - {{ testimonial.school }}</h2>
+                            <h2>
+                                {% if testimonial.city.country is defined %}
+                                    {{ testimonial.city }},{{ testimonial.city.country }}
+                                {% endif %}
+                            </h2>#}
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            {#            </div>#}
+        </div>
+    </section>
     <section id="content" class="BackgroundBlock">
         {#<div id="slideshow">
             <div class="flexslider ABCD" style=" ">
