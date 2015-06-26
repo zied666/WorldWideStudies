@@ -234,4 +234,46 @@ class AccommodationController extends Controller
         return $this->redirect($this->generateUrl("room_big_prix", array( 'id'=>$price->getRoom()->getAccommodation()->getId() )));
     }
 
+    public function reviewsAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $reviews=$em->getRepository("FrontGeneralBundle:Review")->findBy(array( 'validated'=>false ), array( 'id'=>'desc' ));
+        return $this->render('BackAccommodationBundle::list_reviews.html.twig', array(
+                    'reviews'=>$reviews
+        ));
+    }
+
+    public function validateReviewAction(\Front\GeneralBundle\Entity\Review $review)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $accommodation=$review->getAccommodation();
+        $count=0;
+        $sum=0;
+        foreach($accommodation->getAllReviews() as $rev)
+        {
+            if($rev->getValidated())
+            {
+                $count++;
+                $sum+=$rev->getNote();
+            }
+        }
+        $em->persist($review->setValidated(true));
+        $em->persist($accommodation->setReviews(intval($count))->setNote((intval($sum / $count))));
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your review has been validated successfully");
+        return $this->redirect($this->generateUrl('backacco_list_reviews'));
+    }
+
+    public function deleteReviewAction(\Front\GeneralBundle\Entity\Review $review)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($review);
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your review has been deleted successfully");
+        return $this->redirect($this->generateUrl('backacco_list_reviews'));
+    }
+
 }

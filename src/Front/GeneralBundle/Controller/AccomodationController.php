@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Back\AccommodationBundle\Entity\Accommodation;
+use Front\GeneralBundle\Form\ReviewType;
+use Front\GeneralBundle\Entity\Review;
+
 class AccomodationController extends Controller
 {
 
@@ -60,10 +63,29 @@ class AccomodationController extends Controller
     public function accommodationAction(Accommodation $accommodation)
     {
         $em=$this->getDoctrine()->getManager();
-        $accommodations=$em->getRepository("BackAccommodationBundle:Accommodation")->findBy(array('city'=>$accommodation->getCity(),'enabled'=>1), array(), 5);
+        $accommodations=$em->getRepository("BackAccommodationBundle:Accommodation")->findBy(array( 'city'=>$accommodation->getCity(), 'enabled'=>1 ), array(), 5);
+        $review=new Review();
+        $reviews=$em->getRepository('FrontGeneralBundle:Review')->findBy(array( 'accommodation'=>$accommodation, 'validated'=>TRUE ), array( 'id'=>'desc' ));
+        $form=$this->createForm(new ReviewType(), $review);
+        $request=$this->getRequest();
+        $session=$this->getRequest()->getSession();
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $review=$form->getData();
+                $em->persist($review->setValidated(false)->setReviewDate(new \DateTime())->setAccommodation($accommodation));
+                $em->flush();
+                $session->getFlashBag()->add('alert-success', "Your review has been added successfully");
+                return $this->redirect($this->generateUrl('front_accommodations_details', array( 'id'=>$accommodation->getId() )));
+            }
+        }
         return $this->render('FrontGeneralBundle:Accommodations:accommodation.html.twig', array(
-                    'accommodation'=>$accommodation,
-                    'accommodations' =>$accommodations,
+                    'accommodation' =>$accommodation,
+                    'accommodations'=>$accommodations,
+                    'reviews'=>$reviews,
+                    'form'   =>$form->createView(),
         ));
     }
 

@@ -669,4 +669,37 @@ class SchoolLocation
                 $this->image = clone $this->image ;
         }
     }
+
+    /**
+     * Add allReviews
+     *
+     * @param \Front\GeneralBundle\Entity\Review $allReviews
+     * @return SchoolLocation
+     */
+    public function addAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
+    {
+        $this->allReviews[] = $allReviews;
+
+        return $this;
+    }
+
+    /**
+     * Remove allReviews
+     *
+     * @param \Front\GeneralBundle\Entity\Review $allReviews
+     */
+    public function removeAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
+    {
+        $this->allReviews->removeElement($allReviews);
+    }
+
+    /**
+     * Get allReviews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAllReviews()
+    {
+        return $this->allReviews;
+    }
 }

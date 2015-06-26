@@ -17,7 +17,6 @@
                         {% include 'FrontGeneralBundle:ProgramCourses:sort.html.twig' %}
                         <div class="hotel-list listing-style3 hotel">
                             {% for school in schools %}
-                                {% set stars= (school.stars/5) *100 %}
                                 <article class="box">
                                     <figure class="col-sm-5 col-md-4">
                                         <img style="width: 270px;height: 160px" alt="" src="{{ school.image.getAssetPath | imagine_filter('list') }}">
@@ -29,7 +28,7 @@
                                                     <small style="color:red">
                                                         {{ school|title }} 
                                                         <div class="five-stars-container">
-                                                            <span class="five-stars" style="width: {{ stars }}%;"></span>
+                                                            <span class="five-stars" style="width: {{ (school.stars/5) *100  }}%;"></span>
                                                         </div>
                                                     </small>
                                                     <small>

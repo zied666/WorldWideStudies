@@ -126,6 +126,11 @@
                             <span class="title">List</span>
                         </a>
                     </li>
+                    <li {% if app.request.get('_route')=='backacco_list_reviews' %}class="active"{% endif %}>
+                        <a href="{{ path('backacco_list_reviews') }}">
+                            <span class="title">Reviews</span>
+                        </a>
+                    </li>
                     <li {% if app.request.get('_route')=='add_accommodation' %}class="active"{% endif %}>
                         <a href="{{ path('add_accommodation') }}">
                             <span class="title">New accommodation</span>

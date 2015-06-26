@@ -36,4 +36,16 @@ room_big_prix:
     
 delete_big_room_prix:
     path:     /delete_big_room_prix/{id}
-    defaults: { _controller: BackAccommodationBundle:Accommodation:deletePrix}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:deletePrix}   
+    
+backacco_list_reviews:
+    path:     /reviews
+    defaults: { _controller: BackAccommodationBundle:Accommodation:reviews}   
+    
+backacco_validate_review:
+    path:     /backacco_validate_review/{id}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:validateReview}   
+    
+backacco_deleted_review:
+    path:     /backacco_deleted_review/{id}
+    defaults: { _controller: BackAccommodationBundle:Accommodation:deleteReview}   

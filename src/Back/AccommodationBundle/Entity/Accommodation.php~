@@ -107,6 +107,24 @@ class Accommodation
     protected $allReviews;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="reviews", type="integer" , nullable=true)
+     */
+    private $reviews;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="note", type="integer" , nullable=true)
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5
+     * )
+     */
+    private $note;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -447,6 +465,39 @@ class Accommodation
             return number_format($this->avgPrice, $this->currency->getScale(), '.', '');
         else
             return $this->avgPrice;
+    }
+
+    /**
+     * Add allReviews
+     *
+     * @param \Front\GeneralBundle\Entity\Review $allReviews
+     * @return Accommodation
+     */
+    public function addAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
+    {
+        $this->allReviews[]=$allReviews;
+
+        return $this;
+    }
+
+    /**
+     * Remove allReviews
+     *
+     * @param \Front\GeneralBundle\Entity\Review $allReviews
+     */
+    public function removeAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
+    {
+        $this->allReviews->removeElement($allReviews);
+    }
+
+    /**
+     * Get allReviews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAllReviews()
+    {
+        return $this->allReviews;
     }
 
 }

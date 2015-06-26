@@ -440,4 +440,37 @@ class CourseTitle
         return $this->name;
     }
 
+
+    /**
+     * Add allReviews
+     *
+     * @param \Front\GeneralBundle\Entity\Review $allReviews
+     * @return CourseTitle
+     */
+    public function addAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
+    {
+        $this->allReviews[] = $allReviews;
+
+        return $this;
+    }
+
+    /**
+     * Remove allReviews
+     *
+     * @param \Front\GeneralBundle\Entity\Review $allReviews
+     */
+    public function removeAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
+    {
+        $this->allReviews->removeElement($allReviews);
+    }
+
+    /**
+     * Get allReviews
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAllReviews()
+    {
+        return $this->allReviews;
+    }
 }

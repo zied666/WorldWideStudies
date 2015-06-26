@@ -29,12 +29,19 @@
                                                 <h4 class="box-title">{{ accommodation.name|title }}
                                                     <small style="color:red">
                                                         {{ accommodation.typeAccommodation|title }} 
+                                                        <div class="five-stars-container">
+                                                            <span class="five-stars" style="width: {{ (accommodation.note/5) *100  }}%;"></span>
+                                                        </div>
                                                     </small>
                                                     <small>
                                                         <i class="soap-icon-departure yellow-color"></i>
                                                         {{ accommodation.city.country.code|upper }}, {{ accommodation.city }}
                                                     </small>
                                                 </h4>
+                                            </div>
+                                            <div>
+                                                <p>Excellent ! {{ accommodation.note }}/5</p>
+                                                <span class="review">{{ accommodation.reviews }} reviews</span>
                                             </div>
                                         </div>
                                         <div>
