@@ -56,7 +56,8 @@
                                 </div>
                                 <hr>
                                 <div class="long-description">
-                                    <h2>{{ course }}</h2>
+                                    <h2>{{ course }} <a style="float: right" href="{{ course.link }}" target="_blank" class="button  uppercase btn-small">Learn more about course</a></h2>
+                                    
                                     <div class="panel-content">
                                         <dl class="term-description">
                                             <dt>Name:</dt><dd>{{ course }}</dd>
@@ -92,12 +93,8 @@
                         </figure>
                         <div class="details">
                             <h2 class="box-title">{{ course|title }}<small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space">{{ course.university.city.country|upper }}, {{ course.university.city }}</span></small></h2>
-                                        {#<span class="price clearfix">
-                                            <small class="pull-left">avg/week</small>
-                                            <span class="pull-right">{{ course.avgPrice~' '~course.currency.code }}</span>
-                                        </span>#}
                             <p class="description">{{ course.description }}</p>
-                            <a class="button yellow full-width uppercase btn-small">add to wishlist</a>
+                            <a href="{{ course.university.site }}" target="_blank" class="button full-width uppercase btn-small">University Web Site</a>
                         </div>
                     </article>
                     {% if courses|length>1 %}
