@@ -24,7 +24,7 @@
                                     <div class="col-md-2"><label>Price</label></div>
                                 </div>
                                 {% set verif = false %}
-                                {% for course in school.courses if (course.getMaxWeek!=0 or course.pathwayPrices|length>0) and course.startDates|length>0  %}
+                                {% for course in school.courses if (course.getMaxWeek!=0 or course.pathwayPrices|length>0) and course.startingDatesValid|length>0  %}
                                     {% set verif=true %}
                                     <hr style="border-color:burlywood;  margin-top: 0px;">
                                     <div class="form-group row">
@@ -58,7 +58,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <select class="full-width"  name="startingDate_{{ course.id }}">
-                                                {% for date in course.startDates if date.date|date('Y-m-d')>'now'|date('Y-m-d')  %}
+                                                {% for date in course.startingDatesValid  %}
                                                     <option value="{{ date.date|date('Y-m-d') }}">{{ date.date|date('D, d F Y') }}</option>
                                                 {% endfor %}
                                             </select>

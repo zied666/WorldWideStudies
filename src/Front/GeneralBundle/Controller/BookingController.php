@@ -232,7 +232,7 @@ class BookingController extends Controller
         $receiver_email=$_POST['receiver_email'];
         $payer_email=$_POST['payer_email'];
         parse_str($_POST['custom'], $custom);
-        file_put_contents('log',print_r($_POST,true));
+        file_put_contents('log', print_r($_POST, true));
         $booking=$em->getRepository("FrontGeneralBundle:".$custom['entity'])->find($custom['id']);
         if(!$fp)
         {
@@ -394,7 +394,7 @@ class BookingController extends Controller
         $bookingLanguageCourse->setTotal($bookingLanguageCourse->getTotalCourse() + $bookingLanguageCourse->getTotalAccommodation() + $bookingLanguageCourse->getTotalExtra());
         $em->persist($bookingLanguageCourse->setStatus(1)->setBookingDate(new \DateTime()));
         $em->flush();
-//        return $this->redirect($this->generateUrl('book_school_thinkyou'));
+        $this->sendValidationMail($user);
         $paypal=$em->getRepository('BackReferentielBundle:Paypal')->find(1);
         return $this->render("FrontGeneralBundle:Booking\Schools:sendToPaypal.html.twig", array(
                     'entity' =>'BookingLanguageCourse',
@@ -448,6 +448,7 @@ class BookingController extends Controller
         $bookingPahwayCourse->setTotal($bookingPahwayCourse->getTotalCourse() + $bookingPahwayCourse->getTotalAccommodation() + $bookingPahwayCourse->getTotalExtra());
         $em->persist($bookingPahwayCourse->setStatus(1)->setBookingDate(new \DateTime()));
         $em->flush();
+        $this->sendValidationMail($user);
         $paypal=$em->getRepository('BackReferentielBundle:Paypal')->find(1);
         return $this->render("FrontGeneralBundle:Booking\Schools:sendToPaypal.html.twig", array(
                     'entity' =>'BookingPathwayCourse',
@@ -478,6 +479,7 @@ class BookingController extends Controller
         $bookingAccommodation->setTotal($this->container->get('library')->convertCurrency2($price->getPrice(), $accommodation->getCurrency()->getCode()));
         $em->persist($bookingAccommodation->setStatus(1)->setBookingDate(new \DateTime()));
         $em->flush();
+        $this->sendValidationMail($user);
         $paypal=$em->getRepository('BackReferentielBundle:Paypal')->find(1);
         return $this->render("FrontGeneralBundle:Booking\Accommodation:sendToPaypal.html.twig", array(
                     'paypal' =>$paypal,
@@ -485,4 +487,16 @@ class BookingController extends Controller
         ));
     }
 
+    public function sendValidationMail($user)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $contact=$em->getRepository("BackGeneralBundle:Contact")->find(1);
+        $message=\Swift_Message::newInstance()
+                ->setSubject("Booking validation")
+                ->setFrom($contact->getEmail())
+                ->setTo($user->getEmail())
+                ->setContentType('text/html')
+                ->setBody($this->renderView('FrontGeneralBundle:Booking:email.html.twig', array( 'user'=>$user )));
+        $this->get('mailer')->send($message);
+    }
 }
