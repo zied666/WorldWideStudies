@@ -221,4 +221,46 @@ class UniversityController extends Controller
         )));
     }
 
+    public function reviewsAction()
+    {
+        $session=$this->getRequest()->getSession();
+        $em=$this->getDoctrine()->getManager();
+        $reviews=$em->getRepository("FrontGeneralBundle:Review")->findBy(array( 'validated'=>false ), array( 'id'=>'desc' ));
+        return $this->render('BackUniversityBundle::list_reviews.html.twig', array(
+                    'reviews'=>$reviews
+        ));
+    }
+
+    public function validateReviewAction(\Front\GeneralBundle\Entity\Review $review)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $courseTitle=$review->getCourseTitle();
+        $count=0;
+        $sum=0;
+        $em->persist($review->setValidated(true));
+        foreach($courseTitle->getAllReviews() as $rev)
+        {
+            if($rev->getValidated())
+            {
+                $count++;
+                $sum+=$rev->getNote();
+            }
+        }
+        $em->persist($courseTitle->setReviews(intval($count))->setNote((intval($sum / $count))));
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your review has been validated successfully");
+        return $this->redirect($this->generateUrl('backcourse_list_reviews'));
+    }
+
+    public function deleteReviewAction(\Front\GeneralBundle\Entity\Review $review)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $session=$this->getRequest()->getSession();
+        $em->remove($review);
+        $em->flush();
+        $session->getFlashBag()->add('success', "Your review has been deleted successfully");
+        return $this->redirect($this->generateUrl('backcourse_list_reviews'));
+    }
+
 }

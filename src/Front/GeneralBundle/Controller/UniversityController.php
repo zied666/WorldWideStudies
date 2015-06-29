@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Back\UniversityBundle\Entity\CourseTitle;
+use Front\GeneralBundle\Form\ReviewType;
+use Front\GeneralBundle\Entity\Review;
 
 class UniversityController extends Controller
 {
@@ -78,9 +80,28 @@ class UniversityController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $courseTitles=$em->getRepository("BackUniversityBundle:CourseTitle")->findBy(array( 'university'=>$courseTitle->getUniversity() ), array(), 5);
+        $review=new Review();
+        $reviews=$em->getRepository('FrontGeneralBundle:Review')->findBy(array( 'courseTitle'=>$courseTitle, 'validated'=>TRUE ), array( 'id'=>'desc' ));
+        $form=$this->createForm(new ReviewType(), $review);
+        $request=$this->getRequest();
+        $session=$this->getRequest()->getSession();
+        if($request->isMethod('POST'))
+        {
+            $form->submit($request);
+            if($form->isValid())
+            {
+                $review=$form->getData();
+                $em->persist($review->setValidated(false)->setReviewDate(new \DateTime())->setCourseTitle($courseTitle));
+                $em->flush();
+                $session->getFlashBag()->add('alert-success', "Your review has been added successfully");
+                return $this->redirect($this->generateUrl('front_courses_title_details', array( 'id'=>$courseTitle->getId() )));
+            }
+        }
         return $this->render('FrontGeneralBundle:Universities:CourseTitle.html.twig', array(
                     'courses'=>$courseTitles,
                     'course' =>$courseTitle,
+                    'reviews'=>$reviews,
+                    'form'   =>$form->createView(),
         ));
     }
 

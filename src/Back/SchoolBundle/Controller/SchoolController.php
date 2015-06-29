@@ -271,6 +271,7 @@ class SchoolController extends Controller
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
         $school= $review->getSchoolLocation();
+        $em->persist($review->setValidated(true));
         $count=0;
         $sum=0;
         foreach($school->getAllReviews() as $rev)
@@ -281,7 +282,6 @@ class SchoolController extends Controller
                 $sum+=$rev->getNote();
             }
         }
-        $em->persist($review->setValidated(true));
         $em->persist($school->setReviews(intval($count))->setStars(intval($sum/$count))->setNote((intval($sum/$count))));
         $em->flush();
         $session->getFlashBag()->add('success', "Your review has been validated successfully");

@@ -100,6 +100,11 @@
                             <span class="title">List</span>
                         </a>
                     </li>
+                    <li {% if app.request.get('_route')=='backcourse_list_reviews' %}class="active"{% endif %}>
+                        <a href="{{ path('backcourse_list_reviews') }}">
+                            <span class="title">Reviews</span>
+                        </a>
+                    </li>
                     <li {% if app.request.get('_route')=='add_university' %}class="active"{% endif %}>
                         <a href="{{ path('add_university') }}">
                             <span class="title">New university</span>

@@ -249,6 +249,7 @@ class AccommodationController extends Controller
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
         $accommodation=$review->getAccommodation();
+        $em->persist($review->setValidated(true));
         $count=0;
         $sum=0;
         foreach($accommodation->getAllReviews() as $rev)
@@ -259,7 +260,6 @@ class AccommodationController extends Controller
                 $sum+=$rev->getNote();
             }
         }
-        $em->persist($review->setValidated(true));
         $em->persist($accommodation->setReviews(intval($count))->setNote((intval($sum / $count))));
         $em->flush();
         $session->getFlashBag()->add('success', "Your review has been validated successfully");

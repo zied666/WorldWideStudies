@@ -522,7 +522,7 @@ class Accommodation
     public function getReviews()
     {
         if(empty($this->reviews))
-            return 0;
+            return 1;
         return $this->reviews;
     }
 

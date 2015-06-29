@@ -109,6 +109,24 @@ class CourseTitle
     protected $allReviews;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="reviews", type="integer" , nullable=true)
+     */
+    private $reviews;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="note", type="integer" , nullable=true)
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5
+     * )
+     */
+    private $note;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -440,7 +458,6 @@ class CourseTitle
         return $this->name;
     }
 
-
     /**
      * Add allReviews
      *
@@ -449,7 +466,7 @@ class CourseTitle
      */
     public function addAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
     {
-        $this->allReviews[] = $allReviews;
+        $this->allReviews[]=$allReviews;
 
         return $this;
     }
@@ -473,4 +490,5 @@ class CourseTitle
     {
         return $this->allReviews;
     }
+
 }

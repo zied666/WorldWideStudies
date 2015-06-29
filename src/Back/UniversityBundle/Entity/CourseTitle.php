@@ -109,6 +109,24 @@ class CourseTitle
     protected $allReviews;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="reviews", type="integer" , nullable=true)
+     */
+    private $reviews;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="note", type="integer" , nullable=true)
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5
+     * )
+     */
+    private $note;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -440,7 +458,6 @@ class CourseTitle
         return $this->name;
     }
 
-
     /**
      * Add allReviews
      *
@@ -449,7 +466,7 @@ class CourseTitle
      */
     public function addAllReview(\Front\GeneralBundle\Entity\Review $allReviews)
     {
-        $this->allReviews[] = $allReviews;
+        $this->allReviews[]=$allReviews;
 
         return $this;
     }
@@ -472,5 +489,56 @@ class CourseTitle
     public function getAllReviews()
     {
         return $this->allReviews;
+    }
+
+
+    /**
+     * Set reviews
+     *
+     * @param integer $reviews
+     * @return Accommodation
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
+
+        return $this;
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return integer 
+     */
+    public function getReviews()
+    {
+        if(empty($this->reviews))
+            return 1;
+        return $this->reviews;
+    }
+
+    /**
+     * Set note
+     *
+     * @param integer $note
+     * @return Accommodation
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return integer 
+     */
+    public function getNote()
+    {
+        if(empty($this->note))
+            return 5;
+        return $this->note;
     }
 }

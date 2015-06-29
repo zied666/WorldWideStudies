@@ -30,12 +30,23 @@ delete_course_title_startingdate:
     path:     /delete_course_title_startingdate/{id}
     defaults: { _controller: BackUniversityBundle:University:deleteStartingDate }
     
-    
 university_gallery:
     path:     /add/{id}/AlbumPhoto
     defaults: { _controller: BackUniversityBundle:University:album }    
     
-    
 university_gallery_delete:
     path:     /university_gallery_delete/{id}
-    defaults: { _controller: BackUniversityBundle:University:albumDelete }    
+    defaults: { _controller: BackUniversityBundle:University:albumDelete }   
+    
+backcourse_list_reviews:
+    path:     /reviews
+    defaults: { _controller: BackUniversityBundle:University:reviews}   
+    
+backcourse_validate_review:
+    path:     /backcourse_validate_review/{id}
+    defaults: { _controller: BackUniversityBundle:University:validateReview}   
+    
+backcourse_deleted_review:
+    path:     /backcourse_deleted_review/{id}
+    defaults: { _controller: BackUniversityBundle:University:deleteReview}   
+    
