@@ -5019,7 +5019,7 @@ ul.check-circle li:before {
     /* 3.1.2. Header Styles */ }
 #header .topnav {
     height: 30px;
-    background: black;
+    background: white;
     width: 100%; }
 #header .topnav ul.quick-menu > li {
     float: left;
@@ -5027,7 +5027,7 @@ ul.check-circle li:before {
 #header .topnav ul.quick-menu > li:first-child {
     margin-left: 0; }
 #header .topnav ul.quick-menu > li > a {
-    color: #fff;
+    color: black;
     line-height: 30px;
     display: block;
     font-size: 0.8333em;
@@ -5042,10 +5042,10 @@ ul.check-circle li:before {
     display: inline-block;
     position: absolute;
     right: 0;
-    /*top: 0; */
+    top: 0; 
     content: "\f0d7";
     font-family: FontAwesome;
-    color: #fff; }
+    color: black; }
 #header .ribbon:hover > ul.menu {
     top: 28px;
     visibility: visible;

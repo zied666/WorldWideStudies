@@ -1,34 +1,58 @@
 {% extends ":Front:base.html.twig" %}
 {% block body %}
-    <section id="content" class="slideshow-bg">
-        <div id="slideshow">
-            <div class="flexslider ABCD" style=" ">
-                <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 400px;">
-                    <span> It's time to</span>
-                    <ul style="width: 250px;">
-                        <li>live</li>
-                        <li>have fun</li>
-                        <li>relax</li>
-                        <li>meet</li>
-                        <li>being lost</li>
-                        <li>run away</li>
-                        <li>go</li>
-                        <li>explore</li>
-                        <li>find new friends</li>
-                        <li class="active">discover</li>
-                        <li>play</li>
+    {% if false %}
+        <section id="content" class="slideshow-bg">
+            <div id="slideshow">
+                <div class="flexslider ABCD" style=" ">
+                    <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 400px;">
+                        <span> It's time to</span>
+                        <ul style="width: 250px;">
+                            <li>live</li>
+                            <li>have fun</li>
+                            <li>relax</li>
+                            <li>meet</li>
+                            <li>being lost</li>
+                            <li>run away</li>
+                            <li>go</li>
+                            <li>explore</li>
+                            <li>find new friends</li>
+                            <li class="active">discover</li>
+                            <li>play</li>
+                        </ul>
+                    </div>
+                    <ul class="slides">
+                        {% for slider in sliders %}
+                            <li>
+                                <div class="slidebg" style="background-image: url('{{ slider.image.getAssetPath | imagine_filter('slider') }}');"></div>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
-                <ul class="slides">
-                    {% for slider in sliders %}
-                        <li>
-                            <div class="slidebg" style="background-image: url('{{ slider.image.getAssetPath | imagine_filter('slider') }}');"></div>
-                        </li>
-                    {% endfor %}
-                </ul>
             </div>
-        </div>
-    </section>
+        </section>
+    {% else %}
+        <section>
+                    <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 400px;">
+                        <span> It's time to</span>
+                        <ul style="width: 250px;">
+                            <li>live</li>
+                            <li>have fun</li>
+                            <li>relax</li>
+                            <li>meet</li>
+                            <li>being lost</li>
+                            <li>run away</li>
+                            <li>go</li>
+                            <li>explore</li>
+                            <li>find new friends</li>
+                            <li class="active">discover</li>
+                            <li>play</li>
+                        </ul>
+                    </div>
+            {% for slider in sliders %}
+                <div class="parallax-container" data-parallax="scroll" data-bleed="10" data-image-src="{{ slider.image.getAssetPath | imagine_filter('slider') }}" data-natural-width="1400" data-natural-height="900" style="height: 900px;"></div>
+            {% endfor %}
+        </section>
+    {% endif %}
     <section id="content" class="gray-area" style="  min-height: inherit;">
         <div style="background: #97bd29;padding-top: inherit;  padding-bottom: 20px;"  class="global-map-area section parallax" data-stellar-background-ratio="0.5">
             {#            <div class="container">#}
@@ -557,6 +581,7 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('front-assets/js/parallax/parallax.js') }}"></script>
     <script type="text/javascript">
         tjq(".ABCD").flexslider({
             animation: "fade",
