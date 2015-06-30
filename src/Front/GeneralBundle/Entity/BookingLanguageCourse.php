@@ -154,6 +154,13 @@ class BookingLanguageCourse
     protected $otherStatus;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="notified", type="boolean", nullable=true)
+     */
+    private $notified;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -641,14 +648,37 @@ class BookingLanguageCourse
     {
         return $this->id.'.';
     }
-    
+
     public function showLastStatus()
     {
-        if(count($this->otherStatus)!=0)
+        if(count($this->otherStatus) != 0)
         {
             return $this->otherStatus->last()->getStatus().' ('.$this->otherStatus->last()->getUser().')';
         }
         return '';
     }
 
+
+    /**
+     * Set notified
+     *
+     * @param boolean $notified
+     * @return BookingLanguageCourse
+     */
+    public function setNotified($notified)
+    {
+        $this->notified = $notified;
+
+        return $this;
+    }
+
+    /**
+     * Get notified
+     *
+     * @return boolean 
+     */
+    public function getNotified()
+    {
+        return $this->notified;
+    }
 }

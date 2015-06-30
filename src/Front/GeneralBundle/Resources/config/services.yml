@@ -19,3 +19,13 @@ services:
             em: "@doctrine.orm.entity_manager"
             session: "@session"
             container: "@service_container"
+            
+    myFirstListener:
+      class: Front\GeneralBundle\Listener\MyFirstListener
+      arguments:
+          - @service_container
+          - @session
+          - @doctrine.orm.entity_manager
+          - @templating
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }        

@@ -1,0 +1,11 @@
+<p>Hello  , {{ booking.client.firstName }} {{ booking.client.lastName }}</p>
+<p>Don't forget to note your reservation </p>
+{% if type=='course' %}
+    <a href='{{ url('front_language_courses_details',{'id':booking.course.schoolLocation.id}) }}#hotel-write-review' target="_blank" >Click here to note</a>
+{% endif %}
+{% if type=='accommodation' %}
+    <a href='{{ url('front_accommodations_details',{'id':booking.room.accommodation.id}) }}#hotel-write-review'  target="_blank" >Click here to note</a>
+{% endif %}
+<p>Thank you for your confidence</p>
+
+<p> World wide studies </p>
