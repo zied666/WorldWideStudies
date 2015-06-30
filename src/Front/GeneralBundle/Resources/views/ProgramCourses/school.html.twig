@@ -60,7 +60,10 @@
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="School-description">
                                 <div class="long-description">
-                                    <h2>{{ school|title }}</h2>
+                                    <div class="clearfix">
+                                        <img width="114" height="85" src="{{ school.image.getAssetPath | imagine_filter('minature_details') }}" alt="">
+                                        <h2 class="name">{{ school|title }}</h2>
+                                    </div>
                                     {{ school.longDescription|raw }}
                                 </div>
                                 <hr>

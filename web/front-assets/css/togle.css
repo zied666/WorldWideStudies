@@ -7,7 +7,9 @@
     line-height: 1em;
     /*margin-top: 100px;*/
     overflow: hidden;
-    height: 85px;
+    padding-top: 18px;
+    height: 124px;
+    border-radius: 0 51px;
     top: 0;
     left: 0;
 }
