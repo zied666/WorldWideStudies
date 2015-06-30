@@ -147,7 +147,7 @@
                                 {% if app.session.get('currency').code!=accommodation.currency.code %}<span class="currency">{{ convertCurrency(accommodation.avgPrice,accommodation.currency.code) }}</span>{% endif %}
                             </span>
                             <p class="description">{{ accommodation.shortDescription }}</p>
-                            <a class="button yellow full-width uppercase btn-small" href="{{ path('book_accommodation_redirect',{'id':accommodation.id}) }}" >Get a quote & Book</a>
+                            <a class="button full-width uppercase btn-small" href="{{ path('book_accommodation_redirect',{'id':accommodation.id}) }}" >Get a quote & Book</a>
                         </div>
                     </article>
                     {% if accommodations|length>1 %}
