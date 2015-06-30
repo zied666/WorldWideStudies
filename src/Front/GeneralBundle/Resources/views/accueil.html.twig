@@ -32,24 +32,24 @@
         </section>
     {% else %}
         <section>
-                    <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 400px;">
-                        <span> It's time to</span>
-                        <ul style="width: 250px;">
-                            <li>live</li>
-                            <li>have fun</li>
-                            <li>relax</li>
-                            <li>meet</li>
-                            <li>being lost</li>
-                            <li>run away</li>
-                            <li>go</li>
-                            <li>explore</li>
-                            <li>find new friends</li>
-                            <li class="active">discover</li>
-                            <li>play</li>
-                        </ul>
-                    </div>
+            <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 400px;">
+                <span> It's time to</span>
+                <ul style="width: 250px;">
+                    <li>live</li>
+                    <li>have fun</li>
+                    <li>relax</li>
+                    <li>meet</li>
+                    <li>being lost</li>
+                    <li>run away</li>
+                    <li>go</li>
+                    <li>explore</li>
+                    <li>find new friends</li>
+                    <li class="active">discover</li>
+                    <li>play</li>
+                </ul>
+            </div>
             {% for slider in sliders %}
-                <div class="parallax-container" data-parallax="scroll" data-bleed="10" data-image-src="{{ slider.image.getAssetPath | imagine_filter('slider') }}" data-natural-width="1400" data-natural-height="900" style="height: 900px;"></div>
+                <div class="parallax-container" data-parallax="scroll" data-bleed="10" data-image-src="{{ asset(slider.image.getAssetPath) }}" data-natural-width="1400" data-natural-height="900" style="height: 900px;"></div>
             {% endfor %}
         </section>
     {% endif %}
@@ -101,51 +101,9 @@
         </div>
     </section>
     <section id="content" class="BackgroundBlock">
-        {#<div id="slideshow">
-            <div class="flexslider ABCD" style=" ">
-                <div class="tagline visible-lg" id="tagline" style="position: absolute;z-index: 9;  background-color: rgba(255, 0, 0,0.4);  top: 30px;border-radius: 0 50px 50px 0;">
-                    <span> It's time to</span>
-                    <ul style="width: 250px;">
-                        <li>live</li>
-                        <li>have fun</li>
-                        <li>relax</li>
-                        <li>meet</li>
-                        <li>being lost</li>
-                        <li>run away</li>
-                        <li>go</li>
-                        <li>explore</li>
-                        <li>find new friends</li>
-                        <li class="active">discover</li>
-                        <li>play</li>
-                    </ul>
-                </div>
-                <ul class="slides">
-                    {% for slider in sliders %}
-                        <li>
-                            <div class="slidebg" style="background-image: url('{{ slider.image.getAssetPath | imagine_filter('slider') }}');"></div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>#}
         <div class="container" class="">
             <div class="row">
                 <div id="main" class="col-sm-10 col-md-10" style="  padding-top: 110px;">
-                    {#<div class="tagline visible-lg" id="tagline"><span>It's time to</span>
-                        <ul>
-                            <li>live</li>
-                            <li>have fun</li>
-                            <li>relax</li>
-                            <li>meet</li>
-                            <li>being lost</li>
-                            <li>run away</li>
-                            <li>go</li>
-                            <li>explore</li>
-                            <li>find new friends</li>
-                            <li class="active">discover</li>
-                            <li>play</li>
-                        </ul>
-                    </div>#}
                     <div class="search-box-wrapper style1" style="margin-top: 30px;">
                         <div class="search-box">
                             <ul class="search-tabs clearfix" >
@@ -162,7 +120,6 @@
                                     <li><a href="#cars-tab">{{ homepage.title4 }}</a></li>
                                 </ul>
                             </div>
-
                             <div class="search-tab-content" style="  opacity: 0.95;">
                                 <div class="tab-pane fade  active in" id="hotels-tab">
                                     <form action="{{ path('front_language_courses_redirect') }}" method="post">
@@ -548,7 +505,7 @@
         <div>
             <img style="  width: 100%; " src="{{  asset('front-assets/images/abcd.jpg')}}"/>
         </div>
-        <div class="container">
+        <div class="parallax-window" data-parallax="scroll" data-image-src="{{  asset('front-assets/images/abcd.jpg')}}"></div>        <div class="container">
             <div class="section">
                 <h2 style="  text-align: center;color: #94be3d;font-size: 40px;">Featured Destinations</h2>
                 <div class="flexslider image-carousel style2 row-2" data-animation="slide" data-item-width="370" data-item-margin="30">
