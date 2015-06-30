@@ -258,8 +258,7 @@
                                         <div class="details">
                                             <h5 class="box-title"><a href="{{ path('front_language_courses_details',{'id':sch.id}) }}">{{ sch|title }}</a></h5>
                                             <label class="price-wrapper">
-                                                {#<span class="price-per-unit">{{ sch.avgPrice }}{{ sch.currency.code }}</span>week/night#}
-                                                <span class="price-per-unit">{{ convertCurrency(sch.avgPrice,sch.currency.code) }}</span>AVG/WEEK
+                                                <span style="white-space: nowrap;" class="price-per-unit">{{ convertCurrency(sch.avgPrice,sch.currency.code) }}</span>AVG/WEEK
                                             </label>
                                         </div>
                                     </article>
