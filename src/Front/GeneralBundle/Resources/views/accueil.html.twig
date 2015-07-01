@@ -22,7 +22,7 @@
                     <ul class="slides">
                         {% for slider in sliders %}
                             <li>
-                                <div class="slidebg" style="background-image: url('{{ slider.image.getAssetPath | imagine_filter('slider') }}');"></div>
+                                <div class="slidebg" style="background-image: url('{{ asset(slider.image.getAssetPath) }}');"></div>
                             </li>
                         {% endfor %}
                     </ul>

@@ -1,1 +1,3 @@
-{{ asset(homepage.logo.getAssetPath()) }}
+{% if homepage.logo is defined %}
+    {{ asset(homepage.logo.getAssetPath()) }}
+{% endif %}
