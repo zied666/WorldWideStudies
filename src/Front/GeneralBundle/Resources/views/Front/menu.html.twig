@@ -3,46 +3,61 @@
         {{ 'homepage.home'|trans }}
     </a>
 </li>
-<li class="menu-item-has-children {% if route in ['front_language_courses','front_language_courses_details'] %}active{% endif %}">
-    <a href="{{ path('front_language_courses') }}">Language courses</a>
-    <ul>
-        {% for language in languages %}
-            <li>
-                <a href="{{ path('front_language_courses',{'language':language.id}) }}">{{ language }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-</li>
-<li class="menu-item-has-children {% if route in ['front_program_courses','front_program_courses_details'] %}active{% endif %}">
-    <a href="{{ path('front_program_courses') }}">Pathway courses</a>
-    <ul>
-        {% for program in programs %}
-            <li>
-                <a href="{{ path('front_program_courses',{'program':program.id}) }}">{{ program }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-</li>
-<li class="menu-item-has-children {% if route in ['front_university','front_courses_title_details'] %}active{% endif %}">
-    <a href="{{ path('front_university') }}">Universities</a>
-    <ul>
-        {% for level in levels %}
-            <li>
-                <a href="{{ path('front_university',{'level':level.id}) }}">{{ level }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-</li>
-<li class="menu-item-has-children {% if route in ['front_accommodations'] %}active{% endif %}">
-    <a href="{{ path('front_accommodations') }}">Accommodations</a>
-    <ul>
-        {% for type in types %}
-            <li>
-                <a href="{{ path('front_accommodations',{'type':type.id}) }}">{{ type }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-</li>
+{% if route in ['root','accueil'] %}
+    <li class="menu-item-has-children {% if route in ['front_language_courses','front_language_courses_details'] %}active{% endif %}">
+	<a href="javascipt:void(0)" class="go-to language-item" data-to="#main">{{ homepage.title1 }}</a>
+    </li>
+    <li class="menu-item-has-children {% if route in ['front_language_courses','front_language_courses_details'] %}active{% endif %}">
+	<a href="javascipt:void(0)" class="go-to pathway-item" data-to="#main">{{ homepage.title2 }}</a>
+    </li>
+    <li class="menu-item-has-children {% if route in ['front_language_courses','front_language_courses_details'] %}active{% endif %}">
+	<a href="javascipt:void(0)" class="go-to university-item" data-to="#main">{{ homepage.title3 }}</a>
+    </li>
+    <li class="menu-item-has-children {% if route in ['front_language_courses','front_language_courses_details'] %}active{% endif %}">
+	<a href="javascipt:void(0)" class="go-to accommodation-item" data-to="#main">{{ homepage.title4 }}</a>
+    </li>
+{% else %}
+    <li class="menu-item-has-children {% if route in ['front_language_courses','front_language_courses_details'] %}active{% endif %}">
+	<a href="{{ path('front_language_courses') }}">{{ homepage.title1 }}</a>
+	<ul>
+	    {% for language in languages %}
+		<li>
+		    <a href="{{ path('front_language_courses',{'language':language.id}) }}">{{ language }}</a>
+		</li>
+	    {% endfor %}
+	</ul>
+    </li>
+    <li class="menu-item-has-children {% if route in ['front_program_courses','front_program_courses_details'] %}active{% endif %}">
+	<a href="{{ path('front_program_courses') }}">{{ homepage.title2 }}</a>
+	<ul>
+	    {% for program in programs %}
+		<li>
+		    <a href="{{ path('front_program_courses',{'program':program.id}) }}">{{ program }}</a>
+		</li>
+	    {% endfor %}
+	</ul>
+    </li>
+    <li class="menu-item-has-children {% if route in ['front_university','front_courses_title_details'] %}active{% endif %}">
+	<a href="{{ path('front_university') }}">{{ homepage.title3 }}</a>
+	<ul>
+	    {% for level in levels %}
+		<li>
+		    <a href="{{ path('front_university',{'level':level.id}) }}">{{ level }}</a>
+		</li>
+	    {% endfor %}
+	</ul>
+    </li>
+    <li class="menu-item-has-children {% if route in ['front_accommodations'] %}active{% endif %}">
+	<a href="{{ path('front_accommodations') }}">{{ homepage.title4 }}</a>
+	<ul>
+	    {% for type in types %}
+		<li>
+		    <a href="{{ path('front_accommodations',{'type':type.id}) }}">{{ type }}</a>
+		</li>
+	    {% endfor %}
+	</ul>
+    </li>
+{% endif %}
 <li class="menu-item-has-children {% if route in ['contact'] %}active{% endif %}">
     <a href="{{ path('contact') }}">Contact us</a>
 </li>

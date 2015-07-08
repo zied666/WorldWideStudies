@@ -96,7 +96,7 @@
                 <div id="main" class="col-sm-10 col-md-10" style="  padding-top: 110px;">
                     <div class="search-box-wrapper style1" style="margin-top: 30px;">
                         <div class="search-box">
-                            <ul class="search-tabs clearfix" >
+                            <ul class="search-tabs clearfix" id="tabsearch" >
                                 <li class="active"><a href="#hotels-tab" data-toggle="tab"><img class="PhotoRigth" src="{{ asset('front-assets/images/languagecourses.png') }}" />{{ homepage.title1 }}</a></li>
                                 <li><a href="#flights-tab" data-toggle="tab"><img class="PhotoRigth" src="{{ asset('front-assets/images/pathway.png') }}" />{{ homepage.title2 }}</a></li>
                                 <li><a href="#flight-and-hotel-tab" data-toggle="tab"><img class="PhotoRigth" src="{{ asset('front-assets/images/university.png') }}" />{{ homepage.title3 }}</a></li>
@@ -530,160 +530,189 @@
     {{ parent() }}
     <script src="{{ asset('front-assets/js/parallax/parallax.js') }}"></script>
     <script type="text/javascript">
-        tjq(".ABCD").flexslider({
-            animation: "fade",
-            controlNav: false,
-            animationLoop: true,
-            directionNav: false,
-            slideshow: true,
-            slideshowSpeed: 5000
-        });</script>
+	tjq(".ABCD").flexslider({
+	    animation: "fade",
+	    controlNav: false,
+	    animationLoop: true,
+	    directionNav: false,
+	    slideshow: true,
+	    slideshowSpeed: 5000
+	});</script>
     <script type="text/javascript">
-        tjq(document).ready(function () {
-            tjq("#price-range").slider({
-                range: true,
-                min: 0,
-                max: 1000,
-                values: [100, 800],
-                slide: function (event, ui) {
-                    tjq(".min-price-label").html("$" + ui.values[ 0 ]);
-                    tjq(".max-price-label").html("$" + ui.values[ 1 ]);
-                }
-            });
-            tjq(".min-price-label").html("$" + tjq("#price-range").slider("values", 0));
-            tjq(".max-price-label").html("$" + tjq("#price-range").slider("values", 1));
-            tjq("#rating").slider({
-                range: "min",
-                value: 40,
-                min: 0,
-                max: 50,
-                slide: function (event, ui) {
+	tjq(document).ready(function () {
+	    tjq("#price-range").slider({
+		range: true,
+		min: 0,
+		max: 1000,
+		values: [100, 800],
+		slide: function (event, ui) {
+		    tjq(".min-price-label").html("$" + ui.values[ 0 ]);
+		    tjq(".max-price-label").html("$" + ui.values[ 1 ]);
+		}
+	    });
+	    tjq(".min-price-label").html("$" + tjq("#price-range").slider("values", 0));
+	    tjq(".max-price-label").html("$" + tjq("#price-range").slider("values", 1));
+	    tjq("#rating").slider({
+		range: "min",
+		value: 40,
+		min: 0,
+		max: 50,
+		slide: function (event, ui) {
 
-                }
-            });
-        });</script>
+		}
+	    });
+	});
+    </script>
     <script>
-        var tid = setInterval(tagline_vertical_slide, 2500);
-        function tagline_vertical_slide() {
-            var curr = tjq("#tagline ul li.active");
-            curr.removeClass("active").addClass("vs-out");
-            setTimeout(function () {
-                curr.removeClass("vs-out");
-            }, 500);
-            var nextTag = curr.next('li');
-            if (!nextTag.length) {
-                nextTag = tjq("#tagline ul li").first();
-            }
-            nextTag.addClass("active");
-        }
+	var tid = setInterval(tagline_vertical_slide, 2500);
+	function tagline_vertical_slide() {
+	    var curr = tjq("#tagline ul li.active");
+	    curr.removeClass("active").addClass("vs-out");
+	    setTimeout(function () {
+		curr.removeClass("vs-out");
+	    }, 500);
+	    var nextTag = curr.next('li');
+	    if (!nextTag.length) {
+		nextTag = tjq("#tagline ul li").first();
+	    }
+	    nextTag.addClass("active");
+	}
 
-        function abortTimer() { // to be called when you want to stop the timer
-            clearInterval(tid);
-        }
+	function abortTimer() { // to be called when you want to stop the timer
+	    clearInterval(tid);
+	}
 
-        tjq(document).ready(function () {
+	tjq(document).ready(function () {
 
-            tjq('#levelOfStudy').on('change', function () {
-                var qualification = tjq('#qualification');
-                qualification.empty();
-                qualification.append('<option value="">Loading ...</option>');
-                updateTraveloElementUI(qualification);
-                var id = tjq(this).val();
-                tjq.ajax({
-                    url: '{{ path('ajax_level_to_qualification') }}',
-                    data: {'id': id},
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (json) {
-                        qualification.empty();
-                        tjq.each(json, function (index, value) {
-                            qualification.append('<option value="' + index + '">' + value + '</option>');
-                            updateTraveloElementUI(qualification);
-                        });
-                    }
-                });
-            })
-            tjq('#CountrySelect1').on('change', function () {
-                var city = tjq('#CitySelect1');
-                city.empty();
-                city.append('<option value="">Loading ...</option>');
-                updateTraveloElementUI(city);
-                var id = tjq(this).val();
-                tjq.ajax({
-                    url: '{{ path('ajax_country_to_city') }}',
-                    data: {'id': id},
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (json) {
-                        city.empty();
-                        tjq.each(json, function (index, value) {
-                            city.append('<option value="' + index + '">' + value + '</option>');
-                            updateTraveloElementUI(city);
-                        });
-                    }
-                });
-            })
-            tjq('#CountrySelect2').on('change', function () {
-                var city = tjq('#CitySelect2');
-                city.empty();
-                city.append('<option value="">Loading ...</option>');
-                updateTraveloElementUI(city);
-                var id = tjq(this).val();
-                tjq.ajax({
-                    url: '{{ path('ajax_country_to_city') }}',
-                    data: {'id': id},
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (json) {
-                        city.empty();
-                        tjq.each(json, function (index, value) {
-                            city.append('<option value="' + index + '">' + value + '</option>');
-                            updateTraveloElementUI(city);
-                        });
-                    }
-                });
-            })
-            tjq('#CountrySelect3').on('change', function () {
-                var city = tjq('#CitySelect3');
-                city.empty();
-                city.append('<option value="">Loading ...</option>');
-                updateTraveloElementUI(city);
-                var id = tjq(this).val();
-                tjq.ajax({
-                    url: '{{ path('ajax_country_to_city') }}',
-                    data: {'id': id},
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (json) {
-                        city.empty();
-                        tjq.each(json, function (index, value) {
-                            city.append('<option value="' + index + '">' + value + '</option>');
-                            updateTraveloElementUI(city);
-                        });
-                    }
-                });
-            })
-            tjq('#CountrySelect4').on('change', function () {
-                var city = tjq('#CitySelect4');
-                city.empty();
-                city.append('<option value="">Loading ...</option>');
-                updateTraveloElementUI(city);
-                var id = tjq(this).val();
-                tjq.ajax({
-                    url: '{{ path('ajax_country_to_city') }}',
-                    data: {'id': id},
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (json) {
-                        city.empty();
-                        tjq.each(json, function (index, value) {
-                            city.append('<option value="' + index + '">' + value + '</option>');
-                            updateTraveloElementUI(city);
-                        });
-                    }
-                });
-            })
-        })
+	    tjq('#levelOfStudy').on('change', function () {
+		var qualification = tjq('#qualification');
+		qualification.empty();
+		qualification.append('<option value="">Loading ...</option>');
+		updateTraveloElementUI(qualification);
+		var id = tjq(this).val();
+		tjq.ajax({
+		    url: '{{ path('ajax_level_to_qualification') }}',
+		    data: {'id': id},
+		    type: 'POST',
+		    dataType: 'json',
+		    success: function (json) {
+			qualification.empty();
+			tjq.each(json, function (index, value) {
+			    qualification.append('<option value="' + index + '">' + value + '</option>');
+			    updateTraveloElementUI(qualification);
+			});
+		    }
+		});
+	    })
+	    tjq('#CountrySelect1').on('change', function () {
+		var city = tjq('#CitySelect1');
+		city.empty();
+		city.append('<option value="">Loading ...</option>');
+		updateTraveloElementUI(city);
+		var id = tjq(this).val();
+		tjq.ajax({
+		    url: '{{ path('ajax_country_to_city') }}',
+		    data: {'id': id},
+		    type: 'POST',
+		    dataType: 'json',
+		    success: function (json) {
+			city.empty();
+			tjq.each(json, function (index, value) {
+			    city.append('<option value="' + index + '">' + value + '</option>');
+			    updateTraveloElementUI(city);
+			});
+		    }
+		});
+	    })
+	    tjq('#CountrySelect2').on('change', function () {
+		var city = tjq('#CitySelect2');
+		city.empty();
+		city.append('<option value="">Loading ...</option>');
+		updateTraveloElementUI(city);
+		var id = tjq(this).val();
+		tjq.ajax({
+		    url: '{{ path('ajax_country_to_city') }}',
+		    data: {'id': id},
+		    type: 'POST',
+		    dataType: 'json',
+		    success: function (json) {
+			city.empty();
+			tjq.each(json, function (index, value) {
+			    city.append('<option value="' + index + '">' + value + '</option>');
+			    updateTraveloElementUI(city);
+			});
+		    }
+		});
+	    })
+	    tjq('#CountrySelect3').on('change', function () {
+		var city = tjq('#CitySelect3');
+		city.empty();
+		city.append('<option value="">Loading ...</option>');
+		updateTraveloElementUI(city);
+		var id = tjq(this).val();
+		tjq.ajax({
+		    url: '{{ path('ajax_country_to_city') }}',
+		    data: {'id': id},
+		    type: 'POST',
+		    dataType: 'json',
+		    success: function (json) {
+			city.empty();
+			tjq.each(json, function (index, value) {
+			    city.append('<option value="' + index + '">' + value + '</option>');
+			    updateTraveloElementUI(city);
+			});
+		    }
+		});
+	    })
+	    tjq('#CountrySelect4').on('change', function () {
+		var city = tjq('#CitySelect4');
+		city.empty();
+		city.append('<option value="">Loading ...</option>');
+		updateTraveloElementUI(city);
+		var id = tjq(this).val();
+		tjq.ajax({
+		    url: '{{ path('ajax_country_to_city') }}',
+		    data: {'id': id},
+		    type: 'POST',
+		    dataType: 'json',
+		    success: function (json) {
+			city.empty();
+			tjq.each(json, function (index, value) {
+			    city.append('<option value="' + index + '">' + value + '</option>');
+			    updateTraveloElementUI(city);
+			});
+		    }
+		});
+	    })
+	})
+    </script>
+    <script>
+	tjq(document).ready(function(){
+	    tjq('.language-item').live('click',function(){
+		tjq('.search-box-wrapper li').removeClass('active');
+		tjq('.search-box-wrapper li').eq(0).addClass('active');
+		tjq('.search-tab-content .tab-pane').removeClass('active in');
+		tjq('#hotels-tab').addClass('active in');
+	    })
+	    tjq('.pathway-item').live('click',function(){
+		tjq('.search-box-wrapper li').removeClass('active');
+		tjq('.search-box-wrapper li').eq(1).addClass('active');
+		tjq('.search-tab-content .tab-pane').removeClass('active in');
+		tjq('#flights-tab').addClass('active in');
+	    })
+	    tjq('.university-item').live('click',function(){
+		tjq('.search-box-wrapper li').removeClass('active');
+		tjq('.search-box-wrapper li').eq(2).addClass('active');
+		tjq('.search-tab-content .tab-pane').removeClass('active in');
+		tjq('#flight-and-hotel-tab').addClass('active in');
+	    })
+	    tjq('.accommodation-item').live('click',function(){
+		tjq('.search-box-wrapper li').removeClass('active');
+		tjq('.search-box-wrapper li').eq(3).addClass('active');
+		tjq('.search-tab-content .tab-pane').removeClass('active in');
+		tjq('#cars-tab').addClass('active in');
+	    })
+	})
     </script>
 {% endblock %}
 {% block stylesheets %}
