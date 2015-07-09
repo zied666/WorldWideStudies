@@ -76,7 +76,7 @@ class Course
      * @ORM\Column(name="description", type="text",nullable=true)
      */
     private $description;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="CourseSubject", mappedBy="course")
      */
@@ -400,19 +400,18 @@ class Course
             return 0;
         foreach($this->pathwayPrices as $price)
         {
-            if($price->getId()==$id)
+            if($price->getId() == $id)
                 return number_format($price->getPrice(), $this->schoolLocation->getCurrency()->getScale(), '.', '');
         }
     }
-    
+
     public function __clone()
     {
-        if ($this->id)
+        if($this->id)
         {
-            $this->id = null ;
+            $this->id=null;
         }
     }
-
 
     /**
      * Add courseSubjects
@@ -422,7 +421,7 @@ class Course
      */
     public function addCourseSubject(\Back\SchoolBundle\Entity\CourseSubject $courseSubjects)
     {
-        $this->courseSubjects[] = $courseSubjects;
+        $this->courseSubjects[]=$courseSubjects;
 
         return $this;
     }
@@ -446,4 +445,16 @@ class Course
     {
         return $this->courseSubjects;
     }
+
+    public function getStartingDatesValid()
+    {
+        $array=array();
+        foreach($this->startDates as $date)
+        {
+            if($date->getDate()->format('Y-m-d') > date('Y-m-d'))
+                $array[]=$date;
+        }
+        return $array;
+    }
+
 }

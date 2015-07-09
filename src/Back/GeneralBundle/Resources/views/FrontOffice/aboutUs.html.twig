@@ -1,0 +1,48 @@
+{% extends ":Back:base.html.twig" %}
+{% block title %}About us{% endblock %}
+{% block body %}
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+		<div class="row">
+		    {{ formulaire.input("col-md-2","Title 1",form.title1,true) }}
+		    {{ formulaire.input("col-md-2","Photo 1",form.image1.file,true) }}
+		    <div class="col-md-3">
+                        {% if aboutUs.image1.getAssetPath is defined %}
+                            <img src="{{ asset(aboutUs.image1.getAssetPath) }}" style="width: 50px;height: 20px;" />
+                        {% endif %}
+                    </div>
+		    {{ formulaire.input("col-md-12","Text 1",form.text1,true) }}
+		</div>
+		<div class="row">
+		    {{ formulaire.input("col-md-2","Title 2",form.title2,true) }}
+		    {{ formulaire.input("col-md-2","Photo 2",form.image2.file,true) }}
+		    <div class="col-md-3">
+                        {% if aboutUs.image2.getAssetPath is defined %}
+                            <img src="{{ asset(aboutUs.image2.getAssetPath) }}" style="width: 50px;height: 20px;" />
+                        {% endif %}
+                    </div>
+		    {{ formulaire.input("col-md-12","Text 2",form.text2,true) }}
+		</div>
+		<div class="row">
+		    {{ formulaire.input("col-md-2","Title 3",form.title3,true) }}
+		    {{ formulaire.input("col-md-2","Photo 3",form.image3.file,true) }}
+		    <div class="col-md-3">
+                        {% if aboutUs.image3.getAssetPath is defined %}
+                            <img src="{{ asset(aboutUs.image3.getAssetPath) }}" style="width: 50px;height: 20px;" />
+                        {% endif %}
+                    </div>
+		    {{ formulaire.input("col-md-12","Text 3",form.text3,true) }}
+		</div>
+		<div class="no-display">
+                    {{ formulaire.input("col-md-2","",form.image1.updateAt,true) }}
+                    {{ formulaire.input("col-md-2","",form.image2.updateAt,true) }}
+                    {{ formulaire.input("col-md-2","",form.image3.updateAt,true) }}
+                </div>
+		{{ macro.enregistrer }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

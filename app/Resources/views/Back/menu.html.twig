@@ -74,6 +74,11 @@
                             <span class="title">Page Contact</span>
                         </a>
                     </li>
+                    <li {% if app.request.get('_route')=='backoffice_aboutus' %}class="active"{% endif %}>
+                        <a href="{{ path('backoffice_aboutus') }}">
+                            <span class="title">About Us</span>
+                        </a>
+                    </li>
                     <li {% if app.request.get('_route')=='backoffice_slider' %}class="active"{% endif %}>
                         <a href="{{ path('backoffice_slider') }}">
                             <span class="title">Slider</span>

@@ -38,6 +38,10 @@ contact:
     path:     /contact
     defaults: { _controller: FrontGeneralBundle:Default:contact }
 
+aboutus:
+    path:     /aboutus
+    defaults: { _controller: FrontGeneralBundle:Default:aboutus }
+
 change_currency:
     path:     /ChangeCurrency/{code}
     defaults: { _controller: FrontGeneralBundle:Front:changeCurrency }

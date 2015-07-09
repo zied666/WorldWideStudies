@@ -491,4 +491,54 @@ class CourseTitle
         return $this->allReviews;
     }
 
+
+    /**
+     * Set reviews
+     *
+     * @param integer $reviews
+     * @return Accommodation
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
+
+        return $this;
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return integer 
+     */
+    public function getReviews()
+    {
+        if(empty($this->reviews))
+            return 1;
+        return $this->reviews;
+    }
+
+    /**
+     * Set note
+     *
+     * @param integer $note
+     * @return Accommodation
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return integer 
+     */
+    public function getNote()
+    {
+        if(empty($this->note))
+            return 5;
+        return $this->note;
+    }
 }
