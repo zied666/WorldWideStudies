@@ -31,7 +31,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         
-        - { path: ^/[a-z]+/book, role: ROLE_USER }
+        - { path: ^/[a-z]+/book/schools/book_validation_language_course, role: ROLE_USER }
         
         - { path: ^/admin/ref/administrator, role: ROLE_SUPER_ADMIN }
         - { path: ^/admin/ref/paypal, role: ROLE_SUPER_ADMIN }

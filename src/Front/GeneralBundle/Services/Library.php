@@ -25,14 +25,14 @@ class Library
     {
         $session=$this->session->get('currency');
         if($from == $session['code'])
-            return number_format($amount, $session['scale'], '.', '').' '.$session['code'];
+            return number_format($amount, $session['scale'], '.', ' ').' '.$session['code'];
         $url="https://www.google.com/finance/converter?a=$amount&from=$from&to=".$session['code'];
         $data=file_get_contents($url);
         preg_match("/<span class=bld>(.*)<\/span>/", $data, $converted);
         if(isset($converted[1]))
         {
             $converted=preg_replace("/[^0-9.]/", "", $converted[1]);
-            return number_format($converted, $session['scale'], '.', '').' '.$session['code'];
+            return number_format($converted, $session['scale'], '.', ' ').' '.$session['code'];
         }
         return '';
     }
@@ -41,14 +41,14 @@ class Library
     {
         $session=$this->session->get('currency');
         if($from == $session['code'])
-            return number_format($amount, $session['scale'], '.', '');
+            return number_format($amount, $session['scale'], '.', ' ');
         $url="https://www.google.com/finance/converter?a=$amount&from=$from&to=".$session['code'];
         $data=file_get_contents($url);
         preg_match("/<span class=bld>(.*)<\/span>/", $data, $converted);
         if(isset($converted[1]))
         {
             $converted=preg_replace("/[^0-9.]/", "", $converted[1]);
-            return number_format($converted, $session['scale'], '.', '');
+            return number_format($converted, $session['scale'], '.', ' ');
         }
         return '';
     }

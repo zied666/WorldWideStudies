@@ -44,8 +44,8 @@
                                         </div>
                                         <div>
                                             <p>
-                                                {% if  school.shortDescription|length >200 %}
-                                                    {{ school.shortDescription|slice(0, 200) }} ...
+                                                {% if  school.shortDescription|length >180 %}
+                                                    {{ school.shortDescription|slice(0, 180) }} ...
                                                 {% else %}
                                                     {{ school.shortDescription }}
                                                 {% endif %}
@@ -53,7 +53,7 @@
                                             <div>
                                                 <span class="price">
                                                     <small>AVG/WEEK</small>
-                                                    <p class="prix">{{ school.avgPrice ~' '~ school.currency.code }} </p>
+                                                    <p class="prix">{{ school.avgPrice|number_format(2,'.',' ') ~' '~ school.currency.code }} </p>
                                                     {% if app.session.get('currency').code!=school.currency.code %}<span class="currency">{{ convertCurrency(school.avgPrice,school.currency.code) }}</span>{% endif %}
                                                 </span>
                                                 <a class="button btn-small full-width text-center" title="" href="{{ path('front_program_courses_details',{'id':school.id}) }}">SELECT</a>

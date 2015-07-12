@@ -30,7 +30,7 @@
                                     <div class="form-group row">
                                         <div class="col-md-5">
                                             <label style="padding-top: 7px;">
-                                                <input  type="radio" name="course" required value="{{ course.id }}" style="vertical-align: sub;"/>
+                                                <input  type="radio" name="course" required value="{{ course.id }}" style="vertical-align: sub;" class="InputRadio"/>
                                                 <strong>{{ course }}</strong>
                                                 <small>
                                                     (
@@ -56,21 +56,26 @@
                                                 {% endif %}
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
+                                        {#<div class="col-md-3">
                                             <select class="full-width"  name="startingDate_{{ course.id }}">
                                                 {% for date in course.startingDatesValid  %}
                                                     <option value="{{ date.date|date('Y-m-d') }}">{{ date.date|date('D, d F Y') }}</option>
                                                 {% endfor %}
                                             </select>
-                                        </div>
+                                        </div>#}
+					<div class="col-sm-6 col-md-3">
+					    <div class=" dark-blue">
+						<input type="text"  name="startingDate_{{ course.id }}" class="StartingDate input-text full-width picker{{ course.id }}" placeholder="yyyy-mm-dd"  />
+					    </div>
+					</div>
                                         <div class="col-md-2">
                                             <label id="price_{{ course.id }}" style="  padding-top: 7px;">
                                                 {% if school.type==1 %}
                                                     {{ convertCurrency(course.calculePrice(course.getMinWeek) ,course.schoolLocation.currency.code) }} 
                                                 {% endif %}
-                                                {% if school.type==2 %}
+                                                {#{% if school.type==2 %}
                                                     {{ convertCurrency(course.calculePathwayPrice(course.getFirstPathwayPrice) ,course.schoolLocation.currency.code) }} 
-                                                {% endif %}
+                                                {% endif %}#}
                                             </label>
                                         </div>
                                     </div>
@@ -129,23 +134,38 @@
 {% endblock %}
 {% block jquery %}
     <script>
-
-        tjq(document).ready(function () {
-            tjq('.Duration').change(function () {
-                var val = tjq(this).val();
-                var course = tjq(this).data('course');
-                tjq('#price_' + course).html('loading price ...');
-                tjq.ajax({
-                    url: '{{ path('ajax_update_price_course') }}',
-                    data: {'val': val, 'course': course},
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (json) {
-                        tjq('#price_' + course).html(json['price']);
-                    }
-                });
-            })
-        })
+	tjq(document).ready(function () {
+	    var array = [];
+	{% for course in school.courses if (course.getMaxWeek!=0 or course.pathwayPrices|length>0) and course.startingDatesValid|length>0  %}
+{#		array = ["2015-07-27", "2015-07-28", "2015-07-29"];#}
+		array[{{ course.id }}] = [{% for date in course.startingDatesValid  %}"{{ date.date|date('Y-m-d') }}"{% if loop.index != course.startingDatesValid|length %},{% endif %}{% endfor %}];
+			tjq('.picker{{ course.id }}').datepicker({
+		    dateFormat: 'yy-mm-dd',
+		    beforeShowDay: function (date) {
+			var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+				return [!(array[{{ course.id }}].indexOf(string) == - 1)]
+		    }
+		});
+	{% endfor %}
+            tjq('.InputRadio').on('change',function () {
+                tjq('.StartingDate').prop('required', false);
+                tjq(this).parent().parent().parent().find('.StartingDate').prop('required', true);
+            });
+		tjq('.Duration').change(function () {
+		    var val = tjq(this).val();
+		    var course = tjq(this).data('course');
+		    tjq('#price_' + course).html('loading price ...');
+		    tjq.ajax({
+			url: '{{ path('ajax_update_price_course') }}',
+			data: {'val': val, 'course': course},
+			type: 'POST',
+			dataType: 'json',
+			success: function (json) {
+			    tjq('#price_' + course).html(json['price']);
+			}
+		    });
+		})
+	    })
     </script>
 
 {% endblock %}

@@ -48,7 +48,11 @@
                                                 {% endif %}
                                             </p>
                                             <div>
-                                                <span class="price"><small>PRICE</small>{{ course.price }} {{ course.university.currency.code }} </span>
+                                                <span class="price">
+						    <small>AVG PRICE</small>
+						    <p class="prix">{{ course.price|number_format(2,'.',' ') }} {{ course.university.currency.code }}</p>
+                                                    {% if app.session.get('currency').code!=course.university.currency.code %}<span class="currency">{{ convertCurrency(course.price,course.university.currency.code) }}</span>{% endif %}
+						</span>
                                                 <a class="button btn-small full-width text-center" title="" href="{{ path('front_courses_title_details',{'id':course.id}) }}">SELECT</a>
                                             </div>
                                         </div>

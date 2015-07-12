@@ -55,7 +55,7 @@
                                             <div>
                                                 <span class="price">
                                                     <small>AVG/WEEK</small>
-                                                    <p class="prix">{{ accommodation.avgPrice ~' '~ accommodation.currency.code }} </p>
+                                                    <p class="prix">{{ accommodation.avgPrice|number_format(2,'.',' ') ~' '~ accommodation.currency.code }} </p>
                                                     {% if app.session.get('currency').code!=accommodation.currency.code %}<span class="currency">{{ convertCurrency(accommodation.avgPrice,accommodation.currency.code) }}</span>{% endif %}
                                                 </span>
                                                 <a class="button btn-small full-width text-center" title="" href="{{ path('front_accommodations_details',{'id':accommodation.id}) }}">SELECT</a>

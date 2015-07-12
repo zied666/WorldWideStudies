@@ -417,7 +417,10 @@
                                 <div class="details">
                                     <span class="price">
                                         <small>avg/WEEK</small>
-                                        {{ school.avgPrice }} {{ school.currency.code }}
+                                        {{ school.avgPrice|number_format(2,'.',' ') }} {{ school.currency.code }}<br>
+					{% if app.session.get('currency').code!=school.currency.code %}
+					    <span class="currency">{{ convertCurrency(school.avgPrice,school.currency.code) }}</span>
+					{% endif %}
                                     </span>
                                     <h4 class="box-title" style="min-height: 80px;  color: #89579a;">
                                         {{ school.school|title }}
