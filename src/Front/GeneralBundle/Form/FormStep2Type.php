@@ -38,7 +38,7 @@ class FormStep2Type extends AbstractType
                 ))
                 ->add('test', 'choice', array(
                     'choices' =>array( 1=>'IELTS', 2=>'TOEFL', 3=>'OTHER' ),
-                    'required'=>TRUE,
+                    'required'=>false,
                     'expanded'=>TRUE,
                 ))
                 ->add('score')
