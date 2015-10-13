@@ -24,13 +24,14 @@
                                     <div class="col-md-2"><label>Price</label></div>
                                 </div>
                                 {% set verif = false %}
-                                {% for course in school.courses if (course.getMaxWeek!=0 or course.pathwayPrices|length>0) and course.startingDatesValid|length>0  %}
+                                {% for course in school.courses if (course.getMaxWeek!=0 or course.pathwayPrices|length>0) and course.startingDatesValid|length>0 %}
                                     {% set verif=true %}
                                     <hr style="border-color:burlywood;  margin-top: 0px;">
                                     <div class="form-group row">
                                         <div class="col-md-5">
                                             <label style="padding-top: 7px;">
-                                                <input  type="radio" name="course" required value="{{ course.id }}" style="vertical-align: sub;" class="InputRadio"/>
+                                                <input type="radio" name="course" required value="{{ course.id }}"
+                                                       style="vertical-align: sub;" class="InputRadio"/>
                                                 <strong>{{ course }}</strong>
                                                 <small>
                                                     (
@@ -43,7 +44,8 @@
                                             </label>
                                         </div>
                                         <div class="col-md-2">
-                                            <select class="full-width Duration"  name="duration_{{ course.id }}" data-course="{{ course.id }}" >
+                                            <select class="full-width Duration" name="duration_{{ course.id }}"
+                                                    data-course="{{ course.id }}">
                                                 {% if school.type==2 %}
                                                     {% for price in course.pathwayPrices %}
                                                         <option value="{{ price.id }}">{{ price.name }}</option>
@@ -51,7 +53,7 @@
                                                 {% endif %}
                                                 {% if school.type==1 %}
                                                     {% for w in course.getMinWeek..course.getMaxWeek %}
-                                                        <option value="{{ w }}">{{ w }} weeks </option>
+                                                        <option value="{{ w }}">{{ w }} weeks</option>
                                                     {% endfor %}
                                                 {% endif %}
                                             </select>
@@ -63,20 +65,28 @@
                                                 {% endfor %}
                                             </select>
                                         </div>#}
-					<div class="col-sm-6 col-md-3">
-					    <div class=" dark-blue">
-						<input type="text"  name="startingDate_{{ course.id }}" class="StartingDate input-text full-width picker{{ course.id }}" placeholder="yyyy-mm-dd"  />
-					    </div>
-					</div>
+                                        <div class="col-sm-6 col-md-3">
+                                            <div class=" dark-blue">
+                                                <input type="text" name="startingDate_{{ course.id }}"
+                                                       class="StartingDate input-text full-width picker{{ course.id }}"
+                                                       placeholder="yyyy-mm-dd"/>
+                                            </div>
+                                        </div>
                                         <div class="col-md-2">
                                             <label id="price_{{ course.id }}" style="  padding-top: 7px;">
-                                                {% if school.type==1 %}
-                                                    {{ convertCurrency(course.calculePrice(course.getMinWeek) ,course.schoolLocation.currency.code) }} 
-                                                {% endif %}
+                                                {#{% if school.type==1 %}#}
+                                                {{ convertCurrency(course.calculePrice(course.getMinWeek) ,course.schoolLocation.currency.code) }}
+                                                {#{% endif %}#}
                                                 {#{% if school.type==2 %}
                                                     {{ convertCurrency(course.calculePathwayPrice(course.getFirstPathwayPrice) ,course.schoolLocation.currency.code) }} 
                                                 {% endif %}#}
                                             </label>
+                                            {% if app.request.session.get('currency')['code'] !=  course.schoolLocation.currency.code %}
+                                                <label id="price2_{{ course.id }}"
+                                                       style="font-size: 9px;color: firebrick;">
+                                                    {{ course.calculePrice(course.getMinWeek) }} {{ course.schoolLocation.currency.code }}
+                                                </label>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -109,18 +119,23 @@
                         <article class="image-box hotel listing-style1">
                             <figure class="clearfix">
                                 <a href="javascript:void(0)" class="hover-effect middle-block">
-                                    <img class="middle-item" src="{{ school.image.getAssetPath | imagine_filter('minature_details') }}" style="width: 70px;height: 70px">
+                                    <img class="middle-item"
+                                         src="{{ school.image.getAssetPath | imagine_filter('minature_details') }}"
+                                         style="width: 70px;height: 70px">
                                 </a>
+
                                 <div class="travel-title">
                                     <h5 class="box-title">{{ school }}
-                                        <small style="color: red">{{ school.showType}}</small>
+                                        <small style="color: red">{{ school.showType }}</small>
                                         <small>{{ school.city.country|upper }} {{ school.city }}</small>
                                     </h5>
                                 </div>
                             </figure>
                             <div class="details">
                                 <div class="feedback">
-                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container"><span style="width: {{ (school.stars/5) *100 }}%;" class="five-stars"></span></div>
+                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container">
+                                        <span style="width: {{ (school.stars/5) *100 }}%;" class="five-stars"></span>
+                                    </div>
                                     <span class="review">{{ school.reviews }} reviews</span>
                                 </div>
                             </div>
@@ -134,38 +149,40 @@
 {% endblock %}
 {% block jquery %}
     <script>
-	tjq(document).ready(function () {
-	    var array = [];
-	{% for course in school.courses if (course.getMaxWeek!=0 or course.pathwayPrices|length>0) and course.startingDatesValid|length>0  %}
-{#		array = ["2015-07-27", "2015-07-28", "2015-07-29"];#}
-		array[{{ course.id }}] = [{% for date in course.startingDatesValid  %}"{{ date.date|date('Y-m-d') }}"{% if loop.index != course.startingDatesValid|length %},{% endif %}{% endfor %}];
-			tjq('.picker{{ course.id }}').datepicker({
-		    dateFormat: 'yy-mm-dd',
-		    beforeShowDay: function (date) {
-			var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-				return [!(array[{{ course.id }}].indexOf(string) == - 1)]
-		    }
-		});
-	{% endfor %}
-            tjq('.InputRadio').on('change',function () {
+        tjq(document).ready(function () {
+            var array = [];
+            {% for course in school.courses if (course.getMaxWeek!=0 or course.pathwayPrices|length>0) and course.startingDatesValid|length>0  %}
+            {#		array = ["2015-07-27", "2015-07-28", "2015-07-29"];#}
+            array[{{ course.id }}] = [{% for date in course.startingDatesValid  %}"{{ date.date|date('Y-m-d') }}"{% if loop.index != course.startingDatesValid|length %}, {% endif %}{% endfor %}];
+            tjq('.picker{{ course.id }}').datepicker({
+                dateFormat: 'yy-mm-dd',
+                beforeShowDay: function (date) {
+                    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                    return [!(array[{{ course.id }}].indexOf(string) == -1)]
+                }
+            });
+            {% endfor %}
+            tjq('.InputRadio').on('change', function () {
                 tjq('.StartingDate').prop('required', false);
                 tjq(this).parent().parent().parent().find('.StartingDate').prop('required', true);
             });
-		tjq('.Duration').change(function () {
-		    var val = tjq(this).val();
-		    var course = tjq(this).data('course');
-		    tjq('#price_' + course).html('loading price ...');
-		    tjq.ajax({
-			url: '{{ path('ajax_update_price_course') }}',
-			data: {'val': val, 'course': course},
-			type: 'POST',
-			dataType: 'json',
-			success: function (json) {
-			    tjq('#price_' + course).html(json['price']);
-			}
-		    });
-		})
-	    })
+            tjq('.Duration').change(function () {
+                var val = tjq(this).val();
+                var course = tjq(this).data('course');
+                tjq('#price_' + course).html('loading price ...');
+                tjq('#price2_' + course).html('');
+                tjq.ajax({
+                    url: '{{ path('ajax_update_price_course') }}',
+                    data: {'val': val, 'course': course},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (json) {
+                        tjq('#price_' + course).html(json['price']);
+                        tjq('#price2_' + course).html(json['price2']);
+                    }
+                });
+            })
+        })
     </script>
 
 {% endblock %}

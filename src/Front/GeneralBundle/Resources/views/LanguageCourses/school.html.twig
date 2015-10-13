@@ -85,8 +85,11 @@
                                                 <div class="panel-content">
                                                     <p>{{ course.description }}</p>
                                                     <dl class="term-description">
-                                                        <dt>Name:</dt><dd>{{ course|title }}</dd>
-                                                        <dt>Language :</dt><dd>{{ course.language|title }}</dd>
+                                                        <div class="right" style="  float: right;">
+                                                            <a href="{{ path('book_school_redirect',{'id':school.id}) }}" class="button btn-medium  dull-blue">Booking</a>
+                                                        </div>
+                                                        {#<dt>Name:</dt><dd>{{ course|title }}</dd>#}
+                                                        {#<dt>Language :</dt><dd>{{ course.language|title }}</dd>#}
                                                     </dl>
                                                 </div>
                                             </div>
@@ -106,8 +109,8 @@
                                                 <div class="panel-content">
                                                     <p>{{ accommodation.description }}</p>
                                                     <dl class="term-description">
-                                                        <dt>Name:</dt><dd>{{ accommodation|title }}</dd>
-                                                        <dt>Type :</dt><dd>{{ accommodation.typeAccommodation }}</dd>
+                                                        {#<dt>Name:</dt><dd>{{ accommodation|title }}</dd>#}
+                                                        {#<dt>Type :</dt><dd>{{ accommodation.typeAccommodation }}</dd>#}
                                                         <dt>Rooms :</dt>
                                                         <dd>
                                                             <ul class="circle box">
