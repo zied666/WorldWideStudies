@@ -23,9 +23,9 @@ class FormStep2
     private $id;
 
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="universityDegree", type="boolean", nullable=true)
+     * @ORM\Column(name="universityDegree", type="string", length=255,nullable=true)
      */
     private $universityDegree;
 
@@ -71,6 +71,14 @@ class FormStep2
      */
     private $country;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="schoolDegree", type="string", length=255,nullable=true)
+     */
+    private $schoolDegree;
+
     /**
      * @var string
      *
@@ -112,7 +120,7 @@ class FormStep2
      * @ORM\Column(name="test", type="integer",nullable=true)
      */
     private $test;
-    
+
     /**
      * @var string
      *
@@ -148,7 +156,7 @@ class FormStep2
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -163,7 +171,7 @@ class FormStep2
      */
     public function setUniversityDegree($universityDegree)
     {
-        $this->universityDegree=$universityDegree;
+        $this->universityDegree = $universityDegree;
 
         return $this;
     }
@@ -171,7 +179,7 @@ class FormStep2
     /**
      * Get universityDegree
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getUniversityDegree()
     {
@@ -186,7 +194,7 @@ class FormStep2
      */
     public function setLastQualification($lastQualification)
     {
-        $this->lastQualification=$lastQualification;
+        $this->lastQualification = $lastQualification;
 
         return $this;
     }
@@ -194,7 +202,7 @@ class FormStep2
     /**
      * Get lastQualification
      *
-     * @return string 
+     * @return string
      */
     public function getLastQualification()
     {
@@ -209,7 +217,7 @@ class FormStep2
      */
     public function setGraduationYear($graduationYear)
     {
-        $this->graduationYear=$graduationYear;
+        $this->graduationYear = $graduationYear;
 
         return $this;
     }
@@ -217,7 +225,7 @@ class FormStep2
     /**
      * Get graduationYear
      *
-     * @return string 
+     * @return string
      */
     public function getGraduationYear()
     {
@@ -232,7 +240,7 @@ class FormStep2
      */
     public function setCurrentYearStudy($currentYearStudy)
     {
-        $this->currentYearStudy=$currentYearStudy;
+        $this->currentYearStudy = $currentYearStudy;
 
         return $this;
     }
@@ -240,7 +248,7 @@ class FormStep2
     /**
      * Get currentYearStudy
      *
-     * @return string 
+     * @return string
      */
     public function getCurrentYearStudy()
     {
@@ -255,7 +263,7 @@ class FormStep2
      */
     public function setSchoolName($schoolName)
     {
-        $this->schoolName=$schoolName;
+        $this->schoolName = $schoolName;
 
         return $this;
     }
@@ -263,7 +271,7 @@ class FormStep2
     /**
      * Get schoolName
      *
-     * @return string 
+     * @return string
      */
     public function getSchoolName()
     {
@@ -278,7 +286,7 @@ class FormStep2
      */
     public function setExpectedGraduationYear($expectedGraduationYear)
     {
-        $this->expectedGraduationYear=$expectedGraduationYear;
+        $this->expectedGraduationYear = $expectedGraduationYear;
 
         return $this;
     }
@@ -286,7 +294,7 @@ class FormStep2
     /**
      * Get expectedGraduationYear
      *
-     * @return string 
+     * @return string
      */
     public function getExpectedGraduationYear()
     {
@@ -301,7 +309,7 @@ class FormStep2
      */
     public function setCountry($country)
     {
-        $this->country=$country;
+        $this->country = $country;
 
         return $this;
     }
@@ -309,7 +317,7 @@ class FormStep2
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -324,7 +332,7 @@ class FormStep2
      */
     public function setLastQualificationS2($lastQualificationS2)
     {
-        $this->lastQualificationS2=$lastQualificationS2;
+        $this->lastQualificationS2 = $lastQualificationS2;
 
         return $this;
     }
@@ -332,7 +340,7 @@ class FormStep2
     /**
      * Get lastQualificationS2
      *
-     * @return string 
+     * @return string
      */
     public function getLastQualificationS2()
     {
@@ -347,7 +355,7 @@ class FormStep2
      */
     public function setGraduationYearS2($graduationYearS2)
     {
-        $this->graduationYearS2=$graduationYearS2;
+        $this->graduationYearS2 = $graduationYearS2;
 
         return $this;
     }
@@ -355,7 +363,7 @@ class FormStep2
     /**
      * Get graduationYearS2
      *
-     * @return string 
+     * @return string
      */
     public function getGraduationYearS2()
     {
@@ -370,7 +378,7 @@ class FormStep2
      */
     public function setSchoolNameS2($schoolNameS2)
     {
-        $this->schoolNameS2=$schoolNameS2;
+        $this->schoolNameS2 = $schoolNameS2;
 
         return $this;
     }
@@ -378,7 +386,7 @@ class FormStep2
     /**
      * Get schoolNameS2
      *
-     * @return string 
+     * @return string
      */
     public function getSchoolNameS2()
     {
@@ -393,7 +401,7 @@ class FormStep2
      */
     public function setCountryS2($countryS2)
     {
-        $this->countryS2=$countryS2;
+        $this->countryS2 = $countryS2;
 
         return $this;
     }
@@ -401,7 +409,7 @@ class FormStep2
     /**
      * Get countryS2
      *
-     * @return string 
+     * @return string
      */
     public function getCountryS2()
     {
@@ -416,7 +424,7 @@ class FormStep2
      */
     public function setEnglishTest($englishTest)
     {
-        $this->englishTest=$englishTest;
+        $this->englishTest = $englishTest;
 
         return $this;
     }
@@ -424,7 +432,7 @@ class FormStep2
     /**
      * Get englishTest
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnglishTest()
     {
@@ -439,7 +447,7 @@ class FormStep2
      */
     public function setTest($test)
     {
-        $this->test=$test;
+        $this->test = $test;
 
         return $this;
     }
@@ -447,7 +455,7 @@ class FormStep2
     /**
      * Get test
      *
-     * @return integer 
+     * @return integer
      */
     public function getTest()
     {
@@ -462,7 +470,7 @@ class FormStep2
      */
     public function setTestDate($testDate)
     {
-        $this->testDate=$testDate;
+        $this->testDate = $testDate;
 
         return $this;
     }
@@ -470,7 +478,7 @@ class FormStep2
     /**
      * Get testDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTestDate()
     {
@@ -483,9 +491,9 @@ class FormStep2
      * @param \Front\GeneralBundle\Entity\FormStep1 $formStep1
      * @return FormStep2
      */
-    public function setFormStep1(\Front\GeneralBundle\Entity\FormStep1 $formStep1=null)
+    public function setFormStep1(\Front\GeneralBundle\Entity\FormStep1 $formStep1 = null)
     {
-        $this->formStep1=$formStep1;
+        $this->formStep1 = $formStep1;
 
         return $this;
     }
@@ -493,7 +501,7 @@ class FormStep2
     /**
      * Get formStep1
      *
-     * @return \Front\GeneralBundle\Entity\FormStep1 
+     * @return \Front\GeneralBundle\Entity\FormStep1
      */
     public function getFormStep1()
     {
@@ -506,9 +514,9 @@ class FormStep2
      * @param \Front\GeneralBundle\Entity\FormStep3 $formStep3
      * @return FormStep2
      */
-    public function setFormStep3(\Front\GeneralBundle\Entity\FormStep3 $formStep3=null)
+    public function setFormStep3(\Front\GeneralBundle\Entity\FormStep3 $formStep3 = null)
     {
-        $this->formStep3=$formStep3;
+        $this->formStep3 = $formStep3;
 
         return $this;
     }
@@ -516,37 +524,30 @@ class FormStep2
     /**
      * Get formStep3
      *
-     * @return \Front\GeneralBundle\Entity\FormStep3 
+     * @return \Front\GeneralBundle\Entity\FormStep3
      */
     public function getFormStep3()
     {
         return $this->formStep3;
     }
-    
+
     public function showUniversityDegree()
     {
-        if($this->universityDegree)
-            return 'Yes';
-        else
+        if ($this->universityDegree) return 'Yes'; else
             return 'No';
     }
-    
+
     public function showEnglishTest()
     {
-        if($this->englishTest)
-            return 'Yes';
-        else
+        if ($this->englishTest) return 'Yes'; else
             return 'No';
     }
-    
+
     public function showTest()
     {
-        if($this->test==1)
-            return 'IELTS';
-        if($this->test==2)
-            return 'TOEFL';
-        if($this->test==3)
-            return 'OTHER';
+        if ($this->test == 1) return 'IELTS';
+        if ($this->test == 2) return 'TOEFL';
+        if ($this->test == 3) return 'OTHER';
     }
 
 
@@ -566,7 +567,7 @@ class FormStep2
     /**
      * Get nameTest
      *
-     * @return string 
+     * @return string
      */
     public function getNameTest()
     {
@@ -589,7 +590,7 @@ class FormStep2
     /**
      * Get score
      *
-     * @return string 
+     * @return string
      */
     public function getScore()
     {

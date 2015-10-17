@@ -5,7 +5,9 @@
         <div class="row">
             <div class="col-md-3">
                 <h2>Booking information</h2>
+
                 <p><strong>BookinDate</strong> : {{ step1.bookingDate|date('d F Y H:i') }}</p>
+
                 <p><strong>Last status</strong> : {{ step1.showLastStatus }}</p>
             </div>
             <div class="col-md-3">
@@ -14,53 +16,80 @@
                     <p>- {{ status }}</p>
                 {% endfor %}
             </div>
-            <div class="col-md-12"><hr></div>
+            <div class="col-md-12">
+                <hr>
+            </div>
             <div class="col-md-3">
                 <h2>Personal Information</h2>
+
                 <p><strong>First Name</strong> : {{ step1.firstName }}</p>
+
                 <p><strong>Last Name</strong> : {{ step1.lastName }}</p>
+
                 <p><strong>Gender</strong> : {{ step1.showGender }}</p>
+
                 <p><strong>Birthday</strong> : {{ step1.birthDate|date('d F Y') }}</p>
+
                 <p><strong>Nationality</strong> : {{ step1.natianality }}</p>
             </div>
             <div class="col-md-3">
                 <h2>Phones & Email</h2>
+
                 <p><strong>EMAIL</strong> : {{ step1.email }}</p>
+
                 <p><strong>Primary Phone</strong> : {{ step1.codePrimaryPhone }} {{ step1.primaryPhone }}</p>
+
                 <p><strong>Alternative Phone</strong> :{{ step1.codeAlternativePhone }} {{ step1.alternativePhone }}</p>
             </div>
             <div class="col-md-3">
                 <h2>Course and degree</h2>
+
                 <p><strong>Level of study</strong> : {{ step1.levelOfStudy }}</p>
+
                 <p><strong>Subject OF interest</strong> : {{ step1.subject }}</p>
+
                 <p><strong>Preferred intake</strong> : {{ step1.preferredIntake }}</p>
+
                 <p><strong>Progression University degree</strong> : {{ step1.progressionUniversityDegree }}</p>
             </div>
-            <div class="col-md-12"><hr></div>
-                {% set step2=step1.formStep2 %}
+            <div class="col-md-12">
+                <hr>
+            </div>
+            {% set step2=step1.formStep2 %}
             <div class="col-md-3">
                 <h2>Academic information</h2>
-                <p><strong>University or college degree</strong> : {{ step2.showUniversityDegree }}</p>
-                {% if step2.showUniversityDegree %}
-                    <p><strong>Last Qualification Awarded</strong> : {{ step2.lastQualification }}</p>
-                    <p><strong>Graduation Year</strong> : {{ step2.GraduationYear }}</p>
-                {% else %}
-                    <p><strong>Current year of study</strong> : {{ step2.currentYearStudy }}</p>
-                    <p><strong>Expeced grduation year</strong> : {{ step2.expectedGraduationYear }}</p>
+
+                <p><strong>University or college degree</strong> : {{ step2.universityDegree }}</p>
+                {% if step2.universityDegree in ['Yes','Pending'] %}
+                    {% if step2.universityDegree=="Yes" %}
+                        <p><strong>Last Qualification Awarded</strong> : {{ step2.lastQualification }}</p>
+                        <p><strong>Graduation Year</strong> : {{ step2.GraduationYear }}</p>
+                    {% elseif  step2.universityDegree=="Pending" %}
+                        <p><strong>Current year of study</strong> : {{ step2.currentYearStudy }}</p>
+                        <p><strong>Expeced grduation year</strong> : {{ step2.expectedGraduationYear }}</p>
+                    {% endif %}
+                    <p><strong>School or instituation</strong> : {{ step2.schoolName }}</p>
+                    <p><strong>Country</strong> : {{ step2.country }}</p>
                 {% endif %}
-                <p><strong>School or instituation</strong> : {{ step2.schoolName }}</p>
-                <p><strong>Country</strong> : {{ step2.country }}</p>
             </div>
             <div class="col-md-3">
                 <h2>Secondary school</h2>
+
+                <p><strong> SECONDARY SCHOOL DEGREE</strong> : {{ step2.schoolDegree }}</p>
+
                 <p><strong>Last Qualification Awarded</strong> : {{ step2.lastQualificationS2 }}</p>
+
                 <p><strong>Graduation Year</strong> : {{ step2.GraduationYearS2 }}</p>
+
                 <p><strong>School or instituation</strong> : {{ step2.schoolNameS2 }}</p>
+
                 <p><strong>Country</strong> : {{ step2.countryS2 }}</p>
             </div>
             <div class="col-md-3">
                 <h2>English proficiency</h2>
-                <p><strong>Have you taken a recogniser english language test ?</strong> : {{ step2.showEnglishTest }}</p>
+
+                <p><strong>Have you taken a recogniser english language test ?</strong> : {{ step2.showEnglishTest }}
+                </p>
                 {% if step2.englishTest %}
                     <p><strong>Most recent english language test</strong> : {{ step2.showTest }}</p>
                     {% if step2.test==3 %}
@@ -70,14 +99,18 @@
                     <p><strong>Date</strong> : {{ step2.testDate|date('d F Y') }}</p>
                 {% endif %}
             </div>
-            <div class="col-md-12"><hr></div>
-                {% set step3=step2.formStep3 %}
+            <div class="col-md-12">
+                <hr>
+            </div>
+            {% set step3=step2.formStep3 %}
             <div class="col-md-3">
                 <h2>Visa questions</h2>
+
                 <p><strong>Source of funding</strong> : {{ step3.showSourceFunding }}</p>
             </div>
             <div class="col-md-3">
                 <h2>Address</h2>
+
                 <p><strong>Address line 1</strong> : {{ step3.addressLine1 }}</p>
                 {% if step3.addressLine2 is not null %}
                     <p><strong>Address line 2</strong> : {{ step3.addressLine2 }}</p>
@@ -93,11 +126,15 @@
             <div class="col-md-3">
                 <p><strong>Do you currently live at this address</strong> : {{ step3.showCurrently }}</p>
             </div>
-            <div class="col-md-12"><hr></div>
-                {% set step4=step3.formStep4 %}
+            <div class="col-md-12">
+                <hr>
+            </div>
+            {% set step4=step3.formStep4 %}
             <div class="col-md-5">
                 <h2>Special needs</h2>
+
                 <p><strong>Do you have any special needs ?</strong> : {{ step4.showSpecialNeeds }}</p>
+
                 <p><strong>Question & comments ?</strong> : {{ step4.comments }}</p>
             </div>
         </div>

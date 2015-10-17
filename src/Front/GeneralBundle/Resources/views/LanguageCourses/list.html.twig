@@ -40,7 +40,7 @@
                                             </div>
                                             <div>
                                                 <p>Excellent ! {{ school.note }}/5</p>
-                                                <span class="review">{{ school.reviews }} reviews</span>
+                                                <span class="review"><a href="{{ path('front_language_courses_details',{'id':school.id}) }}#hotel-reviews">{{ school.reviews }} reviews</a></span>
                                             </div>
                                         </div>
                                         <div>
@@ -54,8 +54,10 @@
                                             <div>
                                                 <span class="price">
                                                     <small>AVG/WEEK</small>
-                                                    <p class="prix">{{ school.avgPrice|number_format(2,'.',' ') ~' '~ school.currency.code }} </p>
-                                                    {% if app.session.get('currency').code!=school.currency.code %}<span class="currency">{{ convertCurrency(school.avgPrice,school.currency.code) }}</span>{% endif %}
+                                                    <p class="prix">{{ school.avgPrice|number_format(0,'.',' ') ~' '~ school.currency.code }} </p>
+                                                    {% if app.session.get('currency').code!=school.currency.code %}
+                                                        <span class="currency">{{ convertCurrencyWithoutScale(school.avgPrice,school.currency.code) }}</span>
+                                                    {% endif %}
                                                 </span>
                                                 <a class="button btn-small full-width text-center" title="" href="{{ path('front_language_courses_details',{'id':school.id}) }}">SELECT</a>
                                             </div>

@@ -89,12 +89,12 @@
                                                 <div class="panel-content">
                                                     <p>{{ course.description }}</p>
                                                     <div class="panel-content">
-                                                        <dl class="term-description">
-                                                            <dt>Name:</dt><dd>{{ course.name|title }}</dd>
-                                                            <dt>Subject:</dt><dd>{{ course.subject|title }}</dd>
-                                                            <dt>Pathway program:</dt><dd>{{ course.program |title}}</dd>
-                                                            <dt>Language :</dt><dd>{{ course.language|title }}</dd>
-                                                        </dl>
+                                                        {#<dl class="term-description">#}
+                                                            {#<dt>Name:</dt><dd>{{ course.name|title }}</dd>#}
+                                                            {#<dt>Subject:</dt><dd>{{ course.subject|title }}</dd>#}
+                                                            {#<dt>Pathway program:</dt><dd>{{ course.program |title}}</dd>#}
+                                                            {#<dt>Language :</dt><dd>{{ course.language|title }}</dd>#}
+                                                        {#</dl>#}
                                                         <div class="right" style="  float: right;">
                                                             <a href="{{ path('front_program_courses_course',{'id':course.id}) }}" class="button btn-medium  dull-blue">View Courses</a>
                                                             <a href="{{ path('front_program_pathway_step1') }}" class="button btn-medium red">Apply now</a>

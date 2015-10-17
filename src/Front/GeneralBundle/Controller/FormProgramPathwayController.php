@@ -53,6 +53,7 @@ class FormProgramPathwayController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
+        dump($session->get('booking_pathway'));
         $booking=$session->get('booking_pathway');
         if(!isset($booking['step2']))
             $booking['step2']=null;

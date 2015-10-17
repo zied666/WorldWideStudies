@@ -18,8 +18,7 @@ class BookingController extends Controller
     public function bookRedirectSchoolAction(SchoolLocation $school)
     {
         $session = $this->getRequest()->getSession();
-        if ($session->has("booking"))
-            $session->remove("booking");
+        if ($session->has("booking")) $session->remove("booking");
         $session->set("booking", array('school' => $school->getId()));
         return $this->redirect($this->generateUrl("book_school_step1"));
     }
@@ -30,20 +29,16 @@ class BookingController extends Controller
         $response = new JsonResponse();
         $request = $this->getRequest();
         $course = $em->getRepository("BackSchoolBundle:Course")->find($request->get('course'));
-//        if($course->getSchoolLocation()->getType() == 2)
-//        {
-//            $price=$em->getRepository('BackSchoolBundle:PathwayPrice')->find($request->get('val'));
-//            $response->setData(array(
-//                'price'=>$this->get('library')->convertCurrency($price->getPrice(), $course->getSchoolLocation()->getCurrency()->getCode())
-//            ));
-//        }
+        //        if($course->getSchoolLocation()->getType() == 2)
+        //        {
+        //            $price=$em->getRepository('BackSchoolBundle:PathwayPrice')->find($request->get('val'));
+        //            $response->setData(array(
+        //                'price'=>$this->get('library')->convertCurrency($price->getPrice(), $course->getSchoolLocation()->getCurrency()->getCode())
+        //            ));
+        //        }
         if ($course->getSchoolLocation()->getType() == 1) {
             $price = $course->calculePrice($request->get('val'));
-            $response->setData(
-                array(
-                    'price'  => $this->get('library')->convertCurrency($price, $course->getSchoolLocation()->getCurrency()->getCode()),
-                    'price2' => $price.' '.$course->getSchoolLocation()->getCurrency()->getCode()
-                ));
+            $response->setData(array('price' => $this->get('library')->convertCurrency($price, $course->getSchoolLocation()->getCurrency()->getCode()), 'price2' => $price . ' ' . $course->getSchoolLocation()->getCurrency()->getCode()));
         }
         return $response;
     }
@@ -57,15 +52,11 @@ class BookingController extends Controller
         $accommodation = $room->getAccommodation();
         if ($accommodation->getSchoolLocation()->getType() == 2) {
             $price = $em->getRepository('BackSchoolBundle:PathwayPrice')->find($request->get('val'));
-            $response->setData(array(
-                'price' => $this->get('library')->convertCurrency($price->getPrice(), $accommodation->getSchoolLocation()->getCurrency()->getCode())
-            ));
+            $response->setData(array('price' => $this->get('library')->convertCurrency($price->getPrice(), $accommodation->getSchoolLocation()->getCurrency()->getCode())));
         }
         if ($accommodation->getSchoolLocation()->getType() == 1) {
             $price = $room->calculePrice($request->get('val'));
-            $response->setData(array(
-                'price' => $this->get('library')->convertCurrency($price, $accommodation->getSchoolLocation()->getCurrency()->getCode())
-            ));
+            $response->setData(array('price' => $this->get('library')->convertCurrency($price, $accommodation->getSchoolLocation()->getCurrency()->getCode())));
         }
         return $response;
     }
@@ -81,15 +72,13 @@ class BookingController extends Controller
         $tab = array();
         $price = 0;
         if ($room->getAccommodation()->getSchoolLocation()->getType() == 1) {
-            for ($i = $room->getMinWeek(); $i <= $room->getMaxWeek(); $i++)
-                $tab[$i] = $i . ' weeks';
-//            $price=$room->calculePrice($room->getMinWeek()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
+            for ($i = $room->getMinWeek(); $i <= $room->getMaxWeek(); $i++) $tab[$i] = $i . ' weeks';
+            //            $price=$room->calculePrice($room->getMinWeek()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
             $price = $this->get('library')->convertCurrency($room->calculePrice($room->getMinWeek()), $room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode());
         }
         if ($room->getAccommodation()->getSchoolLocation()->getType() == 2) {
-            foreach ($room->getPathwayPrices() as $price)
-                $tab[$price->getId()] = $price->getStartDate()->format('d F Y') . ' - ' . $price->getEndDate()->format('d F Y');
-//            $price=$room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
+            foreach ($room->getPathwayPrices() as $price) $tab[$price->getId()] = $price->getStartDate()->format('d F Y') . ' - ' . $price->getEndDate()->format('d F Y');
+            //            $price=$room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()).' '.$room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode();
             $price = $this->get('library')->convertCurrency($room->calculePathwayPrice($room->getPathwayPrices()->first()->getId()), $room->getAccommodation()->getSchoolLocation()->getCurrency()->getCode());
         }
         $response->setData(array('select' => $tab, 'price' => $price));
@@ -100,8 +89,7 @@ class BookingController extends Controller
     {
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $request = $this->getRequest();
         if ($request->isMethod("post")) {
@@ -111,17 +99,14 @@ class BookingController extends Controller
             return $this->redirect($this->generateUrl("book_school_step2"));
         }
         $school = $em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
-        return $this->render('FrontGeneralBundle:Booking\Schools:step1.html.twig', array(
-            'school' => $school,
-        ));
+        return $this->render('FrontGeneralBundle:Booking\Schools:step1.html.twig', array('school' => $school,));
     }
 
     public function step2Action()
     {
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $request = $this->getRequest();
         if ($request->isMethod("post")) {
@@ -134,60 +119,47 @@ class BookingController extends Controller
             return $this->redirect($this->generateUrl("book_school_step3"));
         }
         $school = $em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
-        return $this->render('FrontGeneralBundle:Booking\Schools:step2.html.twig', array(
-            'school' => $school,
-        ));
+        return $this->render('FrontGeneralBundle:Booking\Schools:step2.html.twig', array('school' => $school,));
     }
 
     public function step3Action()
     {
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $school = $em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
         $request = $this->getRequest();
         if ($request->isMethod('POST')) {
             $tabExtras = array();
             foreach ($school->getExtras() as $extra) {
-                if ($extra->getObligatory() || $request->get('extra_' . $extra->getId()))
-                    $tabExtras[] = $extra->getId();
+                if ($extra->getObligatory() || $request->get('extra_' . $extra->getId())) $tabExtras[] = $extra->getId();
             }
             $booking['extras'] = $tabExtras;
             $session->set("booking", $booking);
             return $this->redirect($this->generateUrl('book_school_review'));
         }
-        return $this->render('FrontGeneralBundle:Booking\Schools:step3.html.twig', array(
-            'school'  => $school,
-            'booking' => $booking,
-        ));
+        return $this->render('FrontGeneralBundle:Booking\Schools:step3.html.twig', array('school' => $school, 'booking' => $booking,));
     }
 
     public function reviewCourseAction()
     {
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $school = $em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
-        return $this->render('FrontGeneralBundle:Booking\Schools:review.html.twig', array(
-            'school' => $school,
-        ));
+        return $this->render('FrontGeneralBundle:Booking\Schools:review.html.twig', array('school' => $school,));
     }
 
     public function thinkyouCourseAction()
     {
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $school = $em->getRepository("BackSchoolBundle:SchoolLocation")->find($booking['school']);
-        return $this->render('FrontGeneralBundle:Booking\Schools:thinkyou.html.twig', array(
-            'school' => $school,
-        ));
+        return $this->render('FrontGeneralBundle:Booking\Schools:thinkyou.html.twig', array('school' => $school,));
     }
 
     public function paypalCourseAction()
@@ -204,15 +176,11 @@ class BookingController extends Controller
         }
 
         $header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
-        if ($paypal->getTestMode())
-            $header .= "Host: www.sandbox.paypal.com\r\n";
-        else
+        if ($paypal->getTestMode()) $header .= "Host: www.sandbox.paypal.com\r\n"; else
             $header .= "Host: www.paypal.com\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
         $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
-        if ($paypal->getTestMode())
-            $fp = fsockopen('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
-        else
+        if ($paypal->getTestMode()) $fp = fsockopen('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30); else
             $fp = fsockopen('ssl://www.paypal.com', 443, $errno, $errstr, 30);
         $item_name = $_POST['item_name'];
         $item_number = $_POST['item_number'];
@@ -260,8 +228,7 @@ class BookingController extends Controller
     public function bookRedirectAccommodationAction(Accommodation $accommodation)
     {
         $session = $this->getRequest()->getSession();
-        if ($session->has("booking"))
-            $session->remove("booking");
+        if ($session->has("booking")) $session->remove("booking");
         $session->set("booking", array('accommodation' => $accommodation->getId()));
         return $this->redirect($this->generateUrl("book_accommodation_step1"));
     }
@@ -270,8 +237,7 @@ class BookingController extends Controller
     {
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $request = $this->getRequest();
         if ($request->isMethod("post")) {
@@ -283,9 +249,7 @@ class BookingController extends Controller
             return $this->redirect($this->generateUrl("book_accommodation_review"));
         }
         $accommodation = $em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
-        return $this->render('FrontGeneralBundle:Booking\Accommodation:step1.html.twig', array(
-            'accommodation' => $accommodation,
-        ));
+        return $this->render('FrontGeneralBundle:Booking\Accommodation:step1.html.twig', array('accommodation' => $accommodation,));
     }
 
     public function ajaxUpdatePriceAccommodationAction()
@@ -295,9 +259,7 @@ class BookingController extends Controller
         $request = $this->getRequest();
         $room = $em->getRepository("BackAccommodationBundle:Room")->find($request->get('room'));
         $accommodation = $room->getAccommodation();
-        $response->setData(array(
-            'price' => $this->get('library')->convertCurrency($room->calculePrice($request->get('val')), $accommodation->getCurrency()->getCode())
-        ));
+        $response->setData(array('price' => $this->get('library')->convertCurrency($room->calculePrice($request->get('val')), $accommodation->getCurrency()->getCode())));
         return $response;
     }
 
@@ -305,26 +267,20 @@ class BookingController extends Controller
     {
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $accommodation = $em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
-        return $this->render('FrontGeneralBundle:Booking\Accommodation:review.html.twig', array(
-            'accommodation' => $accommodation,
-        ));
+        return $this->render('FrontGeneralBundle:Booking\Accommodation:review.html.twig', array('accommodation' => $accommodation,));
     }
 
     public function thinkyouAccommodationAction()
     {
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $accommodation = $em->getRepository("BackAccommodationBundle:Accommodation")->find($booking['accommodation']);
-        return $this->render('FrontGeneralBundle:Booking\Accommodation:thinkyou.html.twig', array(
-            'accommodation' => $accommodation,
-        ));
+        return $this->render('FrontGeneralBundle:Booking\Accommodation:thinkyou.html.twig', array('accommodation' => $accommodation,));
     }
 
     public function validationLanguageCourseAction()
@@ -332,8 +288,7 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $user = $this->get('security.context')->getToken()->getUser();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $curr = $session->get("currency");
         $currency = $em->getRepository("BackReferentielBundle:Currency")->findOneBy(array('code' => $curr['code']));
@@ -370,11 +325,7 @@ class BookingController extends Controller
         $em->flush();
         $this->sendValidationMail($user);
         $paypal = $em->getRepository('BackReferentielBundle:Paypal')->find(1);
-        return $this->render("FrontGeneralBundle:Booking\Schools:sendToPaypal.html.twig", array(
-            'entity'  => 'BookingLanguageCourse',
-            'paypal'  => $paypal,
-            'booking' => $bookingLanguageCourse
-        ));
+        return $this->render("FrontGeneralBundle:Booking\Schools:sendToPaypal.html.twig", array('entity' => 'BookingLanguageCourse', 'paypal' => $paypal, 'booking' => $bookingLanguageCourse));
     }
 
     public function validationPathwayCourseAction()
@@ -382,8 +333,7 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $this->getRequest()->getSession();
         $user = $this->get('security.context')->getToken()->getUser();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $booking = $session->get("booking");
         $curr = $session->get("currency");
         $currency = $em->getRepository("BackReferentielBundle:Currency")->findOneBy(array('code' => $curr['code']));
@@ -422,11 +372,7 @@ class BookingController extends Controller
         $em->flush();
         $this->sendValidationMail($user);
         $paypal = $em->getRepository('BackReferentielBundle:Paypal')->find(1);
-        return $this->render("FrontGeneralBundle:Booking\Schools:sendToPaypal.html.twig", array(
-            'entity'  => 'BookingPathwayCourse',
-            'paypal'  => $paypal,
-            'booking' => $bookingPahwayCourse
-        ));
+        return $this->render("FrontGeneralBundle:Booking\Schools:sendToPaypal.html.twig", array('entity' => 'BookingPathwayCourse', 'paypal' => $paypal, 'booking' => $bookingPahwayCourse));
     }
 
     public function validationAccommodationAction()
@@ -434,8 +380,7 @@ class BookingController extends Controller
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
-        if (!$session->has("booking"))
-            return $this->redirect($this->generateUrl('accueil'));
+        if (!$session->has("booking")) return $this->redirect($this->generateUrl('accueil'));
         $curr = $session->get("currency");
         $currency = $em->getRepository("BackReferentielBundle:Currency")->findOneBy(array('code' => $curr['code']));
         $booking = $session->get("booking");
@@ -453,22 +398,14 @@ class BookingController extends Controller
         $em->flush();
         $this->sendValidationMail($user);
         $paypal = $em->getRepository('BackReferentielBundle:Paypal')->find(1);
-        return $this->render("FrontGeneralBundle:Booking\Accommodation:sendToPaypal.html.twig", array(
-            'paypal'  => $paypal,
-            'booking' => $bookingAccommodation
-        ));
+        return $this->render("FrontGeneralBundle:Booking\Accommodation:sendToPaypal.html.twig", array('paypal' => $paypal, 'booking' => $bookingAccommodation));
     }
 
     public function sendValidationMail($user)
     {
         $em = $this->getDoctrine()->getManager();
         $contact = $em->getRepository("BackGeneralBundle:Contact")->find(1);
-        $message = \Swift_Message::newInstance()
-            ->setSubject("Booking validation")
-            ->setFrom($contact->getEmail())
-            ->setTo($user->getEmail())
-            ->setContentType('text/html')
-            ->setBody($this->renderView('FrontGeneralBundle:Booking:email.html.twig', array('user' => $user)));
+        $message = \Swift_Message::newInstance()->setSubject("Booking validation")->setFrom($contact->getEmail())->setTo($user->getEmail())->setContentType('text/html')->setBody($this->renderView('FrontGeneralBundle:Booking:email.html.twig', array('user' => $user)));
         $this->get('mailer')->send($message);
     }
 }
