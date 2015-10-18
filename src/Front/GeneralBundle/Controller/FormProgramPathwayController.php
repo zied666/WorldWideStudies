@@ -148,7 +148,9 @@ class FormProgramPathwayController extends Controller
                     ->setTo($step3->getFormStep2()->getFormStep1()->getEmail())
                     ->setContentType("text/html")
                     ->setCharset("utf-8")
-                    ->setBody($this->renderView(  'FrontGeneralBundle:Booking\ProgramPathway:email.html.twig'),'text/html');
+                    ->setBody($this->renderView('FrontGeneralBundle:Booking\ProgramPathway:email.html.twig',array(
+                        'form1'=>$step3->getFormStep2()->getFormStep1(),
+                    )),'text/html');
                 $this->get('mailer')->send($message);
                 return $this->redirect($this->generateUrl('front_program_pathway_step_thikyou'));
             }
