@@ -2,6 +2,7 @@
 
 namespace Front\GeneralBundle\Controller;
 
+use Back\SchoolBundle\Entity\Course;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,7 +18,7 @@ use Front\GeneralBundle\Form\FormStep4Type;
 class FormProgramPathwayController extends Controller
 {
 
-    public function step1Action()
+    public function step1Action($course)
     {
         $em=$this->getDoctrine()->getManager();
         $session=$this->getRequest()->getSession();
@@ -29,6 +30,8 @@ class FormProgramPathwayController extends Controller
             $step1=new FormStep1();
         else
             $step1=$em->getRepository('FrontGeneralBundle:FormStep1')->find($booking['step1']);
+        if(!is_null($course))
+            $step1->setCourse($em->find('BackSchoolBundle:Course',$course));
         $form=$this->createForm(new FormStep1Type(), $step1);
         $request=$this->getRequest();
         if($request->isMethod('POST'))
@@ -139,6 +142,14 @@ class FormProgramPathwayController extends Controller
                 $em->persist($step3->setFormStep4($step4));
                 $em->flush();
                 $session->remove("booking_pathway");
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('World wide studies')
+                    ->setFrom('zied.kharraz@gmail.com')
+                    ->setTo($step3->getFormStep2()->getFormStep1()->getEmail())
+                    ->setContentType("text/html")
+                    ->setCharset("utf-8")
+                    ->setBody($this->renderView(  'FrontGeneralBundle:Booking\ProgramPathway:email.html.twig'),'text/html');
+                $this->get('mailer')->send($message);
                 return $this->redirect($this->generateUrl('front_program_pathway_step_thikyou'));
             }
         }

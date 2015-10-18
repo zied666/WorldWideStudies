@@ -1,6 +1,6 @@
 front_program_pathway_step1:
-    path:     /step1
-    defaults: { _controller: FrontGeneralBundle:FormProgramPathway:step1}
+    path:     /step1/{course}
+    defaults: { _controller: FrontGeneralBundle:FormProgramPathway:step1,course:null}
     
 front_program_pathway_step2:
     path:     /step2

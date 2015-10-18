@@ -22,14 +22,14 @@ class FormStep4Type extends AbstractType
                     'expanded'=>TRUE,
                 ))
                 ->add('comments')
-                ->add('term1', 'checkbox', array(
-                    'label'   =>'I declare that the information I have supplied on and with this form is complete and correct. I declare that I am over 18 or can provide proof of parental consent',
-                    'required'=>true
-                ))
-                ->add('term2', 'checkbox', array(
-                    'label'   =>'I have read and accept the terms and conditions below.',
-                    'required'=>true
-                ))
+//                ->add('term1', 'checkbox', array(
+//                    'label'   =>'I declare that the information I have supplied on and with this form is complete and correct. I declare that I am over 18 or can provide proof of parental consent',
+//                    'required'=>true
+//                ))
+//                ->add('term2', 'checkbox', array(
+//                    'label'   =>"I have read and accept the terms and conditions below.",
+//                    'required'=>true
+//                ))
         ;
     }
 

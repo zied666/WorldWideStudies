@@ -24,6 +24,12 @@ class FormStep1
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\SchoolBundle\Entity\Course")
+     * @Assert\NotNull()
+     */
+    protected $course;
+
+    /**
      * @var string
      * @Assert\NotNull()
      * 
@@ -584,5 +590,28 @@ class FormStep1
     public function getCodeAlternativePhone()
     {
         return $this->codeAlternativePhone;
+    }
+
+    /**
+     * Set course
+     *
+     * @param \Back\SchoolBundle\Entity\Course $course
+     * @return FormStep1
+     */
+    public function setCourse(\Back\SchoolBundle\Entity\Course $course = null)
+    {
+        $this->course = $course;
+
+        return $this;
+    }
+
+    /**
+     * Get course
+     *
+     * @return \Back\SchoolBundle\Entity\Course 
+     */
+    public function getCourse()
+    {
+        return $this->course;
     }
 }

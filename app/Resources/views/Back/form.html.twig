@@ -2,7 +2,7 @@
     <div class="{{class}}">
         <div class="form-group">
             <label class="control-label">
-                {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
+                {{label|raw}} {% if required==true %}<span class="symbol required"></span>{% endif %}
             </label>
             {{ form_widget(from,{'attr':{'class':'ckeditor form-control'}}) | raw  }}
             {{ form_errors(from) | raw  }}
@@ -13,7 +13,7 @@
     <div class="{{class}}">
         <div class="form-group">
             <label class="control-label">
-                {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
+                {{label|raw}} {% if required==true %}<span class="symbol required"></span>{% endif %}
             </label>
             {{ form_widget(from) | raw  }}
             {{ form_errors(from) | raw  }}
@@ -24,7 +24,7 @@
     <div class="{{class}}">
         <div class="form-group">
             <label class="control-label">
-                {{label}} {% if required==true %}<span class="symbol required"></span>{% endif %}
+                {{label|raw}} {% if required==true %}<span class="symbol required"></span>{% endif %}
             </label>
             {{ form_widget(from,{'attr':{'class':'js-example-basic-single js-states form-control">'}}) | raw  }}
             {{ form_errors(from) | raw  }}

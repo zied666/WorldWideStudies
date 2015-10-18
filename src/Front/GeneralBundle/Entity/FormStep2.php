@@ -46,20 +46,6 @@ class FormStep2
     /**
      * @var string
      *
-     * @ORM\Column(name="currentYearStudy", type="string", length=255,nullable=true)
-     */
-    private $currentYearStudy;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="expectedGraduationYear", type="string", length=255,nullable=true)
-     */
-    private $expectedGraduationYear;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="schoolName", type="string", length=255,nullable=true)
      */
     private $schoolName;

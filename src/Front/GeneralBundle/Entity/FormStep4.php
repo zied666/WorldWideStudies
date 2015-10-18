@@ -36,19 +36,19 @@ class FormStep4
      */
     private $comments;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="term1", type="boolean")
-     */
-    private $term1;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="term2", type="boolean")
-     */
-    private $term2;
+//    /**
+//     * @var boolean
+//     *
+//     * @ORM\Column(name="term1", type="boolean")
+//     */
+//    private $term1;
+//
+//    /**
+//     * @var boolean
+//     *
+//     * @ORM\Column(name="term2", type="boolean")
+//     */
+//    private $term2;
 
     /**
      * @ORM\OneToOne(targetEntity="FormStep3", mappedBy="formStep4")
@@ -111,51 +111,6 @@ class FormStep4
         return $this->comments;
     }
 
-    /**
-     * Set term1
-     *
-     * @param boolean $term1
-     * @return FormStep4
-     */
-    public function setTerm1($term1)
-    {
-        $this->term1=$term1;
-
-        return $this;
-    }
-
-    /**
-     * Get term1
-     *
-     * @return boolean 
-     */
-    public function getTerm1()
-    {
-        return $this->term1;
-    }
-
-    /**
-     * Set term2
-     *
-     * @param boolean $term2
-     * @return FormStep4
-     */
-    public function setTerm2($term2)
-    {
-        $this->term2=$term2;
-
-        return $this;
-    }
-
-    /**
-     * Get term2
-     *
-     * @return boolean 
-     */
-    public function getTerm2()
-    {
-        return $this->term2;
-    }
 
     /**
      * Set formStep3

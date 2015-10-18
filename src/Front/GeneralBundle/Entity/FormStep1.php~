@@ -24,6 +24,12 @@ class FormStep1
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Back\SchoolBundle\Entity\Course")
+     * @Assert\NotNull()
+     */
+    protected $course;
+
+    /**
      * @var string
      * @Assert\NotNull()
      * 
