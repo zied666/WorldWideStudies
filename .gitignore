@@ -10,6 +10,7 @@
 /vendor/
 /.idea/
 /nbproject/
-/web/bundles/
-/web/uploads/
-/web/media/
+/public_html/bundles/
+/public_html/uploads/
+/public_html/media/
+/Babysitter
