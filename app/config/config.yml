@@ -103,11 +103,14 @@ fos_user:
 liip_imagine:
     resolvers:
         default:
-            filesystem:
-                data_root:  %kernel.root_dir%../public_html
             web_path:
-                web_root: %kernel.root_dir%../public_html
-                cache_prefix: ~
+                web_root: ~ # %kernel.root_dir%/../public_html
+                cache_prefix: ~ # media/cache
+
+    loaders:
+        default:
+            filesystem:
+                data_root: ~  # %kernel.root_dir%/../public_html/
 
     filter_sets:
         cache: ~
