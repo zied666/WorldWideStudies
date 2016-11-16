@@ -102,8 +102,12 @@ fos_user:
     
 liip_imagine:
     resolvers:
-       default:
-          web_path: %kernel.root_dir%../public_html
+        default:
+            filesystem:
+                data_root:  %kernel.root_dir%../public_html
+            web_path:
+                web_root: %kernel.root_dir%../public_html
+                cache_prefix: ~
 
     filter_sets:
         cache: ~
