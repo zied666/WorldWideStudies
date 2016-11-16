@@ -103,7 +103,7 @@ fos_user:
 liip_imagine:
     resolvers:
        default:
-          web_path: ~
+          web_path: %kernel.root_dir%../public_html
 
     filter_sets:
         cache: ~
