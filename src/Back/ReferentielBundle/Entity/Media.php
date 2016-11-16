@@ -65,7 +65,7 @@ class Media
 
     public function getUploadRootDir()
     {
-        return __dir__ . '/../../../../web/uploads' ;
+        return __dir__ . '/../../../../public_html/uploads' ;
     }
 
     public function getAbsolutePath()
